@@ -37,11 +37,7 @@ export function createContentIndex(data: SearchContent[]) {
 	content = data;
 }
 
-function getContentSnippet(
-	content: string,
-	query: string,
-	maxLength = 150,
-): string {
+function getContentSnippet(content: string, query: string, maxLength = 150): string {
 	const words = query.toLowerCase().split(/\s+/);
 	const contentLower = content.toLowerCase();
 
@@ -55,18 +51,14 @@ function getContentSnippet(
 	}
 
 	if (bestIndex === -1) {
-		return (
-			content.slice(0, maxLength) + (content.length > maxLength ? "..." : "")
-		);
+		return content.slice(0, maxLength) + (content.length > maxLength ? "..." : "");
 	}
 
 	const start = Math.max(0, bestIndex - Math.floor(maxLength / 2));
 	const end = Math.min(content.length, start + maxLength);
 	const snippet = content.slice(start, end);
 
-	return (
-		(start > 0 ? "..." : "") + snippet + (end < content.length ? "..." : "")
-	);
+	return (start > 0 ? "..." : "") + snippet + (end < content.length ? "..." : "");
 }
 
 function highlightMatches(text: string, query: string): string {
@@ -133,10 +125,7 @@ export function searchContentIndex(query: string): SearchResult[] {
 		content.forEach((item, idx) => {
 			if (fuzzyMatch(item.title, query)) {
 				resultMap.set(idx, { score: 8, source: "fuzzy-title" });
-			} else if (
-				fuzzyMatch(item.content, query) ||
-				fuzzyMatch(item.description, query)
-			) {
+			} else if (fuzzyMatch(item.content, query) || fuzzyMatch(item.description, query)) {
 				resultMap.set(idx, { score: 3, source: "fuzzy-content" });
 			}
 		});

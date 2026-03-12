@@ -1,13 +1,13 @@
 <script lang="ts">
 import { Popover, Separator } from "bits-ui";
+import Info from "phosphor-svelte/lib/Info";
+import Code from "$lib/components/markdown/code.svelte";
+import PopoverContent from "$lib/components/ui/popover/popover-content.svelte";
 import ScrollArea from "$lib/components/ui/scroll-area.svelte";
 import type { PropSchema } from "$lib/types/index.js";
-import Info from "phosphor-svelte/lib/Info";
-import PropsRequiredBadge from "./props-required-badge.svelte";
-import PropsBindableBadge from "./props-bindable-badge.svelte";
-import Code from "$lib/components/markdown/code.svelte";
 import { parseMarkdown } from "$lib/utils/markdown.js";
-import PopoverContent from "$lib/components/ui/popover/popover-content.svelte";
+import PropsBindableBadge from "./props-bindable-badge.svelte";
+import PropsRequiredBadge from "./props-required-badge.svelte";
 
 let { prop }: { prop: PropSchema & { name: string } } = $props();
 </script>

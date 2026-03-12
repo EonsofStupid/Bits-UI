@@ -1,10 +1,10 @@
 import { page, userEvent } from "@vitest/browser/context";
+import type { ComponentProps } from "svelte";
 import { expect, it } from "vitest";
 import { render } from "vitest-browser-svelte";
-import type { ComponentProps } from "svelte";
+import { expectExists, expectNotExists } from "../browser-utils";
 import { getTestKbd } from "../utils.js";
 import CommandTest from "./command-test.svelte";
-import { expectExists, expectNotExists } from "../browser-utils";
 
 const kbd = getTestKbd();
 
@@ -27,41 +27,29 @@ it("should select the first item by default", async () => {
 
 	// since we aren't hardcoding a value for the item, we need to wait for
 	// the component to render before we can check if the first item is selected
-	await expect
-		.element(page.getByText("Introduction"))
-		.toHaveAttribute("data-selected");
+	await expect.element(page.getByText("Introduction")).toHaveAttribute("data-selected");
 });
 
 it("should allow forcing the selected value", async () => {
 	setup({ value: "Introduction" });
 
-	await expect
-		.element(page.getByText("Introduction"))
-		.toHaveAttribute("data-selected");
+	await expect.element(page.getByText("Introduction")).toHaveAttribute("data-selected");
 });
 
 it("should respect initial value when it's not the first item", async () => {
 	setup({ value: "Radio Group" });
 
 	// ensure the initial value is selected, not the first item
-	await expect
-		.element(page.getByText("Radio Group"))
-		.toHaveAttribute("data-selected");
-	await expect
-		.element(page.getByText("Introduction"))
-		.not.toHaveAttribute("data-selected");
+	await expect.element(page.getByText("Radio Group")).toHaveAttribute("data-selected");
+	await expect.element(page.getByText("Introduction")).not.toHaveAttribute("data-selected");
 });
 
 it("should respect initial value for items in the first group", async () => {
 	setup({ value: "Styling" });
 
 	// ensure the provided value is selected, not the first item
-	await expect
-		.element(page.getByText("Styling"))
-		.toHaveAttribute("data-selected");
-	await expect
-		.element(page.getByText("Introduction"))
-		.not.toHaveAttribute("data-selected");
+	await expect.element(page.getByText("Styling")).toHaveAttribute("data-selected");
+	await expect.element(page.getByText("Introduction")).not.toHaveAttribute("data-selected");
 });
 
 it("should render the separator when search is empty and remove it when search is not empty", async () => {
@@ -100,17 +88,13 @@ it("should restore original order when search is cleared", async () => {
 	(t.input.element() as HTMLElement).focus();
 	await userEvent.keyboard("d");
 	await expect.element(t.input).toHaveValue("d");
-	await expect
-		.element(page.getByText("Delegation"))
-		.toHaveAttribute("data-selected");
+	await expect.element(page.getByText("Delegation")).toHaveAttribute("data-selected");
 	await expect
 		.element(page.getByTestId("group-a-items").element().children[0])
 		.toHaveTextContent("Delegation");
 	await userEvent.keyboard(kbd.BACKSPACE);
 	await expect.element(t.input).toHaveValue("");
-	await expect
-		.element(page.getByText("Introduction"))
-		.toHaveAttribute("data-selected");
+	await expect.element(page.getByText("Introduction")).toHaveAttribute("data-selected");
 	await expect
 		.element(page.getByTestId("group-a-items").element().children[0])
 		.toHaveTextContent("Introduction");
@@ -122,7 +106,5 @@ it("should hide the group if all items are filtered out", async () => {
 	await userEvent.type(t.input, "radio");
 	await expect.element(page.getByTestId("group-a")).not.toBeVisible();
 	await expect.element(page.getByTestId("group-b")).toBeVisible();
-	await expect
-		.element(page.getByText("Radio Group"))
-		.toHaveAttribute("data-selected");
+	await expect.element(page.getByText("Radio Group")).toHaveAttribute("data-selected");
 });

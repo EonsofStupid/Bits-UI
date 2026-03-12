@@ -1,12 +1,7 @@
 // oxlint-disable no-explicit-any
 import type { Snippet } from "svelte";
 
-import type {
-	attachRef,
-	Box,
-	ReadableBoxedValues,
-	WritableBoxedValues,
-} from "svelte-toolbelt";
+import type { attachRef, Box, ReadableBoxedValues, WritableBoxedValues } from "svelte-toolbelt";
 import type { StyleProperties } from "$lib/shared/index.js";
 
 export type OnChangeFn<T> = (value: T) => void;
@@ -32,9 +27,7 @@ export type WithChild<
 	child?: SnippetProps extends { _default: never }
 		? Snippet<[{ props: Record<string, unknown> }]>
 		: Snippet<[SnippetProps & { props: Record<string, unknown> }]>;
-	children?: SnippetProps extends { _default: never }
-		? Snippet
-		: Snippet<[SnippetProps]>;
+	children?: SnippetProps extends { _default: never } ? Snippet : Snippet<[SnippetProps]>;
 	style?: StyleProperties | string | null | undefined;
 	ref?: Ref | null | undefined;
 };
@@ -88,34 +81,14 @@ export type WithRefOpts<T = {}> = T &
 	ReadableBoxedValues<{ id: string }> &
 	WritableBoxedValues<{ ref: HTMLElement | null }>;
 
-export type BitsEvent<
-	T extends Event = Event,
-	U extends HTMLElement = HTMLElement,
-> = T & {
+export type BitsEvent<T extends Event = Event, U extends HTMLElement = HTMLElement> = T & {
 	currentTarget: U;
 };
 
-export type BitsPointerEvent<T extends HTMLElement = HTMLElement> = BitsEvent<
-	PointerEvent,
-	T
->;
-export type BitsKeyboardEvent<T extends HTMLElement = HTMLElement> = BitsEvent<
-	KeyboardEvent,
-	T
->;
-export type BitsMouseEvent<T extends HTMLElement = HTMLElement> = BitsEvent<
-	MouseEvent,
-	T
->;
-export type BitsFocusEvent<T extends HTMLElement = HTMLElement> = BitsEvent<
-	FocusEvent,
-	T
->;
-export type BitsInputEvent<T extends HTMLElement = HTMLElement> = BitsEvent<
-	InputEvent,
-	T
->;
+export type BitsPointerEvent<T extends HTMLElement = HTMLElement> = BitsEvent<PointerEvent, T>;
+export type BitsKeyboardEvent<T extends HTMLElement = HTMLElement> = BitsEvent<KeyboardEvent, T>;
+export type BitsMouseEvent<T extends HTMLElement = HTMLElement> = BitsEvent<MouseEvent, T>;
+export type BitsFocusEvent<T extends HTMLElement = HTMLElement> = BitsEvent<FocusEvent, T>;
+export type BitsInputEvent<T extends HTMLElement = HTMLElement> = BitsEvent<InputEvent, T>;
 
-export type RefAttachment<T extends HTMLElement = HTMLElement> = ReturnType<
-	typeof attachRef<T>
->;
+export type RefAttachment<T extends HTMLElement = HTMLElement> = ReturnType<typeof attachRef<T>>;

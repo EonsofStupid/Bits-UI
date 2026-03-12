@@ -4,11 +4,15 @@ import type {
 	DateRangePickerRootPropsWithoutHTML,
 } from "bits-ui";
 import {
-	label,
-	root as rangeFieldRoot,
-	segment,
-} from "./date-range-field.api.js";
-import { withChildProps } from "./shared.js";
+	defineBooleanProp,
+	defineComponentApiSchema,
+	defineEnumProp,
+	defineSimpleDataAttr,
+	defineStringProp,
+} from "../utils.js";
+import { root as datePickerRoot } from "./date-picker.api.js";
+import { label, root as rangeFieldRoot, segment } from "./date-range-field.api.js";
+import { DateRangeFieldInputTypeProp } from "./extended-types/date-range-field/index.js";
 import { content, portal, trigger } from "./popover.api.js";
 import {
 	root as calendarRoot,
@@ -21,21 +25,13 @@ import {
 	headCell,
 	header,
 	heading,
+	monthSelect,
 	nextButton,
 	prevButton,
-	monthSelect,
+	root as rangeCalendarRoot,
 	yearSelect,
 } from "./range-calendar.api.js";
-import { root as rangeCalendarRoot } from "./range-calendar.api.js";
-import { root as datePickerRoot } from "./date-picker.api.js";
-import { DateRangeFieldInputTypeProp } from "./extended-types/date-range-field/index.js";
-import {
-	defineBooleanProp,
-	defineComponentApiSchema,
-	defineEnumProp,
-	defineSimpleDataAttr,
-	defineStringProp,
-} from "../utils.js";
+import { withChildProps } from "./shared.js";
 
 const root = defineComponentApiSchema<DateRangePickerRootPropsWithoutHTML>({
 	title: "Root",
@@ -61,8 +57,7 @@ const root = defineComponentApiSchema<DateRangePickerRootPropsWithoutHTML>({
 		required: rangeFieldRoot.props!.required,
 		closeOnRangeSelect: defineBooleanProp({
 			default: true,
-			description:
-				"Whether or not to close the popover when a date range is selected.",
+			description: "Whether or not to close the popover when a date range is selected.",
 		}),
 		disableDaysOutsideMonth: rangeCalendarRoot.props!.disableDaysOutsideMonth,
 		pagedNavigation: rangeCalendarRoot.props!.pagedNavigation,
@@ -105,37 +100,32 @@ const root = defineComponentApiSchema<DateRangePickerRootPropsWithoutHTML>({
 	],
 });
 
-const calendar =
-	defineComponentApiSchema<DateRangePickerCalendarPropsWithoutHTML>({
-		title: "Calendar",
-		description: "The calendar component containing the grids of dates.",
-		dataAttributes: [
-			defineSimpleDataAttr({
-				name: "invalid",
-				description:
-					"Present on the root element when the calendar is invalid.",
-			}),
-			defineSimpleDataAttr({
-				name: "disabled",
-				description:
-					"Present on the root element when the calendar is disabled.",
-			}),
-			defineSimpleDataAttr({
-				name: "readonly",
-				description:
-					"Present on the root element when the calendar is readonly.",
-			}),
-			defineSimpleDataAttr({
-				name: "calendar-root",
-				description: "Present on the root element.",
-			}),
-		],
-	});
+const calendar = defineComponentApiSchema<DateRangePickerCalendarPropsWithoutHTML>({
+	title: "Calendar",
+	description: "The calendar component containing the grids of dates.",
+	dataAttributes: [
+		defineSimpleDataAttr({
+			name: "invalid",
+			description: "Present on the root element when the calendar is invalid.",
+		}),
+		defineSimpleDataAttr({
+			name: "disabled",
+			description: "Present on the root element when the calendar is disabled.",
+		}),
+		defineSimpleDataAttr({
+			name: "readonly",
+			description: "Present on the root element when the calendar is readonly.",
+		}),
+		defineSimpleDataAttr({
+			name: "calendar-root",
+			description: "Present on the root element.",
+		}),
+	],
+});
 
 const input = defineComponentApiSchema<DateRangePickerInputPropsWithoutHTML>({
 	title: "Input",
-	description:
-		"The field input component which contains the segments of the date field.",
+	description: "The field input component which contains the segments of the date field.",
 	props: {
 		name: defineStringProp({
 			description:

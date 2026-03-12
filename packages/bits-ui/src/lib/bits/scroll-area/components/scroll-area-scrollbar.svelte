@@ -1,12 +1,12 @@
 <script lang="ts">
 import { boxWith } from "svelte-toolbelt";
-import type { ScrollAreaScrollbarProps } from "../types.js";
-import { ScrollAreaScrollbarState } from "../scroll-area.svelte.js";
-import ScrollAreaScrollbarAuto from "./scroll-area-scrollbar-auto.svelte";
-import ScrollAreaScrollbarScroll from "./scroll-area-scrollbar-scroll.svelte";
-import ScrollAreaScrollbarHover from "./scroll-area-scrollbar-hover.svelte";
-import ScrollAreaScrollbarVisible from "./scroll-area-scrollbar-visible.svelte";
 import { createId } from "$lib/internal/create-id.js";
+import { ScrollAreaScrollbarState } from "../scroll-area.svelte.js";
+import type { ScrollAreaScrollbarProps } from "../types.js";
+import ScrollAreaScrollbarAuto from "./scroll-area-scrollbar-auto.svelte";
+import ScrollAreaScrollbarHover from "./scroll-area-scrollbar-hover.svelte";
+import ScrollAreaScrollbarScroll from "./scroll-area-scrollbar-scroll.svelte";
+import ScrollAreaScrollbarVisible from "./scroll-area-scrollbar-visible.svelte";
 
 const uid = $props.id();
 
@@ -22,7 +22,7 @@ const scrollbarState = ScrollAreaScrollbarState.create({
 	id: boxWith(() => id),
 	ref: boxWith(
 		() => ref,
-		(v) => (ref = v),
+		(v) => (ref = v)
 	),
 });
 

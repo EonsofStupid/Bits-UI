@@ -1,9 +1,9 @@
 <script lang="ts">
 import { boxWith, mergeProps } from "svelte-toolbelt";
-import type { ComboboxInputProps } from "../types.js";
-import { useId } from "$lib/internal/use-id.js";
-import { FloatingLayer } from "$lib/bits/utilities/floating-layer/index.js";
 import { SelectInputState } from "$lib/bits/select/select.svelte.js";
+import { FloatingLayer } from "$lib/bits/utilities/floating-layer/index.js";
+import { useId } from "$lib/internal/use-id.js";
+import type { ComboboxInputProps } from "../types.js";
 
 let {
 	id = useId(),
@@ -18,7 +18,7 @@ const inputState = SelectInputState.create({
 	id: boxWith(() => id),
 	ref: boxWith(
 		() => ref,
-		(v) => (ref = v),
+		(v) => (ref = v)
 	),
 	clearOnDeselect: boxWith(() => clearOnDeselect),
 });
@@ -30,7 +30,7 @@ if (defaultValue) {
 const mergedProps = $derived(
 	mergeProps(restProps, inputState.props, {
 		value: inputState.root.opts.inputValue.current,
-	}),
+	})
 );
 </script>
 

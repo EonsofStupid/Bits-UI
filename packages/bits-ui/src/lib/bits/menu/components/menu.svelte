@@ -1,9 +1,9 @@
 <script lang="ts">
 import { boxWith } from "svelte-toolbelt";
-import type { MenuRootProps } from "../types.js";
-import { MenuMenuState, MenuRootState } from "../menu.svelte.js";
-import { noop } from "$lib/internal/noop.js";
 import FloatingLayer from "$lib/bits/utilities/floating-layer/components/floating-layer.svelte";
+import { noop } from "$lib/internal/noop.js";
+import { MenuMenuState, MenuRootState } from "../menu.svelte.js";
+import type { MenuRootProps } from "../types.js";
 
 let {
 	open = $bindable(false),
@@ -32,11 +32,11 @@ MenuMenuState.create(
 			(v) => {
 				open = v;
 				onOpenChange(v);
-			},
+			}
 		),
 		onOpenChangeComplete: boxWith(() => onOpenChangeComplete),
 	},
-	root,
+	root
 );
 </script>
 

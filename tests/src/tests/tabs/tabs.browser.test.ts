@@ -1,9 +1,9 @@
-import { expect, it, describe } from "vitest";
+import { page, userEvent } from "@vitest/browser/context";
+import { describe, expect, it } from "vitest";
 import { render } from "vitest-browser-svelte";
 import { getTestKbd } from "../utils.js";
-import TabsTest from "./tabs-test.svelte";
 import type { Item, TabsTestProps } from "./tabs-test.svelte";
-import { page, userEvent } from "@vitest/browser/context";
+import TabsTest from "./tabs-test.svelte";
 
 const kbd = getTestKbd();
 
@@ -223,12 +223,8 @@ describe("Tabs", () => {
 
 			await expect.element(content).toHaveAttribute("role", "tabpanel");
 			await expect.element(trigger).toHaveAttribute("role", "tab");
-			await expect
-				.element(trigger)
-				.toHaveAttribute("aria-controls", content.element().id);
-			await expect
-				.element(content)
-				.toHaveAttribute("aria-labelledby", trigger.element().id);
+			await expect.element(trigger).toHaveAttribute("aria-controls", content.element().id);
+			await expect.element(content).toHaveAttribute("aria-labelledby", trigger.element().id);
 		}
 	});
 

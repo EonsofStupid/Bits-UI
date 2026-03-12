@@ -1,13 +1,10 @@
 <script lang="ts">
+import { watch } from "runed";
 import { boxWith, mergeProps } from "svelte-toolbelt";
-import type { MenuCheckboxItemProps } from "../types.js";
-import {
-	MenuCheckboxGroupContext,
-	MenuCheckboxItemState,
-} from "../menu.svelte.js";
 import { createId } from "$lib/internal/create-id.js";
 import { noop } from "$lib/internal/noop.js";
-import { watch } from "runed";
+import { MenuCheckboxGroupContext, MenuCheckboxItemState } from "../menu.svelte.js";
+import type { MenuCheckboxItemProps } from "../types.js";
 
 const uid = $props.id();
 
@@ -47,7 +44,7 @@ watch.pre(
 				checked = false;
 			}
 		}
-	},
+	}
 );
 
 const checkboxItemState = MenuCheckboxItemState.create(
@@ -59,14 +56,14 @@ const checkboxItemState = MenuCheckboxItemState.create(
 					checked = v;
 					onCheckedChange(v);
 				}
-			},
+			}
 		),
 		id: boxWith(() => id),
 		disabled: boxWith(() => disabled),
 		onSelect: boxWith(() => handleSelect),
 		ref: boxWith(
 			() => ref,
-			(v) => (ref = v),
+			(v) => (ref = v)
 		),
 		closeOnSelect: boxWith(() => closeOnSelect),
 		indeterminate: boxWith(
@@ -76,11 +73,11 @@ const checkboxItemState = MenuCheckboxItemState.create(
 					indeterminate = v;
 					onIndeterminateChange(v);
 				}
-			},
+			}
 		),
 		value: boxWith(() => value),
 	},
-	group,
+	group
 );
 
 function handleSelect(e: Event) {

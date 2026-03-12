@@ -1,8 +1,8 @@
 <script lang="ts">
-import { mergeProps, boxWith } from "svelte-toolbelt";
+import { boxWith, mergeProps } from "svelte-toolbelt";
+import { createId } from "$lib/internal/create-id.js";
 import { AccordionContentState } from "../accordion.svelte.js";
 import type { AccordionContentProps } from "../types.js";
-import { createId } from "$lib/internal/create-id.js";
 
 const uid = $props.id();
 
@@ -21,7 +21,7 @@ const contentState = AccordionContentState.create({
 	id: boxWith(() => id),
 	ref: boxWith(
 		() => ref,
-		(v) => (ref = v),
+		(v) => (ref = v)
 	),
 	hiddenUntilFound: boxWith(() => hiddenUntilFound),
 });

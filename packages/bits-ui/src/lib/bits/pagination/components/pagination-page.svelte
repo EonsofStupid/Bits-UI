@@ -1,8 +1,8 @@
 <script lang="ts">
 import { boxWith, mergeProps } from "svelte-toolbelt";
-import type { PaginationPageProps } from "../types.js";
-import { PaginationPageState } from "../pagination.svelte.js";
 import { createId } from "$lib/internal/create-id.js";
+import { PaginationPageState } from "../pagination.svelte.js";
+import type { PaginationPageProps } from "../types.js";
 
 const uid = $props.id();
 
@@ -22,7 +22,7 @@ const pageState = PaginationPageState.create({
 	page: boxWith(() => page),
 	ref: boxWith(
 		() => ref,
-		(v) => (ref = v),
+		(v) => (ref = v)
 	),
 	disabled: boxWith(() => Boolean(disabled)),
 });

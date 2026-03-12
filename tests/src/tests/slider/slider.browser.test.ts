@@ -1,17 +1,14 @@
 // Credit to @paoloricciuti for this code via melt :)
-import { expect, it, vi, describe } from "vitest";
+
+import { type Locator, page, userEvent } from "@vitest/browser/context";
+import { describe, expect, it, vi } from "vitest";
 import { render } from "vitest-browser-svelte";
 import { getTestKbd } from "../utils.js";
-import SliderMultiTest, {
-	type SliderMultiTestProps,
-} from "./slider-test-multi.svelte";
-import SliderRangeTest, {
-	type SliderMultiRangeTestProps,
-} from "./slider-range-test.svelte";
+import SliderRangeTest, { type SliderMultiRangeTestProps } from "./slider-range-test.svelte";
+import SliderMultiTest, { type SliderMultiTestProps } from "./slider-test-multi.svelte";
 import SliderWithLabelsTest, {
 	type SliderWithLabelsTestProps,
 } from "./slider-test-with-labels.svelte";
-import { page, userEvent, type Locator } from "@vitest/browser/context";
 
 const kbd = getTestKbd();
 
@@ -27,7 +24,7 @@ function renderSliderWithLabels(props: SliderWithLabelsTestProps = {}) {
 
 function setup(
 	props: SliderMultiTestProps | SliderWithLabelsTestProps = {},
-	kind: "default" | "range" | "labels" = "default",
+	kind: "default" | "range" | "labels" = "default"
 ) {
 	let t: ReturnType<typeof render>;
 	if (kind === "default") {
@@ -52,9 +49,7 @@ it("should have a thumb positioned at 30% of the container", async () => {
 	const thumb = page.getByTestId("thumb");
 	await expect.element(thumb).toBeInTheDocument();
 
-	expect(
-		isCloseEnough(30, (thumb.element() as HTMLElement).style.left),
-	).toBeTruthy();
+	expect(isCloseEnough(30, (thumb.element() as HTMLElement).style.left)).toBeTruthy();
 });
 it("should have a range that covers from 0 to 30%", async () => {
 	setup();
@@ -62,18 +57,11 @@ it("should have a range that covers from 0 to 30%", async () => {
 	const range = page.getByTestId("range");
 	await expect.element(range).toBeInTheDocument();
 
-	expect(
-		isCloseEnough(0, (range.element() as HTMLElement).style.left),
-	).toBeTruthy();
-	expect(
-		isCloseEnough(70, (range.element() as HTMLElement).style.right),
-	).toBeTruthy();
+	expect(isCloseEnough(0, (range.element() as HTMLElement).style.left)).toBeTruthy();
+	expect(isCloseEnough(70, (range.element() as HTMLElement).style.right)).toBeTruthy();
 });
 
-it.each([
-	kbd.ARROW_RIGHT,
-	kbd.ARROW_UP,
-])("should change by 1% when pressing %s", async (key) => {
+it.each([kbd.ARROW_RIGHT, kbd.ARROW_UP])("should change by 1% when pressing %s", async (key) => {
 	setup();
 
 	const thumb = page.getByTestId("thumb");
@@ -91,10 +79,7 @@ it.each([
 	});
 });
 
-it.each([
-	kbd.ARROW_LEFT,
-	kbd.ARROW_DOWN,
-])("should change by 1% when pressing %s", async (key) => {
+it.each([kbd.ARROW_LEFT, kbd.ARROW_DOWN])("should change by 1% when pressing %s", async (key) => {
 	setup();
 
 	const thumb = page.getByTestId("thumb").element() as HTMLElement;
@@ -264,7 +249,7 @@ describe("range", () => {
 			{
 				value: [49, 51],
 			},
-			"range",
+			"range"
 		);
 
 		const thumb0 = page.getByTestId("thumb-0").element() as HTMLElement;
@@ -294,7 +279,7 @@ describe("range", () => {
 				value: [49, 51],
 				onValueChange: mock,
 			},
-			"range",
+			"range"
 		);
 
 		const thumb0 = page.getByTestId("thumb-0").element() as HTMLElement;
@@ -325,7 +310,7 @@ describe("range", () => {
 			{
 				value: [49, 51],
 			},
-			"range",
+			"range"
 		);
 
 		const thumb0 = page.getByTestId("thumb-0").element() as HTMLElement;
@@ -822,7 +807,7 @@ describe("labels", () => {
 					step: 50,
 					tickLabelPosition: "bottom",
 				},
-				"labels",
+				"labels"
 			);
 
 			const tickLabels = t.getAllByTestId(/^tick-label-/);
@@ -841,7 +826,7 @@ describe("labels", () => {
 					step: 50,
 					disabled: true,
 				},
-				"labels",
+				"labels"
 			);
 
 			const tickLabels = t.getAllByTestId(/^tick-label-/);
@@ -859,7 +844,7 @@ describe("labels", () => {
 					step: 50,
 					orientation: "vertical",
 				},
-				"labels",
+				"labels"
 			);
 
 			const tickLabels = t.getAllByTestId(/^tick-label-/);
@@ -877,7 +862,7 @@ describe("labels", () => {
 					max: 100,
 					step: 25,
 				},
-				"labels",
+				"labels"
 			);
 
 			// initially, ticks 0 and 1 should be bounded
@@ -924,7 +909,7 @@ describe("labels", () => {
 					value: [50],
 					disabled: true,
 				},
-				"labels",
+				"labels"
 			);
 
 			const thumbLabel = page.getByTestId("thumb-label-0");
@@ -937,7 +922,7 @@ describe("labels", () => {
 					value: [50],
 					thumbLabelPosition: "bottom",
 				},
-				"labels",
+				"labels"
 			);
 
 			const thumbLabel = page.getByTestId("thumb-label-0");
@@ -951,7 +936,7 @@ describe("labels", () => {
 					value: [50],
 					orientation: "vertical",
 				},
-				"labels",
+				"labels"
 			);
 
 			const thumbLabel = page.getByTestId("thumb-label-0");
@@ -963,9 +948,7 @@ describe("labels", () => {
 			setup({ value: [50] }, "labels");
 
 			const thumb = page.getByTestId("thumb-0").element() as HTMLElement;
-			const thumbLabel = page
-				.getByTestId("thumb-label-0")
-				.element() as HTMLElement;
+			const thumbLabel = page.getByTestId("thumb-label-0").element() as HTMLElement;
 
 			thumb.focus();
 			await userEvent.keyboard(kbd.ARROW_RIGHT);
@@ -979,18 +962,14 @@ describe("labels", () => {
 				{
 					value: [20, 80],
 				},
-				"labels",
+				"labels"
 			);
 
 			const thumbLabels = t.getAllByTestId(/^thumb-label-/);
 			expect(thumbLabels).toHaveLength(2);
 
-			const thumbLabel0 = page
-				.getByTestId("thumb-label-0")
-				.element() as HTMLElement;
-			const thumbLabel1 = page
-				.getByTestId("thumb-label-1")
-				.element() as HTMLElement;
+			const thumbLabel0 = page.getByTestId("thumb-label-0").element() as HTMLElement;
+			const thumbLabel1 = page.getByTestId("thumb-label-1").element() as HTMLElement;
 
 			expect(thumbLabel0).toHaveAttribute("data-value", "20");
 			expect(thumbLabel0.textContent).toBe("20");
@@ -1004,16 +983,12 @@ describe("labels", () => {
 				{
 					value: [49, 51],
 				},
-				"labels",
+				"labels"
 			);
 
 			const thumb0 = page.getByTestId("thumb-0").element() as HTMLElement;
-			const thumbLabel0 = page
-				.getByTestId("thumb-label-0")
-				.element() as HTMLElement;
-			const thumbLabel1 = page
-				.getByTestId("thumb-label-1")
-				.element() as HTMLElement;
+			const thumbLabel0 = page.getByTestId("thumb-label-0").element() as HTMLElement;
+			const thumbLabel1 = page.getByTestId("thumb-label-1").element() as HTMLElement;
 
 			thumb0.focus();
 			await userEvent.keyboard(kbd.ARROW_RIGHT);
@@ -1030,16 +1005,12 @@ describe("labels", () => {
 					value: [49, 51],
 					autoSort: false,
 				},
-				"labels",
+				"labels"
 			);
 
 			const thumb0 = page.getByTestId("thumb-0").element() as HTMLElement;
-			const thumbLabel0 = page
-				.getByTestId("thumb-label-0")
-				.element() as HTMLElement;
-			const thumbLabel1 = page
-				.getByTestId("thumb-label-1")
-				.element() as HTMLElement;
+			const thumbLabel0 = page.getByTestId("thumb-label-0").element() as HTMLElement;
+			const thumbLabel1 = page.getByTestId("thumb-label-1").element() as HTMLElement;
 
 			thumb0.focus();
 			await userEvent.keyboard(kbd.ARROW_RIGHT);
@@ -1060,7 +1031,7 @@ describe("labels", () => {
 					max: 9,
 					step: 3,
 				},
-				"labels",
+				"labels"
 			);
 
 			const tickLabels = t.getAllByTestId(/^tick-label-/);
@@ -1087,7 +1058,7 @@ describe("labels", () => {
 					max: 1,
 					step: 0.25,
 				},
-				"labels",
+				"labels"
 			);
 
 			const tickLabels = t.getAllByTestId(/^tick-label-/);
@@ -1111,7 +1082,7 @@ describe("labels", () => {
 					showTickLabels: true,
 					showThumbLabels: true,
 				},
-				"labels",
+				"labels"
 			);
 
 			const tickLabels = t.getAllByTestId(/^tick-label-/);

@@ -1,9 +1,9 @@
 <script lang="ts">
 import { boxWith, mergeProps } from "svelte-toolbelt";
-import type { MenuTriggerProps } from "../types.js";
-import { DropdownMenuTriggerState } from "../menu.svelte.js";
-import { createId } from "$lib/internal/create-id.js";
 import FloatingLayerAnchor from "$lib/bits/utilities/floating-layer/components/floating-layer-anchor.svelte";
+import { createId } from "$lib/internal/create-id.js";
+import { DropdownMenuTriggerState } from "../menu.svelte.js";
+import type { MenuTriggerProps } from "../types.js";
 
 const uid = $props.id();
 
@@ -22,13 +22,11 @@ const triggerState = DropdownMenuTriggerState.create({
 	disabled: boxWith(() => disabled ?? false),
 	ref: boxWith(
 		() => ref,
-		(v) => (ref = v),
+		(v) => (ref = v)
 	),
 });
 
-const mergedProps = $derived(
-	mergeProps(restProps, triggerState.props, { type }),
-);
+const mergedProps = $derived(mergeProps(restProps, triggerState.props, { type }));
 </script>
 
 <FloatingLayerAnchor {id} ref={triggerState.opts.ref}>

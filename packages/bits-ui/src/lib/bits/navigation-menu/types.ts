@@ -1,5 +1,3 @@
-import type { EscapeBehaviorType } from "../utilities/escape-layer/types.js";
-import type { InteractOutsideBehaviorType } from "../utilities/dismissible-layer/types.js";
 import type {
 	OnChangeFn,
 	WithChild,
@@ -15,6 +13,8 @@ import type {
 	BitsPrimitiveUListAttributes,
 } from "$lib/shared/attributes.js";
 import type { Direction, Orientation } from "$lib/shared/index.js";
+import type { InteractOutsideBehaviorType } from "../utilities/dismissible-layer/types.js";
+import type { EscapeBehaviorType } from "../utilities/escape-layer/types.js";
 
 export type NavigationMenuRootPropsWithoutHTML = WithChild<{
 	/**
@@ -82,17 +82,16 @@ export type NavigationMenuSubPropsWithoutHTML = WithChild<{
 export type NavigationMenuSubProps = NavigationMenuSubPropsWithoutHTML &
 	Without<BitsPrimitiveDivAttributes, NavigationMenuSubPropsWithoutHTML>;
 
-export type NavigationMenuListPropsWithoutHTML =
-	WithChildNoChildrenSnippetProps<
-		{},
-		{
-			/**
-			 * Attributes to spread onto a wrapper element around the content.
-			 * Do not style the wrapper element, its styles are computed by Floating UI.
-			 */
-			wrapperProps: Record<string, unknown>;
-		}
-	>;
+export type NavigationMenuListPropsWithoutHTML = WithChildNoChildrenSnippetProps<
+	{},
+	{
+		/**
+		 * Attributes to spread onto a wrapper element around the content.
+		 * Do not style the wrapper element, its styles are computed by Floating UI.
+		 */
+		wrapperProps: Record<string, unknown>;
+	}
+>;
 
 export type NavigationMenuListProps = NavigationMenuListPropsWithoutHTML &
 	Without<BitsPrimitiveUListAttributes, NavigationMenuListPropsWithoutHTML>;
@@ -195,12 +194,8 @@ export type NavigationMenuIndicatorPropsWithoutHTML = WithChild<{
 	forceMount?: boolean;
 }>;
 
-export type NavigationMenuIndicatorProps =
-	NavigationMenuIndicatorPropsWithoutHTML &
-		Without<
-			BitsPrimitiveDivAttributes,
-			NavigationMenuIndicatorPropsWithoutHTML
-		>;
+export type NavigationMenuIndicatorProps = NavigationMenuIndicatorPropsWithoutHTML &
+	Without<BitsPrimitiveDivAttributes, NavigationMenuIndicatorPropsWithoutHTML>;
 
 export type NavigationMenuViewportPropsWithoutHTML = WithChild<{
 	/**
@@ -213,6 +208,5 @@ export type NavigationMenuViewportPropsWithoutHTML = WithChild<{
 	forceMount?: boolean;
 }>;
 
-export type NavigationMenuViewportProps =
-	NavigationMenuViewportPropsWithoutHTML &
-		Without<BitsPrimitiveDivAttributes, NavigationMenuViewportPropsWithoutHTML>;
+export type NavigationMenuViewportProps = NavigationMenuViewportPropsWithoutHTML &
+	Without<BitsPrimitiveDivAttributes, NavigationMenuViewportPropsWithoutHTML>;

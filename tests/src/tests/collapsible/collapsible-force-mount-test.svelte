@@ -1,5 +1,5 @@
 <script lang="ts">
-import { Collapsible } from "bits-ui";
+import type { Collapsible } from "bits-ui";
 
 let {
 	open = false,

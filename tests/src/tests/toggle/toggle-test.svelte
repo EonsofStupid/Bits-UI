@@ -1,10 +1,7 @@
 <script lang="ts">
-import { Toggle, type WithoutChildrenOrChild } from "bits-ui";
+import type { Toggle, WithoutChildrenOrChild } from "bits-ui";
 
-let {
-	pressed = false,
-	...restProps
-}: WithoutChildrenOrChild<Toggle.RootProps> = $props();
+let { pressed = false, ...restProps }: WithoutChildrenOrChild<Toggle.RootProps> = $props();
 </script>
 
 <main>

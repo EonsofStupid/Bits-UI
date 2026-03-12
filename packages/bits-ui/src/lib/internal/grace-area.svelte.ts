@@ -1,15 +1,15 @@
+import { watch } from "runed";
+import { on } from "svelte/events";
 import {
-	type Getter,
-	type WritableBox,
 	executeCallbacks,
+	type Getter,
 	getDocument,
 	getWindow,
+	type WritableBox,
 } from "svelte-toolbelt";
-import { on } from "svelte/events";
-import { watch } from "runed";
+import type { Side } from "$lib/bits/utilities/floating-layer/use-floating-layer.svelte.js";
 import { boxAutoReset } from "./box-auto-reset.svelte.js";
 import { isElement, isHTMLElement } from "./is.js";
-import type { Side } from "$lib/bits/utilities/floating-layer/use-floating-layer.svelte.js";
 
 interface GraceAreaOptions {
 	enabled: Getter<boolean>;
@@ -52,9 +52,9 @@ export class GraceArea {
 
 				return executeCallbacks(
 					on(triggerNode, "pointerleave", handleTriggerLeave),
-					on(contentNode, "pointerleave", handleContentLeave),
+					on(contentNode, "pointerleave", handleContentLeave)
 				);
-			},
+			}
 		);
 
 		watch(
@@ -70,7 +70,7 @@ export class GraceArea {
 						opts.contentNode()?.contains(target);
 					const isPointerOutsideGraceArea = !isPointInPolygon(
 						pointerPosition,
-						this.#pointerGraceArea,
+						this.#pointerGraceArea
 					);
 
 					if (hasEnteredTarget) {
@@ -84,7 +84,7 @@ export class GraceArea {
 				if (!doc) return;
 
 				return on(doc, "pointermove", handleTrackPointerGrace);
-			},
+			}
 		);
 	}
 
@@ -97,14 +97,9 @@ export class GraceArea {
 		const currentTarget = e.currentTarget;
 		if (!isHTMLElement(currentTarget)) return;
 		const exitPoint = { x: e.clientX, y: e.clientY };
-		const exitSide = getExitSideFromRect(
-			exitPoint,
-			currentTarget.getBoundingClientRect(),
-		);
+		const exitSide = getExitSideFromRect(exitPoint, currentTarget.getBoundingClientRect());
 		const paddedExitPoints = getPaddedExitPoints(exitPoint, exitSide);
-		const hoverTargetPoints = getPointsFromRect(
-			hoverTarget.getBoundingClientRect(),
-		);
+		const hoverTargetPoints = getPointsFromRect(hoverTarget.getBoundingClientRect());
 		const graceArea = getHull([...paddedExitPoints, ...hoverTargetPoints]);
 		this.#pointerGraceArea = graceArea;
 		this.#isPointerInTransit.current = true;
@@ -188,8 +183,7 @@ function isPointInPolygon(point: Point, polygon: Polygon) {
 		const yj = polygon[j]!.y;
 
 		// prettier-ignore
-		const intersect =
-			yi > y !== yj > y && x < ((xj - xi) * (y - yi)) / (yj - yi) + xi;
+		const intersect = yi > y !== yj > y && x < ((xj - xi) * (y - yi)) / (yj - yi) + xi;
 		if (intersect) inside = !inside;
 	}
 
@@ -211,9 +205,7 @@ function getHull<P extends Point>(points: Readonly<Array<P>>): Array<P> {
 }
 
 // Returns the convex hull, assuming that each points[i] <= points[i + 1]. Runs in O(n) time.
-function getHullPresorted<P extends Point>(
-	points: Readonly<Array<P>>,
-): Array<P> {
+function getHullPresorted<P extends Point>(points: Readonly<Array<P>>): Array<P> {
 	if (points.length <= 1) return points.slice();
 
 	const upperHull: Array<P> = [];
@@ -222,8 +214,7 @@ function getHullPresorted<P extends Point>(
 		while (upperHull.length >= 2) {
 			const q = upperHull[upperHull.length - 1]!;
 			const r = upperHull[upperHull.length - 2]!;
-			if ((q.x - r.x) * (p.y - r.y) >= (q.y - r.y) * (p.x - r.x))
-				upperHull.pop();
+			if ((q.x - r.x) * (p.y - r.y) >= (q.y - r.y) * (p.x - r.x)) upperHull.pop();
 			else break;
 		}
 		upperHull.push(p);
@@ -236,8 +227,7 @@ function getHullPresorted<P extends Point>(
 		while (lowerHull.length >= 2) {
 			const q = lowerHull[lowerHull.length - 1]!;
 			const r = lowerHull[lowerHull.length - 2]!;
-			if ((q.x - r.x) * (p.y - r.y) >= (q.y - r.y) * (p.x - r.x))
-				lowerHull.pop();
+			if ((q.x - r.x) * (p.y - r.y) >= (q.y - r.y) * (p.x - r.x)) lowerHull.pop();
 			else break;
 		}
 		lowerHull.push(p);

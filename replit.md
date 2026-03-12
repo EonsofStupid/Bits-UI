@@ -13,6 +13,13 @@ This is a pnpm monorepo for [Bits UI](https://bits-ui.com) — headless, accessi
 - **pnpm** (v10.26.1, latest stable) — Managed via `pnpm-workspace.yaml`
 - Workspace catalog defines shared dependency versions
 
+## Tooling
+- **Biome 2.4.6** — single tool for linting + formatting (replaces prettier, eslint, oxlint)
+  - Config: `biome.json` at project root
+  - CSS: `tailwindDirectives: true` enables `@theme`, `@custom-variant`, `@apply`, `@plugin` parsing
+  - Formatter mirrors original prettier settings: tabs, width 4, 100 char lines, double quotes
+  - `pnpm format` → format write | `pnpm lint` → lint | `pnpm check:fix` → format + lint + fix
+
 ## Key Commands
 ```bash
 # Install all dependencies

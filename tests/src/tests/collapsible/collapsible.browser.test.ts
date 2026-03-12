@@ -1,16 +1,16 @@
 import { page } from "@vitest/browser/context";
+import type { Collapsible } from "bits-ui";
+import type { Component } from "svelte";
 import { describe, expect, it, vi } from "vitest";
 import { render } from "vitest-browser-svelte";
-import type { Component } from "svelte";
-import type { Collapsible } from "bits-ui";
-import CollapsibleTest from "./collapsible-test.svelte";
+import { expectExists, expectNotExists } from "../browser-utils";
 import CollapsibleForceMountTest from "./collapsible-force-mount-test.svelte";
 import CollapsibleHiddenUntilFoundTest from "./collapsible-hidden-until-found-test.svelte";
-import { expectExists, expectNotExists } from "../browser-utils";
+import CollapsibleTest from "./collapsible-test.svelte";
 
 function setup(
 	props: Collapsible.RootProps & { withOpenCheck?: boolean } = {},
-	component: Component = CollapsibleTest,
+	component: Component = CollapsibleTest
 ) {
 	render(component, props);
 	const root = page.getByTestId("root");
@@ -25,12 +25,8 @@ describe("Collapsible ", () => {
 		it("should have bits data attrs", async () => {
 			const t = setup();
 			await expect.element(t.root).toHaveAttribute("data-collapsible-root");
-			await expect
-				.element(t.trigger)
-				.toHaveAttribute("data-collapsible-trigger");
-			await expect
-				.element(t.content)
-				.toHaveAttribute("data-collapsible-content");
+			await expect.element(t.trigger).toHaveAttribute("data-collapsible-trigger");
+			await expect.element(t.content).toHaveAttribute("data-collapsible-content");
 		});
 	});
 
@@ -91,7 +87,7 @@ describe("Collapsible ", () => {
 
 	describe("Hidden Until Found Behavior", () => {
 		function setupHiddenUntilFound(
-			props: Collapsible.RootProps & { hiddenUntilFound?: boolean } = {},
+			props: Collapsible.RootProps & { hiddenUntilFound?: boolean } = {}
 		) {
 			render(CollapsibleHiddenUntilFoundTest, props);
 			const root = page.getByTestId("root");

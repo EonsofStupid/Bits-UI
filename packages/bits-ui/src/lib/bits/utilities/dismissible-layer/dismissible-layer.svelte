@@ -1,8 +1,8 @@
 <script lang="ts">
 import { boxWith } from "svelte-toolbelt";
+import { noop } from "$lib/internal/noop.js";
 import type { DismissibleLayerImplProps } from "./types.js";
 import { DismissibleLayerState } from "./use-dismissable-layer.svelte.js";
-import { noop } from "$lib/internal/noop.js";
 
 let {
 	interactOutsideBehavior = "close",

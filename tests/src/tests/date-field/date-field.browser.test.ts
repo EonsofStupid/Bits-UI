@@ -1,24 +1,18 @@
-import { expect, it, describe } from "vitest";
-import { render } from "vitest-browser-svelte";
 import {
 	CalendarDate,
 	CalendarDateTime,
 	type DateFields,
-	type TimeFields,
 	now,
 	parseAbsoluteToLocal,
+	type TimeFields,
 	toZoned,
 } from "@internationalized/date";
-import { page, userEvent, type Locator } from "@vitest/browser/context";
+import { type Locator, page, userEvent } from "@vitest/browser/context";
+import { describe, expect, it } from "vitest";
+import { render } from "vitest-browser-svelte";
+import { expectExists, expectNotClickableLoc, expectNotExists } from "../browser-utils";
 import { getTestKbd } from "../utils.js";
-import DateFieldTest, {
-	type DateFieldTestProps,
-} from "./date-field-test.svelte";
-import {
-	expectExists,
-	expectNotClickableLoc,
-	expectNotExists,
-} from "../browser-utils";
+import DateFieldTest, { type DateFieldTestProps } from "./date-field-test.svelte";
 
 const kbd = getTestKbd();
 
@@ -57,13 +51,9 @@ describe("date field", () => {
 			value: calendarDateTime,
 		});
 
-		await expect
-			.element(t.month)
-			.toHaveTextContent(String(calendarDateTime.month));
+		await expect.element(t.month).toHaveTextContent(String(calendarDateTime.month));
 		await expect.element(t.day).toHaveTextContent(String(calendarDateTime.day));
-		await expect
-			.element(t.year)
-			.toHaveTextContent(String(calendarDateTime.year));
+		await expect.element(t.year).toHaveTextContent(String(calendarDateTime.year));
 		await expect
 			.element(page.getByTestId("hour"))
 			.toHaveTextContent(String(calendarDateTime.hour));
@@ -78,9 +68,7 @@ describe("date field", () => {
 			value: zonedDateTime,
 		});
 
-		await expect
-			.element(t.month)
-			.toHaveTextContent(String(zonedDateTime.month));
+		await expect.element(t.month).toHaveTextContent(String(zonedDateTime.month));
 		await expect.element(t.day).toHaveTextContent(String(zonedDateTime.day));
 		await expect.element(t.year).toHaveTextContent(String(zonedDateTime.year));
 		await expect
@@ -90,9 +78,7 @@ describe("date field", () => {
 			.element(page.getByTestId("minute"))
 			.toHaveTextContent(String(zonedDateTime.minute));
 		await expect.element(page.getByTestId("dayPeriod")).toHaveTextContent("PM");
-		await expect
-			.element(page.getByTestId("timeZoneName"))
-			.toHaveTextContent("EST");
+		await expect.element(page.getByTestId("timeZoneName")).toHaveTextContent("EST");
 		await expect.element(t.value).toHaveTextContent(calendarDate.toString());
 	});
 
@@ -149,15 +135,7 @@ describe("date field", () => {
 		const minute = page.getByTestId("minute");
 		const dayPeriod = page.getByTestId("dayPeriod");
 		const timeZoneName = page.getByTestId("timeZoneName");
-		const segments = [
-			t.day,
-			t.month,
-			t.year,
-			hour,
-			minute,
-			dayPeriod,
-			timeZoneName,
-		];
+		const segments = [t.day, t.month, t.year, hour, minute, dayPeriod, timeZoneName];
 
 		for (const segment of segments) {
 			await segment.click();
@@ -346,8 +324,8 @@ describe("date field", () => {
 							(segment.element() as HTMLElement).dataset.segment as
 								| keyof TimeFields
 								| keyof DateFields
-						] ?? "",
-					),
+						] ?? ""
+					)
 				);
 		}
 	});
@@ -465,9 +443,7 @@ describe("date field", () => {
 			granularity: "second",
 		});
 
-		const { getHour, getMinute, getSecond, getDayPeriod } = getTimeSegments(
-			page.getByTestId,
-		);
+		const { getHour, getMinute, getSecond, getDayPeriod } = getTimeSegments(page.getByTestId);
 
 		await t.month.click();
 		await userEvent.keyboard(`{3}`);
@@ -499,9 +475,7 @@ describe("date field", () => {
 
 		await t.month.click();
 		await expect.element(t.month).toHaveFocus();
-		await expect
-			.element(t.month)
-			.toHaveTextContent(String(zonedDateTime.month));
+		await expect.element(t.month).toHaveTextContent(String(zonedDateTime.month));
 		await userEvent.keyboard(`{3}`);
 		await expect.element(t.month).toHaveTextContent("3");
 	});
@@ -555,9 +529,7 @@ describe("date field", () => {
 
 		await minute.click();
 		await expect.element(minute).toHaveFocus();
-		await expect
-			.element(minute)
-			.toHaveTextContent(String(zonedDateTime.minute));
+		await expect.element(minute).toHaveTextContent(String(zonedDateTime.minute));
 		await userEvent.keyboard(`{1}`);
 		await expect.element(minute).toHaveTextContent("1");
 	});
@@ -571,9 +543,7 @@ describe("date field", () => {
 
 		await second.click();
 		await expect.element(second).toHaveFocus();
-		await expect
-			.element(second)
-			.toHaveTextContent(String(zonedDateTime.second));
+		await expect.element(second).toHaveTextContent(String(zonedDateTime.second));
 		await userEvent.keyboard(`{1}`);
 		await expect.element(second).toHaveTextContent("1");
 	});
@@ -636,9 +606,7 @@ describe("date field", () => {
 		});
 
 		const timeZone = page.getByTestId("timeZoneName");
-		await expect
-			.element(timeZone)
-			.toHaveTextContent(thisTimeZone("2023-10-12T12:30:00Z"));
+		await expect.element(timeZone).toHaveTextContent(thisTimeZone("2023-10-12T12:30:00Z"));
 	});
 
 	it("should not allow changing the dayPeriod without a value", async () => {
@@ -818,9 +786,7 @@ describe("date field", () => {
 		setup({
 			value: new CalendarDateTime(2023, 10, 12, 12, 30, 0, 0),
 		});
-		const { getHour, getMinute, getDayPeriod } = getTimeSegments(
-			page.getByTestId,
-		);
+		const { getHour, getMinute, getDayPeriod } = getTimeSegments(page.getByTestId);
 
 		await expect.element(getHour()).toHaveTextContent("12");
 		await getMinute().click();
@@ -874,14 +840,7 @@ describe("date field", () => {
 		});
 		const { getHour, getMinute, getSecond } = getTimeSegments(page.getByTestId);
 
-		const segments = [
-			t.day,
-			t.month,
-			t.year,
-			getHour(),
-			getMinute(),
-			getSecond(),
-		];
+		const segments = [t.day, t.month, t.year, getHour(), getMinute(), getSecond()];
 
 		for (const seg of segments) {
 			await seg.click();
@@ -957,9 +916,7 @@ describe("date field", () => {
 
 		await t.year.click();
 		await userEvent.keyboard(kbd.ARROW_UP);
-		await expect
-			.element(hiddenInput)
-			.toHaveValue(value.add({ years: 1 }).toString());
+		await expect.element(hiddenInput).toHaveValue(value.add({ years: 1 }).toString());
 	});
 
 	it("should handle 24 hour time appropriately", async () => {
@@ -1170,8 +1127,7 @@ function isDaylightSavingsTime(): boolean {
 	const july = new Date(now.getFullYear(), 6, 1);
 	const timezoneOffset = now.getTimezoneOffset();
 	const isDaylightSavingsTime =
-		timezoneOffset <
-		Math.max(january.getTimezoneOffset(), july.getTimezoneOffset());
+		timezoneOffset < Math.max(january.getTimezoneOffset(), july.getTimezoneOffset());
 	return isDaylightSavingsTime;
 }
 

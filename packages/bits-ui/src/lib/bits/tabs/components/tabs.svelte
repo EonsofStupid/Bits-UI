@@ -1,9 +1,9 @@
 <script lang="ts">
 import { boxWith, mergeProps } from "svelte-toolbelt";
-import type { TabsRootProps } from "../types.js";
-import { TabsRootState } from "../tabs.svelte.js";
 import { createId } from "$lib/internal/create-id.js";
 import { noop } from "$lib/internal/noop.js";
+import { TabsRootState } from "../tabs.svelte.js";
+import type { TabsRootProps } from "../types.js";
 
 const uid = $props.id();
 
@@ -28,7 +28,7 @@ const rootState = TabsRootState.create({
 		(v) => {
 			value = v;
 			onValueChange(v);
-		},
+		}
 	),
 	orientation: boxWith(() => orientation),
 	loop: boxWith(() => loop),
@@ -36,7 +36,7 @@ const rootState = TabsRootState.create({
 	disabled: boxWith(() => disabled),
 	ref: boxWith(
 		() => ref,
-		(v) => (ref = v),
+		(v) => (ref = v)
 	),
 });
 

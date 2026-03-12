@@ -1,11 +1,11 @@
 <script lang="ts">
 import { watch } from "runed";
 import { boxWith } from "svelte-toolbelt";
+import { resolveLocaleProp } from "$lib/bits/utilities/config/prop-resolvers.js";
+import { getDefaultDate } from "$lib/internal/date-time/utils.js";
+import { noop } from "$lib/internal/noop.js";
 import { DateFieldRootState } from "../date-field.svelte.js";
 import type { DateFieldRootProps } from "../types.js";
-import { noop } from "$lib/internal/noop.js";
-import { getDefaultDate } from "$lib/internal/date-time/utils.js";
-import { resolveLocaleProp } from "$lib/bits/utilities/config/prop-resolvers.js";
 
 let {
 	disabled = false,
@@ -57,7 +57,7 @@ watch.pre(
 	() => placeholder,
 	() => {
 		handleDefaultPlaceholder();
-	},
+	}
 );
 
 DateFieldRootState.create({
@@ -66,7 +66,7 @@ DateFieldRootState.create({
 		(v) => {
 			value = v;
 			onValueChange(v);
-		},
+		}
 	),
 	placeholder: boxWith(
 		() => {
@@ -77,7 +77,7 @@ DateFieldRootState.create({
 			if (v === undefined) return;
 			placeholder = v;
 			onPlaceholderChange(v);
-		},
+		}
 	),
 	disabled: boxWith(() => disabled),
 	granularity: boxWith(() => granularity),

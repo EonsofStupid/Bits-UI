@@ -1,35 +1,27 @@
+import { Context, watch } from "runed";
+import { onMount } from "svelte";
+import type { FocusEventHandler, KeyboardEventHandler, PointerEventHandler } from "svelte/elements";
 import {
-	type ReadableBox,
 	afterTick,
-	boxWith,
 	attachRef,
+	boxWith,
+	type ReadableBox,
 	type ReadableBoxedValues,
 	type WritableBoxedValues,
 } from "svelte-toolbelt";
-import { Context, watch } from "runed";
-import type { InteractOutsideBehaviorType } from "../utilities/dismissible-layer/types.js";
-import type { Direction } from "$lib/shared/index.js";
+import { wrapArray } from "$lib/internal/arrays.js";
 import {
-	createBitsAttrs,
-	boolToStr,
 	boolToEmptyStrOrUndef,
+	boolToStr,
+	createBitsAttrs,
 	getDataOpenClosed,
 } from "$lib/internal/attrs.js";
 import { kbd } from "$lib/internal/kbd.js";
-import { wrapArray } from "$lib/internal/arrays.js";
-import type {
-	OnChangeFn,
-	RefAttachment,
-	WithRefOpts,
-} from "$lib/internal/types.js";
-import { onMount } from "svelte";
-import type {
-	FocusEventHandler,
-	KeyboardEventHandler,
-	PointerEventHandler,
-} from "svelte/elements";
-import { getFloatingContentCSSVars } from "../../internal/floating-svelte/floating-utils.svelte.js";
 import { RovingFocusGroup } from "$lib/internal/roving-focus-group.js";
+import type { OnChangeFn, RefAttachment, WithRefOpts } from "$lib/internal/types.js";
+import type { Direction } from "$lib/shared/index.js";
+import { getFloatingContentCSSVars } from "../../internal/floating-svelte/floating-utils.svelte.js";
+import type { InteractOutsideBehaviorType } from "../utilities/dismissible-layer/types.js";
 
 const menubarAttrs = createBitsAttrs({
 	component: "menubar",
@@ -87,10 +79,7 @@ export class MenubarRootState {
 	 * @param contentId - the content id to associate with the value
 	 * @returns - a function to de-register the menu
 	 */
-	registerMenu = (
-		value: string,
-		onOpenChange: ReadableBox<OnChangeFn<boolean>>,
-	) => {
+	registerMenu = (value: string, onOpenChange: ReadableBox<OnChangeFn<boolean>>) => {
 		this.valueToChangeHandler.set(value, onOpenChange);
 
 		return () => {
@@ -115,9 +104,7 @@ export class MenubarRootState {
 		const node = this.opts.ref.current;
 		if (!node) return [];
 		return Array.from(
-			node.querySelectorAll<HTMLButtonElement>(
-				menubarAttrs.selector("trigger"),
-			),
+			node.querySelectorAll<HTMLButtonElement>(menubarAttrs.selector("trigger"))
 		);
 	};
 
@@ -141,7 +128,7 @@ export class MenubarRootState {
 				role: "menubar",
 				[menubarAttrs.root]: "",
 				...this.attachment,
-			}) as const,
+			}) as const
 	);
 }
 
@@ -153,16 +140,12 @@ interface MenubarMenuStateOpts
 
 export class MenubarMenuState {
 	static create(opts: MenubarMenuStateOpts) {
-		return MenubarMenuContext.set(
-			new MenubarMenuState(opts, MenubarRootContext.get()),
-		);
+		return MenubarMenuContext.set(new MenubarMenuState(opts, MenubarRootContext.get()));
 	}
 
 	readonly opts: MenubarMenuStateOpts;
 	readonly root: MenubarRootState;
-	open = $derived.by(
-		() => this.root.opts.value.current === this.opts.value.current,
-	);
+	open = $derived.by(() => this.root.opts.value.current === this.opts.value.current);
 	wasOpenedByKeyboard = false;
 	triggerNode = $state<HTMLElement | null>(null);
 	triggerId = $derived.by(() => this.triggerNode?.id);
@@ -179,7 +162,7 @@ export class MenubarMenuState {
 				if (!this.open) {
 					this.wasOpenedByKeyboard = false;
 				}
-			},
+			}
 		);
 
 		onMount(() => {
@@ -222,10 +205,7 @@ export class MenubarTriggerState {
 		this.opts = opts;
 		this.menu = menu;
 		this.root = menu.root;
-		this.attachment = attachRef(
-			this.opts.ref,
-			(v) => (this.menu.triggerNode = v),
-		);
+		this.attachment = attachRef(this.opts.ref, (v) => (this.menu.triggerNode = v));
 
 		onMount(() => {
 			return this.root.registerTrigger(opts.id.current);
@@ -233,9 +213,7 @@ export class MenubarTriggerState {
 
 		$effect(() => {
 			if (this.root.triggerIds.length) {
-				this.#tabIndex = this.root.rovingFocusGroup.getTabIndex(
-					this.menu.getTriggerNode(),
-				);
+				this.#tabIndex = this.root.rovingFocusGroup.getTabIndex(this.menu.getTriggerNode());
 			}
 		});
 	}
@@ -271,11 +249,7 @@ export class MenubarTriggerState {
 		}
 		// prevent keydown from scrolling window / first focused item
 		// from inadvertently closing the menu
-		if (
-			e.key === kbd.ENTER ||
-			e.key === kbd.SPACE ||
-			e.key === kbd.ARROW_DOWN
-		) {
+		if (e.key === kbd.ENTER || e.key === kbd.SPACE || e.key === kbd.ARROW_DOWN) {
 			this.menu.wasOpenedByKeyboard = true;
 			e.preventDefault();
 		}
@@ -313,7 +287,7 @@ export class MenubarTriggerState {
 				onfocus: this.onfocus,
 				onblur: this.onblur,
 				...this.attachment,
-			}) as const,
+			}) as const
 	);
 }
 
@@ -341,10 +315,7 @@ export class MenubarContentState {
 		this.opts = opts;
 		this.menu = menu;
 		this.root = menu.root;
-		this.attachment = attachRef(
-			this.opts.ref,
-			(v) => (this.menu.contentNode = v),
-		);
+		this.attachment = attachRef(this.opts.ref, (v) => (this.menu.contentNode = v));
 	}
 
 	onCloseAutoFocus = (e: Event) => {
@@ -376,11 +347,9 @@ export class MenubarContentState {
 
 		const target = e.target as HTMLElement;
 		const targetIsSubTrigger = target.hasAttribute("data-menu-sub-trigger");
-		const isKeydownInsideSubMenu =
-			target.closest("[data-menu-content]") !== e.currentTarget;
+		const isKeydownInsideSubMenu = target.closest("[data-menu-content]") !== e.currentTarget;
 
-		const prevMenuKey =
-			this.root.opts.dir.current === "rtl" ? kbd.ARROW_RIGHT : kbd.ARROW_LEFT;
+		const prevMenuKey = this.root.opts.dir.current === "rtl" ? kbd.ARROW_RIGHT : kbd.ARROW_LEFT;
 		const isPrevKey = prevMenuKey === e.key;
 		const isNextKey = !isPrevKey;
 
@@ -389,9 +358,7 @@ export class MenubarContentState {
 		// or if we're inside a submenu and moving back to close it
 		if (isKeydownInsideSubMenu && isPrevKey) return;
 
-		const items = this.root
-			.getTriggers()
-			.filter((trigger) => !trigger.disabled);
+		const items = this.root.getTriggers().filter((trigger) => !trigger.disabled);
 		let candidates = items.map((item) => ({
 			value: item.getAttribute("data-menu-value")!,
 			triggerId: item.id ?? "",
@@ -405,8 +372,7 @@ export class MenubarContentState {
 			? wrapArray(candidates, currentIndex + 1)
 			: candidates.slice(currentIndex + 1);
 		const [nextValue] = candidates;
-		if (nextValue)
-			this.menu.root.onMenuOpen(nextValue.value, nextValue.triggerId);
+		if (nextValue) this.menu.root.onMenuOpen(nextValue.value, nextValue.triggerId);
 	};
 
 	props = $derived.by(
@@ -419,7 +385,7 @@ export class MenubarContentState {
 				"data-menu-content": "",
 				[menubarAttrs.content]: "",
 				...this.attachment,
-			}) as const,
+			}) as const
 	);
 
 	popperProps = {

@@ -1,15 +1,12 @@
 <script lang="ts" module>
-import { ContextMenu } from "bits-ui";
+import type { ContextMenu } from "bits-ui";
 export type ContextMenuForceMountTestProps = ContextMenu.RootProps & {
 	checked?: boolean;
 	subChecked?: boolean;
 	radio?: string;
 	subRadio?: string;
 	open?: boolean;
-	contentProps?: Omit<
-		ContextMenu.ContentProps,
-		"asChild" | "children" | "child"
-	>;
+	contentProps?: Omit<ContextMenu.ContentProps, "asChild" | "children" | "child">;
 	portalProps?: Omit<ContextMenu.PortalProps, "asChild" | "children" | "child">;
 	withOpenCheck?: boolean;
 };

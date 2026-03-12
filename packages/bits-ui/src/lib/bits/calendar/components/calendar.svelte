@@ -1,13 +1,13 @@
 <script lang="ts">
+import type { DateValue } from "@internationalized/date";
 import { watch } from "runed";
 import { boxWith, mergeProps } from "svelte-toolbelt";
-import { type DateValue } from "@internationalized/date";
+import { resolveLocaleProp } from "$lib/bits/utilities/config/prop-resolvers.js";
+import { getDefaultDate } from "$lib/internal/date-time/utils.js";
+import { noop } from "$lib/internal/noop.js";
+import { useId } from "$lib/internal/use-id.js";
 import { CalendarRootState } from "../calendar.svelte.js";
 import type { CalendarRootProps } from "../types.js";
-import { useId } from "$lib/internal/use-id.js";
-import { noop } from "$lib/internal/noop.js";
-import { getDefaultDate } from "$lib/internal/date-time/utils.js";
-import { resolveLocaleProp } from "$lib/bits/utilities/config/prop-resolvers.js";
 
 let {
 	child,
@@ -59,7 +59,7 @@ watch.pre(
 	() => placeholder,
 	() => {
 		handleDefaultPlaceholder();
-	},
+	}
 );
 
 function handleDefaultValue() {
@@ -74,14 +74,14 @@ watch.pre(
 	() => value,
 	() => {
 		handleDefaultValue();
-	},
+	}
 );
 
 const rootState = CalendarRootState.create({
 	id: boxWith(() => id),
 	ref: boxWith(
 		() => ref,
-		(v) => (ref = v),
+		(v) => (ref = v)
 	),
 	weekdayFormat: boxWith(() => weekdayFormat),
 	weekStartsOn: boxWith(() => weekStartsOn),
@@ -104,7 +104,7 @@ const rootState = CalendarRootState.create({
 		(v) => {
 			placeholder = v;
 			onPlaceholderChange(v as DateValue);
-		},
+		}
 	),
 	preventDeselect: boxWith(() => preventDeselect),
 	value: boxWith(
@@ -113,7 +113,7 @@ const rootState = CalendarRootState.create({
 			value = v;
 			// oxlint-disable-next-line no-explicit-any
 			onValueChange(v as any);
-		},
+		}
 	),
 	type: boxWith(() => type),
 	monthFormat: boxWith(() => monthFormat),

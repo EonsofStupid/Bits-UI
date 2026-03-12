@@ -2,6 +2,7 @@
 import { RatingGroup } from "bits-ui";
 import Star from "phosphor-svelte/lib/Star";
 import StarHalf from "phosphor-svelte/lib/StarHalf";
+
 let value = $state(3);
 </script>
 

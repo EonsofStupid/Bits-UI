@@ -1,4 +1,10 @@
 import type { DateValue } from "@internationalized/date";
+import type { OnChangeFn, WithChild, Without } from "$lib/internal/types.js";
+import type {
+	BitsPrimitiveDivAttributes,
+	BitsPrimitiveSpanAttributes,
+} from "$lib/shared/attributes.js";
+import type { Granularity } from "$lib/shared/date/types.js";
 import type {
 	DateOnInvalid,
 	DateValidator,
@@ -6,12 +12,6 @@ import type {
 	SegmentPart,
 	WithChildren,
 } from "$lib/shared/index.js";
-import type { OnChangeFn, WithChild, Without } from "$lib/internal/types.js";
-import type {
-	BitsPrimitiveDivAttributes,
-	BitsPrimitiveSpanAttributes,
-} from "$lib/shared/attributes.js";
-import type { Granularity } from "$lib/shared/date/types.js";
 
 export type DateFieldRootPropsWithoutHTML = WithChildren<{
 	/**

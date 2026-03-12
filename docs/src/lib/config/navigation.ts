@@ -1,15 +1,15 @@
-import type { Component } from "svelte";
 import CalendarBlank from "phosphor-svelte/lib/CalendarBlank";
 import CirclesThreePlus from "phosphor-svelte/lib/CirclesThreePlus";
 import CodeBlock from "phosphor-svelte/lib/CodeBlock";
 import Compass from "phosphor-svelte/lib/Compass";
+import FigmaLogo from "phosphor-svelte/lib/FigmaLogo";
 import Link from "phosphor-svelte/lib/Link";
 import Palette from "phosphor-svelte/lib/Palette";
 import Resize from "phosphor-svelte/lib/Resize";
-import Sticker from "phosphor-svelte/lib/Sticker";
-import FigmaLogo from "phosphor-svelte/lib/FigmaLogo";
-import Swap from "phosphor-svelte/lib/Swap";
 import Robot from "phosphor-svelte/lib/Robot";
+import Sticker from "phosphor-svelte/lib/Sticker";
+import Swap from "phosphor-svelte/lib/Swap";
+import type { Component } from "svelte";
 import { componentDocs, typeHelperDocs, utilityDocs } from "$content/index.js";
 
 export type NavItem = {

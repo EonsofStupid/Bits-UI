@@ -1,7 +1,4 @@
-import type {
-	HTMLAnchorAttributes,
-	HTMLButtonAttributes,
-} from "svelte/elements";
+import type { HTMLAnchorAttributes, HTMLButtonAttributes } from "svelte/elements";
 import type { WithoutChildren } from "svelte-toolbelt";
 import type { WithChildren } from "$lib/shared/index.js";
 

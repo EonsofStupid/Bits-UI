@@ -1,11 +1,11 @@
 <script lang="ts">
-import { type WritableBox, boxWith } from "svelte-toolbelt";
-import type { ComboboxRootProps } from "../types.js";
-import { noop } from "$lib/internal/noop.js";
-import FloatingLayer from "$lib/bits/utilities/floating-layer/components/floating-layer.svelte";
-import { SelectRootState } from "$lib/bits/select/select.svelte.js";
-import ListboxHiddenInput from "$lib/bits/select/components/select-hidden-input.svelte";
 import { watch } from "runed";
+import { boxWith, type WritableBox } from "svelte-toolbelt";
+import ListboxHiddenInput from "$lib/bits/select/components/select-hidden-input.svelte";
+import { SelectRootState } from "$lib/bits/select/select.svelte.js";
+import FloatingLayer from "$lib/bits/utilities/floating-layer/components/floating-layer.svelte";
+import { noop } from "$lib/internal/noop.js";
+import type { ComboboxRootProps } from "../types.js";
 
 let {
 	value = $bindable(),
@@ -35,7 +35,7 @@ watch.pre(
 	() => {
 		if (value !== undefined) return;
 		value = type === "single" ? "" : [];
-	},
+	}
 );
 
 const rootState = SelectRootState.create({
@@ -46,7 +46,7 @@ const rootState = SelectRootState.create({
 			value = v;
 			// @ts-expect-error - we know
 			onValueChange(v);
-		},
+		}
 	) as WritableBox<string> | WritableBox<string[]>,
 	disabled: boxWith(() => disabled),
 	required: boxWith(() => required),
@@ -55,7 +55,7 @@ const rootState = SelectRootState.create({
 		(v) => {
 			open = v;
 			onOpenChange(v);
-		},
+		}
 	),
 	loop: boxWith(() => loop),
 	scrollAlignment: boxWith(() => scrollAlignment),
@@ -65,7 +65,7 @@ const rootState = SelectRootState.create({
 	allowDeselect: boxWith(() => allowDeselect),
 	inputValue: boxWith(
 		() => inputValue,
-		(v) => (inputValue = v),
+		(v) => (inputValue = v)
 	),
 	onOpenChangeComplete: boxWith(() => onOpenChangeComplete),
 });

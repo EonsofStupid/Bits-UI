@@ -1,15 +1,15 @@
+import { Context, watch } from "runed";
+import type { HTMLImgAttributes } from "svelte/elements";
 import {
+	attachRef,
 	DOMContext,
 	type ReadableBox,
-	type WritableBox,
-	attachRef,
 	type ReadableBoxedValues,
+	type WritableBox,
 } from "svelte-toolbelt";
-import type { HTMLImgAttributes } from "svelte/elements";
-import { Context, watch } from "runed";
-import type { AvatarImageLoadingStatus } from "./types.js";
-import type { RefAttachment, WithRefOpts } from "$lib/internal/types.js";
 import { createBitsAttrs } from "$lib/internal/attrs.js";
+import type { RefAttachment, WithRefOpts } from "$lib/internal/types.js";
+import type { AvatarImageLoadingStatus } from "./types.js";
 
 const avatarAttrs = createBitsAttrs({
 	component: "avatar",
@@ -43,11 +43,7 @@ export class AvatarRootState {
 		this.attachment = attachRef(this.opts.ref);
 	}
 
-	loadImage(
-		src: string,
-		crossorigin?: CrossOrigin,
-		referrerPolicy?: ReferrerPolicy,
-	) {
+	loadImage(src: string, crossorigin?: CrossOrigin, referrerPolicy?: ReferrerPolicy) {
 		if (this.opts.loadingStatus.current === "loaded") return;
 		let imageTimerId: number;
 		const image = new Image();
@@ -78,7 +74,7 @@ export class AvatarRootState {
 				[avatarAttrs.root]: "",
 				"data-status": this.opts.loadingStatus.current,
 				...this.attachment,
-			}) as const,
+			}) as const
 	);
 }
 
@@ -111,7 +107,7 @@ export class AvatarImageState {
 					return;
 				}
 				this.root.loadImage(src, crossOrigin, this.opts.referrerPolicy.current);
-			},
+			}
 		);
 	}
 
@@ -120,10 +116,7 @@ export class AvatarImageState {
 			({
 				id: this.opts.id.current,
 				style: {
-					display:
-						this.root.opts.loadingStatus.current === "loaded"
-							? "block"
-							: "none",
+					display: this.root.opts.loadingStatus.current === "loaded" ? "block" : "none",
 				},
 				"data-status": this.root.opts.loadingStatus.current,
 				[avatarAttrs.image]: "",
@@ -131,7 +124,7 @@ export class AvatarImageState {
 				crossorigin: this.opts.crossOrigin.current,
 				referrerpolicy: this.opts.referrerPolicy.current,
 				...this.attachment,
-			}) as const,
+			}) as const
 	);
 }
 
@@ -152,9 +145,7 @@ export class AvatarFallbackState {
 	}
 
 	readonly style = $derived.by(() =>
-		this.root.opts.loadingStatus.current === "loaded"
-			? { display: "none" }
-			: undefined,
+		this.root.opts.loadingStatus.current === "loaded" ? { display: "none" } : undefined
 	);
 
 	readonly props = $derived.by(
@@ -164,6 +155,6 @@ export class AvatarFallbackState {
 				"data-status": this.root.opts.loadingStatus.current,
 				[avatarAttrs.fallback]: "",
 				...this.attachment,
-			}) as const,
+			}) as const
 	);
 }

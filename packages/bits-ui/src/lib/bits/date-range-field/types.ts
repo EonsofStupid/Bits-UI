@@ -4,6 +4,7 @@ import type {
 	BitsPrimitiveDivAttributes,
 	BitsPrimitiveSpanAttributes,
 } from "$lib/shared/attributes.js";
+import type { Granularity } from "$lib/shared/date/types.js";
 import type {
 	DateOnInvalid,
 	DateRange,
@@ -11,11 +12,7 @@ import type {
 	EditableSegmentPart,
 	SegmentPart,
 } from "$lib/shared/index.js";
-import type {
-	DateFieldSegmentProps,
-	DateFieldSegmentPropsWithoutHTML,
-} from "$lib/types.js";
-import type { Granularity } from "$lib/shared/date/types.js";
+import type { DateFieldSegmentProps, DateFieldSegmentPropsWithoutHTML } from "$lib/types.js";
 
 export type DateRangeFieldRootPropsWithoutHTML = WithChild<{
 	/**
@@ -192,7 +189,6 @@ export type DateRangeFieldInputPropsWithoutHTML = WithChild<
 export type DateRangeFieldInputProps = DateRangeFieldInputPropsWithoutHTML &
 	Without<BitsPrimitiveDivAttributes, DateRangeFieldInputPropsWithoutHTML>;
 
-export type DateRangeFieldSegmentPropsWithoutHTML =
-	DateFieldSegmentPropsWithoutHTML;
+export type DateRangeFieldSegmentPropsWithoutHTML = DateFieldSegmentPropsWithoutHTML;
 
 export type DateRangeFieldSegmentProps = DateFieldSegmentProps;

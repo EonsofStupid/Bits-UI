@@ -1,63 +1,32 @@
-import type { Updater } from "svelte/store";
 import type { DateValue } from "@internationalized/date";
-import {
-	type WritableBox,
-	boxWith,
-	onDestroyEffect,
-	attachRef,
-	DOMContext,
-	type ReadableBoxedValues,
-	type WritableBoxedValues,
-	simpleBox,
-} from "svelte-toolbelt";
-import { onMount, untrack } from "svelte";
 import { Context, watch } from "runed";
-import type { DateRangeFieldRootState } from "../date-range-field/date-range-field.svelte.js";
-import type {
-	BitsFocusEvent,
-	BitsKeyboardEvent,
-	BitsMouseEvent,
-	WithRefOpts,
-	RefAttachment,
-} from "$lib/internal/types.js";
+import { onMount, untrack } from "svelte";
+import type { Updater } from "svelte/store";
 import {
-	createBitsAttrs,
+	attachRef,
+	boxWith,
+	DOMContext,
+	onDestroyEffect,
+	type ReadableBoxedValues,
+	simpleBox,
+	type WritableBox,
+	type WritableBoxedValues,
+} from "svelte-toolbelt";
+import {
+	boolToEmptyStrOrUndef,
 	boolToStr,
 	boolToStrTrueOrUndef,
-	boolToEmptyStrOrUndef,
+	createBitsAttrs,
 } from "$lib/internal/attrs.js";
-import { isBrowser, isNumberString } from "$lib/internal/is.js";
-import { kbd } from "$lib/internal/kbd.js";
-import { useId } from "$lib/internal/use-id.js";
-import type {
-	DateAndTimeSegmentObj,
-	DateOnInvalid,
-	DateSegmentObj,
-	DateSegmentPart,
-	DateValidator,
-	Granularity,
-	HourCycle,
-	SegmentPart,
-	SegmentValueObj,
-	TimeSegmentObj,
-	EditableTimeSegmentPart,
-} from "$lib/shared/date/types.js";
-import {
-	type Formatter,
-	createFormatter,
-} from "$lib/internal/date-time/formatter.js";
-import {
-	type Announcer,
-	getAnnouncer,
-} from "$lib/internal/date-time/announcer.js";
+import { type Announcer, getAnnouncer } from "$lib/internal/date-time/announcer.js";
 import {
 	areAllSegmentsFilled,
 	createContent,
 	getDefaultHourCycle,
 	getValueFromSegments,
 	inferGranularity,
-	initSegmentStates,
 	initializeSegmentValues,
+	initSegmentStates,
 	isAcceptableSegmentKey,
 	isDateAndTimeSegmentObj,
 	isDateSegmentPart,
@@ -70,17 +39,38 @@ import {
 	EDITABLE_TIME_SEGMENT_PARTS,
 } from "$lib/internal/date-time/field/parts.js";
 import {
-	getDaysInMonth,
-	isBefore,
-	toDate,
-} from "$lib/internal/date-time/utils.js";
-import {
 	getFirstSegment,
 	handleSegmentNavigation,
 	isSegmentNavigationKey,
 	moveToNextSegment,
 	moveToPrevSegment,
 } from "$lib/internal/date-time/field/segments.js";
+import { createFormatter, type Formatter } from "$lib/internal/date-time/formatter.js";
+import { getDaysInMonth, isBefore, toDate } from "$lib/internal/date-time/utils.js";
+import { isBrowser, isNumberString } from "$lib/internal/is.js";
+import { kbd } from "$lib/internal/kbd.js";
+import type {
+	BitsFocusEvent,
+	BitsKeyboardEvent,
+	BitsMouseEvent,
+	RefAttachment,
+	WithRefOpts,
+} from "$lib/internal/types.js";
+import { useId } from "$lib/internal/use-id.js";
+import type {
+	DateAndTimeSegmentObj,
+	DateOnInvalid,
+	DateSegmentObj,
+	DateSegmentPart,
+	DateValidator,
+	EditableTimeSegmentPart,
+	Granularity,
+	HourCycle,
+	SegmentPart,
+	SegmentValueObj,
+	TimeSegmentObj,
+} from "$lib/shared/date/types.js";
+import type { DateRangeFieldRootState } from "../date-range-field/date-range-field.svelte.js";
 
 export const dateFieldAttrs = createBitsAttrs({
 	component: "date-field",
@@ -94,10 +84,7 @@ interface SegmentConfig {
 	cycle: number;
 	canBeZero?: boolean;
 	padZero?: boolean;
-	getAnnouncement?: (
-		value: number,
-		root: DateFieldRootState,
-	) => string | number;
+	getAnnouncement?: (value: number, root: DateFieldRootState) => string | number;
 	updateLogic?: (props: {
 		root: DateFieldRootState;
 		prev: string | null;
@@ -116,9 +103,7 @@ const SEGMENT_CONFIGS: Record<
 			const segmentMonthValue = root.segmentValues.month;
 			const placeholder = root.value.current ?? root.placeholder.current;
 			return segmentMonthValue
-				? getDaysInMonth(
-						placeholder.set({ month: Number.parseInt(segmentMonthValue) }),
-					)
+				? getDaysInMonth(placeholder.set({ month: Number.parseInt(segmentMonthValue) }))
 				: getDaysInMonth(placeholder);
 		},
 		cycle: 1,
@@ -194,10 +179,7 @@ interface DateFieldRootStateOpts
 		}> {}
 
 export class DateFieldRootState {
-	static create(
-		opts: DateFieldRootStateOpts,
-		rangeRoot?: DateRangeFieldRootState,
-	) {
+	static create(opts: DateFieldRootStateOpts, rangeRoot?: DateRangeFieldRootState) {
 		return DateFieldRootContext.set(new DateFieldRootState(opts, rangeRoot));
 	}
 
@@ -222,9 +204,7 @@ export class DateFieldRootState {
 	initialSegments: SegmentValueObj;
 	segmentValues = $state() as SegmentValueObj;
 	announcer: Announcer;
-	readonly readonlySegmentsSet = $derived.by(
-		() => new Set(this.readonlySegments.current),
-	);
+	readonly readonlySegmentsSet = $derived.by(() => new Set(this.readonlySegments.current));
 	segmentStates = initSegmentStates();
 	#fieldNode = $state<HTMLElement | null>(null);
 	#labelNode = $state<HTMLElement | null>(null);
@@ -236,10 +216,7 @@ export class DateFieldRootState {
 	name = $state("");
 	domContext: DOMContext = new DOMContext(() => null);
 
-	constructor(
-		props: DateFieldRootStateOpts,
-		rangeRoot?: DateRangeFieldRootState,
-	) {
+	constructor(props: DateFieldRootStateOpts, rangeRoot?: DateRangeFieldRootState) {
 		this.rangeRoot = rangeRoot;
 		/**
 		 * Since the `DateFieldRootState` can be used in two contexts, as a standalone
@@ -247,30 +224,22 @@ export class DateFieldRootState {
 		 * the props based on that context.
 		 */
 		this.value = props.value;
-		this.placeholder = rangeRoot
-			? rangeRoot.opts.placeholder
-			: props.placeholder;
+		this.placeholder = rangeRoot ? rangeRoot.opts.placeholder : props.placeholder;
 		this.validate = rangeRoot ? simpleBox(undefined) : props.validate;
 		this.minValue = rangeRoot ? rangeRoot.opts.minValue : props.minValue;
 		this.maxValue = rangeRoot ? rangeRoot.opts.maxValue : props.maxValue;
 		this.disabled = rangeRoot ? rangeRoot.opts.disabled : props.disabled;
 		this.readonly = rangeRoot ? rangeRoot.opts.readonly : props.readonly;
-		this.granularity = rangeRoot
-			? rangeRoot.opts.granularity
-			: props.granularity;
+		this.granularity = rangeRoot ? rangeRoot.opts.granularity : props.granularity;
 		this.readonlySegments = rangeRoot
 			? rangeRoot.opts.readonlySegments
 			: props.readonlySegments;
 		this.hourCycle = rangeRoot ? rangeRoot.opts.hourCycle : props.hourCycle;
 		this.locale = rangeRoot ? rangeRoot.opts.locale : props.locale;
-		this.hideTimeZone = rangeRoot
-			? rangeRoot.opts.hideTimeZone
-			: props.hideTimeZone;
+		this.hideTimeZone = rangeRoot ? rangeRoot.opts.hideTimeZone : props.hideTimeZone;
 		this.required = rangeRoot ? rangeRoot.opts.required : props.required;
 		this.onInvalid = rangeRoot ? rangeRoot.opts.onInvalid : props.onInvalid;
-		this.errorMessageId = rangeRoot
-			? rangeRoot.opts.errorMessageId
-			: props.errorMessageId;
+		this.errorMessageId = rangeRoot ? rangeRoot.opts.errorMessageId : props.errorMessageId;
 		this.isInvalidProp = props.isInvalidProp;
 		this.formatter = createFormatter({
 			initialLocale: this.locale.current,
@@ -287,9 +256,7 @@ export class DateFieldRootState {
 
 		$effect(() => {
 			untrack(() => {
-				this.initialSegments = initializeSegmentValues(
-					this.inferredGranularity,
-				);
+				this.initialSegments = initializeSegmentValues(this.inferredGranularity);
 			});
 		});
 
@@ -299,10 +266,7 @@ export class DateFieldRootState {
 
 		onDestroyEffect(() => {
 			if (rangeRoot) return;
-			removeDescriptionElement(
-				this.descriptionId,
-				this.domContext.getDocument(),
-			);
+			removeDescriptionElement(this.descriptionId, this.domContext.getDocument());
 		});
 
 		$effect(() => {
@@ -357,10 +321,10 @@ export class DateFieldRootState {
 				if (this.validationStatus !== false) {
 					this.onInvalid.current?.(
 						this.validationStatus.reason,
-						this.validationStatus.message,
+						this.validationStatus.message
 					);
 				}
-			},
+			}
 		);
 	}
 
@@ -555,17 +519,12 @@ export class DateFieldRootState {
 	readonly inferredGranularity = $derived.by(() => {
 		const granularity = this.granularity.current;
 		if (granularity) return granularity;
-		const inferred = inferGranularity(
-			this.placeholder.current,
-			this.granularity.current,
-		);
+		const inferred = inferGranularity(this.placeholder.current, this.granularity.current);
 		return inferred;
 	});
 
 	readonly dateRef = $derived.by(() =>
-		this.value.current !== undefined
-			? this.value.current
-			: this.placeholder.current,
+		this.value.current !== undefined ? this.value.current : this.placeholder.current
 	);
 
 	readonly allSegmentContent = $derived.by(() => {
@@ -605,7 +564,7 @@ export class DateFieldRootState {
 			? Updater<DateSegmentObj[T]>
 			: T extends EditableTimeSegmentPart
 				? Updater<TimeSegmentObj[T]>
-				: Updater<DateAndTimeSegmentObj[T]>,
+				: Updater<DateAndTimeSegmentObj[T]>
 	) {
 		const disabled = this.disabled.current;
 		const readonly = this.readonly.current;
@@ -655,7 +614,7 @@ export class DateFieldRootState {
 				if (next !== null && prev.dayPeriod !== null) {
 					const dayPeriod = this.formatter.dayPeriod(
 						toDate(dateRef.set({ hour: Number.parseInt(next) })),
-						this.hourCycle.current,
+						this.hourCycle.current
 					);
 					if (dayPeriod === "AM" || dayPeriod === "PM") {
 						prev.dayPeriod = dayPeriod;
@@ -713,7 +672,7 @@ export class DateFieldRootState {
 					segmentObj: newSegmentValues,
 					fieldNode: this.#fieldNode,
 					dateRef: this.placeholder.current,
-				}),
+				})
 			);
 		} else {
 			this.setValue(undefined);
@@ -735,9 +694,7 @@ export class DateFieldRootState {
 			"aria-readonly": boolToStr(this.readonly.current || inReadonlySegments),
 			"data-invalid": boolToEmptyStrOrUndef(this.isInvalid),
 			"data-disabled": boolToEmptyStrOrUndef(this.disabled.current),
-			"data-readonly": boolToEmptyStrOrUndef(
-				this.readonly.current || inReadonlySegments,
-			),
+			"data-readonly": boolToEmptyStrOrUndef(this.readonly.current || inReadonlySegments),
 			"data-segment": `${part}`,
 			[dateFieldAttrs.segment]: "",
 		};
@@ -745,8 +702,7 @@ export class DateFieldRootState {
 		if (part === "literal") return defaultAttrs;
 
 		const descriptionId = this.descriptionNode?.id;
-		const hasDescription =
-			isFirstSegment(segmentId, this.#fieldNode) && descriptionId;
+		const hasDescription = isFirstSegment(segmentId, this.#fieldNode) && descriptionId;
 		const errorMsgId = this.errorMessageId?.current;
 
 		const describedBy = hasDescription
@@ -796,15 +752,13 @@ export class DateFieldInputState {
 			() => this.opts.name.current,
 			(v) => {
 				this.root.setName(v);
-			},
+			}
 		);
 	}
 
 	readonly #ariaDescribedBy = $derived.by(() => {
 		if (!isBrowser) return undefined;
-		const doesDescriptionExist = this.domContext.getElementById(
-			this.root.descriptionId,
-		);
+		const doesDescriptionExist = this.domContext.getElementById(this.root.descriptionId);
 		if (!doesDescriptionExist) return undefined;
 		return this.root.descriptionId;
 	});
@@ -821,7 +775,7 @@ export class DateFieldInputState {
 				"data-disabled": boolToEmptyStrOrUndef(this.root.disabled.current),
 				[dateFieldAttrs.input]: "",
 				...this.attachment,
-			}) as const,
+			}) as const
 	);
 }
 export class DateFieldHiddenInputState {
@@ -832,7 +786,7 @@ export class DateFieldHiddenInputState {
 	readonly root: DateFieldRootState;
 	readonly shouldRender = $derived.by(() => this.root.name !== "");
 	readonly isoValue = $derived.by(() =>
-		this.root.value.current ? this.root.value.current.toString() : "",
+		this.root.value.current ? this.root.value.current.toString() : ""
 	);
 
 	constructor(root: DateFieldRootState) {
@@ -882,7 +836,7 @@ export class DateFieldLabelState {
 				[dateFieldAttrs.label]: "",
 				onclick: this.onclick,
 				...this.attachment,
-			}) as const,
+			}) as const
 	);
 }
 
@@ -894,12 +848,7 @@ abstract class BaseNumericSegmentState {
 	readonly part: string;
 	readonly config: SegmentConfig;
 	readonly attachment: RefAttachment;
-	constructor(
-		opts: WithRefOpts,
-		root: DateFieldRootState,
-		part: string,
-		config: SegmentConfig,
-	) {
+	constructor(opts: WithRefOpts, root: DateFieldRootState, part: string, config: SegmentConfig) {
 		this.opts = opts;
 		this.root = root;
 		this.part = part;
@@ -911,15 +860,11 @@ abstract class BaseNumericSegmentState {
 	}
 
 	#getMax(): number {
-		return typeof this.config.max === "function"
-			? this.config.max(this.root)
-			: this.config.max;
+		return typeof this.config.max === "function" ? this.config.max(this.root) : this.config.max;
 	}
 
 	#getMin(): number {
-		return typeof this.config.min === "function"
-			? this.config.min(this.root)
-			: this.config.min;
+		return typeof this.config.min === "function" ? this.config.min(this.root) : this.config.min;
 	}
 
 	#getAnnouncement(value: number): string | number {
@@ -938,15 +883,12 @@ abstract class BaseNumericSegmentState {
 	}
 
 	onkeydown(e: BitsKeyboardEvent) {
-		const placeholder =
-			this.root.value.current ?? this.root.placeholder.current;
+		const placeholder = this.root.value.current ?? this.root.placeholder.current;
 		if (e.ctrlKey || e.metaKey || this.root.disabled.current) return;
 
 		// Special check for time segments
 		if (
-			(this.part === "hour" ||
-				this.part === "minute" ||
-				this.part === "second") &&
+			(this.part === "hour" || this.part === "minute" || this.part === "second") &&
 			!(this.part in placeholder)
 		)
 			return;
@@ -996,9 +938,7 @@ abstract class BaseNumericSegmentState {
 				[this.part]: Number.parseInt(prev),
 			});
 			// @ts-expect-error this is a part
-			const next = current.cycle(this.part, this.config.cycle)[
-				this.part as keyof DateValue
-			];
+			const next = current.cycle(this.part, this.config.cycle)[this.part as keyof DateValue];
 			this.announcer.announce(this.#getAnnouncement(next as number));
 			return this.#formatValue(next as number);
 		});
@@ -1021,9 +961,7 @@ abstract class BaseNumericSegmentState {
 				[this.part]: Number.parseInt(prev),
 			});
 			// @ts-expect-error this is a part
-			const next = current.cycle(this.part, -this.config.cycle)[
-				this.part as keyof DateValue
-			];
+			const next = current.cycle(this.part, -this.config.cycle)[this.part as keyof DateValue];
 			this.announcer.announce(this.#getAnnouncement(next as number));
 			return this.#formatValue(next as number);
 		});
@@ -1040,10 +978,7 @@ abstract class BaseNumericSegmentState {
 		// @ts-expect-error this is a part
 		this.root.updateSegment(this.part, (prev: string | null) => {
 			// Check if user has left focus
-			if (
-				stateKey in this.root.states &&
-				this.root.states[stateKey].hasLeftFocus
-			) {
+			if (stateKey in this.root.states && this.root.states[stateKey].hasLeftFocus) {
 				prev = null;
 				this.root.states[stateKey].hasLeftFocus = false;
 			}
@@ -1078,10 +1013,7 @@ abstract class BaseNumericSegmentState {
 			}
 
 			// Handle special cases for segments with lastKeyZero tracking
-			if (
-				stateKey in this.root.states &&
-				this.root.states[stateKey].lastKeyZero
-			) {
+			if (stateKey in this.root.states && this.root.states[stateKey].lastKeyZero) {
 				if (num !== 0) {
 					moveToNext = true;
 					this.root.states[stateKey].lastKeyZero = false;
@@ -1089,11 +1021,7 @@ abstract class BaseNumericSegmentState {
 				}
 
 				// Special handling for hour segment with 24-hour cycle
-				if (
-					this.part === "hour" &&
-					num === 0 &&
-					this.root.hourCycle.current === 24
-				) {
+				if (this.part === "hour" && num === 0 && this.root.hourCycle.current === 24) {
 					moveToNext = true;
 					this.root.states[stateKey].lastKeyZero = false;
 					return `00`;
@@ -1188,7 +1116,7 @@ abstract class BaseNumericSegmentState {
 		if (segmentValues[this.part as keyof SegmentValueObj]) {
 			date = placeholder.set({
 				[this.part]: Number.parseInt(
-					segmentValues[this.part as keyof SegmentValueObj] as string,
+					segmentValues[this.part as keyof SegmentValueObj] as string
 				),
 			});
 		}
@@ -1199,11 +1127,7 @@ abstract class BaseNumericSegmentState {
 		let valueText = isEmpty ? "Empty" : `${valueNow}`;
 
 		// Special handling for hour segment with dayPeriod
-		if (
-			this.part === "hour" &&
-			"dayPeriod" in segmentValues &&
-			segmentValues.dayPeriod
-		) {
+		if (this.part === "hour" && "dayPeriod" in segmentValues && segmentValues.dayPeriod) {
 			valueText = isEmpty ? "Empty" : `${valueNow} ${segmentValues.dayPeriod}`;
 		}
 
@@ -1224,10 +1148,7 @@ abstract class BaseNumericSegmentState {
 			onkeydown: this.onkeydown,
 			onfocusout: this.onfocusout,
 			onclick: this.root.handleSegmentClick,
-			...this.root.getBaseSegmentAttrs(
-				this.part as SegmentPart,
-				this.opts.id.current,
-			),
+			...this.root.getBaseSegmentAttrs(this.part as SegmentPart, this.opts.id.current),
 			...this.attachment,
 		};
 	});
@@ -1327,10 +1248,7 @@ class DateFieldYearSegmentState extends BaseNumericSegmentState {
 			return mergedIntStr;
 		});
 
-		if (
-			this.#pressedKeys.length === 4 ||
-			this.#pressedKeys.length === this.#backspaceCount
-		) {
+		if (this.#pressedKeys.length === 4 || this.#pressedKeys.length === this.#backspaceCount) {
 			moveToNext = true;
 		}
 
@@ -1454,10 +1372,7 @@ export class DateFieldDayPeriodSegmentState {
 	readonly attachment: RefAttachment;
 	#announcer: Announcer;
 
-	constructor(
-		opts: DateFieldDayPeriodSegmentStateOpts,
-		root: DateFieldRootState,
-	) {
+	constructor(opts: DateFieldDayPeriodSegmentStateOpts, root: DateFieldRootState) {
 		this.opts = opts;
 		this.root = root;
 		this.#announcer = this.root.announcer;
@@ -1544,10 +1459,7 @@ export class DateFieldLiteralSegmentState {
 	readonly root: DateFieldRootState;
 	readonly attachment: RefAttachment;
 
-	constructor(
-		opts: DateFieldLiteralSegmentStateOpts,
-		root: DateFieldRootState,
-	) {
+	constructor(opts: DateFieldLiteralSegmentStateOpts, root: DateFieldRootState) {
 		this.opts = opts;
 		this.root = root;
 		this.attachment = attachRef(opts.ref);
@@ -1560,7 +1472,7 @@ export class DateFieldLiteralSegmentState {
 				"aria-hidden": boolToStrTrueOrUndef(true),
 				...this.root.getBaseSegmentAttrs("literal", this.opts.id.current),
 				...this.attachment,
-			}) as const,
+			}) as const
 	);
 }
 
@@ -1575,10 +1487,7 @@ export class DateFieldTimeZoneSegmentState {
 	readonly root: DateFieldRootState;
 	readonly attachment: RefAttachment;
 
-	constructor(
-		opts: DateFieldTimeZoneSegmentStateOpts,
-		root: DateFieldRootState,
-	) {
+	constructor(opts: DateFieldTimeZoneSegmentStateOpts, root: DateFieldRootState) {
 		this.opts = opts;
 		this.root = root;
 		this.onkeydown = this.onkeydown.bind(this);
@@ -1606,7 +1515,7 @@ export class DateFieldTimeZoneSegmentState {
 				...this.root.getBaseSegmentAttrs("timeZoneName", this.opts.id.current),
 				"data-readonly": boolToEmptyStrOrUndef(true),
 				...this.attachment,
-			}) as const,
+			}) as const
 	);
 }
 

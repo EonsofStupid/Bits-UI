@@ -1,16 +1,16 @@
 import { page, userEvent } from "@vitest/browser/context";
+import { type Component, tick } from "svelte";
 import { describe, expect, it, vi } from "vitest";
 import { render } from "vitest-browser-svelte";
-import { tick, type Component } from "svelte";
+import { expectExists, expectNotExists } from "../browser-utils";
 import { getTestKbd } from "../utils.js";
-import ComboboxTest from "./combobox-test.svelte";
-import type { ComboboxSingleTestProps, Item } from "./combobox-test.svelte";
-import type { ComboboxMultipleTestProps } from "./combobox-multi-test.svelte";
-import ComboboxMultiTest from "./combobox-multi-test.svelte";
 import ComboboxForceMountTest, {
 	type ComboboxForceMountTestProps,
 } from "./combobox-force-mount-test.svelte";
-import { expectExists, expectNotExists } from "../browser-utils";
+import type { ComboboxMultipleTestProps } from "./combobox-multi-test.svelte";
+import ComboboxMultiTest from "./combobox-multi-test.svelte";
+import type { ComboboxSingleTestProps, Item } from "./combobox-test.svelte";
+import ComboboxTest from "./combobox-test.svelte";
 
 const kbd = getTestKbd();
 
@@ -37,7 +37,7 @@ function setupSingle(
 	props: Partial<ComboboxSingleTestProps | ComboboxForceMountTestProps> = {},
 	items: Item[] = testItems,
 	// oxlint-disable-next-line no-explicit-any
-	component: Component<any, any, any> = ComboboxTest,
+	component: Component<any, any, any> = ComboboxTest
 ) {
 	const user = userEvent;
 	const returned = render(component, { name: "test", ...props, items });
@@ -52,9 +52,7 @@ function setupSingle(
 	}
 
 	function getHiddenInput(name = "test") {
-		return returned.container.querySelector(
-			`input[name="${name}"]`,
-		) as HTMLInputElement;
+		return returned.container.querySelector(`input[name="${name}"]`) as HTMLInputElement;
 	}
 
 	return {
@@ -70,10 +68,7 @@ function setupSingle(
 	};
 }
 
-function setupMultiple(
-	props: Partial<ComboboxMultipleTestProps> = {},
-	items: Item[] = testItems,
-) {
+function setupMultiple(props: Partial<ComboboxMultipleTestProps> = {}, items: Item[] = testItems) {
 	const user = userEvent;
 	const returned = render(ComboboxMultiTest, { name: "test", ...props, items });
 	const input = page.getByTestId("input");
@@ -85,7 +80,7 @@ function setupMultiple(
 
 	function getHiddenInputs(name = "test") {
 		return Array.from(
-			returned.container.querySelectorAll<HTMLElement>(`input[name="${name}"]`),
+			returned.container.querySelectorAll<HTMLElement>(`input[name="${name}"]`)
 		);
 	}
 
@@ -110,7 +105,7 @@ function setupMultiple(
 async function openSingle(
 	props: Partial<ComboboxSingleTestProps> = {},
 	openWith: "click" | "type" | (string & {}) = "click",
-	searchValue?: string,
+	searchValue?: string
 ) {
 	const returned = setupSingle(props);
 
@@ -139,7 +134,7 @@ async function openSingle(
 async function openMultiple(
 	props: Partial<ComboboxMultipleTestProps> = {},
 	openWith: "click" | "type" | (string & {}) = "click",
-	searchValue?: string,
+	searchValue?: string
 ) {
 	const returned = setupMultiple(props);
 	await expectNotExists(page.getByTestId("content"));
@@ -185,12 +180,8 @@ describe("combobox - single", () => {
 		await expect.element(page.getByTestId("content")).toBeVisible();
 		await userEvent.keyboard(kbd.ARROW_DOWN);
 
-		await expect
-			.element(page.getByTestId("2"))
-			.toHaveAttribute("data-highlighted");
-		await expect
-			.element(page.getByTestId("1"))
-			.not.toHaveAttribute("data-highlighted");
+		await expect.element(page.getByTestId("2")).toHaveAttribute("data-highlighted");
+		await expect.element(page.getByTestId("1")).not.toHaveAttribute("data-highlighted");
 		await userEvent.keyboard(kbd.ENTER);
 		await expect.element(page.getByTestId("input")).toHaveValue("B");
 	});
@@ -235,9 +226,7 @@ describe("combobox - single", () => {
 	it("should portal to the body by default", async () => {
 		const t = await openSingle();
 
-		expect(t.content.element().parentElement?.parentElement).toBe(
-			document.body,
-		);
+		expect(t.content.element().parentElement?.parentElement).toBe(document.body);
 	});
 
 	it("should portal to a custom element if specified", async () => {
@@ -322,7 +311,7 @@ describe("combobox - single", () => {
 			{
 				loop: true,
 			},
-			kbd.ARROW_DOWN,
+			kbd.ARROW_DOWN
 		);
 
 		const [item0, item1, item2, item3] = getItems(page.getByTestId);
@@ -563,9 +552,7 @@ describe("combobox - multiple", () => {
 
 	it("should portal to the body by default", async () => {
 		const t = await openMultiple();
-		expect(t.content.element().parentElement?.parentElement).toBe(
-			document.body,
-		);
+		expect(t.content.element().parentElement?.parentElement).toBe(document.body);
 	});
 
 	it("should portal to a custom element if specified", async () => {
@@ -651,7 +638,7 @@ describe("combobox - multiple", () => {
 			{
 				loop: true,
 			},
-			kbd.ARROW_DOWN,
+			kbd.ARROW_DOWN
 		);
 
 		const [item0, item1, item2, item3] = getItems(page.getByTestId);
@@ -814,9 +801,7 @@ function getItems(getter: typeof page.getByTestId, items = testItems) {
 ////////////////////////////////////
 type MaybeArray<T> = T | T[];
 
-async function expectSelected(
-	node: MaybeArray<ReturnType<typeof page.getByTestId>>,
-) {
+async function expectSelected(node: MaybeArray<ReturnType<typeof page.getByTestId>>) {
 	if (Array.isArray(node)) {
 		for (const n of node) {
 			await expect.element(n).toHaveAttribute("data-selected");
@@ -828,9 +813,7 @@ async function expectSelected(
 	}
 }
 
-async function expectNotSelected(
-	node: MaybeArray<ReturnType<typeof page.getByTestId>>,
-) {
+async function expectNotSelected(node: MaybeArray<ReturnType<typeof page.getByTestId>>) {
 	if (Array.isArray(node)) {
 		for (const n of node) {
 			await expect.element(n).not.toHaveAttribute("data-selected");
@@ -842,9 +825,7 @@ async function expectNotSelected(
 	}
 }
 
-async function expectHighlighted(
-	node: MaybeArray<ReturnType<typeof page.getByTestId>>,
-) {
+async function expectHighlighted(node: MaybeArray<ReturnType<typeof page.getByTestId>>) {
 	if (Array.isArray(node)) {
 		for (const n of node) {
 			await expect.element(n).toHaveAttribute("data-highlighted");
@@ -854,9 +835,7 @@ async function expectHighlighted(
 	}
 }
 
-async function expectNotHighlighted(
-	node: MaybeArray<ReturnType<typeof page.getByTestId>>,
-) {
+async function expectNotHighlighted(node: MaybeArray<ReturnType<typeof page.getByTestId>>) {
 	if (Array.isArray(node)) {
 		for (const n of node) {
 			await expect.element(n).not.toHaveAttribute("data-highlighted");

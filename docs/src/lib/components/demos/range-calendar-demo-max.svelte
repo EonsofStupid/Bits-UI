@@ -1,12 +1,11 @@
 <script lang="ts">
-import { RangeCalendar } from "bits-ui";
+import type { RangeCalendar } from "bits-ui";
 import CaretLeft from "phosphor-svelte/lib/CaretLeft";
 import CaretRight from "phosphor-svelte/lib/CaretRight";
-import { cn } from "$lib/utils/styles.js";
 import type { ComponentProps } from "svelte";
+import { cn } from "$lib/utils/styles.js";
 
-let { value = $bindable() }: ComponentProps<typeof RangeCalendar.Root> =
-	$props();
+let { value = $bindable() }: ComponentProps<typeof RangeCalendar.Root> = $props();
 </script>
 
 <RangeCalendar.Root

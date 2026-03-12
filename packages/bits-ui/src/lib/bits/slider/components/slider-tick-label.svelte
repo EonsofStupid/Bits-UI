@@ -1,8 +1,8 @@
 <script lang="ts">
 import { boxWith, mergeProps } from "svelte-toolbelt";
-import type { SliderTickLabelProps } from "../types.js";
-import { SliderRootContext, SliderTickLabelState } from "../slider.svelte.js";
 import { createId } from "$lib/internal/create-id.js";
+import { SliderRootContext, SliderTickLabelState } from "../slider.svelte.js";
+import type { SliderTickLabelProps } from "../types.js";
 
 const uid = $props.id();
 
@@ -34,7 +34,7 @@ const tickLabelState = SliderTickLabelState.create({
 	id: boxWith(() => id),
 	ref: boxWith(
 		() => ref,
-		(v) => (ref = v),
+		(v) => (ref = v)
 	),
 	index: boxWith(() => index),
 	position: boxWith(() => position),

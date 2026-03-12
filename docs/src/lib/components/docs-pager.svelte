@@ -1,18 +1,14 @@
 <script lang="ts">
-import { flatNavigation } from "$lib/config/navigation.js";
-import { page } from "$app/state";
-import { cn } from "$lib/utils/styles.js";
 import { Separator } from "bits-ui";
+import { page } from "$app/state";
+import { flatNavigation } from "$lib/config/navigation.js";
+import { cn } from "$lib/utils/styles.js";
 
 const previous = $derived(
-	flatNavigation[
-		flatNavigation.findIndex((item) => item.href === page.url.pathname) - 1
-	],
+	flatNavigation[flatNavigation.findIndex((item) => item.href === page.url.pathname) - 1]
 );
 const next = $derived(
-	flatNavigation[
-		flatNavigation.findIndex((item) => item.href === page.url.pathname) + 1
-	],
+	flatNavigation[flatNavigation.findIndex((item) => item.href === page.url.pathname) + 1]
 );
 </script>
 

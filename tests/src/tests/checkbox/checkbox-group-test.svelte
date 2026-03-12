@@ -1,5 +1,5 @@
 <script lang="ts">
-import { Checkbox } from "bits-ui";
+import type { Checkbox } from "bits-ui";
 
 let {
 	value: valueProp = $bindable([]),

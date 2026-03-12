@@ -1,9 +1,9 @@
 <script lang="ts">
 import { boxWith, mergeProps } from "svelte-toolbelt";
-import type { DateRangeFieldInputProps } from "../types.js";
-import { DateRangeFieldInputState } from "../date-range-field.svelte.js";
-import { createId } from "$lib/internal/create-id.js";
 import DateFieldHiddenInput from "$lib/bits/date-field/components/date-field-hidden-input.svelte";
+import { createId } from "$lib/internal/create-id.js";
+import { DateRangeFieldInputState } from "../date-range-field.svelte.js";
+import type { DateRangeFieldInputProps } from "../types.js";
 
 const uid = $props.id();
 
@@ -22,16 +22,14 @@ const inputState = DateRangeFieldInputState.create(
 		id: boxWith(() => id),
 		ref: boxWith(
 			() => ref,
-			(v) => (ref = v),
+			(v) => (ref = v)
 		),
 		name: boxWith(() => name),
 	},
-	type,
+	type
 );
 
-const mergedProps = $derived(
-	mergeProps(restProps, inputState.props, { role: "presentation" }),
-);
+const mergedProps = $derived(mergeProps(restProps, inputState.props, { role: "presentation" }));
 </script>
 
 {#if child}

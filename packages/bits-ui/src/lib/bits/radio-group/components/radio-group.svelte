@@ -1,10 +1,10 @@
 <script lang="ts">
 import { boxWith, mergeProps } from "svelte-toolbelt";
-import type { RadioGroupRootProps } from "../types.js";
-import { RadioGroupRootState } from "../radio-group.svelte.js";
-import RadioGroupInput from "./radio-group-input.svelte";
 import { createId } from "$lib/internal/create-id.js";
 import { noop } from "$lib/internal/noop.js";
+import { RadioGroupRootState } from "../radio-group.svelte.js";
+import type { RadioGroupRootProps } from "../types.js";
+import RadioGroupInput from "./radio-group-input.svelte";
 
 const uid = $props.id();
 
@@ -38,11 +38,11 @@ const rootState = RadioGroupRootState.create({
 			if (v === value) return;
 			value = v;
 			onValueChange?.(v);
-		},
+		}
 	),
 	ref: boxWith(
 		() => ref,
-		(v) => (ref = v),
+		(v) => (ref = v)
 	),
 });
 

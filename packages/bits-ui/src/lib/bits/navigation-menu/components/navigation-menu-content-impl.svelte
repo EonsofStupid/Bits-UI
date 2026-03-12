@@ -1,16 +1,16 @@
 <script lang="ts">
+import { type Snippet, untrack } from "svelte";
 import { boxWith, mergeProps } from "svelte-toolbelt";
-import { untrack, type Snippet } from "svelte";
-import type { NavigationMenuContentProps } from "../types.js";
-import {
-	NavigationMenuItemContext,
-	NavigationMenuItemState,
-	NavigationMenuContentImplState,
-} from "../navigation-menu.svelte.js";
-import { noop } from "$lib/internal/noop.js";
-import { createId } from "$lib/internal/create-id.js";
 import DismissibleLayer from "$lib/bits/utilities/dismissible-layer/dismissible-layer.svelte";
 import EscapeLayer from "$lib/bits/utilities/escape-layer/escape-layer.svelte";
+import { createId } from "$lib/internal/create-id.js";
+import { noop } from "$lib/internal/noop.js";
+import {
+	NavigationMenuContentImplState,
+	NavigationMenuItemContext,
+	type NavigationMenuItemState,
+} from "../navigation-menu.svelte.js";
+import type { NavigationMenuContentProps } from "../types.js";
 
 const uid = $props.id();
 
@@ -41,10 +41,10 @@ const contentImplState = NavigationMenuContentImplState.create(
 			(v) => {
 				ref = v;
 				untrack(() => onRefChange?.(v));
-			},
+			}
 		),
 	},
-	itemState,
+	itemState
 );
 
 if (itemState) {

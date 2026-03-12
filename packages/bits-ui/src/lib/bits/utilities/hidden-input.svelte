@@ -1,6 +1,6 @@
 <script lang="ts">
-import { mergeProps, srOnlyStylesString } from "svelte-toolbelt";
 import type { HTMLInputAttributes } from "svelte/elements";
+import { mergeProps, srOnlyStylesString } from "svelte-toolbelt";
 
 let { value = $bindable(), ...restProps }: HTMLInputAttributes = $props();
 
@@ -9,7 +9,7 @@ const mergedProps = $derived(
 		"aria-hidden": "true",
 		tabindex: -1,
 		style: srOnlyStylesString,
-	}),
+	})
 );
 </script>
 

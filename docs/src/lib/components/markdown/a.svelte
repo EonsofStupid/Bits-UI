@@ -2,12 +2,7 @@
 import type { HTMLAnchorAttributes } from "svelte/elements";
 import { cn } from "$lib/utils/styles.js";
 
-let {
-	class: className,
-	href = "",
-	children,
-	...restProps
-}: HTMLAnchorAttributes = $props();
+let { class: className, href = "", children, ...restProps }: HTMLAnchorAttributes = $props();
 
 const internal = $derived(href?.startsWith("/") || href?.startsWith("#"));
 const rel = $derived(!internal ? "noopener noreferrer" : undefined);

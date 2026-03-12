@@ -1,8 +1,8 @@
 <script lang="ts">
 import { boxWith, mergeProps } from "svelte-toolbelt";
-import type { CommandListProps } from "../types.js";
-import { CommandListState } from "../command.svelte.js";
 import { createId } from "$lib/internal/create-id.js";
+import { CommandListState } from "../command.svelte.js";
+import type { CommandListProps } from "../types.js";
 
 const uid = $props.id();
 
@@ -19,7 +19,7 @@ const listState = CommandListState.create({
 	id: boxWith(() => id),
 	ref: boxWith(
 		() => ref,
-		(v) => (ref = v),
+		(v) => (ref = v)
 	),
 	ariaLabel: boxWith(() => ariaLabel ?? "Suggestions..."),
 });

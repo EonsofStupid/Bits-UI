@@ -3,13 +3,14 @@ import type { Time } from "@internationalized/date";
 import {
 	TimeField,
 	type TimeFieldRootProps,
-	type WithoutChildrenOrChild,
 	type TimeValue,
+	type WithoutChildrenOrChild,
 } from "bits-ui";
-export type TimeFieldTestProps<T extends TimeValue = Time> =
-	WithoutChildrenOrChild<TimeFieldRootProps<T>> & {
-		name?: string;
-	};
+export type TimeFieldTestProps<T extends TimeValue = Time> = WithoutChildrenOrChild<
+	TimeFieldRootProps<T>
+> & {
+	name?: string;
+};
 </script>
 
 <script lang="ts">

@@ -1,8 +1,8 @@
 <script lang="ts">
 import { boxWith, mergeProps } from "svelte-toolbelt";
-import type { MenuGroupHeadingProps } from "../types.js";
-import { MenuGroupHeadingState } from "../menu.svelte.js";
 import { createId } from "$lib/internal/create-id.js";
+import { MenuGroupHeadingState } from "../menu.svelte.js";
+import type { MenuGroupHeadingProps } from "../types.js";
 
 const uid = $props.id();
 
@@ -18,7 +18,7 @@ const groupHeadingState = MenuGroupHeadingState.create({
 	id: boxWith(() => id),
 	ref: boxWith(
 		() => ref,
-		(v) => (ref = v),
+		(v) => (ref = v)
 	),
 });
 const mergedProps = $derived(mergeProps(restProps, groupHeadingState.props));

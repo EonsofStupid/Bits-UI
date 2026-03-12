@@ -1,30 +1,24 @@
-import {
-	attachRef,
-	type ReadableBoxedValues,
-	type WritableBoxedValues,
-} from "svelte-toolbelt";
 import { Context } from "runed";
-import type { Page, PageItem } from "./types.js";
+import { attachRef, type ReadableBoxedValues, type WritableBoxedValues } from "svelte-toolbelt";
+import { createBitsAttrs } from "$lib/internal/attrs.js";
+import { getDirectionalKeys } from "$lib/internal/get-directional-keys.js";
+import { kbd } from "$lib/internal/kbd.js";
+import { getElemDirection } from "$lib/internal/locale.js";
 import type {
 	BitsKeyboardEvent,
 	BitsMouseEvent,
 	RefAttachment,
 	WithRefOpts,
 } from "$lib/internal/types.js";
-import { createBitsAttrs } from "$lib/internal/attrs.js";
-import { getElemDirection } from "$lib/internal/locale.js";
-import { kbd } from "$lib/internal/kbd.js";
-import { getDirectionalKeys } from "$lib/internal/get-directional-keys.js";
 import { type Orientation, useId } from "$lib/shared/index.js";
+import type { Page, PageItem } from "./types.js";
 
 const paginationAttrs = createBitsAttrs({
 	component: "pagination",
 	parts: ["root", "page", "prev", "next"],
 });
 
-const PaginationRootContext = new Context<PaginationRootState>(
-	"Pagination.Root",
-);
+const PaginationRootContext = new Context<PaginationRootState>("Pagination.Root");
 
 interface PaginationRootStateOpts
 	extends WithRefOpts,
@@ -51,10 +45,7 @@ export class PaginationRootState {
 	});
 	readonly range = $derived.by(() => {
 		const start = (this.opts.page.current - 1) * this.opts.perPage.current;
-		const end = Math.min(
-			start + this.opts.perPage.current,
-			this.opts.count.current,
-		);
+		const end = Math.min(start + this.opts.perPage.current, this.opts.count.current);
 		return { start: start + 1, end };
 	});
 	readonly pages = $derived.by(() =>
@@ -62,12 +53,10 @@ export class PaginationRootState {
 			page: this.opts.page.current,
 			totalPages: this.totalPages,
 			siblingCount: this.opts.siblingCount.current,
-		}),
+		})
 	);
 	readonly hasPrevPage = $derived.by(() => this.opts.page.current > 1);
-	readonly hasNextPage = $derived.by(
-		() => this.opts.page.current < this.totalPages,
-	);
+	readonly hasNextPage = $derived.by(() => this.opts.page.current < this.totalPages);
 
 	constructor(opts: PaginationRootStateOpts) {
 		this.opts = opts;
@@ -81,9 +70,7 @@ export class PaginationRootState {
 	getPageTriggerNodes() {
 		const node = this.opts.ref.current;
 		if (!node) return [];
-		return Array.from(
-			node.querySelectorAll<HTMLElement>("[data-pagination-page]"),
-		);
+		return Array.from(node.querySelectorAll<HTMLElement>("[data-pagination-page]"));
 	}
 
 	getButtonNode(type: "prev" | "next") {
@@ -97,10 +84,7 @@ export class PaginationRootState {
 	}
 
 	nextPage() {
-		this.opts.page.current = Math.min(
-			this.opts.page.current + 1,
-			this.totalPages,
-		);
+		this.opts.page.current = Math.min(this.opts.page.current + 1, this.totalPages);
 	}
 
 	readonly snippetProps = $derived.by(() => ({
@@ -116,7 +100,7 @@ export class PaginationRootState {
 				"data-orientation": this.opts.orientation.current,
 				[paginationAttrs.root]: "",
 				...this.attachment,
-			}) as const,
+			}) as const
 	);
 }
 
@@ -135,7 +119,7 @@ export class PaginationPageState {
 	readonly root: PaginationRootState;
 	readonly attachment: RefAttachment;
 	readonly #isSelected = $derived.by(
-		() => this.opts.page.current.value === this.root.opts.page.current,
+		() => this.opts.page.current.value === this.root.opts.page.current
 	);
 
 	constructor(opts: PaginationPageStateOpts, root: PaginationRootState) {
@@ -174,7 +158,7 @@ export class PaginationPageState {
 				onclick: this.onclick,
 				onkeydown: this.onkeydown,
 				...this.attachment,
-			}) as const,
+			}) as const
 	);
 }
 
@@ -243,7 +227,7 @@ export class PaginationButtonState {
 				onclick: this.onclick,
 				onkeydown: this.onkeydown,
 				...this.attachment,
-			}) as const,
+			}) as const
 	);
 }
 
@@ -263,7 +247,7 @@ export class PaginationButtonState {
 function handleTriggerKeydown(
 	e: KeyboardEvent,
 	node: HTMLElement | null,
-	root: PaginationRootState,
+	root: PaginationRootState
 ) {
 	if (!node || !root.opts.ref.current) return;
 	const items = root.getPageTriggerNodes();
@@ -281,10 +265,7 @@ function handleTriggerKeydown(
 
 	const dir = getElemDirection(root.opts.ref.current);
 
-	const { nextKey, prevKey } = getDirectionalKeys(
-		dir,
-		root.opts.orientation.current,
-	);
+	const { nextKey, prevKey } = getDirectionalKeys(dir, root.opts.orientation.current);
 
 	const loop = root.opts.loop.current;
 
@@ -323,11 +304,7 @@ interface GetPageItemsProps {
  *
  * Credit: https://github.com/melt-ui/melt-ui
  */
-function getPageItems({
-	page = 1,
-	totalPages,
-	siblingCount = 1,
-}: GetPageItemsProps): PageItem[] {
+function getPageItems({ page = 1, totalPages, siblingCount = 1 }: GetPageItemsProps): PageItem[] {
 	const pageItems: PageItem[] = [];
 	const pagesToShow = new Set([1, totalPages]);
 	const firstItemWithSiblings = 3 + siblingCount;

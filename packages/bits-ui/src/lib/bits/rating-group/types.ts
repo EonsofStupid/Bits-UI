@@ -1,5 +1,5 @@
-import type { OnChangeFn, WithChild, Without } from "$lib/internal/types.js";
 import type { Orientation } from "$lib/index.js";
+import type { OnChangeFn, WithChild, Without } from "$lib/internal/types.js";
 import type { BitsPrimitiveDivAttributes } from "$lib/shared/attributes.js";
 
 export type RatingGroupItemState = "active" | "partial" | "inactive";

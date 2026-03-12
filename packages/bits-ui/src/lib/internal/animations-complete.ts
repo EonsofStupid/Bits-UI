@@ -1,8 +1,4 @@
-import {
-	afterTick,
-	onDestroyEffect,
-	type ReadableBoxedValues,
-} from "svelte-toolbelt";
+import { afterTick, onDestroyEffect, type ReadableBoxedValues } from "svelte-toolbelt";
 
 interface AnimationsCompleteOpts
 	extends ReadableBoxedValues<{
@@ -45,9 +41,7 @@ export class AnimationsComplete {
 				return;
 			}
 
-			Promise.allSettled(
-				animations.map((animation) => animation.finished),
-			).then(() => {
+			Promise.allSettled(animations.map((animation) => animation.finished)).then(() => {
 				this.#executeCallback(fn);
 			});
 		});

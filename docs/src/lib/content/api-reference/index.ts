@@ -1,7 +1,9 @@
+import type { APISchema } from "$lib/types/index.js";
 import { accordion } from "./accordion.api.js";
 import { alertDialog } from "./alert-dialog.api.js";
 import { aspectRatio } from "./aspect-ratio.api.js";
 import { avatar } from "./avatar.api.js";
+import { bitsConfig } from "./bits-config.api.js";
 import { button } from "./button.api.js";
 import { calendar } from "./calendar.api.js";
 import { checkbox } from "./checkbox.api.js";
@@ -17,10 +19,13 @@ import { dialog } from "./dialog.api.js";
 import { dropdownMenu } from "./dropdown-menu.api.js";
 import { label } from "./label.api.js";
 import { linkPreview } from "./link-preview.api.js";
+import { menubar } from "./menubar.api.js";
+import { meter } from "./meter.api.js";
 import { navigationMenu } from "./navigation-menu.api.js";
 import { pagination } from "./pagination.api.js";
 import { pinInput } from "./pin-input.api.js";
 import { popover } from "./popover.api.js";
+import { portal } from "./portal.api.js";
 import { progress } from "./progress.api.js";
 import { radioGroup } from "./radio-group.api.js";
 import { rangeCalendar } from "./range-calendar.api.js";
@@ -31,17 +36,12 @@ import { separator } from "./separator.api.js";
 import { slider } from "./slider.api.js";
 import { switchData } from "./switch.api.js";
 import { tabs } from "./tabs.api.js";
-import { toggleGroup } from "./toggle-group.api.js";
+import { timeField } from "./time-field.api.js";
+import { timeRangeField } from "./time-range-field.api.js";
 import { toggle } from "./toggle.api.js";
+import { toggleGroup } from "./toggle-group.api.js";
 import { toolbar } from "./toolbar.api.js";
 import { tooltip } from "./tooltip.api.js";
-import { menubar } from "./menubar.api.js";
-import { meter } from "./meter.api.js";
-import { timeField } from "./time-field.api.js";
-import type { APISchema } from "$lib/types/index.js";
-import { timeRangeField } from "./time-range-field.api.js";
-import { bitsConfig } from "./bits-config.api.js";
-import { portal } from "./portal.api.js";
 
 export const bits = [
 	"accordion",
@@ -139,13 +139,7 @@ export const apiSchemas: Record<Bit, APISchema[]> = {
 	tooltip,
 };
 
-export const utilities = [
-	"bits-config",
-	"is-using-keyboard",
-	"merge-props",
-	"portal",
-	"use-id",
-];
+export const utilities = ["bits-config", "is-using-keyboard", "merge-props", "portal", "use-id"];
 
 export const utilitiesSet = new Set(utilities);
 

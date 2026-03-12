@@ -1,6 +1,6 @@
+import { page } from "@vitest/browser/context";
 import { expect, it } from "vitest";
 import { render } from "vitest-browser-svelte";
-import { page } from "@vitest/browser/context";
 import LabelTest from "./label-test.svelte";
 
 it("should have bits data attrs", async () => {

@@ -1,5 +1,5 @@
 import { attachRef, type ReadableBoxedValues } from "svelte-toolbelt";
-import { createBitsAttrs, boolToStrTrueOrUndef } from "$lib/internal/attrs.js";
+import { boolToStrTrueOrUndef, createBitsAttrs } from "$lib/internal/attrs.js";
 import type { RefAttachment, WithRefOpts } from "$lib/internal/types.js";
 import type { Orientation } from "$lib/shared/index.js";
 
@@ -37,6 +37,6 @@ export class SeparatorRootState {
 				"data-orientation": this.opts.orientation.current,
 				[separatorAttrs.root]: "",
 				...this.attachment,
-			}) as const,
+			}) as const
 	);
 }

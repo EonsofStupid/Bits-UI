@@ -36,10 +36,7 @@ export function focusWithoutScroll(element: HTMLElement) {
 /**
  * A utility function that focuses an element.
  */
-export function focus(
-	element?: FocusableTarget | null,
-	{ select = false } = {},
-) {
+export function focus(element?: FocusableTarget | null, { select = false } = {}) {
 	if (!element || !element.focus) return;
 	const doc = getDocument(element as HTMLElement);
 	if (doc.activeElement === element) return;
@@ -47,11 +44,7 @@ export function focus(
 	// prevent scroll on focus
 	element.focus({ preventScroll: true });
 	// only elect if its not the same element, it supports selection, and we need to select it
-	if (
-		element !== previouslyFocusedElement &&
-		isSelectableInput(element) &&
-		select
-	) {
+	if (element !== previouslyFocusedElement && isSelectableInput(element) && select) {
 		element.select();
 	}
 }
@@ -63,7 +56,7 @@ export function focus(
 export function focusFirst(
 	candidates: HTMLElement[],
 	{ select = false } = {},
-	getActiveElement: () => HTMLElement | null,
+	getActiveElement: () => HTMLElement | null
 ) {
 	const previouslyFocusedElement = getActiveElement();
 	for (const candidate of candidates) {
@@ -100,14 +93,11 @@ export function getTabbableCandidates(container: HTMLElement) {
 		// oxlint-disable-next-line no-explicit-any
 		acceptNode: (node: any) => {
 			const isHiddenInput = node.tagName === "INPUT" && node.type === "hidden";
-			if (node.disabled || node.hidden || isHiddenInput)
-				return NodeFilter.FILTER_SKIP;
+			if (node.disabled || node.hidden || isHiddenInput) return NodeFilter.FILTER_SKIP;
 			// `.tabIndex` is not the same as the `tabindex` attribute. It works on the
 			// runtime's understanding of tabbability, so this automatically accounts
 			// for any kind of element that could be tabbed to.
-			return node.tabIndex >= 0
-				? NodeFilter.FILTER_ACCEPT
-				: NodeFilter.FILTER_SKIP;
+			return node.tabIndex >= 0 ? NodeFilter.FILTER_ACCEPT : NodeFilter.FILTER_SKIP;
 		},
 	});
 	while (walker.nextNode()) nodes.push(walker.currentNode as HTMLElement);

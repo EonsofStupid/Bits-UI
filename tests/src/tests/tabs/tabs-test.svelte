@@ -1,5 +1,5 @@
 <script lang="ts" module>
-import { Tabs, type WithoutChildrenOrChild } from "bits-ui";
+import type { Tabs, WithoutChildrenOrChild } from "bits-ui";
 export type Item = {
 	value: string;
 	disabled: boolean;

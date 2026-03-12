@@ -1,12 +1,12 @@
 <script lang="ts">
 import { boxWith, mergeProps } from "svelte-toolbelt";
-import type { PopoverContentProps } from "../types.js";
-import { PopoverContentState } from "../popover.svelte.js";
 import PopperLayer from "$lib/bits/utilities/popper-layer/popper-layer.svelte";
-import { noop } from "$lib/internal/noop.js";
+import PopperLayerForceMount from "$lib/bits/utilities/popper-layer/popper-layer-force-mount.svelte";
 import { createId } from "$lib/internal/create-id.js";
 import { getFloatingContentCSSVars } from "$lib/internal/floating-svelte/floating-utils.svelte.js";
-import PopperLayerForceMount from "$lib/bits/utilities/popper-layer/popper-layer-force-mount.svelte";
+import { noop } from "$lib/internal/noop.js";
+import { PopoverContentState } from "../popover.svelte.js";
+import type { PopoverContentProps } from "../types.js";
 
 const uid = $props.id();
 
@@ -31,7 +31,7 @@ const contentState = PopoverContentState.create({
 	id: boxWith(() => id),
 	ref: boxWith(
 		() => ref,
-		(v) => (ref = v),
+		(v) => (ref = v)
 	),
 	onInteractOutside: boxWith(() => onInteractOutside),
 	onEscapeKeydown: boxWith(() => onEscapeKeydown),

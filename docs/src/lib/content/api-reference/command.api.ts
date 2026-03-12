@@ -12,14 +12,6 @@ import type {
 	CommandSeparatorPropsWithoutHTML,
 	CommandViewportPropsWithoutHTML,
 } from "bits-ui";
-import {
-	NoopProp,
-	OnStringValueChangeProp,
-} from "./extended-types/shared/index.js";
-import {
-	CommandFilterProp,
-	CommandOnStateChangeProp,
-} from "./extended-types/command/index.js";
 import { withChildProps } from "$lib/content/api-reference/shared.js";
 import {
 	defineBooleanProp,
@@ -28,14 +20,15 @@ import {
 	defineFunctionProp,
 	defineNumberProp,
 	defineSimpleDataAttr,
-	defineStringProp,
 	defineSimplePropSchema,
+	defineStringProp,
 } from "../utils.js";
+import { CommandFilterProp, CommandOnStateChangeProp } from "./extended-types/command/index.js";
+import { NoopProp, OnStringValueChangeProp } from "./extended-types/shared/index.js";
 
 const root = defineComponentApiSchema<CommandRootPropsWithoutHTML>({
 	title: "Root",
-	description:
-		"The main container that manages the overall state and context of the component.",
+	description: "The main container that manages the overall state and context of the component.",
 	props: {
 		value: defineStringProp({
 			default: "",
@@ -55,8 +48,7 @@ const root = defineComponentApiSchema<CommandRootPropsWithoutHTML>({
 			definition: CommandFilterProp,
 			description:
 				"A custom filter function used to filter items. This function should return a number between `0` and `1`, with `1` being a perfect match, and `0` being no match, resulting in the item being hidden entirely. The items are  sorted/filtered based on this score.",
-			stringDefinition:
-				"(value: string, search: string, keywords?: string[]) => number;",
+			stringDefinition: "(value: string, search: string, keywords?: string[]) => number;",
 		}),
 		shouldFilter: defineBooleanProp({
 			default: true,
@@ -122,8 +114,7 @@ type onStateChange = (state: Readonly<CommandState>) => void;`,
 
 const input = defineComponentApiSchema<CommandInputPropsWithoutHTML>({
 	title: "Input",
-	description:
-		"The text input field where users can type to search or filter commands.",
+	description: "The text input field where users can type to search or filter commands.",
 	props: {
 		value: defineStringProp({
 			description:
@@ -142,8 +133,7 @@ const input = defineComponentApiSchema<CommandInputPropsWithoutHTML>({
 
 const list = defineComponentApiSchema<CommandListPropsWithoutHTML>({
 	title: "List",
-	description:
-		"The container for the viewport, items, and other elements of the command menu.",
+	description: "The container for the viewport, items, and other elements of the command menu.",
 	props: {
 		...withChildProps({ elType: "HTMLDivElement" }),
 	},
@@ -200,21 +190,19 @@ const group = defineComponentApiSchema<CommandGroupPropsWithoutHTML>({
 	],
 });
 
-const groupHeading =
-	defineComponentApiSchema<CommandGroupHeadingPropsWithoutHTML>({
-		title: "GroupHeading",
-		description:
-			"A heading element to provide an accessible label for a group of items.",
-		props: {
-			...withChildProps({ elType: "HTMLDivElement" }),
-		},
-		dataAttributes: [
-			defineSimpleDataAttr({
-				name: "command-group-heading",
-				description: "Present on the group heading element.",
-			}),
-		],
-	});
+const groupHeading = defineComponentApiSchema<CommandGroupHeadingPropsWithoutHTML>({
+	title: "GroupHeading",
+	description: "A heading element to provide an accessible label for a group of items.",
+	props: {
+		...withChildProps({ elType: "HTMLDivElement" }),
+	},
+	dataAttributes: [
+		defineSimpleDataAttr({
+			name: "command-group-heading",
+			description: "Present on the group heading element.",
+		}),
+	],
+});
 
 const groupItems = defineComponentApiSchema<CommandGroupItemsPropsWithoutHTML>({
 	title: "GroupItems",
@@ -305,8 +293,7 @@ const empty = defineComponentApiSchema<CommandEmptyPropsWithoutHTML>({
 
 const loading = defineComponentApiSchema<CommandLoadingPropsWithoutHTML>({
 	title: "Loading",
-	description:
-		"A component to display while results are being fetched or processed.",
+	description: "A component to display while results are being fetched or processed.",
 	props: {
 		progress: defineNumberProp({
 			default: 0,

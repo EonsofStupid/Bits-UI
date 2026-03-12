@@ -1,9 +1,9 @@
 <script lang="ts">
 import { boxWith, mergeProps } from "svelte-toolbelt";
-import type { DateRangePickerCalendarProps } from "../types.js";
-import { DateRangePickerRootContext } from "../date-range-picker.svelte.js";
-import { createId } from "$lib/internal/create-id.js";
 import { RangeCalendarRootState } from "$lib/bits/range-calendar/range-calendar.svelte.js";
+import { createId } from "$lib/internal/create-id.js";
+import { DateRangePickerRootContext } from "../date-range-picker.svelte.js";
+import type { DateRangePickerCalendarProps } from "../types.js";
 
 const uid = $props.id();
 
@@ -21,7 +21,7 @@ const rangeCalendarState = RangeCalendarRootState.create({
 	id: boxWith(() => id),
 	ref: boxWith(
 		() => ref,
-		(v) => (ref = v),
+		(v) => (ref = v)
 	),
 	calendarLabel: dateRangePickerRootState.opts.calendarLabel,
 	fixedWeeks: dateRangePickerRootState.opts.fixedWeeks,
@@ -35,8 +35,7 @@ const rangeCalendarState = RangeCalendarRootState.create({
 	weekStartsOn: dateRangePickerRootState.opts.weekStartsOn,
 	weekdayFormat: dateRangePickerRootState.opts.weekdayFormat,
 	disabled: dateRangePickerRootState.opts.disabled,
-	disableDaysOutsideMonth:
-		dateRangePickerRootState.opts.disableDaysOutsideMonth,
+	disableDaysOutsideMonth: dateRangePickerRootState.opts.disableDaysOutsideMonth,
 	maxValue: dateRangePickerRootState.opts.maxValue,
 	minValue: dateRangePickerRootState.opts.minValue,
 	placeholder: dateRangePickerRootState.opts.placeholder,

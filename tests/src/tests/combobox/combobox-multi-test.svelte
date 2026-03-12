@@ -1,9 +1,9 @@
 <script lang="ts" module>
-import {
+import type {
 	Combobox,
-	type ComboboxMultipleRootProps,
-	type WithoutChildren,
-	type WithoutChildrenOrChild,
+	ComboboxMultipleRootProps,
+	WithoutChildren,
+	WithoutChildrenOrChild,
 } from "bits-ui";
 
 export type Item = {
@@ -12,10 +12,7 @@ export type Item = {
 	disabled?: boolean;
 };
 
-export type ComboboxMultipleTestProps = Omit<
-	WithoutChildren<ComboboxMultipleRootProps>,
-	"type"
-> & {
+export type ComboboxMultipleTestProps = Omit<WithoutChildren<ComboboxMultipleRootProps>, "type"> & {
 	contentProps?: WithoutChildrenOrChild<Combobox.ContentProps>;
 	portalProps?: WithoutChildrenOrChild<Combobox.PortalProps>;
 	inputProps?: WithoutChildrenOrChild<Combobox.InputProps>;

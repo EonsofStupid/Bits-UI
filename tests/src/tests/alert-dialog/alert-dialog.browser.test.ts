@@ -1,19 +1,14 @@
-import { describe, expect, it, vi } from "vitest";
 import { page, userEvent } from "@vitest/browser/context";
+import { describe, expect, it, vi } from "vitest";
 import { render } from "vitest-browser-svelte";
-import { getTestKbd } from "../utils.js";
-import AlertDialogTest, {
-	type AlertDialogTestProps,
-} from "./alert-dialog-test.svelte";
-import AlertDialogForceMountTest from "./alert-dialog-force-mount-test.svelte";
 import { expectExists, expectNotExists } from "../browser-utils";
+import { getTestKbd } from "../utils.js";
+import AlertDialogForceMountTest from "./alert-dialog-force-mount-test.svelte";
+import AlertDialogTest, { type AlertDialogTestProps } from "./alert-dialog-test.svelte";
 
 const kbd = getTestKbd();
 
-async function setup(
-	props: AlertDialogTestProps = {},
-	component = AlertDialogTest,
-) {
+async function setup(props: AlertDialogTestProps = {}, component = AlertDialogTest) {
 	render(component, { ...props });
 	const trigger = page.getByTestId("trigger");
 	return { trigger };
@@ -37,14 +32,7 @@ async function open(props: AlertDialogTestProps = {}) {
 describe("Data Attributes", () => {
 	it("should have bits data attrs", async () => {
 		await open();
-		const parts = [
-			"trigger",
-			"overlay",
-			"cancel",
-			"title",
-			"description",
-			"content",
-		];
+		const parts = ["trigger", "overlay", "cancel", "title", "description", "content"];
 		for (const part of parts) {
 			const el = page.getByTestId(part);
 			await expect.element(el).toHaveAttribute(`data-alert-dialog-${part}`);
@@ -151,7 +139,7 @@ describe("Focus Management", () => {
 					},
 				},
 			},
-			AlertDialogForceMountTest,
+			AlertDialogForceMountTest
 		);
 		await t.trigger.click();
 		await expectExists(page.getByTestId("content"));
@@ -172,14 +160,12 @@ describe("Focus Management", () => {
 					},
 				},
 			},
-			AlertDialogForceMountTest,
+			AlertDialogForceMountTest
 		);
 		await t.trigger.click();
 		await expectExists(page.getByTestId("content"));
 		await userEvent.keyboard(kbd.ESCAPE);
-		await expect
-			.element(page.getByTestId("close-focus-override"))
-			.toHaveFocus();
+		await expect.element(page.getByTestId("close-focus-override")).toHaveFocus();
 	});
 
 	it("should respect `onCloseAutoFocus` prop", async () => {
@@ -192,9 +178,7 @@ describe("Focus Management", () => {
 			},
 		});
 		await userEvent.keyboard(kbd.ESCAPE);
-		await expect
-			.element(page.getByTestId("close-focus-override"))
-			.toHaveFocus();
+		await expect.element(page.getByTestId("close-focus-override")).toHaveFocus();
 	});
 });
 
@@ -262,18 +246,14 @@ describe("Props and Rendering", () => {
 describe("Portal Behavior", () => {
 	it("should attach to body when using portal element", async () => {
 		await open();
-		expect(page.getByTestId("content").element().parentElement).toEqual(
-			document.body,
-		);
+		expect(page.getByTestId("content").element().parentElement).toEqual(document.body);
 	});
 
 	it("should attach to body when portal is disabled", async () => {
 		await open({
 			portalProps: { disabled: true },
 		});
-		expect(page.getByTestId("content").element().parentElement).not.toEqual(
-			document.body,
-		);
+		expect(page.getByTestId("content").element().parentElement).not.toEqual(document.body);
 	});
 
 	it("should portal to the target if passed as a prop", async () => {
@@ -281,7 +261,7 @@ describe("Portal Behavior", () => {
 			portalProps: { to: "#portalTarget" },
 		});
 		expect(page.getByTestId("content").element().parentElement).toEqual(
-			page.getByTestId("portalTarget").element(),
+			page.getByTestId("portalTarget").element()
 		);
 	});
 });
@@ -291,24 +271,18 @@ describe("ARIA Attributes", () => {
 		await open();
 		const content = page.getByTestId("content");
 		const description = page.getByTestId("description");
-		await expect
-			.element(content)
-			.toHaveAttribute("aria-describedby", description.element().id);
+		await expect.element(content).toHaveAttribute("aria-describedby", description.element().id);
 	});
 
 	it("should apply a default `aria-level` attribute to the `AlertDialog.Title` element", async () => {
 		await open();
-		await expect
-			.element(page.getByTestId("title"))
-			.toHaveAttribute("aria-level", "2");
+		await expect.element(page.getByTestId("title")).toHaveAttribute("aria-level", "2");
 	});
 
 	it("should allow setting a custom level for the `AlertDialog.Title` element", async () => {
 		await open({
 			titleProps: { level: 3 },
 		});
-		await expect
-			.element(page.getByTestId("title"))
-			.toHaveAttribute("aria-level", "3");
+		await expect.element(page.getByTestId("title")).toHaveAttribute("aria-level", "3");
 	});
 });

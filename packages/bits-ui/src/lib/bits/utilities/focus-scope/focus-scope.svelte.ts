@@ -1,8 +1,8 @@
-import { onDestroyEffect, type ReadableBoxedValues } from "svelte-toolbelt";
-import { FocusScopeManager } from "./focus-scope-manager.js";
-import { focusable, isFocusable, tabbable } from "tabbable";
-import { on } from "svelte/events";
 import { watch } from "runed";
+import { on } from "svelte/events";
+import { onDestroyEffect, type ReadableBoxedValues } from "svelte-toolbelt";
+import { focusable, isFocusable, tabbable } from "tabbable";
+import { FocusScopeManager } from "./focus-scope-manager.js";
 
 interface FocusScopeOpts
 	extends ReadableBoxedValues<{
@@ -141,11 +141,7 @@ export class FocusScope {
 			} else {
 				// focus escaped - bring it back
 				const lastFocused = this.#manager.getFocusMemory(this);
-				if (
-					lastFocused &&
-					container.contains(lastFocused) &&
-					isFocusable(lastFocused)
-				) {
+				if (lastFocused && container.contains(lastFocused) && isFocusable(lastFocused)) {
 					e.preventDefault();
 					lastFocused.focus();
 				} else {
@@ -178,7 +174,7 @@ export class FocusScope {
 
 		this.#cleanupFns.push(
 			on(doc, "focusin", handleFocus, { capture: true }),
-			on(container, "keydown", handleKeydown),
+			on(container, "keydown", handleKeydown)
 		);
 
 		const observer = new MutationObserver(() => {
@@ -233,20 +229,17 @@ export class FocusScope {
 	static use(opts: FocusScopeUseOpts) {
 		let scope: FocusScope | null = null;
 
-		watch(
-			[() => opts.ref.current, () => opts.enabled.current],
-			([ref, enabled]) => {
-				if (ref && enabled) {
-					if (!scope) {
-						scope = new FocusScope(opts);
-					}
-					scope.mount(ref);
-				} else if (scope) {
-					scope.unmount();
-					scope = null;
+		watch([() => opts.ref.current, () => opts.enabled.current], ([ref, enabled]) => {
+			if (ref && enabled) {
+				if (!scope) {
+					scope = new FocusScope(opts);
 				}
-			},
-		);
+				scope.mount(ref);
+			} else if (scope) {
+				scope.unmount();
+				scope = null;
+			}
+		});
 
 		onDestroyEffect(() => {
 			scope?.unmount();

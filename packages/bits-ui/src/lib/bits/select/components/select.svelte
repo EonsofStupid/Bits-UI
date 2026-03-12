@@ -1,11 +1,11 @@
 <script lang="ts">
+import { watch } from "runed";
+import { boxWith, type WritableBox } from "svelte-toolbelt";
 import FloatingLayer from "$lib/bits/utilities/floating-layer/components/floating-layer.svelte";
 import { noop } from "$lib/internal/noop.js";
-import { type WritableBox, boxWith } from "svelte-toolbelt";
 import { SelectRootState } from "../select.svelte.js";
 import type { SelectRootProps } from "../types.js";
 import SelectHiddenInput from "./select-hidden-input.svelte";
-import { watch } from "runed";
 
 let {
 	value = $bindable(),
@@ -37,7 +37,7 @@ watch.pre(
 	() => value,
 	() => {
 		handleDefaultValue();
-	},
+	}
 );
 
 let inputValue = $state("");
@@ -50,7 +50,7 @@ const rootState = SelectRootState.create({
 			value = v;
 			// oxlint-disable-next-line no-explicit-any
 			onValueChange(v as any);
-		},
+		}
 	) as WritableBox<string> | WritableBox<string[]>,
 	disabled: boxWith(() => disabled),
 	required: boxWith(() => required),
@@ -59,7 +59,7 @@ const rootState = SelectRootState.create({
 		(v) => {
 			open = v;
 			onOpenChange(v);
-		},
+		}
 	),
 	loop: boxWith(() => loop),
 	scrollAlignment: boxWith(() => scrollAlignment),
@@ -69,7 +69,7 @@ const rootState = SelectRootState.create({
 	allowDeselect: boxWith(() => allowDeselect),
 	inputValue: boxWith(
 		() => inputValue,
-		(v) => (inputValue = v),
+		(v) => (inputValue = v)
 	),
 	onOpenChangeComplete: boxWith(() => onOpenChangeComplete),
 });

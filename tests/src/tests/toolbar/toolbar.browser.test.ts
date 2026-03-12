@@ -1,9 +1,9 @@
-import { expect, it, describe } from "vitest";
+import { page, userEvent } from "@vitest/browser/context";
+import { describe, expect, it } from "vitest";
 import { render } from "vitest-browser-svelte";
 import { getTestKbd } from "../utils.js";
-import ToolbarTest from "./toolbar-test.svelte";
 import type { ToolbarTestProps } from "./toolbar-test.svelte";
-import { page, userEvent } from "@vitest/browser/context";
+import ToolbarTest from "./toolbar-test.svelte";
 
 const kbd = getTestKbd();
 
@@ -13,9 +13,7 @@ function setup(props: Partial<ToolbarTestProps> = {}) {
 	const groupMultiple = page.getByTestId("group-multiple");
 	const groupMultipleItemBold = page.getByTestId("group-multiple-bold");
 	const groupMultipleItemItalic = page.getByTestId("group-multiple-italic");
-	const groupMultipleItemStrikethrough = page.getByTestId(
-		"group-multiple-strikethrough",
-	);
+	const groupMultipleItemStrikethrough = page.getByTestId("group-multiple-strikethrough");
 
 	const groupSingle = page.getByTestId("group-single");
 	const groupSingleItemLeft = page.getByTestId("group-single-left");
@@ -49,13 +47,9 @@ describe("Toolbar", () => {
 		const t = setup();
 		await expect.element(t.root).toHaveAttribute("data-toolbar-root");
 		await expect.element(t.groupMultiple).toHaveAttribute("data-toolbar-group");
-		await expect
-			.element(t.groupMultipleItemBold)
-			.toHaveAttribute("data-toolbar-group-item");
+		await expect.element(t.groupMultipleItemBold).toHaveAttribute("data-toolbar-group-item");
 		await expect.element(t.groupSingle).toHaveAttribute("data-toolbar-group");
-		await expect
-			.element(t.groupSingleItemLeft)
-			.toHaveAttribute("data-toolbar-group-item");
+		await expect.element(t.groupSingleItemLeft).toHaveAttribute("data-toolbar-group-item");
 		await expect.element(t.link).toHaveAttribute("data-toolbar-link");
 		await expect.element(t.button).toHaveAttribute("data-toolbar-button");
 	});
@@ -132,13 +126,9 @@ describe("Toolbar", () => {
 		await t.groupMultipleItemItalic.click();
 		await expect.element(t.styleBinding).toHaveTextContent("bold,italic");
 		await t.groupMultipleItemStrikethrough.click();
-		await expect
-			.element(t.styleBinding)
-			.toHaveTextContent("bold,italic,strikethrough");
+		await expect.element(t.styleBinding).toHaveTextContent("bold,italic,strikethrough");
 		await t.groupMultipleItemBold.click();
-		await expect
-			.element(t.styleBinding)
-			.toHaveTextContent("italic,strikethrough");
+		await expect.element(t.styleBinding).toHaveTextContent("italic,strikethrough");
 		await t.groupMultipleItemItalic.click();
 		await expect.element(t.styleBinding).toHaveTextContent("strikethrough");
 		await t.groupMultipleItemStrikethrough.click();
@@ -185,36 +175,20 @@ describe("Toolbar", () => {
 		const t = setup();
 		await expect.element(t.styleBinding).toHaveTextContent("bold");
 		await expect.element(t.alignBinding).toHaveTextContent("");
-		await expect
-			.element(t.groupMultipleItemItalic)
-			.toHaveAttribute("data-state", "off");
-		await expect
-			.element(t.groupMultipleItemItalic)
-			.toHaveAttribute("aria-pressed", "false");
-		await expect
-			.element(t.groupSingleItemCenter)
-			.toHaveAttribute("data-state", "off");
-		await expect
-			.element(t.groupSingleItemCenter)
-			.toHaveAttribute("aria-checked", "false");
+		await expect.element(t.groupMultipleItemItalic).toHaveAttribute("data-state", "off");
+		await expect.element(t.groupMultipleItemItalic).toHaveAttribute("aria-pressed", "false");
+		await expect.element(t.groupSingleItemCenter).toHaveAttribute("data-state", "off");
+		await expect.element(t.groupSingleItemCenter).toHaveAttribute("aria-checked", "false");
 
 		await t.styleBinding.click();
 		await expect.element(t.styleBinding).toHaveTextContent("italic");
-		await expect
-			.element(t.groupMultipleItemItalic)
-			.toHaveAttribute("data-state", "on");
-		await expect
-			.element(t.groupMultipleItemItalic)
-			.toHaveAttribute("aria-pressed", "true");
+		await expect.element(t.groupMultipleItemItalic).toHaveAttribute("data-state", "on");
+		await expect.element(t.groupMultipleItemItalic).toHaveAttribute("aria-pressed", "true");
 
 		await t.alignBinding.click();
 		await expect.element(t.alignBinding).toHaveTextContent("center");
-		await expect
-			.element(t.groupSingleItemCenter)
-			.toHaveAttribute("data-state", "on");
-		await expect
-			.element(t.groupSingleItemCenter)
-			.toHaveAttribute("aria-checked", "true");
+		await expect.element(t.groupSingleItemCenter).toHaveAttribute("data-state", "on");
+		await expect.element(t.groupSingleItemCenter).toHaveAttribute("aria-checked", "true");
 	});
 
 	it.each([

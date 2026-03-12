@@ -1,5 +1,5 @@
 <script lang="ts">
-import { Progress, useId } from "bits-ui";
+import { type Progress, useId } from "bits-ui";
 import type { ComponentProps } from "svelte";
 import DemoContainer from "../demo-container.svelte";
 

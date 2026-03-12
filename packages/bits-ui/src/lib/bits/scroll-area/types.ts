@@ -1,10 +1,5 @@
 import type { BitsPrimitiveDivAttributes } from "$lib/shared/attributes.js";
-import type {
-	Direction,
-	Orientation,
-	WithChild,
-	Without,
-} from "$lib/shared/index.js";
+import type { Direction, Orientation, WithChild, Without } from "$lib/shared/index.js";
 
 export type ScrollAreaType = "hover" | "scroll" | "auto" | "always";
 
@@ -67,9 +62,6 @@ export type ScrollAreaCornerPropsWithoutHTML = WithChild;
 export type ScrollAreaCornerProps = ScrollAreaCornerPropsWithoutHTML &
 	Without<BitsPrimitiveDivAttributes, ScrollAreaCornerPropsWithoutHTML>;
 
-export type _ScrollbarStubProps = Omit<
-	ScrollAreaScrollbarProps,
-	"orientation" | "ref" | "id"
-> & {
+export type _ScrollbarStubProps = Omit<ScrollAreaScrollbarProps, "orientation" | "ref" | "id"> & {
 	id: string;
 };

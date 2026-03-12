@@ -1,6 +1,7 @@
 <script lang="ts">
-import { Combobox, type WithoutChildrenOrChild, mergeProps } from "bits-ui";
+import { type Combobox, mergeProps, type WithoutChildrenOrChild } from "bits-ui";
 import ChevronUpDown from "phosphor-svelte/lib/CaretUpDown";
+
 type Item = { value: string; label: string };
 type Props = Combobox.RootProps & {
 	items: Item[];
@@ -19,9 +20,7 @@ let {
 let searchValue = $state("");
 const filteredItems = $derived.by(() => {
 	if (searchValue === "") return items;
-	return items.filter((item) =>
-		item.label.toLowerCase().includes(searchValue.toLowerCase()),
-	);
+	return items.filter((item) => item.label.toLowerCase().includes(searchValue.toLowerCase()));
 });
 function handleInput(e: Event & { currentTarget: HTMLInputElement }) {
 	searchValue = e.currentTarget.value;
@@ -29,12 +28,8 @@ function handleInput(e: Event & { currentTarget: HTMLInputElement }) {
 function handleOpenChange(newOpen: boolean) {
 	if (!newOpen) searchValue = "";
 }
-const mergedRootProps = $derived(
-	mergeProps(restProps, { onOpenChange: handleOpenChange }),
-);
-const mergedInputProps = $derived(
-	mergeProps(inputProps, { oninput: handleInput }),
-);
+const mergedRootProps = $derived(mergeProps(restProps, { onOpenChange: handleOpenChange }));
+const mergedInputProps = $derived(mergeProps(inputProps, { oninput: handleInput }));
 
 let inputValue = $derived.by(() => {
 	return items.find((item) => item.value === value)?.label;

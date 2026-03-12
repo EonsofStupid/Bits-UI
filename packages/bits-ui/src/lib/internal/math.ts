@@ -1,7 +1,7 @@
 export function linearScale(
 	domain: [number, number],
 	range: [number, number],
-	clamp: boolean = true,
+	clamp: boolean = true
 ): (x: number) => number {
 	const [d0, d1] = domain;
 	const [r0, r1] = range;

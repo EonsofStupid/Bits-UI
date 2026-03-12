@@ -1,6 +1,6 @@
 <script lang="ts" module>
-import type { TimeValue } from "bits-ui";
 import type { Time } from "@internationalized/date";
+import type { TimeValue } from "bits-ui";
 
 type T = unknown;
 </script>

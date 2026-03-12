@@ -1,19 +1,17 @@
-import { expect, it, vi, afterEach } from "vitest";
-import { render } from "vitest-browser-svelte";
+import { page, userEvent } from "@vitest/browser/context";
 import { REGEXP_ONLY_DIGITS } from "bits-ui";
+import type { ComponentProps } from "svelte";
+import { afterEach, expect, it, vi } from "vitest";
+import { render } from "vitest-browser-svelte";
 import { getTestKbd } from "../utils.js";
 import PinInputTest from "./pin-input-test.svelte";
-import type { ComponentProps } from "svelte";
-import { page, userEvent } from "@vitest/browser/context";
 
 const kbd = getTestKbd();
 
 function setup(props: Partial<ComponentProps<typeof PinInputTest>> = {}) {
 	// @ts-expect-error - testing lib needs to update their generic types
 	const returned = render(PinInputTest, { ...props });
-	const cells = new Array(6)
-		.fill(null)
-		.map((_, i) => returned.getByTestId(`cell-${i}`));
+	const cells = new Array(6).fill(null).map((_, i) => returned.getByTestId(`cell-${i}`));
 	const binding = returned.getByTestId("binding");
 	const hiddenInput = returned.getByTestId("input");
 

@@ -1,8 +1,8 @@
 <script lang="ts">
 import { boxWith, mergeProps } from "svelte-toolbelt";
-import type { RadioGroupItemProps } from "../types.js";
-import { RadioGroupItemState } from "../radio-group.svelte.js";
 import { createId } from "$lib/internal/create-id.js";
+import { RadioGroupItemState } from "../radio-group.svelte.js";
+import type { RadioGroupItemProps } from "../types.js";
 
 const uid = $props.id();
 
@@ -22,7 +22,7 @@ const itemState = RadioGroupItemState.create({
 	id: boxWith(() => id),
 	ref: boxWith(
 		() => ref,
-		(v) => (ref = v),
+		(v) => (ref = v)
 	),
 });
 

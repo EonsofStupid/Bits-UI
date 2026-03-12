@@ -6,12 +6,6 @@ import type {
 	ToolbarRootPropsWithoutHTML,
 } from "bits-ui";
 import {
-	OnChangeStringOrArrayProp,
-	OrientationProp,
-	StringOrArrayStringProp,
-} from "./extended-types/shared/index.js";
-import { ToggleRootStateDataAttr } from "./extended-types/toggle/index.js";
-import {
 	orientationDataAttr,
 	typeSingleOrMultipleProp,
 	withChildProps,
@@ -26,6 +20,12 @@ import {
 	defineStringProp,
 	defineUnionProp,
 } from "../utils.js";
+import {
+	OnChangeStringOrArrayProp,
+	OrientationProp,
+	StringOrArrayStringProp,
+} from "./extended-types/shared/index.js";
+import { ToggleRootStateDataAttr } from "./extended-types/toggle/index.js";
 
 const root = defineComponentApiSchema<ToolbarRootPropsWithoutHTML>({
 	title: "Root",

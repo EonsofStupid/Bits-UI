@@ -1,11 +1,11 @@
-import { page, userEvent, type Locator } from "@vitest/browser/context";
+import { type Locator, page, userEvent } from "@vitest/browser/context";
+import { type ComponentProps, tick } from "svelte";
 import { describe, expect, it, vi } from "vitest";
 import { render } from "vitest-browser-svelte";
-import { type ComponentProps, tick } from "svelte";
-import { getTestKbd } from "../utils.js";
-import CheckboxTest from "./checkbox-test.svelte";
-import CheckboxGroupTest from "./checkbox-group-test.svelte";
 import { expectExists, expectNotExists } from "../browser-utils";
+import { getTestKbd } from "../utils.js";
+import CheckboxGroupTest from "./checkbox-group-test.svelte";
+import CheckboxTest from "./checkbox-test.svelte";
 
 const kbd = getTestKbd();
 
@@ -78,9 +78,7 @@ describe("Single Checkbox", () => {
 		it("should render the checkbox input if a name prop is passed", async () => {
 			setup({ name: "checkbox" });
 			await expectExists(getHiddenInput());
-			await expect
-				.element(getHiddenInput())
-				.toHaveAttribute("type", "checkbox");
+			await expect.element(getHiddenInput()).toHaveAttribute("type", "checkbox");
 		});
 
 		it("should not have input as part of tab order", async () => {
@@ -99,9 +97,7 @@ describe("Single Checkbox", () => {
 		it("should be able to be indeterminate", async () => {
 			const t = setup({ indeterminate: true });
 			const indicator = page.getByTestId("indicator");
-			await expect
-				.element(t.root)
-				.toHaveAttribute("data-state", "indeterminate");
+			await expect.element(t.root).toHaveAttribute("data-state", "indeterminate");
 			await expect.element(t.root).toHaveAttribute("aria-checked", "mixed");
 			await expect.element(page.getByRole("checkbox")).not.toBeChecked();
 			await expect.element(indicator).toHaveTextContent("indeterminate");
@@ -281,9 +277,7 @@ describe("Checkbox Group", () => {
 		it("should have bits data attrs", async () => {
 			const t = setupGroup();
 			await expect.element(t.group).toHaveAttribute("data-checkbox-group");
-			await expect
-				.element(t.groupLabel)
-				.toHaveAttribute("data-checkbox-group-label");
+			await expect.element(t.groupLabel).toHaveAttribute("data-checkbox-group-label");
 		});
 	});
 

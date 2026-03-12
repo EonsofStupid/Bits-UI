@@ -1,12 +1,10 @@
+import { CalendarDateTime, Time, toZoned } from "@internationalized/date";
+import { page, userEvent } from "@vitest/browser/context";
+import type { TimeValue } from "bits-ui";
 import { expect, it } from "vitest";
 import { render } from "vitest-browser-svelte";
-import { CalendarDateTime, Time, toZoned } from "@internationalized/date";
 import { getTestKbd } from "../utils.js";
-import TimeRangeFieldTest, {
-	type TimeRangeFieldTestProps,
-} from "./time-range-field-test.svelte";
-import type { TimeValue } from "bits-ui";
-import { page, userEvent } from "@vitest/browser/context";
+import TimeRangeFieldTest, { type TimeRangeFieldTestProps } from "./time-range-field-test.svelte";
 
 const kbd = getTestKbd();
 
@@ -25,9 +23,7 @@ const zonedDateTime = {
 	end: toZoned(calendarDateTime.end, "America/New_York"),
 };
 
-function setup<T extends TimeValue = Time>(
-	props: TimeRangeFieldTestProps<T> = {},
-) {
+function setup<T extends TimeValue = Time>(props: TimeRangeFieldTestProps<T> = {}) {
 	// oxlint-disable-next-line no-explicit-any
 	const returned = render(TimeRangeFieldTest, { ...props } as any);
 
@@ -40,7 +36,7 @@ function setup<T extends TimeValue = Time>(
 		getTimeZoneName: () => page.getByTestId("start-timeZoneName"),
 		getHiddenInput: () =>
 			returned.container.querySelector(
-				"input[name='start-hidden-input']",
+				"input[name='start-hidden-input']"
 			) as HTMLInputElement,
 		value: page.getByTestId("start-value"),
 	};
@@ -53,9 +49,7 @@ function setup<T extends TimeValue = Time>(
 		getDayPeriod: () => page.getByTestId("end-dayPeriod"),
 		getTimeZoneName: () => page.getByTestId("end-timeZoneName"),
 		getHiddenInput: () =>
-			returned.container.querySelector(
-				"input[name='end-hidden-input']",
-			) as HTMLInputElement,
+			returned.container.querySelector("input[name='end-hidden-input']") as HTMLInputElement,
 		value: page.getByTestId("end-value"),
 	};
 
@@ -91,25 +85,15 @@ it("should populate segment with value - `CalendarDateTime`", async () => {
 		granularity: "second",
 	});
 
-	expect(t.start.getHour()).toHaveTextContent(
-		String(calendarDateTime.start.hour),
-	);
-	expect(t.start.getMinute()).toHaveTextContent(
-		String(calendarDateTime.start.minute),
-	);
-	expect(t.start.getSecond()).toHaveTextContent(
-		String(calendarDateTime.start.second),
-	);
+	expect(t.start.getHour()).toHaveTextContent(String(calendarDateTime.start.hour));
+	expect(t.start.getMinute()).toHaveTextContent(String(calendarDateTime.start.minute));
+	expect(t.start.getSecond()).toHaveTextContent(String(calendarDateTime.start.second));
 	expect(t.start.getDayPeriod()).toHaveTextContent("PM");
 	expect(t.start.value).toHaveTextContent(calendarDateTime.start.toString());
 
 	expect(t.end.getHour()).toHaveTextContent(String(calendarDateTime.end.hour));
-	expect(t.end.getMinute()).toHaveTextContent(
-		String(calendarDateTime.end.minute),
-	);
-	expect(t.end.getSecond()).toHaveTextContent(
-		String(calendarDateTime.end.second),
-	);
+	expect(t.end.getMinute()).toHaveTextContent(String(calendarDateTime.end.minute));
+	expect(t.end.getSecond()).toHaveTextContent(String(calendarDateTime.end.second));
 	expect(t.end.getDayPeriod()).toHaveTextContent("PM");
 	expect(t.end.value).toHaveTextContent(calendarDateTime.end.toString());
 });
@@ -120,26 +104,16 @@ it("should populate segment with value - `ZonedDateTime`", async () => {
 		granularity: "second",
 	});
 
-	expect(t.start.getHour()).toHaveTextContent(
-		String(calendarDateTime.start.hour),
-	);
-	expect(t.start.getMinute()).toHaveTextContent(
-		String(calendarDateTime.start.minute),
-	);
-	expect(t.start.getSecond()).toHaveTextContent(
-		String(calendarDateTime.start.second),
-	);
+	expect(t.start.getHour()).toHaveTextContent(String(calendarDateTime.start.hour));
+	expect(t.start.getMinute()).toHaveTextContent(String(calendarDateTime.start.minute));
+	expect(t.start.getSecond()).toHaveTextContent(String(calendarDateTime.start.second));
 	expect(t.start.getDayPeriod()).toHaveTextContent("PM");
 	expect(t.start.getTimeZoneName()).toHaveTextContent("EST");
 	expect(t.start.value).toHaveTextContent(calendarDateTime.start.toString());
 
 	expect(t.end.getHour()).toHaveTextContent(String(calendarDateTime.end.hour));
-	expect(t.end.getMinute()).toHaveTextContent(
-		String(calendarDateTime.end.minute),
-	);
-	expect(t.end.getSecond()).toHaveTextContent(
-		String(calendarDateTime.end.second),
-	);
+	expect(t.end.getMinute()).toHaveTextContent(String(calendarDateTime.end.minute));
+	expect(t.end.getSecond()).toHaveTextContent(String(calendarDateTime.end.second));
 	expect(t.end.getDayPeriod()).toHaveTextContent("PM");
 	expect(t.end.getTimeZoneName()).toHaveTextContent("EST");
 	expect(t.end.value).toHaveTextContent(calendarDateTime.end.toString());

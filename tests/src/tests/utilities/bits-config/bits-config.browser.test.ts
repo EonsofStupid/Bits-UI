@@ -1,7 +1,7 @@
-import { it, expect } from "vitest";
+import { page } from "@vitest/browser/context";
+import { expect, it } from "vitest";
 import { render } from "vitest-browser-svelte";
 import BitsConfigTest from "./bits-config-test.svelte";
-import { page } from "@vitest/browser/context";
 
 it("should show undefined values when no config is set", async () => {
 	render(BitsConfigTest);

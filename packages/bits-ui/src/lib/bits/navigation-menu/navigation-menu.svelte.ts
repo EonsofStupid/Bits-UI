@@ -2,33 +2,45 @@
  * Based on Radix UI's Navigation Menu
  * https://www.radix-ui.com/docs/primitives/components/navigation-menu
  */
+
+import { Context, useDebounce, watch } from "runed";
+import { type Snippet, untrack } from "svelte";
+import type {
+	FocusEventHandler,
+	KeyboardEventHandler,
+	MouseEventHandler,
+	PointerEventHandler,
+} from "svelte/elements";
+import { SvelteMap } from "svelte/reactivity";
 import {
 	type AnyFn,
-	type ReadableBox,
-	type ReadableBoxedValues,
-	type WithRefProps,
-	type WritableBox,
-	type WritableBoxedValues,
 	afterSleep,
 	afterTick,
 	attachRef,
+	boxWith,
 	DOMContext,
 	getWindow,
+	type ReadableBox,
+	type ReadableBoxedValues,
 	simpleBox,
-	boxWith,
+	type WithRefProps,
+	type WritableBox,
+	type WritableBoxedValues,
 } from "svelte-toolbelt";
-import { Context, useDebounce, watch } from "runed";
-import { untrack, type Snippet } from "svelte";
-import { SvelteMap } from "svelte/reactivity";
-import { type Direction, type Orientation, useId } from "$lib/shared/index.js";
 import {
-	createBitsAttrs,
-	boolToStr,
 	boolToEmptyStrOrUndef,
+	boolToStr,
+	createBitsAttrs,
 	getDataOpenClosed,
 } from "$lib/internal/attrs.js";
-import { noop } from "$lib/internal/noop.js";
+import { boxAutoReset } from "$lib/internal/box-auto-reset.svelte.js";
+import { CustomEventDispatcher } from "$lib/internal/events.js";
 import { getTabbableCandidates } from "$lib/internal/focus.js";
+import { isElement } from "$lib/internal/is.js";
+import { kbd } from "$lib/internal/kbd.js";
+import { noop } from "$lib/internal/noop.js";
+import { RovingFocusGroup } from "$lib/internal/roving-focus-group.js";
+import { SvelteResizeObserver } from "$lib/internal/svelte-resize-observer.svelte.js";
 import type {
 	BitsFocusEvent,
 	BitsKeyboardEvent,
@@ -36,19 +48,8 @@ import type {
 	BitsPointerEvent,
 	RefAttachment,
 } from "$lib/internal/types.js";
-import { kbd } from "$lib/internal/kbd.js";
-import { CustomEventDispatcher } from "$lib/internal/events.js";
 import { useArrowNavigation } from "$lib/internal/use-arrow-navigation.js";
-import { boxAutoReset } from "$lib/internal/box-auto-reset.svelte.js";
-import { isElement } from "$lib/internal/is.js";
-import type {
-	FocusEventHandler,
-	KeyboardEventHandler,
-	MouseEventHandler,
-	PointerEventHandler,
-} from "svelte/elements";
-import { RovingFocusGroup } from "$lib/internal/roving-focus-group.js";
-import { SvelteResizeObserver } from "$lib/internal/svelte-resize-observer.svelte.js";
+import { type Direction, type Orientation, useId } from "$lib/shared/index.js";
 
 const navigationMenuAttrs = createBitsAttrs({
 	component: "navigation-menu",
@@ -67,20 +68,16 @@ const navigationMenuAttrs = createBitsAttrs({
 });
 
 const NavigationMenuProviderContext = new Context<NavigationMenuProviderState>(
-	"NavigationMenu.Root",
+	"NavigationMenu.Root"
 );
 export const NavigationMenuItemContext = new Context<NavigationMenuItemState>(
-	"NavigationMenu.Item",
+	"NavigationMenu.Item"
 );
-const NavigationMenuListContext = new Context<NavigationMenuListState>(
-	"NavigationMenu.List",
-);
+const NavigationMenuListContext = new Context<NavigationMenuListState>("NavigationMenu.List");
 const NavigationMenuContentContext = new Context<NavigationMenuContentState>(
-	"NavigationMenu.Content",
+	"NavigationMenu.Content"
 );
-const NavigationMenuSubContext = new Context<NavigationMenuSubState>(
-	"NavigationMenu.Sub",
-);
+const NavigationMenuSubContext = new Context<NavigationMenuSubState>("NavigationMenu.Sub");
 
 interface NavigationMenuProviderStateOpts
 	extends ReadableBoxedValues<{
@@ -93,25 +90,17 @@ interface NavigationMenuProviderStateOpts
 			previousValue: string;
 		}> {
 	isRootMenu: boolean;
-	onTriggerEnter: (
-		itemValue: string,
-		itemState: NavigationMenuItemState | null,
-	) => void;
+	onTriggerEnter: (itemValue: string, itemState: NavigationMenuItemState | null) => void;
 	onTriggerLeave?: () => void;
 	onContentEnter?: () => void;
 	onContentLeave?: () => void;
-	onItemSelect: (
-		itemValue: string,
-		itemState: NavigationMenuItemState | null,
-	) => void;
+	onItemSelect: (itemValue: string, itemState: NavigationMenuItemState | null) => void;
 	onItemDismiss: () => void;
 }
 
 class NavigationMenuProviderState {
 	static create(opts: NavigationMenuProviderStateOpts) {
-		return NavigationMenuProviderContext.set(
-			new NavigationMenuProviderState(opts),
-		);
+		return NavigationMenuProviderContext.set(new NavigationMenuProviderState(opts));
 	}
 	readonly opts: NavigationMenuProviderStateOpts;
 	indicatorTrackRef = simpleBox<HTMLElement | null>(null);
@@ -205,13 +194,10 @@ export class NavigationMenuRootState {
 				this.setValue(val, itemState);
 			}
 		},
-		() => this.#derivedDelay,
+		() => this.#derivedDelay
 	);
 
-	#onTriggerEnter = (
-		itemValue: string,
-		itemState: NavigationMenuItemState | null,
-	) => {
+	#onTriggerEnter = (itemValue: string, itemState: NavigationMenuItemState | null) => {
 		this.#debouncedFn(itemValue, itemState);
 	};
 
@@ -234,10 +220,7 @@ export class NavigationMenuRootState {
 		this.#debouncedFn("", null);
 	};
 
-	#onItemSelect = (
-		itemValue: string,
-		itemState: NavigationMenuItemState | null,
-	) => {
+	#onItemSelect = (itemValue: string, itemState: NavigationMenuItemState | null) => {
 		this.setValue(itemValue, itemState);
 	};
 
@@ -266,7 +249,7 @@ export class NavigationMenuRootState {
 				[navigationMenuAttrs.root]: "",
 				[navigationMenuAttrs.menu]: "",
 				...this.attachment,
-			}) as const,
+			}) as const
 	);
 }
 
@@ -281,10 +264,7 @@ interface NavigationMenuSubStateOpts
 
 export class NavigationMenuSubState {
 	static create(opts: NavigationMenuSubStateOpts) {
-		return new NavigationMenuSubState(
-			opts,
-			NavigationMenuProviderContext.get(),
-		);
+		return new NavigationMenuSubState(opts, NavigationMenuProviderContext.get());
 	}
 	readonly opts: NavigationMenuSubStateOpts;
 	readonly context: NavigationMenuProviderState;
@@ -292,10 +272,7 @@ export class NavigationMenuSubState {
 	readonly subProvider: NavigationMenuProviderState;
 	readonly attachment: RefAttachment;
 
-	constructor(
-		opts: NavigationMenuSubStateOpts,
-		context: NavigationMenuProviderState,
-	) {
+	constructor(opts: NavigationMenuSubStateOpts, context: NavigationMenuProviderState) {
 		this.opts = opts;
 		this.context = context;
 		this.attachment = attachRef(this.opts.ref);
@@ -333,7 +310,7 @@ export class NavigationMenuSubState {
 				[navigationMenuAttrs.sub]: "",
 				[navigationMenuAttrs.menu]: "",
 				...this.attachment,
-			}) as const,
+			}) as const
 	);
 }
 
@@ -342,7 +319,7 @@ interface NavigationMenuListStateOpts extends WithRefProps {}
 export class NavigationMenuListState {
 	static create(opts: NavigationMenuListStateOpts) {
 		return NavigationMenuListContext.set(
-			new NavigationMenuListState(opts, NavigationMenuProviderContext.get()),
+			new NavigationMenuListState(opts, NavigationMenuProviderContext.get())
 		);
 	}
 	wrapperId = simpleBox(useId());
@@ -352,16 +329,13 @@ export class NavigationMenuListState {
 	readonly attachment: RefAttachment;
 	readonly wrapperAttachment: RefAttachment = attachRef(
 		this.wrapperRef,
-		(v) => (this.context.indicatorTrackRef.current = v),
+		(v) => (this.context.indicatorTrackRef.current = v)
 	);
 	listTriggers = $state.raw<HTMLElement[]>([]);
 	readonly rovingFocusGroup: RovingFocusGroup;
 	wrapperMounted = $state(false);
 
-	constructor(
-		opts: NavigationMenuListStateOpts,
-		context: NavigationMenuProviderState,
-	) {
+	constructor(opts: NavigationMenuListStateOpts, context: NavigationMenuProviderState) {
 		this.opts = opts;
 		this.context = context;
 		this.attachment = attachRef(this.opts.ref);
@@ -385,7 +359,7 @@ export class NavigationMenuListState {
 			({
 				id: this.wrapperId.current,
 				...this.wrapperAttachment,
-			}) as const,
+			}) as const
 	);
 
 	readonly props = $derived.by(
@@ -395,7 +369,7 @@ export class NavigationMenuListState {
 				"data-orientation": this.context.opts.orientation.current,
 				[navigationMenuAttrs.list]: "",
 				...this.attachment,
-			}) as const,
+			}) as const
 	);
 }
 
@@ -409,7 +383,7 @@ interface NavigationMenuItemStateOpts
 export class NavigationMenuItemState {
 	static create(opts: NavigationMenuItemStateOpts) {
 		return NavigationMenuItemContext.set(
-			new NavigationMenuItemState(opts, NavigationMenuListContext.get()),
+			new NavigationMenuItemState(opts, NavigationMenuListContext.get())
 		);
 	}
 	readonly opts: NavigationMenuItemStateOpts;
@@ -423,15 +397,11 @@ export class NavigationMenuItemState {
 	readonly contentId = $derived.by(() => this.contentNode?.id);
 	readonly triggerId = $derived.by(() => this.triggerNode?.id);
 	contentChildren: ReadableBox<Snippet | undefined> = simpleBox(undefined);
-	contentChild: ReadableBox<
-		Snippet<[{ props: Record<string, unknown> }]> | undefined
-	> = simpleBox(undefined);
+	contentChild: ReadableBox<Snippet<[{ props: Record<string, unknown> }]> | undefined> =
+		simpleBox(undefined);
 	contentProps: ReadableBox<Record<string, unknown>> = simpleBox({});
 	domContext: DOMContext;
-	constructor(
-		opts: NavigationMenuItemStateOpts,
-		listContext: NavigationMenuListState,
-	) {
+	constructor(opts: NavigationMenuItemStateOpts, listContext: NavigationMenuListState) {
 		this.opts = opts;
 		this.listContext = listContext;
 		this.domContext = new DOMContext(opts.ref);
@@ -444,15 +414,14 @@ export class NavigationMenuItemState {
 		const candidates = getTabbableCandidates(this.contentNode);
 		if (candidates.length)
 			focusFirst(side === "start" ? candidates : candidates.reverse(), () =>
-				this.domContext.getActiveElement(),
+				this.domContext.getActiveElement()
 			);
 	};
 
 	#handleContentExit = () => {
 		if (!this.contentNode) return;
 		const candidates = getTabbableCandidates(this.contentNode);
-		if (candidates.length)
-			this.restoreContentTabOrder = removeFromTabOrder(candidates);
+		if (candidates.length) this.restoreContentTabOrder = removeFromTabOrder(candidates);
 	};
 
 	onEntryKeydown = this.#handleContentEntry;
@@ -466,7 +435,7 @@ export class NavigationMenuItemState {
 				id: this.opts.id.current,
 				[navigationMenuAttrs.item]: "",
 				...this.attachment,
-			}) as const,
+			}) as const
 	);
 }
 
@@ -491,7 +460,7 @@ export class NavigationMenuTriggerState {
 	focusProxyRef = simpleBox<HTMLElement | null>(null);
 	readonly focusProxyAttachment: RefAttachment = attachRef(
 		this.focusProxyRef,
-		(v) => (this.itemContext.focusProxyNode = v),
+		(v) => (this.itemContext.focusProxyNode = v)
 	);
 	context: NavigationMenuProviderState;
 	itemContext: NavigationMenuItemState;
@@ -500,8 +469,7 @@ export class NavigationMenuTriggerState {
 	wasClickClose = false;
 	focusProxyMounted = $state(false);
 	readonly open = $derived.by(
-		() =>
-			this.itemContext.opts.value.current === this.context.opts.value.current,
+		() => this.itemContext.opts.value.current === this.context.opts.value.current
 	);
 
 	constructor(
@@ -511,13 +479,10 @@ export class NavigationMenuTriggerState {
 			item: NavigationMenuItemState;
 			list: NavigationMenuListState;
 			sub: NavigationMenuSubState | null;
-		},
+		}
 	) {
 		this.opts = opts;
-		this.attachment = attachRef(
-			this.opts.ref,
-			(v) => (this.itemContext.triggerNode = v),
-		);
+		this.attachment = attachRef(this.opts.ref, (v) => (this.itemContext.triggerNode = v));
 		this.hasPointerMoveOpened = boxAutoReset(false, {
 			afterMs: 300,
 			getWindow: () => getWindow(opts.ref.current),
@@ -532,7 +497,7 @@ export class NavigationMenuTriggerState {
 				const node = this.opts.ref.current;
 				if (!node) return;
 				return this.listContext.registerTrigger(node);
-			},
+			}
 		);
 	}
 
@@ -551,19 +516,12 @@ export class NavigationMenuTriggerState {
 		) {
 			return;
 		}
-		this.context.onTriggerEnter(
-			this.itemContext.opts.value.current,
-			this.itemContext,
-		);
+		this.context.onTriggerEnter(this.itemContext.opts.value.current, this.itemContext);
 		this.hasPointerMoveOpened.current = true;
 	});
 
 	onpointerleave = whenMouse(() => {
-		if (
-			this.opts.disabled.current ||
-			!this.itemContext.opts.openOnHover.current
-		)
-			return;
+		if (this.opts.disabled.current || !this.itemContext.opts.openOnHover.current) return;
 		this.context.onTriggerLeave();
 		this.hasPointerMoveOpened.current = false;
 	});
@@ -573,24 +531,18 @@ export class NavigationMenuTriggerState {
 		if (this.hasPointerMoveOpened.current) return;
 		const shouldClose =
 			this.open &&
-			(!this.itemContext.opts.openOnHover.current ||
-				this.context.opts.isRootMenu);
+			(!this.itemContext.opts.openOnHover.current || this.context.opts.isRootMenu);
 		if (shouldClose) {
 			this.context.onItemSelect("", null);
 		} else if (!this.open) {
-			this.context.onItemSelect(
-				this.itemContext.opts.value.current,
-				this.itemContext,
-			);
+			this.context.onItemSelect(this.itemContext.opts.value.current, this.itemContext);
 		}
 		this.wasClickClose = shouldClose;
 	};
 
 	onkeydown: KeyboardEventHandler<HTMLButtonElement> = (e) => {
 		const verticalEntryKey =
-			this.context.opts.dir.current === "rtl"
-				? kbd.ARROW_LEFT
-				: kbd.ARROW_RIGHT;
+			this.context.opts.dir.current === "rtl" ? kbd.ARROW_LEFT : kbd.ARROW_RIGHT;
 		const entryKey = { horizontal: kbd.ARROW_DOWN, vertical: verticalEntryKey }[
 			this.context.opts.orientation.current
 		];
@@ -600,10 +552,7 @@ export class NavigationMenuTriggerState {
 			e.preventDefault();
 			return;
 		}
-		this.itemContext.listContext.rovingFocusGroup.handleKeydown(
-			this.opts.ref.current,
-			e,
-		);
+		this.itemContext.listContext.rovingFocusGroup.handleKeydown(this.opts.ref.current, e);
 	};
 
 	focusProxyOnFocus: FocusEventHandler<HTMLElement> = (e) => {
@@ -623,9 +572,7 @@ export class NavigationMenuTriggerState {
 			({
 				id: this.opts.id.current,
 				disabled: this.opts.disabled.current,
-				"data-disabled": boolToEmptyStrOrUndef(
-					Boolean(this.opts.disabled.current),
-				),
+				"data-disabled": boolToEmptyStrOrUndef(Boolean(this.opts.disabled.current)),
 				"data-state": getDataOpenClosed(this.open),
 				"data-value": this.itemContext.opts.value.current,
 				"aria-expanded": boolToStr(this.open),
@@ -637,7 +584,7 @@ export class NavigationMenuTriggerState {
 				onclick: this.onclick,
 				onkeydown: this.onkeydown,
 				...this.attachment,
-			}) as const,
+			}) as const
 	);
 
 	readonly focusProxyProps = $derived.by(
@@ -647,7 +594,7 @@ export class NavigationMenuTriggerState {
 				tabindex: 0,
 				onfocus: this.focusProxyOnFocus,
 				...this.focusProxyAttachment,
-			}) as const,
+			}) as const
 	);
 }
 
@@ -663,13 +610,10 @@ const LINK_SELECT_EVENT = new CustomEventDispatcher("bitsLinkSelect", {
 	cancelable: true,
 });
 
-const ROOT_CONTENT_DISMISS_EVENT = new CustomEventDispatcher(
-	"bitsRootContentDismiss",
-	{
-		cancelable: true,
-		bubbles: true,
-	},
-);
+const ROOT_CONTENT_DISMISS_EVENT = new CustomEventDispatcher("bitsRootContentDismiss", {
+	cancelable: true,
+	bubbles: true,
+});
 
 export class NavigationMenuLinkState {
 	static create(opts: NavigationMenuLinkStateOpts) {
@@ -691,7 +635,7 @@ export class NavigationMenuLinkState {
 		context: {
 			provider: NavigationMenuProviderState;
 			item: NavigationMenuItemState;
-		},
+		}
 	) {
 		this.opts = opts;
 		this.context = context;
@@ -713,10 +657,7 @@ export class NavigationMenuLinkState {
 
 	onkeydown = (e: BitsKeyboardEvent) => {
 		if (this.context.item.contentNode) return;
-		this.context.item.listContext.rovingFocusGroup.handleKeydown(
-			this.opts.ref.current,
-			e,
-		);
+		this.context.item.listContext.rovingFocusGroup.handleKeydown(this.opts.ref.current, e);
 	};
 
 	onfocus = (_: BitsFocusEvent) => {
@@ -730,8 +671,7 @@ export class NavigationMenuLinkState {
 	#handlePointerDismiss = () => {
 		// only close submenu if this link is not inside the currently open submenu content
 		const currentlyOpenValue = this.context.provider.opts.value.current;
-		const isInsideOpenSubmenu =
-			this.context.item.opts.value.current === currentlyOpenValue;
+		const isInsideOpenSubmenu = this.context.item.opts.value.current === currentlyOpenValue;
 		const activeItem = this.context.item.listContext.context.activeItem;
 		if (activeItem && !activeItem.opts.openOnHover.current) return;
 		if (currentlyOpenValue && !isInsideOpenSubmenu) {
@@ -762,7 +702,7 @@ export class NavigationMenuLinkState {
 				onpointermove: this.onpointermove,
 				[navigationMenuAttrs.link]: "",
 				...this.attachment,
-			}) as const,
+			}) as const
 	);
 }
 
@@ -770,14 +710,10 @@ interface NavigationMenuIndicatorStateOpts extends WithRefProps {}
 
 export class NavigationMenuIndicatorState {
 	static create() {
-		return new NavigationMenuIndicatorState(
-			NavigationMenuProviderContext.get(),
-		);
+		return new NavigationMenuIndicatorState(NavigationMenuProviderContext.get());
 	}
 	readonly context: NavigationMenuProviderState;
-	readonly isVisible = $derived.by(() =>
-		Boolean(this.context.opts.value.current),
-	);
+	readonly isVisible = $derived.by(() => Boolean(this.context.opts.value.current));
 
 	constructor(context: NavigationMenuProviderState) {
 		this.context = context;
@@ -797,14 +733,13 @@ export class NavigationMenuIndicatorImplState {
 	listContext: NavigationMenuListState;
 	position = $state.raw<{ size: number; offset: number } | null>(null);
 	readonly isHorizontal = $derived.by(
-		() => this.context.opts.orientation.current === "horizontal",
+		() => this.context.opts.orientation.current === "horizontal"
 	);
 	readonly isVisible = $derived.by(() => !!this.context.opts.value.current);
 	readonly activeTrigger = $derived.by(() => {
 		const items = this.listContext.listTriggers;
 		const triggerNode = items.find(
-			(item) =>
-				item.getAttribute("data-value") === this.context.opts.value.current,
+			(item) => item.getAttribute("data-value") === this.context.opts.value.current
 		);
 		return triggerNode ?? null;
 	});
@@ -815,20 +750,17 @@ export class NavigationMenuIndicatorImplState {
 		context: {
 			provider: NavigationMenuProviderState;
 			list: NavigationMenuListState;
-		},
+		}
 	) {
 		this.opts = opts;
 		this.context = context.provider;
 		this.listContext = context.list;
 		this.attachment = attachRef(this.opts.ref);
 
-		new SvelteResizeObserver(
-			() => this.activeTrigger,
-			this.handlePositionChange,
-		);
+		new SvelteResizeObserver(() => this.activeTrigger, this.handlePositionChange);
 		new SvelteResizeObserver(
 			() => this.context.indicatorTrackRef.current,
-			this.handlePositionChange,
+			this.handlePositionChange
 		);
 	}
 
@@ -866,7 +798,7 @@ export class NavigationMenuIndicatorImplState {
 				},
 				[navigationMenuAttrs.indicator]: "",
 				...this.attachment,
-			}) as const,
+			}) as const
 	);
 }
 
@@ -879,7 +811,7 @@ export class NavigationMenuContentState {
 				provider: NavigationMenuProviderContext.get(),
 				item: NavigationMenuItemContext.get(),
 				list: NavigationMenuListContext.get(),
-			}),
+			})
 		);
 	}
 	readonly opts: NavigationMenuContentStateOpts;
@@ -889,21 +821,16 @@ export class NavigationMenuContentState {
 	readonly attachment: RefAttachment;
 	mounted = $state(false);
 	readonly open = $derived.by(
-		() =>
-			this.itemContext.opts.value.current === this.context.opts.value.current,
+		() => this.itemContext.opts.value.current === this.context.opts.value.current
 	);
 	readonly value = $derived.by(() => this.itemContext.opts.value.current);
 	// We persist the last active content value as the viewport may be animating out
 	// and we want the content to remain mounted for the lifecycle of the viewport.
 	readonly isLastActiveValue = $derived.by(() => {
 		if (this.context.viewportRef.current) {
-			if (
-				!this.context.opts.value.current &&
-				this.context.opts.previousValue.current
-			) {
+			if (!this.context.opts.value.current && this.context.opts.previousValue.current) {
 				return (
-					this.context.opts.previousValue.current ===
-					this.itemContext.opts.value.current
+					this.context.opts.previousValue.current === this.itemContext.opts.value.current
 				);
 			}
 		}
@@ -916,16 +843,13 @@ export class NavigationMenuContentState {
 			provider: NavigationMenuProviderState;
 			item: NavigationMenuItemState;
 			list: NavigationMenuListState;
-		},
+		}
 	) {
 		this.opts = opts;
 		this.context = context.provider;
 		this.itemContext = context.item;
 		this.listContext = context.list;
-		this.attachment = attachRef(
-			this.opts.ref,
-			(v) => (this.itemContext.contentNode = v),
-		);
+		this.attachment = attachRef(this.opts.ref, (v) => (this.itemContext.contentNode = v));
 	}
 
 	onpointerenter = (_: BitsPointerEvent) => {
@@ -944,7 +868,7 @@ export class NavigationMenuContentState {
 				onpointerenter: this.onpointerenter,
 				onpointerleave: this.onpointerleave,
 				...this.attachment,
-			}) as const,
+			}) as const
 	);
 }
 
@@ -952,13 +876,10 @@ type MotionAttribute = "to-start" | "to-end" | "from-start" | "from-end";
 interface NavigationMenuContentImplStateOpts extends WithRefProps {}
 
 export class NavigationMenuContentImplState {
-	static create(
-		opts: NavigationMenuContentImplStateOpts,
-		itemState?: NavigationMenuItemState,
-	) {
+	static create(opts: NavigationMenuContentImplStateOpts, itemState?: NavigationMenuItemState) {
 		return new NavigationMenuContentImplState(
 			opts,
-			itemState ?? NavigationMenuItemContext.get(),
+			itemState ?? NavigationMenuItemContext.get()
 		);
 	}
 	readonly opts: NavigationMenuContentImplStateOpts;
@@ -969,30 +890,22 @@ export class NavigationMenuContentImplState {
 	prevMotionAttribute: MotionAttribute | null = $state(null);
 	readonly motionAttribute: MotionAttribute | null = $derived.by(() => {
 		const items = this.listContext.listTriggers;
-		const values = items
-			.map((item) => item.getAttribute("data-value"))
-			.filter(Boolean);
+		const values = items.map((item) => item.getAttribute("data-value")).filter(Boolean);
 		if (this.context.opts.dir.current === "rtl") values.reverse();
 		const index = values.indexOf(this.context.opts.value.current);
 		const prevIndex = values.indexOf(this.context.opts.previousValue.current);
-		const isSelected =
-			this.itemContext.opts.value.current === this.context.opts.value.current;
-		const wasSelected =
-			prevIndex === values.indexOf(this.itemContext.opts.value.current);
+		const isSelected = this.itemContext.opts.value.current === this.context.opts.value.current;
+		const wasSelected = prevIndex === values.indexOf(this.itemContext.opts.value.current);
 
 		// When all menus are closed, we want to reset motion state to prevent residual animations
-		if (
-			!this.context.opts.value.current &&
-			!this.context.opts.previousValue.current
-		) {
+		if (!this.context.opts.value.current && !this.context.opts.previousValue.current) {
 			untrack(() => (this.prevMotionAttribute = null));
 			return null;
 		}
 
 		// We only want to update selected and the last selected content
 		// this avoids animations being interrupted outside of that range
-		if (!isSelected && !wasSelected)
-			return untrack(() => this.prevMotionAttribute);
+		if (!isSelected && !wasSelected) return untrack(() => this.prevMotionAttribute);
 
 		const attribute = (() => {
 			// Don't provide a direction on the initial open
@@ -1001,8 +914,7 @@ export class NavigationMenuContentImplState {
 				if (isSelected && prevIndex !== -1)
 					return index > prevIndex ? "from-end" : "from-start";
 				// If we're leaving this item for another
-				if (wasSelected && index !== -1)
-					return index > prevIndex ? "to-start" : "to-end";
+				if (wasSelected && index !== -1) return index > prevIndex ? "to-start" : "to-end";
 			}
 			// Otherwise we're entering from closed or leaving the list
 			// entirely and should not animate in any direction
@@ -1014,10 +926,7 @@ export class NavigationMenuContentImplState {
 	});
 	domContext: DOMContext;
 
-	constructor(
-		opts: NavigationMenuContentImplStateOpts,
-		itemContext: NavigationMenuItemState,
-	) {
+	constructor(opts: NavigationMenuContentImplStateOpts, itemContext: NavigationMenuItemState) {
 		this.opts = opts;
 		this.attachment = attachRef(this.opts.ref);
 		this.itemContext = itemContext;
@@ -1042,15 +951,12 @@ export class NavigationMenuContentImplState {
 						this.itemContext.triggerNode?.focus();
 					}
 				};
-				const removeListener = ROOT_CONTENT_DISMISS_EVENT.listen(
-					content,
-					handleClose,
-				);
+				const removeListener = ROOT_CONTENT_DISMISS_EVENT.listen(content, handleClose);
 
 				return () => {
 					removeListener();
 				};
-			},
+			}
 		);
 	}
 
@@ -1067,12 +973,9 @@ export class NavigationMenuContentImplState {
 
 	onInteractOutside = (e: PointerEvent) => {
 		const target = e.target as HTMLElement;
-		const isTrigger = this.listContext.listTriggers.some((trigger) =>
-			trigger.contains(target),
-		);
+		const isTrigger = this.listContext.listTriggers.some((trigger) => trigger.contains(target));
 		const isRootViewport =
-			this.context.opts.isRootMenu &&
-			this.context.viewportRef.current?.contains(target);
+			this.context.opts.isRootMenu && this.context.viewportRef.current?.contains(target);
 		if (!this.context.opts.isRootMenu && !isTrigger) {
 			this.context.onItemDismiss();
 			return;
@@ -1102,16 +1005,12 @@ export class NavigationMenuContentImplState {
 
 		if (isTabKey) {
 			const focusedElement = this.domContext.getActiveElement();
-			const index = candidates.findIndex(
-				(candidate) => candidate === focusedElement,
-			);
+			const index = candidates.findIndex((candidate) => candidate === focusedElement);
 			const isMovingBackwards = e.shiftKey;
 			const nextCandidates = isMovingBackwards
 				? candidates.slice(0, index).reverse()
 				: candidates.slice(index + 1, candidates.length);
-			if (
-				focusFirst(nextCandidates, () => this.domContext.getActiveElement())
-			) {
+			if (focusFirst(nextCandidates, () => this.domContext.getActiveElement())) {
 				// prevent browser tab keydown because we've handled focus
 				e.preventDefault();
 				return;
@@ -1124,14 +1023,11 @@ export class NavigationMenuContentImplState {
 			}
 		}
 
-		let activeEl: HTMLElement =
-			this.domContext.getActiveElement() as HTMLElement;
+		let activeEl: HTMLElement = this.domContext.getActiveElement() as HTMLElement;
 
 		if (this.itemContext.contentNode) {
 			const focusedNode =
-				this.itemContext.contentNode.querySelector<HTMLElement>(
-					"[data-focused]",
-				);
+				this.itemContext.contentNode.querySelector<HTMLElement>("[data-focused]");
 			if (focusedNode) {
 				activeEl = focusedNode;
 			}
@@ -1164,13 +1060,12 @@ export class NavigationMenuContentImplState {
 				"data-motion": this.motionAttribute ?? undefined,
 				"data-orientation": this.context.opts.orientation.current,
 				"data-state": getDataOpenClosed(
-					this.context.opts.value.current ===
-						this.itemContext.opts.value.current,
+					this.context.opts.value.current === this.itemContext.opts.value.current
 				),
 				onkeydown: this.onkeydown,
 				[navigationMenuAttrs.content]: "",
 				...this.attachment,
-			}) as const,
+			}) as const
 	);
 }
 
@@ -1178,38 +1073,23 @@ interface NavigationMenuViewportStateOpts extends WithRefProps {}
 
 export class NavigationMenuViewportState {
 	static create(opts: NavigationMenuViewportStateOpts) {
-		return new NavigationMenuViewportState(
-			opts,
-			NavigationMenuProviderContext.get(),
-		);
+		return new NavigationMenuViewportState(opts, NavigationMenuProviderContext.get());
 	}
 	readonly opts: NavigationMenuViewportStateOpts;
 	readonly context: NavigationMenuProviderState;
 	readonly attachment: RefAttachment;
 	readonly open = $derived.by(() => !!this.context.opts.value.current);
-	readonly viewportWidth = $derived.by(() =>
-		this.size ? `${this.size.width}px` : undefined,
-	);
-	readonly viewportHeight = $derived.by(() =>
-		this.size ? `${this.size.height}px` : undefined,
-	);
-	readonly activeContentValue = $derived.by(
-		() => this.context.opts.value.current,
-	);
+	readonly viewportWidth = $derived.by(() => (this.size ? `${this.size.width}px` : undefined));
+	readonly viewportHeight = $derived.by(() => (this.size ? `${this.size.height}px` : undefined));
+	readonly activeContentValue = $derived.by(() => this.context.opts.value.current);
 	size = $state<{ width: number; height: number } | null>(null);
 	contentNode = $state<HTMLElement | null>(null);
 	mounted = $state(false);
 
-	constructor(
-		opts: NavigationMenuViewportStateOpts,
-		context: NavigationMenuProviderState,
-	) {
+	constructor(opts: NavigationMenuViewportStateOpts, context: NavigationMenuProviderState) {
 		this.opts = opts;
 		this.context = context;
-		this.attachment = attachRef(
-			this.opts.ref,
-			(v) => (this.context.viewportRef.current = v),
-		);
+		this.attachment = attachRef(this.opts.ref, (v) => (this.context.viewportRef.current = v));
 
 		watch([() => this.activeContentValue, () => this.open], () => {
 			afterTick(() => {
@@ -1238,7 +1118,7 @@ export class NavigationMenuViewportState {
 						height: this.contentNode.offsetHeight,
 					};
 				}
-			},
+			}
 		);
 
 		// reset size when viewport closes to prevent residual size animations
@@ -1248,7 +1128,7 @@ export class NavigationMenuViewportState {
 				if (!this.mounted && this.size) {
 					this.size = null;
 				}
-			},
+			}
 		);
 	}
 
@@ -1259,8 +1139,7 @@ export class NavigationMenuViewportState {
 				"data-state": getDataOpenClosed(this.open),
 				"data-orientation": this.context.opts.orientation.current,
 				style: {
-					pointerEvents:
-						!this.open && this.context.opts.isRootMenu ? "none" : undefined,
+					pointerEvents: !this.open && this.context.opts.isRootMenu ? "none" : undefined,
 					"--bits-navigation-menu-viewport-width": this.viewportWidth,
 					"--bits-navigation-menu-viewport-height": this.viewportHeight,
 				},
@@ -1268,16 +1147,13 @@ export class NavigationMenuViewportState {
 				onpointerenter: this.context.onContentEnter,
 				onpointerleave: this.context.onContentLeave,
 				...this.attachment,
-			}) as const,
+			}) as const
 	);
 }
 
 //
 
-function focusFirst(
-	candidates: HTMLElement[],
-	getActiveElement: () => HTMLElement | null,
-) {
+function focusFirst(candidates: HTMLElement[], getActiveElement: () => HTMLElement | null) {
 	const previouslyFocusedElement = getActiveElement();
 	return candidates.some((candidate) => {
 		// if focus is already where we want to go, we don't want to keep going through the candidates
@@ -1301,7 +1177,7 @@ function removeFromTabOrder(candidates: HTMLElement[]) {
 }
 
 function whenMouse<T extends HTMLElement = HTMLElement>(
-	handler: PointerEventHandler<T>,
+	handler: PointerEventHandler<T>
 ): PointerEventHandler<T> {
 	return (e) => (e.pointerType === "mouse" ? handler(e) : undefined);
 }
@@ -1321,7 +1197,7 @@ function whenMouse<T extends HTMLElement = HTMLElement>(
  */
 function handleProxyFocus(
 	guard: HTMLElement | null,
-	focusOptions?: Parameters<HTMLElement["focus"]>[0],
+	focusOptions?: Parameters<HTMLElement["focus"]>[0]
 ) {
 	if (!guard) return;
 	const ariaHidden = guard.getAttribute("aria-hidden");

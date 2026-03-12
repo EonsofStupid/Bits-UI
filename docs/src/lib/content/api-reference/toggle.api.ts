@@ -1,8 +1,4 @@
 import type { ToggleRootPropsWithoutHTML } from "bits-ui";
-import {
-	ToggleRootOnPressedChangeProp,
-	ToggleRootStateDataAttr,
-} from "./extended-types/toggle/index.js";
 import { withChildProps } from "$lib/content/api-reference/shared.js";
 import {
 	defineBooleanProp,
@@ -11,6 +7,10 @@ import {
 	defineFunctionProp,
 	defineSimpleDataAttr,
 } from "../utils.js";
+import {
+	ToggleRootOnPressedChangeProp,
+	ToggleRootStateDataAttr,
+} from "./extended-types/toggle/index.js";
 
 const root = defineComponentApiSchema<ToggleRootPropsWithoutHTML>({
 	title: "Root",
@@ -23,8 +23,7 @@ const root = defineComponentApiSchema<ToggleRootPropsWithoutHTML>({
 		}),
 		onPressedChange: defineFunctionProp({
 			definition: ToggleRootOnPressedChangeProp,
-			description:
-				"A callback function called when the pressed state of the toggle changes.",
+			description: "A callback function called when the pressed state of the toggle changes.",
 			stringDefinition: "(pressed: boolean) => void",
 		}),
 		disabled: defineBooleanProp({

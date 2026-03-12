@@ -1,9 +1,9 @@
 <script lang="ts" module>
-import {
+import type {
 	Select,
-	type SelectSingleRootProps,
-	type WithoutChildren,
-	type WithoutChildrenOrChild,
+	SelectSingleRootProps,
+	WithoutChildren,
+	WithoutChildrenOrChild,
 } from "bits-ui";
 import { generateTestId } from "../helpers/select";
 export type Item = {

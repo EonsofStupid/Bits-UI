@@ -1,16 +1,9 @@
 <script lang="ts">
 import { mergeProps } from "svelte-toolbelt";
-import type { ArrowProps } from "./types.js";
 import { useId } from "$lib/internal/use-id.js";
+import type { ArrowProps } from "./types.js";
 
-let {
-	id = useId(),
-	children,
-	child,
-	width = 10,
-	height = 5,
-	...restProps
-}: ArrowProps = $props();
+let { id = useId(), children, child, width = 10, height = 5, ...restProps }: ArrowProps = $props();
 
 const mergedProps = $derived(mergeProps(restProps, { id }));
 </script>

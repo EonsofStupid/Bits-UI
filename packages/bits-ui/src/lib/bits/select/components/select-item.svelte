@@ -1,10 +1,10 @@
 <script lang="ts">
 import { boxWith, mergeProps } from "svelte-toolbelt";
-import { SelectItemState } from "../select.svelte.js";
-import type { SelectItemProps } from "../types.js";
+import Mounted from "$lib/bits/utilities/mounted.svelte";
 import { createId } from "$lib/internal/create-id.js";
 import { noop } from "$lib/internal/noop.js";
-import Mounted from "$lib/bits/utilities/mounted.svelte";
+import { SelectItemState } from "../select.svelte.js";
+import type { SelectItemProps } from "../types.js";
 
 const uid = $props.id();
 
@@ -25,7 +25,7 @@ const itemState = SelectItemState.create({
 	id: boxWith(() => id),
 	ref: boxWith(
 		() => ref,
-		(v) => (ref = v),
+		(v) => (ref = v)
 	),
 	value: boxWith(() => value),
 	disabled: boxWith(() => disabled),

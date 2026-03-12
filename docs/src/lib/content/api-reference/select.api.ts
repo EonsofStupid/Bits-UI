@@ -1,3 +1,17 @@
+import type {
+	SelectArrowPropsWithoutHTML,
+	SelectContentPropsWithoutHTML,
+	SelectContentStaticPropsWithoutHTML,
+	SelectGroupHeadingPropsWithoutHTML,
+	SelectGroupPropsWithoutHTML,
+	SelectItemPropsWithoutHTML,
+	SelectPortalPropsWithoutHTML,
+	SelectRootPropsWithoutHTML,
+	SelectScrollDownButtonPropsWithoutHTML,
+	SelectScrollUpButtonPropsWithoutHTML,
+	SelectTriggerPropsWithoutHTML,
+	SelectViewportPropsWithoutHTML,
+} from "bits-ui";
 import {
 	arrowProps,
 	childrenSnippet,
@@ -19,28 +33,6 @@ import {
 	typeSingleOrMultipleProp,
 	withChildProps,
 } from "$lib/content/api-reference/shared.js";
-import type {
-	SelectArrowPropsWithoutHTML,
-	SelectContentPropsWithoutHTML,
-	SelectContentStaticPropsWithoutHTML,
-	SelectGroupHeadingPropsWithoutHTML,
-	SelectGroupPropsWithoutHTML,
-	SelectItemPropsWithoutHTML,
-	SelectPortalPropsWithoutHTML,
-	SelectRootPropsWithoutHTML,
-	SelectScrollDownButtonPropsWithoutHTML,
-	SelectScrollUpButtonPropsWithoutHTML,
-	SelectTriggerPropsWithoutHTML,
-	SelectViewportPropsWithoutHTML,
-} from "bits-ui";
-import { ComboboxScrollAlignmentProp } from "./extended-types/combobox/index.js";
-import { DelayProp, ItemsProp } from "./extended-types/select/index.js";
-import {
-	NoopProp,
-	OnChangeStringOrArrayProp,
-	OpenClosedProp,
-	StringOrArrayStringProp,
-} from "./extended-types/shared/index.js";
 import {
 	defineBooleanProp,
 	defineComponentApiSchema,
@@ -53,6 +45,14 @@ import {
 	defineStringProp,
 	defineUnionProp,
 } from "../utils.js";
+import { ComboboxScrollAlignmentProp } from "./extended-types/combobox/index.js";
+import { DelayProp, ItemsProp } from "./extended-types/select/index.js";
+import {
+	NoopProp,
+	OnChangeStringOrArrayProp,
+	OpenClosedProp,
+	StringOrArrayStringProp,
+} from "./extended-types/shared/index.js";
 
 const stateDataAttr = defineEnumDataAttr({
 	name: "state",
@@ -63,8 +63,7 @@ const stateDataAttr = defineEnumDataAttr({
 
 export const root = defineComponentApiSchema<SelectRootPropsWithoutHTML>({
 	title: "Root",
-	description:
-		"The root select component which manages & scopes the state of the select.",
+	description: "The root select component which manages & scopes the state of the select.",
 	props: {
 		type: typeSingleOrMultipleProp,
 		value: defineUnionProp({
@@ -119,8 +118,7 @@ export const root = defineComponentApiSchema<SelectRootPropsWithoutHTML>({
 			stringDefinition: `{ value: string; label: string; disabled?: boolean}[]`,
 		}),
 		autocomplete: defineStringProp({
-			description:
-				"The autocomplete attribute to forward to the hidden input element.",
+			description: "The autocomplete attribute to forward to the hidden input element.",
 		}),
 		children: childrenSnippet(),
 	},
@@ -163,42 +161,39 @@ export const content = defineComponentApiSchema<SelectContentPropsWithoutHTML>({
 	cssVars: floatingContentCSSVars("select"),
 });
 
-export const contentStatic =
-	defineComponentApiSchema<SelectContentStaticPropsWithoutHTML>({
-		title: "ContentStatic",
-		description:
-			"The element which contains the select's items. (Static/No Floating UI)",
-		props: {
-			...escapeLayerProps,
-			...dismissibleLayerProps,
-			...focusScopeProps,
-			preventScroll: preventScrollProp,
-			preventOverflowTextSelection: preventOverflowTextSelectionProp,
-			dir: dirProp,
-			loop: defineBooleanProp({
-				default: false,
-				description:
-					"Whether or not the select should loop through items when reaching the end.",
-			}),
-			forceMount: forceMountProp,
-			...withChildProps({
-				elType: "HTMLDivElement",
-				child: openChildDefinition,
-			}),
-		},
-		dataAttributes: [
-			stateDataAttr,
-			defineSimpleDataAttr({
-				name: "select-content",
-				description: "Present on the content element.",
-			}),
-		],
-	});
+export const contentStatic = defineComponentApiSchema<SelectContentStaticPropsWithoutHTML>({
+	title: "ContentStatic",
+	description: "The element which contains the select's items. (Static/No Floating UI)",
+	props: {
+		...escapeLayerProps,
+		...dismissibleLayerProps,
+		...focusScopeProps,
+		preventScroll: preventScrollProp,
+		preventOverflowTextSelection: preventOverflowTextSelectionProp,
+		dir: dirProp,
+		loop: defineBooleanProp({
+			default: false,
+			description:
+				"Whether or not the select should loop through items when reaching the end.",
+		}),
+		forceMount: forceMountProp,
+		...withChildProps({
+			elType: "HTMLDivElement",
+			child: openChildDefinition,
+		}),
+	},
+	dataAttributes: [
+		stateDataAttr,
+		defineSimpleDataAttr({
+			name: "select-content",
+			description: "Present on the content element.",
+		}),
+	],
+});
 
 export const item = defineComponentApiSchema<SelectItemPropsWithoutHTML>({
 	title: "Item",
-	description:
-		"A select item, which must be a child of the `select.Content` component.",
+	description: "A select item, which must be a child of the `select.Content` component.",
 	props: {
 		value: defineStringProp({
 			description: "The value of the item.",
@@ -277,19 +272,18 @@ export const trigger = defineComponentApiSchema<SelectTriggerPropsWithoutHTML>({
 	],
 });
 
-export const viewport =
-	defineComponentApiSchema<SelectViewportPropsWithoutHTML>({
-		title: "Viewport",
-		description:
-			"An optional element to track the scroll position of the select for rendering the scroll up/down buttons.",
-		props: withChildProps({ elType: "HTMLDivElement" }),
-		dataAttributes: [
-			defineSimpleDataAttr({
-				name: "select-viewport",
-				description: "Present on the viewport element.",
-			}),
-		],
-	});
+export const viewport = defineComponentApiSchema<SelectViewportPropsWithoutHTML>({
+	title: "Viewport",
+	description:
+		"An optional element to track the scroll position of the select for rendering the scroll up/down buttons.",
+	props: withChildProps({ elType: "HTMLDivElement" }),
+	dataAttributes: [
+		defineSimpleDataAttr({
+			name: "select-viewport",
+			description: "Present on the viewport element.",
+		}),
+	],
+});
 
 const scrollButtonProps = {
 	delay: definePropSchema({
@@ -307,33 +301,31 @@ const scrollButtonProps = {
 	...withChildProps({ elType: "HTMLDivElement" }),
 };
 
-export const scrollUpButton =
-	defineComponentApiSchema<SelectScrollUpButtonPropsWithoutHTML>({
-		title: "ScrollUpButton",
-		description:
-			"An optional scroll up button element to improve the scroll experience within the select. Should be used in conjunction with the `select.Viewport` component.",
-		props: scrollButtonProps,
-		dataAttributes: [
-			defineSimpleDataAttr({
-				name: "select-scroll-up-button",
-				description: "Present on the scroll up button element.",
-			}),
-		],
-	});
+export const scrollUpButton = defineComponentApiSchema<SelectScrollUpButtonPropsWithoutHTML>({
+	title: "ScrollUpButton",
+	description:
+		"An optional scroll up button element to improve the scroll experience within the select. Should be used in conjunction with the `select.Viewport` component.",
+	props: scrollButtonProps,
+	dataAttributes: [
+		defineSimpleDataAttr({
+			name: "select-scroll-up-button",
+			description: "Present on the scroll up button element.",
+		}),
+	],
+});
 
-export const scrollDownButton =
-	defineComponentApiSchema<SelectScrollDownButtonPropsWithoutHTML>({
-		title: "ScrollDownButton",
-		description:
-			"An optional scroll down button element to improve the scroll experience within the select. Should be used in conjunction with the `select.Viewport` component.",
-		props: scrollButtonProps,
-		dataAttributes: [
-			defineSimpleDataAttr({
-				name: "select-scroll-down-button",
-				description: "Present on the scroll down button element.",
-			}),
-		],
-	});
+export const scrollDownButton = defineComponentApiSchema<SelectScrollDownButtonPropsWithoutHTML>({
+	title: "ScrollDownButton",
+	description:
+		"An optional scroll down button element to improve the scroll experience within the select. Should be used in conjunction with the `select.Viewport` component.",
+	props: scrollButtonProps,
+	dataAttributes: [
+		defineSimpleDataAttr({
+			name: "select-scroll-down-button",
+			description: "Present on the scroll down button element.",
+		}),
+	],
+});
 
 export const group = defineComponentApiSchema<SelectGroupPropsWithoutHTML>({
 	title: "Group",
@@ -347,24 +339,22 @@ export const group = defineComponentApiSchema<SelectGroupPropsWithoutHTML>({
 	],
 });
 
-export const groupHeading =
-	defineComponentApiSchema<SelectGroupHeadingPropsWithoutHTML>({
-		title: "GroupHeading",
-		description:
-			"A heading for the parent select group. This is used to describe a group of related select items.",
-		props: withChildProps({ elType: "HTMLDivElement" }),
-		dataAttributes: [
-			defineSimpleDataAttr({
-				name: "select-group-heading",
-				description: "Present on the group heading element.",
-			}),
-		],
-	});
+export const groupHeading = defineComponentApiSchema<SelectGroupHeadingPropsWithoutHTML>({
+	title: "GroupHeading",
+	description:
+		"A heading for the parent select group. This is used to describe a group of related select items.",
+	props: withChildProps({ elType: "HTMLDivElement" }),
+	dataAttributes: [
+		defineSimpleDataAttr({
+			name: "select-group-heading",
+			description: "Present on the group heading element.",
+		}),
+	],
+});
 
 export const arrow = defineComponentApiSchema<SelectArrowPropsWithoutHTML>({
 	title: "Arrow",
-	description:
-		"An optional arrow element which points to the content when open.",
+	description: "An optional arrow element which points to the content when open.",
 	props: arrowProps,
 	dataAttributes: [
 		defineSimpleDataAttr({

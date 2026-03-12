@@ -55,7 +55,7 @@ export type UseFloatingOptions = {
 	whileElementsMounted?: (
 		reference: ReferenceElement,
 		floating: FloatingElement,
-		update: () => void,
+		update: () => void
 	) => () => void;
 
 	/**

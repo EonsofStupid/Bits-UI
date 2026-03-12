@@ -1,5 +1,5 @@
 <script lang="ts" module>
-import { Popover } from "bits-ui";
+import type { Popover } from "bits-ui";
 export type PopoverTestProps = Popover.RootProps & {
 	contentProps?: Omit<Popover.ContentProps, "asChild" | "child" | "children">;
 	portalProps?: Popover.PortalProps;

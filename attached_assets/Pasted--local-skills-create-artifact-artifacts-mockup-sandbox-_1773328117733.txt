@@ -1,0 +1,267 @@
+.local/skills/create-artifact/artifacts/mockup-sandbox/files/src/index.css:4:2 parse ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+  ✖ Tailwind-specific syntax is disabled.
+  
+    2 │ @import "tw-animate-css";
+    3 │ 
+  > 4 │ @custom-variant dark (&:is(.dark *));
+      │  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    5 │ 
+    6 │ @theme inline {
+  
+  ℹ Enable `tailwindDirectives` in the css parser options, or remove this if you are not using Tailwind CSS.
+  
+
+.local/skills/create-artifact/artifacts/mockup-sandbox/files/src/index.css:6:2 parse ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+  ✖ Tailwind-specific syntax is disabled.
+  
+     4 │ @custom-variant dark (&:is(.dark *));
+     5 │ 
+   > 6 │ @theme inline {
+       │  ^^^^^^^^^^^^^^
+   > 7 │   --radius-sm: calc(var(--radius) - 4px);
+        ...
+  > 42 │   --color-sidebar-ring: hsl(var(--sidebar-ring));
+  > 43 │ }
+       │ ^
+    44 │ 
+    45 │ /* LIGHT MODE - Default theme with placeholder values */
+  
+  ℹ Enable `tailwindDirectives` in the css parser options, or remove this if you are not using Tailwind CSS.
+  
+
+.local/skills/create-artifact/artifacts/mockup-sandbox/files/src/index.css:139:6 parse ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+  ✖ Tailwind-specific syntax is disabled.
+  
+    137 │ @layer base {
+    138 │   * {
+  > 139 │     @apply border-border;
+        │      ^^^^^^^^^^^^^^^^^^^^
+    140 │   }
+    141 │   body {
+  
+  ℹ Enable `tailwindDirectives` in the css parser options, or remove this if you are not using Tailwind CSS.
+  
+
+.local/skills/create-artifact/artifacts/mockup-sandbox/files/src/index.css:142:6 parse ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+  ✖ Tailwind-specific syntax is disabled.
+  
+    140 │   }
+    141 │   body {
+  > 142 │     @apply font-sans antialiased bg-background text-foreground;
+        │      ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    143 │   }
+    144 │ }
+  
+  ℹ Enable `tailwindDirectives` in the css parser options, or remove this if you are not using Tailwind CSS.
+  
+
+.local/skills/create-artifact/artifacts/mockup-sandbox/files/src/index.css:149:6 parse ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+  ✖ Tailwind-specific syntax is disabled.
+  
+    147 │   /* Hide ugly search cancel button in Chrome */
+    148 │   input[type="search"]::-webkit-search-cancel-button {
+  > 149 │     @apply hidden;
+        │      ^^^^^^^^^^^^^
+    150 │   }
+    151 │ 
+  
+  ℹ Enable `tailwindDirectives` in the css parser options, or remove this if you are not using Tailwind CSS.
+  
+
+.local/skills/create-artifact/artifacts/mockup-sandbox/files/src/index.css format ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+  ✖ Code formatting aborted due to parsing errors. To format code with errors, enable the 'formatter.formatWithErrors' option.
+  
+
+.local/skills/create-artifact/artifacts/react-vite/files/src/index.css:3:2 parse ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+  ✖ Tailwind-specific syntax is disabled.
+  
+    1 │ @import "tailwindcss";
+    2 │ @import "tw-animate-css";
+  > 3 │ @plugin "@tailwindcss/typography";
+      │  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    4 │ 
+    5 │ @custom-variant dark (&:is(.dark *));
+  
+  ℹ Enable `tailwindDirectives` in the css parser options, or remove this if you are not using Tailwind CSS.
+  
+
+.local/skills/create-artifact/artifacts/react-vite/files/src/index.css:5:2 parse ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+  ✖ Tailwind-specific syntax is disabled.
+  
+    3 │ @plugin "@tailwindcss/typography";
+    4 │ 
+  > 5 │ @custom-variant dark (&:is(.dark *));
+      │  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    6 │ 
+    7 │ @theme inline {
+  
+  ℹ Enable `tailwindDirectives` in the css parser options, or remove this if you are not using Tailwind CSS.
+  
+
+.local/skills/create-artifact/artifacts/react-vite/files/src/index.css:7:2 parse ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+  ✖ Tailwind-specific syntax is disabled.
+  
+     5 │ @custom-variant dark (&:is(.dark *));
+     6 │ 
+   > 7 │ @theme inline {
+       │  ^^^^^^^^^^^^^^
+   > 8 │   --color-background: hsl(var(--background));
+        ...
+  > 66 │   --radius-xl: calc(var(--radius) + 4px);
+  > 67 │ }
+       │ ^
+    68 │ 
+    69 │ /* LIGHT MODE */
+  
+  ℹ Enable `tailwindDirectives` in the css parser options, or remove this if you are not using Tailwind CSS.
+  
+
+.local/skills/create-artifact/artifacts/react-vite/files/src/index.css:275:6 parse ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+  ✖ Tailwind-specific syntax is disabled.
+  
+    273 │ @layer base {
+    274 │   * {
+  > 275 │     @apply border-border;
+        │      ^^^^^^^^^^^^^^^^^^^^
+    276 │   }
+    277 │ 
+  
+  ℹ Enable `tailwindDirectives` in the css parser options, or remove this if you are not using Tailwind CSS.
+  
+
+.local/skills/create-artifact/artifacts/react-vite/files/src/index.css:279:6 parse ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+  ✖ Tailwind-specific syntax is disabled.
+  
+    278 │   body {
+  > 279 │     @apply font-sans antialiased bg-background text-foreground;
+        │      ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    280 │   }
+    281 │ }
+  
+  ℹ Enable `tailwindDirectives` in the css parser options, or remove this if you are not using Tailwind CSS.
+  
+
+.local/skills/create-artifact/artifacts/react-vite/files/src/index.css:307:6 parse ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+  ✖ Tailwind-specific syntax is disabled.
+  
+    305 │   /* Hide ugly search cancel button in Chrome until we can style it properly */
+    306 │   input[type="search"]::-webkit-search-cancel-button {
+  > 307 │     @apply hidden;
+        │      ^^^^^^^^^^^^^
+    308 │   }
+    309 │ 
+  
+  ℹ Enable `tailwindDirectives` in the css parser options, or remove this if you are not using Tailwind CSS.
+  
+
+.local/skills/create-artifact/artifacts/react-vite/files/src/index.css format ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+  ✖ Code formatting aborted due to parsing errors. To format code with errors, enable the 'formatter.formatWithErrors' option.
+  
+
+.local/skills/create-artifact/artifacts/video-js/files/src/index.css:27:2 parse ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+  ✖ Tailwind-specific syntax is disabled.
+  
+    25 │ }
+    26 │ 
+  > 27 │ @theme inline {
+       │  ^^^^^^^^^^^^^^
+  > 28 │   --color-primary: var(--color-primary);
+        ...
+  > 43 │   --font-mono: var(--font-mono);
+  > 44 │ }
+       │ ^
+    45 │ 
+    46 │ body {
+  
+  ℹ Enable `tailwindDirectives` in the css parser options, or remove this if you are not using Tailwind CSS.
+  
+
+.local/skills/create-artifact/artifacts/video-js/files/src/index.css format ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+  ✖ Code formatting aborted due to parsing errors. To format code with errors, enable the 'formatter.formatWithErrors' option.
+  
+
+docs/src/lib/styles/app.css:8:2 parse ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+  ✖ Tailwind-specific syntax is disabled.
+  
+     6 │ @import "tw-animate-css";
+     7 │ 
+   > 8 │ @custom-variant dark (&:is(.dark *));
+       │  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+     9 │ 
+    10 │ @font-face {
+  
+  ℹ Enable `tailwindDirectives` in the css parser options, or remove this if you are not using Tailwind CSS.
+  
+
+docs/src/lib/styles/app.css:87:2 parse ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+  ✖ Tailwind-specific syntax is disabled.
+  
+     85 │ }
+     86 │ 
+   > 87 │ @theme inline {
+        │  ^^^^^^^^^^^^^^
+   > 88 │   --color-background: var(--background);
+         ...
+  > 296 │   }
+  > 297 │ }
+        │ ^
+    298 │ 
+    299 │ @layer base {
+  
+  ℹ Enable `tailwindDirectives` in the css parser options, or remove this if you are not using Tailwind CSS.
+  
+
+docs/src/lib/styles/app.css:309:4 parse ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+  ✖ Tailwind-specific syntax is disabled.
+  
+    308 │   * {
+  > 309 │       @apply border-border;
+        │        ^^^^^^^^^^^^^^^^^^^^
+    310 │   }
+    311 │ 
+  
+  ℹ Enable `tailwindDirectives` in the css parser options, or remove this if you are not using Tailwind CSS.
+  
+
+docs/src/lib/styles/app.css:319:4 parse ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+  ✖ Tailwind-specific syntax is disabled.
+  
+    318 │   body {
+  > 319 │       @apply bg-background text-foreground;
+        │        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    320 │       font-feature-settings:
+    321 │           "rlig" 1,
+  
+  ℹ Enable `tailwindDirectives` in the css parser options, or remove this if you are not using Tailwind CSS.
+  
+
+The number of diagnostics exceeds the limit allowed. Use --max-diagnostics to increase it.
+Diagnostics not shown: 27.
+Formatted 4068 files in 2s. Fixed 3276 files.
+Found 41 errors.
+Found 1 info.
+format ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+  ✖ Some errors were emitted while running checks.
+  
+
+~/workspace$ 

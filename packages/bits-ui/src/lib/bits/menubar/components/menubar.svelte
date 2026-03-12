@@ -1,9 +1,9 @@
 <script lang="ts">
 import { boxWith, mergeProps } from "svelte-toolbelt";
-import type { MenubarRootProps } from "../types.js";
-import { MenubarRootState } from "../menubar.svelte.js";
 import { createId } from "$lib/internal/create-id.js";
 import { noop } from "$lib/internal/noop.js";
+import { MenubarRootState } from "../menubar.svelte.js";
+import type { MenubarRootProps } from "../types.js";
 
 const uid = $props.id();
 
@@ -26,13 +26,13 @@ const rootState = MenubarRootState.create({
 		(v) => {
 			value = v;
 			onValueChange?.(v);
-		},
+		}
 	),
 	dir: boxWith(() => dir),
 	loop: boxWith(() => loop),
 	ref: boxWith(
 		() => ref,
-		(v) => (ref = v),
+		(v) => (ref = v)
 	),
 });
 

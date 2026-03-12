@@ -34,55 +34,53 @@ export type BaseAccordionRootPropsWithoutHTML = {
 	orientation?: Orientation;
 };
 
-export type AccordionRootSinglePropsWithoutHTML =
-	BaseAccordionRootPropsWithoutHTML & {
-		/**
-		 * The type of accordion. If set to `'multiple'`, the accordion will
-		 * allow multiple items to be open at the same time. If set to
-		 * `'single'`, the accordion will only allow a single item to be open.
-		 *
-		 * @required
-		 */
-		type: "single";
+export type AccordionRootSinglePropsWithoutHTML = BaseAccordionRootPropsWithoutHTML & {
+	/**
+	 * The type of accordion. If set to `'multiple'`, the accordion will
+	 * allow multiple items to be open at the same time. If set to
+	 * `'single'`, the accordion will only allow a single item to be open.
+	 *
+	 * @required
+	 */
+	type: "single";
 
-		/**
-		 * The value of the currently open accordion item.
-		 *
-		 * @bindable
-		 * @default ""
-		 */
-		value?: string;
+	/**
+	 * The value of the currently open accordion item.
+	 *
+	 * @bindable
+	 * @default ""
+	 */
+	value?: string;
 
-		/**
-		 * A callback function called when the value changes.
-		 */
-		onValueChange?: OnChangeFn<string>;
-	};
+	/**
+	 * A callback function called when the value changes.
+	 */
+	onValueChange?: OnChangeFn<string>;
+};
 
-export type AccordionRootMultiplePropsWithoutHTML =
-	BaseAccordionRootPropsWithoutHTML & {
-		/**
-		 * The type of accordion. If set to `'multiple'`, the accordion will
-		 * allow multiple items to be open at the same time. If set to
-		 * `'single'`, the accordion will only allow a single item to be open.
-		 *
-		 * @required
-		 */
-		type: "multiple";
+export type AccordionRootMultiplePropsWithoutHTML = BaseAccordionRootPropsWithoutHTML & {
+	/**
+	 * The type of accordion. If set to `'multiple'`, the accordion will
+	 * allow multiple items to be open at the same time. If set to
+	 * `'single'`, the accordion will only allow a single item to be open.
+	 *
+	 * @required
+	 */
+	type: "multiple";
 
-		/**
-		 * The value of the currently open accordion item.
-		 *
-		 * @bindable
-		 * @default []
-		 */
-		value?: string[];
+	/**
+	 * The value of the currently open accordion item.
+	 *
+	 * @bindable
+	 * @default []
+	 */
+	value?: string[];
 
-		/**
-		 * A callback function called when the value changes.
-		 */
-		onValueChange?: OnChangeFn<string[]>;
-	};
+	/**
+	 * A callback function called when the value changes.
+	 */
+	onValueChange?: OnChangeFn<string[]>;
+};
 
 export type AccordionRootPropsWithoutHTML =
 	| WithChild<AccordionRootSinglePropsWithoutHTML>
@@ -150,8 +148,7 @@ export type AccordionItemPropsWithoutHTML = WithChild<{
 	disabled?: boolean;
 }>;
 
-export type AccordionItemProps = AccordionItemPropsWithoutHTML &
-	BitsPrimitiveDivAttributes;
+export type AccordionItemProps = AccordionItemPropsWithoutHTML & BitsPrimitiveDivAttributes;
 
 export type AccordionHeaderPropsWithoutHTML = WithChild<{
 	/**
@@ -163,5 +160,4 @@ export type AccordionHeaderPropsWithoutHTML = WithChild<{
 	level?: 1 | 2 | 3 | 4 | 5 | 6;
 }>;
 
-export type AccordionHeaderProps = AccordionHeaderPropsWithoutHTML &
-	BitsPrimitiveDivAttributes;
+export type AccordionHeaderProps = AccordionHeaderPropsWithoutHTML & BitsPrimitiveDivAttributes;

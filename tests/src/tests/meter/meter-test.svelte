@@ -1,5 +1,5 @@
 <script lang="ts">
-import { Meter } from "bits-ui";
+import type { Meter } from "bits-ui";
 
 let { value = 0, ...restProps }: Meter.RootProps = $props();
 </script>

@@ -1,10 +1,10 @@
 <script lang="ts">
 import { boxWith, mergeProps } from "svelte-toolbelt";
-import type { NavigationMenuTriggerProps } from "../types.js";
-import { NavigationMenuTriggerState } from "../navigation-menu.svelte.js";
-import { createId } from "$lib/internal/create-id.js";
-import VisuallyHidden from "$lib/bits/utilities/visually-hidden/visually-hidden.svelte";
 import Mounted from "$lib/bits/utilities/mounted.svelte";
+import VisuallyHidden from "$lib/bits/utilities/visually-hidden/visually-hidden.svelte";
+import { createId } from "$lib/internal/create-id.js";
+import { NavigationMenuTriggerState } from "../navigation-menu.svelte.js";
+import type { NavigationMenuTriggerProps } from "../types.js";
 
 const uid = $props.id();
 
@@ -23,13 +23,11 @@ const triggerState = NavigationMenuTriggerState.create({
 	disabled: boxWith(() => disabled ?? false),
 	ref: boxWith(
 		() => ref,
-		(v) => (ref = v),
+		(v) => (ref = v)
 	),
 });
 
-const mergedProps = $derived(
-	mergeProps(restProps, triggerState.props, { tabindex }),
-);
+const mergedProps = $derived(mergeProps(restProps, triggerState.props, { tabindex }));
 </script>
 
 {#if child}

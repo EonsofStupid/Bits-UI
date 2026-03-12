@@ -3,7 +3,7 @@ export { default as Content } from "./components/collapsible-content.svelte";
 export { default as Trigger } from "./components/collapsible-trigger.svelte";
 
 export type {
-	CollapsibleRootProps as RootProps,
 	CollapsibleContentProps as ContentProps,
+	CollapsibleRootProps as RootProps,
 	CollapsibleTriggerProps as TriggerProps,
 } from "./types.js";

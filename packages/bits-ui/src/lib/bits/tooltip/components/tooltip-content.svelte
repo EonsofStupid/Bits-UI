@@ -1,12 +1,12 @@
 <script lang="ts">
 import { boxWith, mergeProps } from "svelte-toolbelt";
-import type { TooltipContentProps } from "../types.js";
-import { TooltipContentState } from "../tooltip.svelte.js";
-import { createId } from "$lib/internal/create-id.js";
 import PopperLayer from "$lib/bits/utilities/popper-layer/popper-layer.svelte";
-import { getFloatingContentCSSVars } from "$lib/internal/floating-svelte/floating-utils.svelte.js";
 import PopperLayerForceMount from "$lib/bits/utilities/popper-layer/popper-layer-force-mount.svelte";
+import { createId } from "$lib/internal/create-id.js";
+import { getFloatingContentCSSVars } from "$lib/internal/floating-svelte/floating-utils.svelte.js";
 import { noop } from "$lib/internal/noop.js";
+import { TooltipContentState } from "../tooltip.svelte.js";
+import type { TooltipContentProps } from "../types.js";
 
 const uid = $props.id();
 
@@ -36,7 +36,7 @@ const contentState = TooltipContentState.create({
 	id: boxWith(() => id),
 	ref: boxWith(
 		() => ref,
-		(v) => (ref = v),
+		(v) => (ref = v)
 	),
 	onInteractOutside: boxWith(() => onInteractOutside),
 	onEscapeKeydown: boxWith(() => onEscapeKeydown),
@@ -55,9 +55,7 @@ const floatingProps = $derived({
 	customAnchor: customAnchor ?? contentState.root.triggerNode,
 });
 
-const mergedProps = $derived(
-	mergeProps(restProps, floatingProps, contentState.props),
-);
+const mergedProps = $derived(mergeProps(restProps, floatingProps, contentState.props));
 </script>
 
 {#if forceMount}

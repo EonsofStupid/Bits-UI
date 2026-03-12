@@ -1,8 +1,8 @@
 <script lang="ts">
 import { boxWith, mergeProps } from "svelte-toolbelt";
-import type { MenuSeparatorProps } from "../types.js";
-import { MenuSeparatorState } from "../menu.svelte.js";
 import { createId } from "$lib/internal/create-id.js";
+import { MenuSeparatorState } from "../menu.svelte.js";
+import type { MenuSeparatorProps } from "../types.js";
 
 const uid = $props.id();
 
@@ -18,7 +18,7 @@ const separatorState = MenuSeparatorState.create({
 	id: boxWith(() => id),
 	ref: boxWith(
 		() => ref,
-		(v) => (ref = v),
+		(v) => (ref = v)
 	),
 });
 

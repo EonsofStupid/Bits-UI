@@ -1,9 +1,9 @@
 <script lang="ts">
 import { boxWith, mergeProps } from "svelte-toolbelt";
+import { createId } from "$lib/internal/create-id.js";
 import { DateFieldInputState } from "../date-field.svelte.js";
 import type { DateFieldInputProps } from "../types.js";
 import DateFieldHiddenInput from "./date-field-hidden-input.svelte";
-import { createId } from "$lib/internal/create-id.js";
 
 const uid = $props.id();
 
@@ -20,7 +20,7 @@ const inputState = DateFieldInputState.create({
 	id: boxWith(() => id),
 	ref: boxWith(
 		() => ref,
-		(v) => (ref = v),
+		(v) => (ref = v)
 	),
 	name: boxWith(() => name),
 });

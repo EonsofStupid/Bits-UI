@@ -1,9 +1,9 @@
 <script lang="ts">
 import { boxWith, mergeProps } from "svelte-toolbelt";
-import type { PaginationRootProps } from "../types.js";
-import { PaginationRootState } from "../pagination.svelte.js";
-import { noop } from "$lib/internal/noop.js";
 import { createId } from "$lib/internal/create-id.js";
+import { noop } from "$lib/internal/noop.js";
+import { PaginationRootState } from "../pagination.svelte.js";
+import type { PaginationRootProps } from "../types.js";
 
 const uid = $props.id();
 
@@ -31,14 +31,14 @@ const rootState = PaginationRootState.create({
 		(v) => {
 			page = v;
 			onPageChange?.(v);
-		},
+		}
 	),
 	loop: boxWith(() => loop),
 	siblingCount: boxWith(() => siblingCount),
 	orientation: boxWith(() => orientation),
 	ref: boxWith(
 		() => ref,
-		(v) => (ref = v),
+		(v) => (ref = v)
 	),
 });
 

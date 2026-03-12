@@ -1,10 +1,10 @@
-import { type Box, type ReadableBox, box } from "svelte-toolbelt";
-import { getElemDirection } from "./locale.js";
-import { getDirectionalKeys } from "./get-directional-keys.js";
-import { kbd } from "./kbd.js";
-import type { Orientation } from "$lib/shared/index.js";
 import { BROWSER } from "esm-env";
+import { type Box, box, type ReadableBox } from "svelte-toolbelt";
+import type { Orientation } from "$lib/shared/index.js";
+import { getDirectionalKeys } from "./get-directional-keys.js";
 import { isHTMLElement } from "./is.js";
+import { kbd } from "./kbd.js";
+import { getElemDirection } from "./locale.js";
 
 type RovingFocusGroupOptions = (
 	| {
@@ -58,15 +58,15 @@ export class RovingFocusGroup {
 		if (this.#opts.candidateSelector) {
 			const candidates = Array.from(
 				this.#opts.rootNode.current.querySelectorAll<HTMLElement>(
-					this.#opts.candidateSelector,
-				),
+					this.#opts.candidateSelector
+				)
 			);
 			return candidates;
 		} else if (this.#opts.candidateAttr) {
 			const candidates = Array.from(
 				this.#opts.rootNode.current.querySelectorAll<HTMLElement>(
-					`[${this.#opts.candidateAttr}]:not([data-disabled])`,
-				),
+					`[${this.#opts.candidateAttr}]:not([data-disabled])`
+				)
 			);
 			return candidates;
 		}
@@ -80,11 +80,7 @@ export class RovingFocusGroup {
 		items[0]?.focus();
 	}
 
-	handleKeydown(
-		node: HTMLElement | null | undefined,
-		e: KeyboardEvent,
-		both: boolean = false,
-	) {
+	handleKeydown(node: HTMLElement | null | undefined, e: KeyboardEvent, both: boolean = false) {
 		const rootNode = this.#opts.rootNode.current;
 		if (!rootNode || !node) return;
 
@@ -93,10 +89,7 @@ export class RovingFocusGroup {
 
 		const currentIndex = items.indexOf(node);
 		const dir = getElemDirection(rootNode);
-		const { nextKey, prevKey } = getDirectionalKeys(
-			dir,
-			this.#opts.orientation.current,
-		);
+		const { nextKey, prevKey } = getDirectionalKeys(dir, this.#opts.orientation.current);
 		const loop = this.#opts.loop.current;
 
 		const keyToIndex = {
@@ -107,10 +100,8 @@ export class RovingFocusGroup {
 		};
 
 		if (both) {
-			const altNextKey =
-				nextKey === kbd.ARROW_DOWN ? kbd.ARROW_RIGHT : kbd.ARROW_DOWN;
-			const altPrevKey =
-				prevKey === kbd.ARROW_UP ? kbd.ARROW_LEFT : kbd.ARROW_UP;
+			const altNextKey = nextKey === kbd.ARROW_DOWN ? kbd.ARROW_RIGHT : kbd.ARROW_DOWN;
+			const altPrevKey = prevKey === kbd.ARROW_UP ? kbd.ARROW_LEFT : kbd.ARROW_UP;
 			keyToIndex[altNextKey] = currentIndex + 1;
 			keyToIndex[altPrevKey] = currentIndex - 1;
 		}
@@ -154,9 +145,7 @@ export class RovingFocusGroup {
 	focusCurrentTabStop() {
 		const currentTabStopId = this.#currentTabStopId.current;
 		if (!currentTabStopId) return;
-		const currentTabStop = this.#opts.rootNode.current?.querySelector(
-			`#${currentTabStopId}`,
-		);
+		const currentTabStop = this.#opts.rootNode.current?.querySelector(`#${currentTabStopId}`);
 		if (!currentTabStop || !isHTMLElement(currentTabStop)) return;
 		currentTabStop.focus();
 	}

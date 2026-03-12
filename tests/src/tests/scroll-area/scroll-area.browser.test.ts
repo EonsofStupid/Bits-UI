@@ -1,11 +1,9 @@
-import { expect, it, vi, describe } from "vitest";
-import { render } from "vitest-browser-svelte";
-import { getTestKbd } from "../utils.js";
-import ScrollAreaTest, {
-	type ScrollAreaTestProps,
-} from "./scroll-area-test.svelte";
-import { expectExists, expectNotExists } from "../browser-utils";
 import { page, userEvent } from "@vitest/browser/context";
+import { describe, expect, it, vi } from "vitest";
+import { render } from "vitest-browser-svelte";
+import { expectExists, expectNotExists } from "../browser-utils";
+import { getTestKbd } from "../utils.js";
+import ScrollAreaTest, { type ScrollAreaTestProps } from "./scroll-area-test.svelte";
 
 const kbd = getTestKbd();
 
@@ -237,7 +235,7 @@ describe("ScrollArea", () => {
 		await userEvent.keyboard(kbd.ARROW_DOWN);
 
 		await vi.waitFor(() =>
-			expect(t.viewport.element().scrollTop).toBeGreaterThan(initialScrollTop),
+			expect(t.viewport.element().scrollTop).toBeGreaterThan(initialScrollTop)
 		);
 	});
 
@@ -268,12 +266,10 @@ describe("ScrollArea", () => {
 		await userEvent.keyboard(kbd.ARROW_RIGHT);
 
 		await vi.waitFor(() =>
-			expect(t.viewport.element().scrollTop).toBeGreaterThan(initialScrollTop),
+			expect(t.viewport.element().scrollTop).toBeGreaterThan(initialScrollTop)
 		);
 		await vi.waitFor(() =>
-			expect(t.viewport.element().scrollLeft).toBeGreaterThan(
-				initialScrollLeft,
-			),
+			expect(t.viewport.element().scrollLeft).toBeGreaterThan(initialScrollLeft)
 		);
 	});
 
@@ -293,17 +289,17 @@ describe("ScrollArea", () => {
 
 		await userEvent.keyboard(kbd.ARROW_DOWN);
 		await vi.waitFor(() =>
-			expect(t.viewport.element().scrollTop).toBeGreaterThan(initialScrollTop),
+			expect(t.viewport.element().scrollTop).toBeGreaterThan(initialScrollTop)
 		);
 
 		await userEvent.keyboard(kbd.PAGE_DOWN);
 		await vi.waitFor(() =>
-			expect(t.viewport.element().scrollTop).toBeGreaterThan(initialScrollTop),
+			expect(t.viewport.element().scrollTop).toBeGreaterThan(initialScrollTop)
 		);
 
 		await userEvent.keyboard(kbd.END);
 		await vi.waitFor(() =>
-			expect(t.viewport.element().scrollTop).toBeGreaterThan(initialScrollTop),
+			expect(t.viewport.element().scrollTop).toBeGreaterThan(initialScrollTop)
 		);
 
 		await userEvent.keyboard(kbd.HOME);
@@ -332,9 +328,7 @@ describe("ScrollArea", () => {
 		await t.viewport.click();
 		await userEvent.keyboard(kbd.ARROW_LEFT);
 
-		await vi.waitFor(() =>
-			expect(t.viewport.element().scrollLeft).not.toBe(initialScrollLeft),
-		);
+		await vi.waitFor(() => expect(t.viewport.element().scrollLeft).not.toBe(initialScrollLeft));
 	});
 
 	it("should restore webkitUserSelect when pointer capture is lost without pointerup", async () => {

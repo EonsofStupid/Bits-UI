@@ -1,6 +1,6 @@
 <script lang="ts">
-import { Calendar } from "bits-ui";
 import { getLocalTimeZone, today } from "@internationalized/date";
+import { Calendar } from "bits-ui";
 
 let value = $state(today(getLocalTimeZone()));
 </script>

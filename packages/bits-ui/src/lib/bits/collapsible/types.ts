@@ -42,28 +42,27 @@ export type CollapsibleContentSnippetProps = {
 	open: boolean;
 };
 
-export type CollapsibleContentPropsWithoutHTML =
-	WithChildNoChildrenSnippetProps<
-		{
-			/**
-			 * Whether to force mount the content to the DOM.
-			 *
-			 * @default false
-			 */
-			forceMount?: boolean;
+export type CollapsibleContentPropsWithoutHTML = WithChildNoChildrenSnippetProps<
+	{
+		/**
+		 * Whether to force mount the content to the DOM.
+		 *
+		 * @default false
+		 */
+		forceMount?: boolean;
 
-			/**
-			 * Whether to allow the browser to expand the content when searching for content
-			 * within the panel via the browser's built-in search functionality.
-			 *
-			 * When `true`, this prop will override the `forceMount` prop.
-			 *
-			 * @default true
-			 */
-			hiddenUntilFound?: boolean;
-		},
-		CollapsibleContentSnippetProps
-	>;
+		/**
+		 * Whether to allow the browser to expand the content when searching for content
+		 * within the panel via the browser's built-in search functionality.
+		 *
+		 * When `true`, this prop will override the `forceMount` prop.
+		 *
+		 * @default true
+		 */
+		hiddenUntilFound?: boolean;
+	},
+	CollapsibleContentSnippetProps
+>;
 
 export type CollapsibleContentProps = CollapsibleContentPropsWithoutHTML &
 	Without<BitsPrimitiveDivAttributes, CollapsibleContentPropsWithoutHTML>;

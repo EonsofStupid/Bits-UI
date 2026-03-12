@@ -1,12 +1,12 @@
 <script lang="ts">
-import type { Snippet } from "svelte";
 import { Collapsible, Tabs } from "bits-ui";
-import DemoCodeTabs from "./demo-code-tabs.svelte";
-import AppCSS from "./code-renders/app-css.svelte";
-import ScrollArea from "$lib/components/ui/scroll-area.svelte";
-import { cn } from "$lib/utils/styles.js";
-import { useCopyToClipboard } from "$lib/utils/copy-to-clipboard.svelte.js";
 import { watch } from "runed";
+import type { Snippet } from "svelte";
+import ScrollArea from "$lib/components/ui/scroll-area.svelte";
+import { useCopyToClipboard } from "$lib/utils/copy-to-clipboard.svelte.js";
+import { cn } from "$lib/utils/styles.js";
+import AppCSS from "./code-renders/app-css.svelte";
+import DemoCodeTabs from "./demo-code-tabs.svelte";
 
 let {
 	children,

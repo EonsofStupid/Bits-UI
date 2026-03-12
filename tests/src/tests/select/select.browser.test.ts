@@ -1,6 +1,8 @@
-import { expect, it, vi, describe, beforeEach } from "vitest";
-import { render } from "vitest-browser-svelte";
+import { page, userEvent } from "@vitest/browser/context";
 import type { Component } from "svelte";
+import { beforeEach, describe, expect, it, vi } from "vitest";
+import { render } from "vitest-browser-svelte";
+import { expectExists, expectNotExists } from "../browser-utils";
 import { getTestId } from "../helpers/select.js";
 import { getTestKbd } from "../utils.js";
 import type { SelectForceMountTestProps } from "./select-force-mount-test.svelte";
@@ -10,8 +12,6 @@ import SelectMultiTest from "./select-multi-test.svelte";
 import type { Item, SelectSingleTestProps } from "./select-test.svelte";
 import SelectTest from "./select-test.svelte";
 import SelectViewportTest from "./select-viewport-test.svelte";
-import { expectExists, expectNotExists } from "../browser-utils";
-import { page, userEvent } from "@vitest/browser/context";
 
 const kbd = getTestKbd();
 
@@ -42,7 +42,7 @@ function setupSingle(
 	props: Partial<SelectSingleTestProps | SelectForceMountTestProps> = {},
 	items: Item[] = testItems,
 	// oxlint-disable-next-line no-explicit-any
-	component: Component<any, any, any> = SelectTest,
+	component: Component<any, any, any> = SelectTest
 ) {
 	const returned = render(component, { name: "test", ...props, items });
 	const trigger = page.getByTestId("trigger");
@@ -68,10 +68,7 @@ function setupSingle(
 	};
 }
 
-function setupMultiple(
-	props: Partial<SelectMultipleTestProps> = {},
-	items: Item[] = testItems,
-) {
+function setupMultiple(props: Partial<SelectMultipleTestProps> = {}, items: Item[] = testItems) {
 	// @ts-expect-error - this is fine
 	const returned = render(SelectMultiTest, { name: "test", ...props, items });
 	const trigger = page.getByTestId("trigger");
@@ -82,7 +79,7 @@ function setupMultiple(
 
 	function getHiddenInputs(name = "test") {
 		return Array.from(
-			returned.container.querySelectorAll<HTMLElement>(`input[name="${name}"]`),
+			returned.container.querySelectorAll<HTMLElement>(`input[name="${name}"]`)
 		);
 	}
 
@@ -104,7 +101,7 @@ function setupMultiple(
 async function openSingle(
 	props: Partial<SelectSingleTestProps> = {},
 	openWith: "click" | "type" | (string & {}) = "click",
-	_searchValue?: string,
+	_searchValue?: string
 ) {
 	const t = setupSingle(props);
 
@@ -132,7 +129,7 @@ async function openSingle(
 async function openMultiple(
 	props: Partial<SelectMultipleTestProps> = {},
 	openWith: "click" | "type" | (string & {}) = "click",
-	_searchValue?: string,
+	_searchValue?: string
 ) {
 	const t = setupMultiple(props);
 	await expectNotExists(t.getContent());
@@ -237,18 +234,14 @@ describe("select - single", () => {
 
 	it("should portal to the body by default", async () => {
 		const t = await openSingle();
-		expect(t.content.element().parentElement?.parentElement).toBe(
-			document.body,
-		);
+		expect(t.content.element().parentElement?.parentElement).toBe(document.body);
 	});
 
 	it("should portal to a custom element if specified", async () => {
 		const t = await openSingle({
 			portalProps: { to: "#portal-target" },
 		});
-		const portalTarget = page
-			.getByTestId("portal-target")
-			.element() as HTMLElement;
+		const portalTarget = page.getByTestId("portal-target").element() as HTMLElement;
 		expect(t.content.element().parentElement?.parentElement).toBe(portalTarget);
 	});
 
@@ -543,9 +536,7 @@ describe("select - single", () => {
 		const t = await openSingle({
 			autocomplete: "one-time-code",
 		});
-		await expect
-			.element(t.getHiddenInput())
-			.toHaveAttribute("autocomplete", "one-time-code");
+		await expect.element(t.getHiddenInput()).toHaveAttribute("autocomplete", "one-time-code");
 	});
 
 	it("should not open when disabled on touch devices", async () => {
@@ -676,9 +667,7 @@ describe("select - multiple", () => {
 
 	it("should portal to the body by default", async () => {
 		const t = await openMultiple();
-		expect(t.content.element().parentElement?.parentElement).toBe(
-			document.body,
-		);
+		expect(t.content.element().parentElement?.parentElement).toBe(document.body);
 	});
 
 	it("should portal to a custom element if specified", async () => {
@@ -910,9 +899,7 @@ function getItems(getter: typeof page.getByTestId, items = testItems) {
 ////////////////////////////////////
 
 type MaybeArray<T> = T | T[];
-async function expectSelected(
-	node: MaybeArray<ReturnType<typeof page.getByTestId>>,
-) {
+async function expectSelected(node: MaybeArray<ReturnType<typeof page.getByTestId>>) {
 	if (Array.isArray(node)) {
 		for (const n of node) {
 			await expect.element(n).toHaveAttribute("data-selected");
@@ -924,9 +911,7 @@ async function expectSelected(
 	}
 }
 
-async function expectNotSelected(
-	node: MaybeArray<ReturnType<typeof page.getByTestId>>,
-) {
+async function expectNotSelected(node: MaybeArray<ReturnType<typeof page.getByTestId>>) {
 	if (Array.isArray(node)) {
 		for (const n of node) {
 			await expect.element(n).not.toHaveAttribute("data-selected");
@@ -938,9 +923,7 @@ async function expectNotSelected(
 	}
 }
 
-async function expectHighlighted(
-	node: MaybeArray<ReturnType<typeof page.getByTestId>>,
-) {
+async function expectHighlighted(node: MaybeArray<ReturnType<typeof page.getByTestId>>) {
 	if (Array.isArray(node)) {
 		for (const n of node) {
 			await expect.element(n).toHaveAttribute("data-highlighted");
@@ -950,9 +933,7 @@ async function expectHighlighted(
 	}
 }
 
-async function expectNotHighlighted(
-	node: MaybeArray<ReturnType<typeof page.getByTestId>>,
-) {
+async function expectNotHighlighted(node: MaybeArray<ReturnType<typeof page.getByTestId>>) {
 	if (Array.isArray(node)) {
 		for (const n of node) {
 			await expect.element(n).not.toHaveAttribute("data-highlighted");

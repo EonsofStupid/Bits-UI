@@ -1,15 +1,15 @@
 <script lang="ts">
-import { page } from "$app/state";
-import { cn } from "$lib/utils/styles.js";
 import type { Component } from "svelte";
-import Metadata from "./metadata.svelte";
-import type { TocItem } from "$lib/utils/use-toc.svelte.js";
-import Toc from "./toc/toc.svelte";
+import { page } from "$app/state";
 import type { APISchema } from "$lib/content/types.js";
 import type { DocMetadata } from "$lib/utils/docs.js";
+import { cn } from "$lib/utils/styles.js";
+import type { TocItem } from "$lib/utils/use-toc.svelte.js";
 import DocPageHeader from "./doc-page-header.svelte";
-import SidebarSponsor from "./sidebar-sponsor.svelte";
 import DocsPager from "./docs-pager.svelte";
+import Metadata from "./metadata.svelte";
+import SidebarSponsor from "./sidebar-sponsor.svelte";
+import Toc from "./toc/toc.svelte";
 
 let {
 	component,
@@ -36,9 +36,7 @@ const apiSchemaToc: TocItem | null = $derived.by(() => {
 	};
 });
 
-const fullToc = $derived(
-	apiSchemaToc ? [...metadata.toc, apiSchemaToc] : metadata.toc,
-);
+const fullToc = $derived(apiSchemaToc ? [...metadata.toc, apiSchemaToc] : metadata.toc);
 </script>
 
 <Metadata {...metadata} />

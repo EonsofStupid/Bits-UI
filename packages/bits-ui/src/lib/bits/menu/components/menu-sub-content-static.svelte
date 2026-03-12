@@ -1,14 +1,14 @@
 <script lang="ts">
 import { afterTick, boxWith, mergeProps } from "svelte-toolbelt";
-import type { MenuSubContentStaticProps } from "../types.js";
-import { MenuContentState } from "../menu.svelte.js";
-import { SUB_CLOSE_KEYS } from "../utils.js";
-import { createId } from "$lib/internal/create-id.js";
 import PopperLayer from "$lib/bits/utilities/popper-layer/popper-layer.svelte";
-import { noop } from "$lib/internal/noop.js";
-import { isHTMLElement } from "$lib/internal/is.js";
-import { getFloatingContentCSSVars } from "$lib/internal/floating-svelte/floating-utils.svelte.js";
 import PopperLayerForceMount from "$lib/bits/utilities/popper-layer/popper-layer-force-mount.svelte";
+import { createId } from "$lib/internal/create-id.js";
+import { getFloatingContentCSSVars } from "$lib/internal/floating-svelte/floating-utils.svelte.js";
+import { isHTMLElement } from "$lib/internal/is.js";
+import { noop } from "$lib/internal/noop.js";
+import { MenuContentState } from "../menu.svelte.js";
+import type { MenuSubContentStaticProps } from "../types.js";
+import { SUB_CLOSE_KEYS } from "../utils.js";
 
 const uid = $props.id();
 
@@ -36,19 +36,17 @@ const subContentState = MenuContentState.create({
 	loop: boxWith(() => loop),
 	ref: boxWith(
 		() => ref,
-		(v) => (ref = v),
+		(v) => (ref = v)
 	),
 	onCloseAutoFocus: boxWith(() => handleCloseAutoFocus),
 	isSub: true,
 });
 
 function onkeydown(e: KeyboardEvent) {
-	const isKeyDownInside = (e.currentTarget as HTMLElement).contains(
-		e.target as HTMLElement,
+	const isKeyDownInside = (e.currentTarget as HTMLElement).contains(e.target as HTMLElement);
+	const isCloseKey = SUB_CLOSE_KEYS[subContentState.parentMenu.root.opts.dir.current].includes(
+		e.key
 	);
-	const isCloseKey = SUB_CLOSE_KEYS[
-		subContentState.parentMenu.root.opts.dir.current
-	].includes(e.key);
 	if (isKeyDownInside && isCloseKey) {
 		subContentState.parentMenu.onClose();
 		const triggerNode = subContentState.parentMenu.triggerNode;
@@ -57,15 +55,13 @@ function onkeydown(e: KeyboardEvent) {
 	}
 }
 
-const dataAttr = $derived(
-	subContentState.parentMenu.root.getBitsAttr("sub-content"),
-);
+const dataAttr = $derived(subContentState.parentMenu.root.getBitsAttr("sub-content"));
 
 const mergedProps = $derived(
 	mergeProps(restProps, subContentState.props, {
 		onkeydown,
 		[dataAttr]: "",
-	}),
+	})
 );
 
 function handleOpenAutoFocus(e: Event) {

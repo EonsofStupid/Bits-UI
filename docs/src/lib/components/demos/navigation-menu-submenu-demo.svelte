@@ -13,8 +13,7 @@ const components: { title: string; href: string; description: string }[] = [
 	{
 		title: "Link Preview",
 		href: "/docs/components/link-preview",
-		description:
-			"For sighted users to preview content available behind a link.",
+		description: "For sighted users to preview content available behind a link.",
 	},
 	{
 		title: "Progress",
@@ -38,8 +37,7 @@ const typeHelpers = [
 	{
 		title: "WithoutChildrenOrChild",
 		href: "/docs/type-helpers/without-children-or-child",
-		description:
-			"Remove the children and child snippet props from a props type.",
+		description: "Remove the children and child snippet props from a props type.",
 	},
 ];
 

@@ -1,12 +1,12 @@
 <script lang="ts">
 import { boxWith, mergeProps } from "svelte-toolbelt";
-import { NavigationMenuContentState } from "../navigation-menu.svelte.js";
-import NavigationMenuContentImpl from "./navigation-menu-content-impl.svelte";
-import { createId } from "$lib/internal/create-id.js";
-import type { NavigationMenuContentProps } from "$lib/types.js";
+import Mounted from "$lib/bits/utilities/mounted.svelte";
 import Portal from "$lib/bits/utilities/portal/portal.svelte";
 import PresenceLayer from "$lib/bits/utilities/presence-layer/presence-layer.svelte";
-import Mounted from "$lib/bits/utilities/mounted.svelte";
+import { createId } from "$lib/internal/create-id.js";
+import type { NavigationMenuContentProps } from "$lib/types.js";
+import { NavigationMenuContentState } from "../navigation-menu.svelte.js";
+import NavigationMenuContentImpl from "./navigation-menu-content-impl.svelte";
 
 const uid = $props.id();
 
@@ -23,7 +23,7 @@ const contentState = NavigationMenuContentState.create({
 	id: boxWith(() => id),
 	ref: boxWith(
 		() => ref,
-		(v) => (ref = v),
+		(v) => (ref = v)
 	),
 });
 

@@ -443,10 +443,7 @@
 		},
 		{
 			"name": "Fix YAML block scalar, Python Logical",
-			"scope": [
-				"keyword.control.flow.block-scalar.literal",
-				"keyword.control.flow.python"
-			],
+			"scope": ["keyword.control.flow.block-scalar.literal", "keyword.control.flow.python"],
 			"settings": {
 				"fontStyle": ""
 			}
@@ -1229,9 +1226,7 @@
 		},
 		{
 			"name": "JSON Key - Level 0",
-			"scope": [
-				"source.json meta.structure.dictionary.json support.type.property-name.json"
-			],
+			"scope": ["source.json meta.structure.dictionary.json support.type.property-name.json"],
 			"settings": {
 				"foreground": "#34548a"
 			}
@@ -1452,10 +1447,7 @@
 		},
 		{
 			"name": "Markup - Bold-Italic",
-			"scope": [
-				"markup.bold markup.italic",
-				"markup.bold markup.italic punctuation"
-			],
+			"scope": ["markup.bold markup.italic", "markup.bold markup.italic punctuation"],
 			"settings": {
 				"fontStyle": "bold italic",
 				"foreground": "#343b58"

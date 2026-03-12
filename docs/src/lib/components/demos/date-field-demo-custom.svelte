@@ -1,5 +1,5 @@
 <script lang="ts">
-import { DateField } from "bits-ui";
+import type { DateField } from "bits-ui";
 
 let {
 	labelText = "Select a date",

@@ -1,5 +1,5 @@
 <script lang="ts" module>
-import { Dialog, type WithoutChildrenOrChild } from "bits-ui";
+import type { Dialog, WithoutChildrenOrChild } from "bits-ui";
 export type DialogTestProps = Dialog.RootProps & {
 	contentProps?: Omit<Dialog.ContentProps, "asChild" | "child" | "children">;
 	portalProps?: Dialog.PortalProps;

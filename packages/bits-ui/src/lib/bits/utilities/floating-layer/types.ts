@@ -1,9 +1,9 @@
 import type { Snippet } from "svelte";
 import type { ReadableBox } from "svelte-toolbelt";
-import type { Align, Boundary, Side } from "./use-floating-layer.svelte.js";
+import type { Measurable } from "$lib/internal/floating-svelte/types.js";
 import type { Arrayable } from "$lib/internal/types.js";
 import type { Direction, StyleProperties } from "$lib/shared/index.js";
-import type { Measurable } from "$lib/internal/floating-svelte/types.js";
+import type { Align, Boundary, Side } from "./use-floating-layer.svelte.js";
 
 export type FloatingLayerContentProps = {
 	/**
@@ -79,9 +79,7 @@ export type FloatingLayerContentProps = {
 	 */
 	updatePositionStrategy?: "optimized" | "always";
 
-	content?: Snippet<
-		[{ props: Record<string, unknown>; wrapperProps: Record<string, unknown> }]
-	>;
+	content?: Snippet<[{ props: Record<string, unknown>; wrapperProps: Record<string, unknown> }]>;
 
 	/**
 	 * The positioning strategy to use for the floating element.

@@ -1,10 +1,10 @@
 <script lang="ts">
 import { Collapsible, Tabs } from "bits-ui";
-import type { Snippet } from "svelte";
-import CopySimple from "phosphor-svelte/lib/CopySimple";
 import Check from "phosphor-svelte/lib/Check";
-import { cn } from "$lib/utils/styles.js";
+import CopySimple from "phosphor-svelte/lib/CopySimple";
+import type { Snippet } from "svelte";
 import { useCopyToClipboard } from "$lib/utils/copy-to-clipboard.svelte.js";
+import { cn } from "$lib/utils/styles.js";
 
 let {
 	value = $bindable(),

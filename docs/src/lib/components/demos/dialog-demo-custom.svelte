@@ -1,7 +1,7 @@
 <script lang="ts">
-import type { Snippet } from "svelte";
-import { Dialog, type WithoutChild } from "bits-ui";
+import type { Dialog, WithoutChild } from "bits-ui";
 import X from "phosphor-svelte/lib/X";
+import type { Snippet } from "svelte";
 
 type Props = Dialog.RootProps & {
 	buttonText: string;

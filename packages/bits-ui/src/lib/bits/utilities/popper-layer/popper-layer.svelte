@@ -1,6 +1,6 @@
 <script lang="ts">
-import type { PopperLayerImplProps } from "./types.js";
 import PopperLayerInner from "./popper-layer-inner.svelte";
+import type { PopperLayerImplProps } from "./types.js";
 
 let {
 	popper,

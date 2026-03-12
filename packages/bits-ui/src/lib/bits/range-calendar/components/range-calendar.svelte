@@ -1,13 +1,13 @@
 <script lang="ts">
+import type { DateValue } from "@internationalized/date";
 import { watch } from "runed";
 import { boxWith, mergeProps } from "svelte-toolbelt";
-import { type DateValue } from "@internationalized/date";
-import type { RangeCalendarRootProps } from "../types.js";
-import { RangeCalendarRootState } from "../range-calendar.svelte.js";
-import { noop } from "$lib/internal/noop.js";
+import { resolveLocaleProp } from "$lib/bits/utilities/config/prop-resolvers.js";
 import { createId } from "$lib/internal/create-id.js";
 import { getDefaultDate } from "$lib/internal/date-time/utils.js";
-import { resolveLocaleProp } from "$lib/bits/utilities/config/prop-resolvers.js";
+import { noop } from "$lib/internal/noop.js";
+import { RangeCalendarRootState } from "../range-calendar.svelte.js";
+import type { RangeCalendarRootProps } from "../types.js";
 
 const uid = $props.id();
 
@@ -66,7 +66,7 @@ watch.pre(
 	() => placeholder,
 	() => {
 		handleDefaultPlaceholder();
-	},
+	}
 );
 
 function handleDefaultValue() {
@@ -81,28 +81,28 @@ watch.pre(
 	() => value,
 	() => {
 		handleDefaultValue();
-	},
+	}
 );
 
 const rootState = RangeCalendarRootState.create({
 	id: boxWith(() => id),
 	ref: boxWith(
 		() => ref,
-		(v) => (ref = v),
+		(v) => (ref = v)
 	),
 	value: boxWith(
 		() => value!,
 		(v) => {
 			value = v;
 			onValueChange(v);
-		},
+		}
 	),
 	placeholder: boxWith(
 		() => placeholder!,
 		(v) => {
 			placeholder = v;
 			onPlaceholderChange(v);
-		},
+		}
 	),
 	disabled: boxWith(() => disabled),
 	readonly: boxWith(() => readonly),
@@ -127,14 +127,14 @@ const rootState = RangeCalendarRootState.create({
 		(v) => {
 			startValue = v;
 			onStartValueChange(v);
-		},
+		}
 	),
 	endValue: boxWith(
 		() => endValue,
 		(v) => {
 			endValue = v;
 			onEndValueChange(v);
-		},
+		}
 	),
 	monthFormat: boxWith(() => monthFormat),
 	yearFormat: boxWith(() => yearFormat),

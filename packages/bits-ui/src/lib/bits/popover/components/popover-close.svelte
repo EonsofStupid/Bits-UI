@@ -1,8 +1,8 @@
 <script lang="ts">
 import { boxWith, mergeProps } from "svelte-toolbelt";
-import type { PopoverCloseProps } from "../types.js";
-import { PopoverCloseState } from "../popover.svelte.js";
 import { createId } from "$lib/internal/create-id.js";
+import { PopoverCloseState } from "../popover.svelte.js";
+import type { PopoverCloseProps } from "../types.js";
 
 const uid = $props.id();
 
@@ -18,7 +18,7 @@ const closeState = PopoverCloseState.create({
 	id: boxWith(() => id),
 	ref: boxWith(
 		() => ref,
-		(v) => (ref = v),
+		(v) => (ref = v)
 	),
 });
 const mergedProps = $derived(mergeProps(restProps, closeState.props));

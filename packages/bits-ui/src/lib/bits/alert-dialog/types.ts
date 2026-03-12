@@ -1,25 +1,22 @@
-import type {
-	DialogContentProps,
-	DialogContentPropsWithoutHTML,
-} from "$lib/types.js";
+import type { DialogContentProps, DialogContentPropsWithoutHTML } from "$lib/types.js";
 
 export type {
-	DialogRootPropsWithoutHTML as AlertDialogRootPropsWithoutHTML,
-	DialogRootProps as AlertDialogRootProps,
-	DialogClosePropsWithoutHTML as AlertDialogActionPropsWithoutHTML,
 	DialogCloseProps as AlertDialogActionProps,
-	DialogClosePropsWithoutHTML as AlertDialogCancelPropsWithoutHTML,
 	DialogCloseProps as AlertDialogCancelProps,
-	DialogPortalPropsWithoutHTML as AlertDialogPortalPropsWithoutHTML,
-	DialogPortalProps as AlertDialogPortalProps,
-	DialogOverlayPropsWithoutHTML as AlertDialogOverlayPropsWithoutHTML,
-	DialogOverlayProps as AlertDialogOverlayProps,
-	DialogTitlePropsWithoutHTML as AlertDialogTitlePropsWithoutHTML,
-	DialogTitleProps as AlertDialogTitleProps,
-	DialogDescriptionPropsWithoutHTML as AlertDialogDescriptionPropsWithoutHTML,
+	DialogClosePropsWithoutHTML as AlertDialogActionPropsWithoutHTML,
+	DialogClosePropsWithoutHTML as AlertDialogCancelPropsWithoutHTML,
 	DialogDescriptionProps as AlertDialogDescriptionProps,
-	DialogTriggerPropsWithoutHTML as AlertDialogTriggerPropsWithoutHTML,
+	DialogDescriptionPropsWithoutHTML as AlertDialogDescriptionPropsWithoutHTML,
+	DialogOverlayProps as AlertDialogOverlayProps,
+	DialogOverlayPropsWithoutHTML as AlertDialogOverlayPropsWithoutHTML,
+	DialogPortalProps as AlertDialogPortalProps,
+	DialogPortalPropsWithoutHTML as AlertDialogPortalPropsWithoutHTML,
+	DialogRootProps as AlertDialogRootProps,
+	DialogRootPropsWithoutHTML as AlertDialogRootPropsWithoutHTML,
+	DialogTitleProps as AlertDialogTitleProps,
+	DialogTitlePropsWithoutHTML as AlertDialogTitlePropsWithoutHTML,
 	DialogTriggerProps as AlertDialogTriggerProps,
+	DialogTriggerPropsWithoutHTML as AlertDialogTriggerPropsWithoutHTML,
 } from "$lib/bits/dialog/types.js";
 
 export type AlertDialogContentPropsWithoutHTML = Omit<

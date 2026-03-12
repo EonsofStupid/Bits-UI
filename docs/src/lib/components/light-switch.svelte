@@ -1,10 +1,10 @@
 <script lang="ts">
 import { Button } from "bits-ui";
 import { mode, toggleMode } from "mode-watcher";
-import { scale } from "svelte/transition";
-import { cubicOut } from "svelte/easing";
 import Moon from "phosphor-svelte/lib/Moon";
 import Sun from "phosphor-svelte/lib/Sun";
+import { cubicOut } from "svelte/easing";
+import { scale } from "svelte/transition";
 </script>
 
 <Button.Root

@@ -1,7 +1,7 @@
 import { page } from "@vitest/browser/context";
+import type { ComponentProps } from "svelte";
 import { expect, it } from "vitest";
 import { render } from "vitest-browser-svelte";
-import type { ComponentProps } from "svelte";
 import CommandScrollTest from "./command-scroll-test.svelte";
 
 function setup(props: Partial<ComponentProps<typeof CommandScrollTest>> = {}) {

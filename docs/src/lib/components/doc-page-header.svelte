@@ -1,14 +1,14 @@
 <script lang="ts">
+import Check from "phosphor-svelte/lib/Check";
+import Copy from "phosphor-svelte/lib/Copy";
+import { watch } from "runed";
+import { page } from "$app/state";
+import { CopyToClipboard } from "$lib/utils/copy-to-clipboard.svelte.js";
 import type { DocMetadata } from "$lib/utils/docs.js";
+import CopyPageDropdown from "./copy-page-dropdown.svelte";
+import PageHeader from "./page-header/page-header.svelte";
 import PageHeaderDescription from "./page-header/page-header-description.svelte";
 import PageHeaderHeading from "./page-header/page-header-heading.svelte";
-import PageHeader from "./page-header/page-header.svelte";
-import Copy from "phosphor-svelte/lib/Copy";
-import { CopyToClipboard } from "$lib/utils/copy-to-clipboard.svelte.js";
-import { page } from "$app/state";
-import Check from "phosphor-svelte/lib/Check";
-import CopyPageDropdown from "./copy-page-dropdown.svelte";
-import { watch } from "runed";
 import SidebarSponsorMobile from "./sidebar-sponsor-mobile.svelte";
 
 let { metadata }: { metadata: DocMetadata } = $props();
@@ -33,7 +33,7 @@ watch(
 	() => page.url.pathname,
 	() => {
 		text = "";
-	},
+	}
 );
 </script>
 

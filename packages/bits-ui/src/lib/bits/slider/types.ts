@@ -1,10 +1,6 @@
 import type { OnChangeFn, WithChild, Without } from "$lib/internal/types.js";
 import type { BitsPrimitiveSpanAttributes } from "$lib/shared/attributes.js";
-import type {
-	Direction,
-	Orientation,
-	SliderThumbPositioning,
-} from "$lib/shared/index.js";
+import type { Direction, Orientation, SliderThumbPositioning } from "$lib/shared/index.js";
 
 export type TickItem = {
 	/**
@@ -143,35 +139,34 @@ export type BaseSliderRootPropsWithoutHTML = {
 	trackPadding?: number;
 };
 
-export type SliderSingleRootPropsWithoutHTML =
-	BaseSliderRootPropsWithoutHTML & {
-		/**
-		 * The type of slider. If set to `'multiple'`, the slider will
-		 * allow multiple ticks and the `value` will be an array of numbers.
-		 *
-		 * @required
-		 */
-		type: "single";
+export type SliderSingleRootPropsWithoutHTML = BaseSliderRootPropsWithoutHTML & {
+	/**
+	 * The type of slider. If set to `'multiple'`, the slider will
+	 * allow multiple ticks and the `value` will be an array of numbers.
+	 *
+	 * @required
+	 */
+	type: "single";
 
-		/**
-		 * The value of the slider.
-		 * @bindable
-		 *
-		 * @default min
-		 */
-		value?: number;
+	/**
+	 * The value of the slider.
+	 * @bindable
+	 *
+	 * @default min
+	 */
+	value?: number;
 
-		/**
-		 * A callback function called when the value changes.
-		 */
-		onValueChange?: OnChangeFn<number>;
+	/**
+	 * A callback function called when the value changes.
+	 */
+	onValueChange?: OnChangeFn<number>;
 
-		/**
-		 * A callback function called when the user stops dragging the
-		 * thumb and the value is committed.
-		 */
-		onValueCommit?: OnChangeFn<number>;
-	};
+	/**
+	 * A callback function called when the user stops dragging the
+	 * thumb and the value is committed.
+	 */
+	onValueCommit?: OnChangeFn<number>;
+};
 
 export type SliderMultiRootPropsWithoutHTML = BaseSliderRootPropsWithoutHTML & {
 	/**

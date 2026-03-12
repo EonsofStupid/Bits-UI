@@ -1,8 +1,8 @@
 <script lang="ts">
+import { getLocalTimeZone, today } from "@internationalized/date";
 import { Calendar } from "bits-ui";
 import CaretLeft from "phosphor-svelte/lib/CaretLeft";
 import CaretRight from "phosphor-svelte/lib/CaretRight";
-import { getLocalTimeZone, today } from "@internationalized/date";
 
 let value = $state([today(getLocalTimeZone())]);
 </script>

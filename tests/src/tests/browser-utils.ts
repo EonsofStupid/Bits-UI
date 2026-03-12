@@ -1,4 +1,4 @@
-import { type Locator } from "@vitest/browser/context";
+import type { Locator } from "@vitest/browser/context";
 import { expect, vi } from "vitest";
 
 export async function expectNotClickableLoc(loc: Locator) {

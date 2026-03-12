@@ -1,9 +1,6 @@
 import sdk from "@stackblitz/sdk";
 
-export async function openInStackBlitz(
-	demoName: string,
-	componentName?: string,
-) {
+export async function openInStackBlitz(demoName: string, componentName?: string) {
 	try {
 		const res = await fetch(`/api/demos.json?name=${demoName}`);
 		if (!res.ok) {
@@ -16,9 +13,10 @@ export async function openInStackBlitz(
 			files: Record<string, string>;
 		};
 
-		files["src/routes/+layout.svelte"] = files[
-			"src/routes/+layout.svelte"
-		].replace("%component.name%", componentName ?? demoName);
+		files["src/routes/+layout.svelte"] = files["src/routes/+layout.svelte"].replace(
+			"%component.name%",
+			componentName ?? demoName
+		);
 
 		// @ts-expect-error - sh
 		sdk.openProject(
@@ -34,7 +32,7 @@ export async function openInStackBlitz(
 				newWindow: true,
 				openFile: "src/routes/+page.svelte",
 				terminalHeight: 10,
-			},
+			}
 		);
 	} catch (err) {
 		console.error(err);

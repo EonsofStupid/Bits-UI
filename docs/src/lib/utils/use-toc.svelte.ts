@@ -1,6 +1,6 @@
 import { untrack } from "svelte";
-import { page } from "$app/state";
 import { on } from "svelte/events";
+import { page } from "$app/state";
 
 export type TocItem = {
 	title: string;
@@ -58,7 +58,7 @@ export function useToc(getItemIds: () => string[]) {
 					}
 				}
 			},
-			{ rootMargin: "0% 0% -80% 0% " },
+			{ rootMargin: "0% 0% -80% 0% " }
 		);
 
 		for (const id of itemIds) {

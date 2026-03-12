@@ -1,6 +1,7 @@
 <script lang="ts" module>
-import type { TimeValue } from "$lib/shared/date/types.js";
 import type { Time } from "@internationalized/date";
+import type { TimeValue } from "$lib/shared/date/types.js";
+
 type T = unknown;
 </script>
 

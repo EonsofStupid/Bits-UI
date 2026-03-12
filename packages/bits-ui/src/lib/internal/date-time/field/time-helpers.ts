@@ -1,4 +1,7 @@
+import { CalendarDateTime, Time, type ZonedDateTime } from "@internationalized/date";
+import { styleToString } from "svelte-toolbelt";
 import { isBrowser, isNull } from "$lib/internal/is.js";
+import { useId } from "$lib/internal/use-id.js";
 import type {
 	EditableTimeSegmentPart,
 	HourCycle,
@@ -8,19 +11,13 @@ import type {
 	TimeSegmentValueObj,
 	TimeValue,
 } from "$lib/shared/date/types.js";
-import { CalendarDateTime, Time, ZonedDateTime } from "@internationalized/date";
 import type { TimeFormatter } from "../formatter.js";
-import {
-	ALL_TIME_SEGMENT_PARTS,
-	EDITABLE_TIME_SEGMENT_PARTS,
-} from "./parts.js";
-import { getTimeSegments } from "./segments.js";
-import type { TimeSegmentPart } from "./types.js";
-import { styleToString } from "svelte-toolbelt";
-import { useId } from "$lib/internal/use-id.js";
 import { getPlaceholder } from "../placeholders.js";
 import { isZonedDateTime } from "../utils.js";
 import { getDefaultHourCycle } from "./helpers.js";
+import { ALL_TIME_SEGMENT_PARTS, EDITABLE_TIME_SEGMENT_PARTS } from "./parts.js";
+import { getTimeSegments } from "./segments.js";
+import type { TimeSegmentPart } from "./types.js";
 
 export function initializeSegmentValues() {
 	const initialParts = EDITABLE_TIME_SEGMENT_PARTS.map((part) => {
@@ -137,26 +134,13 @@ function createTimeContentObj(props: CreateTimeContentObjProps) {
 }
 
 function createTimeContentArr(props: CreateTimeContentArrProps) {
-	const {
-		granularity,
-		timeRef,
-		formatter,
-		contentObj,
-		hideTimeZone,
-		hourCycle,
-	} = props;
-	const parts = formatter.toParts(
-		timeRef,
-		getOptsByGranularity(granularity, hourCycle),
-	);
+	const { granularity, timeRef, formatter, contentObj, hideTimeZone, hourCycle } = props;
+	const parts = formatter.toParts(timeRef, getOptsByGranularity(granularity, hourCycle));
 	const timeSegmentContentArr = parts
 		.map((part) => {
 			const defaultParts = ["literal", "timeZoneName", null];
 
-			if (
-				defaultParts.includes(part.type) ||
-				!isEditableTimeSegmentPart(part.type)
-			) {
+			if (defaultParts.includes(part.type) || !isEditableTimeSegmentPart(part.type)) {
 				return {
 					part: part.type,
 					value: part.value,
@@ -169,10 +153,7 @@ function createTimeContentArr(props: CreateTimeContentArrProps) {
 		})
 		.filter((segment): segment is { part: TimeSegmentPart; value: string } => {
 			if (isNull(segment.part) || isNull(segment.value)) return false;
-			if (
-				segment.part === "timeZoneName" &&
-				(!isZonedDateTime(timeRef) || hideTimeZone)
-			) {
+			if (segment.part === "timeZoneName" && (!isZonedDateTime(timeRef) || hideTimeZone)) {
 				return false;
 			}
 			return true;
@@ -194,10 +175,7 @@ export function createTimeContent(props: CreateTimeContentProps) {
 	};
 }
 
-function getOptsByGranularity(
-	granularity: TimeGranularity,
-	hourCycle: HourCycle | undefined,
-) {
+function getOptsByGranularity(granularity: TimeGranularity, hourCycle: HourCycle | undefined) {
 	const opts: Intl.DateTimeFormatOptions = {
 		hour: "2-digit",
 		minute: "2-digit",
@@ -233,13 +211,11 @@ export function initTimeSegmentIds() {
 	return Object.fromEntries(
 		ALL_TIME_SEGMENT_PARTS.map((part) => {
 			return [part, useId()];
-		}).filter(([key]) => key !== "literal"),
+		}).filter(([key]) => key !== "literal")
 	);
 }
 
-export function isEditableTimeSegmentPart(
-	part: unknown,
-): part is EditableTimeSegmentPart {
+export function isEditableTimeSegmentPart(part: unknown): part is EditableTimeSegmentPart {
 	return EDITABLE_TIME_SEGMENT_PARTS.includes(part as EditableTimeSegmentPart);
 }
 
@@ -258,9 +234,7 @@ function getUsedTimeSegments(fieldNode: HTMLElement | null) {
 	const usedSegments = getTimeSegments(fieldNode)
 		.map((el) => el.dataset.segment)
 		.filter((part): part is EditableTimeSegmentPart => {
-			return EDITABLE_TIME_SEGMENT_PARTS.includes(
-				part as EditableTimeSegmentPart,
-			);
+			return EDITABLE_TIME_SEGMENT_PARTS.includes(part as EditableTimeSegmentPart);
 		});
 	return usedSegments;
 }
@@ -272,7 +246,7 @@ type GetTimeValueFromSegments<T extends TimeValue = Time> = {
 };
 
 export function getTimeValueFromSegments<T extends TimeValue = Time>(
-	props: GetTimeValueFromSegments<T>,
+	props: GetTimeValueFromSegments<T>
 ): T {
 	const usedSegments = getUsedTimeSegments(props.fieldNode);
 
@@ -296,7 +270,7 @@ export function getTimeValueFromSegments<T extends TimeValue = Time>(
  */
 export function areAllTimeSegmentsFilled(
 	segmentValues: TimeSegmentValueObj,
-	fieldNode: HTMLElement | null,
+	fieldNode: HTMLElement | null
 ) {
 	const usedSegments = getUsedTimeSegments(fieldNode);
 	for (const part of usedSegments) {
@@ -309,9 +283,7 @@ export function areAllTimeSegmentsFilled(
  * Infer the granularity to use based on the
  * value and granularity props.
  */
-export function inferTimeGranularity(
-	granularity: TimeGranularity | undefined,
-): TimeGranularity {
+export function inferTimeGranularity(granularity: TimeGranularity | undefined): TimeGranularity {
 	if (granularity) return granularity;
 	return "minute";
 }
@@ -373,9 +345,7 @@ export function removeTimeDescriptionElement(id: string, doc: Document) {
 	doc.body.removeChild(el);
 }
 
-export function convertTimeValueToDateValue(
-	time: TimeValue,
-): CalendarDateTime | ZonedDateTime {
+export function convertTimeValueToDateValue(time: TimeValue): CalendarDateTime | ZonedDateTime {
 	if (time instanceof Time) {
 		return new CalendarDateTime(
 			2020,
@@ -384,7 +354,7 @@ export function convertTimeValueToDateValue(
 			time.hour,
 			time.minute,
 			time.second,
-			time.millisecond,
+			time.millisecond
 		);
 	}
 	return time;

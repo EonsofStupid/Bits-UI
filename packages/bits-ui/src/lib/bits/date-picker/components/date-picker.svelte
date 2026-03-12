@@ -1,16 +1,17 @@
 <script lang="ts">
 // Date Picker composes the DateField, Popover, and Calendar components
+
+import type { DateValue } from "@internationalized/date";
 import { watch } from "runed";
 import { boxWith } from "svelte-toolbelt";
-import type { DateValue } from "@internationalized/date";
-import { DatePickerRootState } from "../date-picker.svelte.js";
-import type { DatePickerRootProps } from "../types.js";
-import { noop } from "$lib/internal/noop.js";
-import { PopoverRootState } from "$lib/bits/popover/popover.svelte.js";
 import { DateFieldRootState } from "$lib/bits/date-field/date-field.svelte.js";
+import { PopoverRootState } from "$lib/bits/popover/popover.svelte.js";
+import { resolveLocaleProp } from "$lib/bits/utilities/config/prop-resolvers.js";
 import { FloatingLayer } from "$lib/bits/utilities/floating-layer/index.js";
 import { getDefaultDate } from "$lib/internal/date-time/utils.js";
-import { resolveLocaleProp } from "$lib/bits/utilities/config/prop-resolvers.js";
+import { noop } from "$lib/internal/noop.js";
+import { DatePickerRootState } from "../date-picker.svelte.js";
+import type { DatePickerRootProps } from "../types.js";
 
 let {
 	open = $bindable(false),
@@ -74,7 +75,7 @@ watch.pre(
 	() => placeholder,
 	() => {
 		handleDefaultPlaceholder();
-	},
+	}
 );
 
 function onDateSelect() {
@@ -89,21 +90,21 @@ const pickerRootState = DatePickerRootState.create({
 		(v) => {
 			open = v;
 			onOpenChange(v);
-		},
+		}
 	),
 	value: boxWith(
 		() => value,
 		(v) => {
 			value = v;
 			onValueChange(v);
-		},
+		}
 	),
 	placeholder: boxWith(
 		() => placeholder as DateValue,
 		(v) => {
 			placeholder = v;
 			onPlaceholderChange(v as DateValue);
-		},
+		}
 	),
 	isDateUnavailable: boxWith(() => isDateUnavailable),
 	minValue: boxWith(() => minValue),

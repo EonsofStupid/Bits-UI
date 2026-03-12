@@ -1,14 +1,10 @@
 <script lang="ts">
-import {
-	Select,
-	type SelectSingleRootProps,
-	type WithoutChildrenOrChild,
-} from "bits-ui";
+import type { Select, SelectSingleRootProps, WithoutChildrenOrChild } from "bits-ui";
+import CaretDoubleDown from "phosphor-svelte/lib/CaretDoubleDown";
+import CaretDoubleUp from "phosphor-svelte/lib/CaretDoubleUp";
+import CaretUpDown from "phosphor-svelte/lib/CaretUpDown";
 import Check from "phosphor-svelte/lib/Check";
 import Palette from "phosphor-svelte/lib/Palette";
-import CaretUpDown from "phosphor-svelte/lib/CaretUpDown";
-import CaretDoubleUp from "phosphor-svelte/lib/CaretDoubleUp";
-import CaretDoubleDown from "phosphor-svelte/lib/CaretDoubleDown";
 
 type Props = Omit<SelectSingleRootProps, "type"> & {
 	contentProps?: WithoutChildrenOrChild<Select.ContentProps>;
@@ -40,9 +36,7 @@ const themes = [
 ];
 
 const selectedLabel = $derived(
-	value
-		? themes.find((theme) => theme.value === value)?.label
-		: "Select a theme",
+	value ? themes.find((theme) => theme.value === value)?.label : "Select a theme"
 );
 </script>
 

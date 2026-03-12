@@ -1,10 +1,10 @@
 <script lang="ts">
 import { Combobox } from "bits-ui";
+import CaretDoubleDown from "phosphor-svelte/lib/CaretDoubleDown";
+import CaretDoubleUp from "phosphor-svelte/lib/CaretDoubleUp";
 import CaretUpDown from "phosphor-svelte/lib/CaretUpDown";
 import Check from "phosphor-svelte/lib/Check";
 import OrangeSlice from "phosphor-svelte/lib/OrangeSlice";
-import CaretDoubleUp from "phosphor-svelte/lib/CaretDoubleUp";
-import CaretDoubleDown from "phosphor-svelte/lib/CaretDoubleDown";
 
 const fruits = [
 	{ value: "mango", label: "Mango" },
@@ -32,9 +32,7 @@ let searchValue = $state("");
 const filteredFruits = $derived(
 	searchValue === ""
 		? fruits
-		: fruits.filter((fruit) =>
-				fruit.label.toLowerCase().includes(searchValue.toLowerCase()),
-			),
+		: fruits.filter((fruit) => fruit.label.toLowerCase().includes(searchValue.toLowerCase()))
 );
 </script>
 

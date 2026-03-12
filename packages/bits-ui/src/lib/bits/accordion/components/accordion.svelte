@@ -1,10 +1,10 @@
 <script lang="ts">
-import { type WritableBox, boxWith, mergeProps } from "svelte-toolbelt";
+import { watch } from "runed";
+import { boxWith, mergeProps, type WritableBox } from "svelte-toolbelt";
+import { createId } from "$lib/internal/create-id.js";
+import { noop } from "$lib/internal/noop.js";
 import { AccordionRootState } from "../accordion.svelte.js";
 import type { AccordionRootProps } from "../types.js";
-import { noop } from "$lib/internal/noop.js";
-import { watch } from "runed";
-import { createId } from "$lib/internal/create-id.js";
 
 const uid = $props.id();
 
@@ -34,7 +34,7 @@ watch.pre(
 	() => value,
 	() => {
 		handleDefaultValue();
-	},
+	}
 );
 
 const rootState = AccordionRootState.create({
@@ -45,7 +45,7 @@ const rootState = AccordionRootState.create({
 			value = v;
 			// oxlint-disable-next-line no-explicit-any
 			onValueChange(v as any);
-		},
+		}
 	) as WritableBox<string> | WritableBox<string[]>,
 	id: boxWith(() => id),
 	disabled: boxWith(() => disabled),
@@ -53,7 +53,7 @@ const rootState = AccordionRootState.create({
 	orientation: boxWith(() => orientation),
 	ref: boxWith(
 		() => ref,
-		(v) => (ref = v),
+		(v) => (ref = v)
 	),
 });
 

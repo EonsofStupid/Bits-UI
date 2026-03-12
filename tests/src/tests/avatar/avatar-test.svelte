@@ -1,5 +1,6 @@
 <script lang="ts">
 import { Avatar } from "bits-ui";
+
 let { src }: { src: string } = $props();
 </script>
 

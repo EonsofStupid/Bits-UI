@@ -1,8 +1,8 @@
 <script lang="ts">
 import { boxWith, mergeProps } from "svelte-toolbelt";
-import type { ToolbarGroupItemProps } from "../types.js";
-import { ToolbarGroupItemState } from "../toolbar.svelte.js";
 import { createId } from "$lib/internal/create-id.js";
+import { ToolbarGroupItemState } from "../toolbar.svelte.js";
+import type { ToolbarGroupItemProps } from "../types.js";
 
 const uid = $props.id();
 
@@ -23,13 +23,11 @@ const groupItemState = ToolbarGroupItemState.create({
 	disabled: boxWith(() => disabled ?? false),
 	ref: boxWith(
 		() => ref,
-		(v) => (ref = v),
+		(v) => (ref = v)
 	),
 });
 
-const mergedProps = $derived(
-	mergeProps(restProps, groupItemState.props, { type }),
-);
+const mergedProps = $derived(mergeProps(restProps, groupItemState.props, { type }));
 </script>
 
 {#if child}

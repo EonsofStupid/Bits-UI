@@ -1,9 +1,9 @@
 <script lang="ts" module>
-import {
+import type {
 	Select,
-	type SelectSingleRootProps,
-	type WithoutChildren,
-	type WithoutChildrenOrChild,
+	SelectSingleRootProps,
+	WithoutChildren,
+	WithoutChildrenOrChild,
 } from "bits-ui";
 import { generateTestId } from "../helpers/select";
 export type Item = {
@@ -12,14 +12,13 @@ export type Item = {
 	disabled?: boolean;
 };
 
-export type SelectForceMountTestProps =
-	WithoutChildren<SelectSingleRootProps> & {
-		contentProps?: WithoutChildrenOrChild<Select.ContentProps>;
-		portalProps?: WithoutChildrenOrChild<Select.PortalProps>;
-		items: Item[];
-		searchValue?: string;
-		withOpenCheck?: boolean;
-	};
+export type SelectForceMountTestProps = WithoutChildren<SelectSingleRootProps> & {
+	contentProps?: WithoutChildrenOrChild<Select.ContentProps>;
+	portalProps?: WithoutChildrenOrChild<Select.PortalProps>;
+	items: Item[];
+	searchValue?: string;
+	withOpenCheck?: boolean;
+};
 </script>
 
 <script lang="ts">

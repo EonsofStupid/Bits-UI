@@ -16,12 +16,7 @@ type Props = {
 	onValueChange?: (v: string[]) => void;
 } & Omit<BitsPrimitiveDivAttributes, "value">;
 
-let {
-	disabled = false,
-	items = [],
-	value: valueProp = [],
-	...restProps
-}: Props = $props();
+let { disabled = false, items = [], value: valueProp = [], ...restProps }: Props = $props();
 
 let value = $state(valueProp);
 </script>

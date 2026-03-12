@@ -1,20 +1,15 @@
 import type { DateValue } from "@internationalized/date";
-import type {
-	OnChangeFn,
-	WithChild,
-	WithChildren,
-	Without,
-} from "$lib/internal/types.js";
+import type { PortalProps } from "$lib/bits/utilities/portal/index.js";
+import type { OnChangeFn, WithChild, WithChildren, Without } from "$lib/internal/types.js";
 import type { BitsPrimitiveDivAttributes } from "$lib/shared/attributes.js";
-import type { CalendarRootSnippetProps } from "$lib/types.js";
+import type { Granularity, WeekStartsOn } from "$lib/shared/date/types.js";
 import type {
 	DateMatcher,
 	DateOnInvalid,
 	DateValidator,
 	EditableSegmentPart,
 } from "$lib/shared/index.js";
-import type { Granularity, WeekStartsOn } from "$lib/shared/date/types.js";
-import type { PortalProps } from "$lib/bits/utilities/portal/index.js";
+import type { CalendarRootSnippetProps } from "$lib/types.js";
 
 export type DatePickerRootPropsWithoutHTML = WithChildren<{
 	/**
@@ -278,9 +273,7 @@ export type DatePickerRootPropsWithoutHTML = WithChildren<{
 	 *
 	 * @default "long"
 	 */
-	monthFormat?:
-		| Intl.DateTimeFormatOptions["month"]
-		| ((month: number) => string);
+	monthFormat?: Intl.DateTimeFormatOptions["month"] | ((month: number) => string);
 
 	/**
 	 * The format of the year names in the calendar.
@@ -293,31 +286,27 @@ export type DatePickerRootPropsWithoutHTML = WithChildren<{
 export type DatePickerRootProps = DatePickerRootPropsWithoutHTML;
 
 export type {
-	PopoverTriggerPropsWithoutHTML as DatePickerTriggerPropsWithoutHTML,
-	PopoverTriggerProps as DatePickerTriggerProps,
-	PopoverContentPropsWithoutHTML as DatePickerContentPropsWithoutHTML,
-	PopoverContentProps as DatePickerContentProps,
-	PopoverContentStaticPropsWithoutHTML as DatePickerContentStaticPropsWithoutHTML,
-	PopoverContentStaticProps as DatePickerContentStaticProps,
-	PopoverArrowPropsWithoutHTML as DatePickerArrowPropsWithoutHTML,
+	DateFieldInputProps as DatePickerInputProps,
+	DateFieldInputPropsWithoutHTML as DatePickerInputPropsWithoutHTML,
+	DateFieldLabelProps as DatePickerLabelProps,
+	DateFieldLabelPropsWithoutHTML as DatePickerLabelPropsWithoutHTML,
+	DateFieldSegmentProps as DatePickerSegmentProps,
+	DateFieldSegmentPropsWithoutHTML as DatePickerSegmentPropsWithoutHTML,
+} from "$lib/bits/date-field/types.js";
+export type {
 	PopoverArrowProps as DatePickerArrowProps,
-	PopoverClosePropsWithoutHTML as DatePickerClosePropsWithoutHTML,
+	PopoverArrowPropsWithoutHTML as DatePickerArrowPropsWithoutHTML,
 	PopoverCloseProps as DatePickerCloseProps,
+	PopoverClosePropsWithoutHTML as DatePickerClosePropsWithoutHTML,
+	PopoverContentProps as DatePickerContentProps,
+	PopoverContentPropsWithoutHTML as DatePickerContentPropsWithoutHTML,
+	PopoverContentStaticProps as DatePickerContentStaticProps,
+	PopoverContentStaticPropsWithoutHTML as DatePickerContentStaticPropsWithoutHTML,
+	PopoverTriggerProps as DatePickerTriggerProps,
+	PopoverTriggerPropsWithoutHTML as DatePickerTriggerPropsWithoutHTML,
 } from "$lib/bits/popover/types.js";
 
-export type {
-	DateFieldInputPropsWithoutHTML as DatePickerInputPropsWithoutHTML,
-	DateFieldInputProps as DatePickerInputProps,
-	DateFieldLabelPropsWithoutHTML as DatePickerLabelPropsWithoutHTML,
-	DateFieldLabelProps as DatePickerLabelProps,
-	DateFieldSegmentPropsWithoutHTML as DatePickerSegmentPropsWithoutHTML,
-	DateFieldSegmentProps as DatePickerSegmentProps,
-} from "$lib/bits/date-field/types.js";
-
-export type DatePickerCalendarPropsWithoutHTML = WithChild<
-	{},
-	CalendarRootSnippetProps
->;
+export type DatePickerCalendarPropsWithoutHTML = WithChild<{}, CalendarRootSnippetProps>;
 
 export type DatePickerCalendarProps = DatePickerCalendarPropsWithoutHTML &
 	Without<BitsPrimitiveDivAttributes, DatePickerCalendarPropsWithoutHTML>;
@@ -326,30 +315,30 @@ export type DatePickerPortalPropsWithoutHTML = PortalProps;
 export type DatePickerPortalProps = DatePickerPortalPropsWithoutHTML;
 
 export type {
-	CalendarCellPropsWithoutHTML as DatePickerCellPropsWithoutHTML,
 	CalendarCellProps as DatePickerCellProps,
-	CalendarDayPropsWithoutHTML as DatePickerDayPropsWithoutHTML,
+	CalendarCellPropsWithoutHTML as DatePickerCellPropsWithoutHTML,
 	CalendarDayProps as DatePickerDayProps,
-	CalendarGridPropsWithoutHTML as DatePickerGridPropsWithoutHTML,
-	CalendarGridProps as DatePickerGridProps,
-	CalendarGridBodyPropsWithoutHTML as DatePickerGridBodyPropsWithoutHTML,
+	CalendarDayPropsWithoutHTML as DatePickerDayPropsWithoutHTML,
 	CalendarGridBodyProps as DatePickerGridBodyProps,
-	CalendarGridHeadPropsWithoutHTML as DatePickerGridHeadPropsWithoutHTML,
+	CalendarGridBodyPropsWithoutHTML as DatePickerGridBodyPropsWithoutHTML,
 	CalendarGridHeadProps as DatePickerGridHeadProps,
-	CalendarGridRowPropsWithoutHTML as DatePickerGridRowPropsWithoutHTML,
+	CalendarGridHeadPropsWithoutHTML as DatePickerGridHeadPropsWithoutHTML,
+	CalendarGridProps as DatePickerGridProps,
+	CalendarGridPropsWithoutHTML as DatePickerGridPropsWithoutHTML,
 	CalendarGridRowProps as DatePickerGridRowProps,
-	CalendarHeadCellPropsWithoutHTML as DatePickerHeadCellPropsWithoutHTML,
+	CalendarGridRowPropsWithoutHTML as DatePickerGridRowPropsWithoutHTML,
 	CalendarHeadCellProps as DatePickerHeadCellProps,
-	CalendarHeaderPropsWithoutHTML as DatePickerHeaderPropsWithoutHTML,
+	CalendarHeadCellPropsWithoutHTML as DatePickerHeadCellPropsWithoutHTML,
 	CalendarHeaderProps as DatePickerHeaderProps,
-	CalendarHeadingPropsWithoutHTML as DatePickerHeadingPropsWithoutHTML,
+	CalendarHeaderPropsWithoutHTML as DatePickerHeaderPropsWithoutHTML,
 	CalendarHeadingProps as DatePickerHeadingProps,
-	CalendarNextButtonPropsWithoutHTML as DatePickerNextButtonPropsWithoutHTML,
-	CalendarNextButtonProps as DatePickerNextButtonProps,
-	CalendarPrevButtonPropsWithoutHTML as DatePickerPrevButtonPropsWithoutHTML,
-	CalendarPrevButtonProps as DatePickerPrevButtonProps,
+	CalendarHeadingPropsWithoutHTML as DatePickerHeadingPropsWithoutHTML,
 	CalendarMonthSelectProps as DatePickerMonthSelectProps,
 	CalendarMonthSelectPropsWithoutHTML as DatePickerMonthSelectPropsWithoutHTML,
+	CalendarNextButtonProps as DatePickerNextButtonProps,
+	CalendarNextButtonPropsWithoutHTML as DatePickerNextButtonPropsWithoutHTML,
+	CalendarPrevButtonProps as DatePickerPrevButtonProps,
+	CalendarPrevButtonPropsWithoutHTML as DatePickerPrevButtonPropsWithoutHTML,
 	CalendarYearSelectProps as DatePickerYearSelectProps,
 	CalendarYearSelectPropsWithoutHTML as DatePickerYearSelectPropsWithoutHTML,
 } from "$lib/bits/calendar/types.js";

@@ -1,9 +1,5 @@
 <script lang="ts" module>
-import {
-	DateField,
-	type DateFieldRootProps,
-	type WithoutChildrenOrChild,
-} from "bits-ui";
+import { DateField, type DateFieldRootProps, type WithoutChildrenOrChild } from "bits-ui";
 export type DateFieldTestProps = WithoutChildrenOrChild<DateFieldRootProps> & {
 	name?: string;
 };

@@ -1,15 +1,15 @@
-import type {
-	ToggleGroupItemProps,
-	ToggleGroupItemPropsWithoutHTML,
-	ToggleGroupRootPropsWithoutHTML,
-} from "../toggle-group/types.js";
-import type { Orientation } from "$lib/shared/index.js";
 import type { WithChild, Without } from "$lib/internal/types.js";
 import type {
 	BitsPrimitiveAnchorAttributes,
 	BitsPrimitiveButtonAttributes,
 	BitsPrimitiveDivAttributes,
 } from "$lib/shared/attributes.js";
+import type { Orientation } from "$lib/shared/index.js";
+import type {
+	ToggleGroupItemProps,
+	ToggleGroupItemPropsWithoutHTML,
+	ToggleGroupRootPropsWithoutHTML,
+} from "../toggle-group/types.js";
 
 export type ToolbarRootPropsWithoutHTML = WithChild<{
 	/**

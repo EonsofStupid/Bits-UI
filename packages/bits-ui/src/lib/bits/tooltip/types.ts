@@ -1,11 +1,5 @@
-import type { FloatingLayerContentProps } from "../utilities/floating-layer/types.js";
-import type {
-	ArrowProps,
-	ArrowPropsWithoutHTML,
-} from "../utilities/arrow/types.js";
-import type { DismissibleLayerProps } from "../utilities/dismissible-layer/types.js";
-import type { EscapeLayerProps } from "../utilities/escape-layer/types.js";
 import type { Snippet } from "svelte";
+import type { PortalProps } from "$lib/bits/utilities/portal/types.js";
 import type {
 	OnChangeFn,
 	WithChild,
@@ -17,11 +11,11 @@ import type {
 	BitsPrimitiveButtonAttributes,
 	BitsPrimitiveDivAttributes,
 } from "$lib/shared/attributes.js";
-import type { PortalProps } from "$lib/bits/utilities/portal/types.js";
-import type {
-	FloatingContentSnippetProps,
-	StaticContentSnippetProps,
-} from "$lib/shared/types.js";
+import type { FloatingContentSnippetProps, StaticContentSnippetProps } from "$lib/shared/types.js";
+import type { ArrowProps, ArrowPropsWithoutHTML } from "../utilities/arrow/types.js";
+import type { DismissibleLayerProps } from "../utilities/dismissible-layer/types.js";
+import type { EscapeLayerProps } from "../utilities/escape-layer/types.js";
+import type { FloatingLayerContentProps } from "../utilities/floating-layer/types.js";
 import type { TooltipTether as TooltipTetherImpl } from "./tooltip.svelte.js";
 
 export type TooltipTether<Payload = never> = TooltipTetherImpl<Payload>;
@@ -147,8 +141,7 @@ export type TooltipRootPropsWithoutHTML<Payload = never> = Omit<
 	children?: Snippet | Snippet<[TooltipRootSnippetProps<Payload>]>;
 };
 
-export type TooltipRootProps<Payload = never> =
-	TooltipRootPropsWithoutHTML<Payload>;
+export type TooltipRootProps<Payload = never> = TooltipRootPropsWithoutHTML<Payload>;
 
 export type TooltipContentPropsWithoutHTML = WithChildNoChildrenSnippetProps<
 	Omit<FloatingLayerContentProps, "content" | "preventScroll"> &
@@ -167,20 +160,19 @@ export type TooltipContentPropsWithoutHTML = WithChildNoChildrenSnippetProps<
 export type TooltipContentProps = TooltipContentPropsWithoutHTML &
 	Without<BitsPrimitiveDivAttributes, TooltipContentPropsWithoutHTML>;
 
-export type TooltipContentStaticPropsWithoutHTML =
-	WithChildNoChildrenSnippetProps<
-		Pick<FloatingLayerContentProps, "dir"> &
-			Omit<DismissibleLayerProps, "onInteractOutsideStart"> &
-			EscapeLayerProps & {
-				/**
-				 * When `true`, the tooltip will be forced to mount in the DOM.
-				 *
-				 * Useful for more control over the transition behavior.
-				 */
-				forceMount?: boolean;
-			},
-		StaticContentSnippetProps
-	>;
+export type TooltipContentStaticPropsWithoutHTML = WithChildNoChildrenSnippetProps<
+	Pick<FloatingLayerContentProps, "dir"> &
+		Omit<DismissibleLayerProps, "onInteractOutsideStart"> &
+		EscapeLayerProps & {
+			/**
+			 * When `true`, the tooltip will be forced to mount in the DOM.
+			 *
+			 * Useful for more control over the transition behavior.
+			 */
+			forceMount?: boolean;
+		},
+	StaticContentSnippetProps
+>;
 
 export type TooltipContentStaticProps = TooltipContentStaticPropsWithoutHTML &
 	Without<BitsPrimitiveDivAttributes, TooltipContentStaticPropsWithoutHTML>;
@@ -208,9 +200,5 @@ export type TooltipTriggerPropsWithoutHTML<Payload = never> = WithChild<{
 	tether?: TooltipTether<Payload> | undefined;
 }>;
 
-export type TooltipTriggerProps<Payload = never> =
-	TooltipTriggerPropsWithoutHTML<Payload> &
-		Without<
-			BitsPrimitiveButtonAttributes,
-			TooltipTriggerPropsWithoutHTML<Payload>
-		>;
+export type TooltipTriggerProps<Payload = never> = TooltipTriggerPropsWithoutHTML<Payload> &
+	Without<BitsPrimitiveButtonAttributes, TooltipTriggerPropsWithoutHTML<Payload>>;

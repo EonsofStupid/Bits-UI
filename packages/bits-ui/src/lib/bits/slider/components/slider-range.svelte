@@ -1,8 +1,8 @@
 <script lang="ts">
 import { boxWith, mergeProps } from "svelte-toolbelt";
-import type { SliderRangeProps } from "../types.js";
-import { SliderRangeState } from "../slider.svelte.js";
 import { createId } from "$lib/internal/create-id.js";
+import { SliderRangeState } from "../slider.svelte.js";
+import type { SliderRangeProps } from "../types.js";
 
 const uid = $props.id();
 
@@ -18,7 +18,7 @@ const rangeState = SliderRangeState.create({
 	id: boxWith(() => id),
 	ref: boxWith(
 		() => ref,
-		(v) => (ref = v),
+		(v) => (ref = v)
 	),
 });
 const mergedProps = $derived(mergeProps(restProps, rangeState.props));

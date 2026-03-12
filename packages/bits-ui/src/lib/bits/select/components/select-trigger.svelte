@@ -1,9 +1,9 @@
 <script lang="ts">
 import { boxWith, mergeProps } from "svelte-toolbelt";
+import { FloatingLayer } from "$lib/bits/utilities/floating-layer/index.js";
+import { createId } from "$lib/internal/create-id.js";
 import { SelectTriggerState } from "../select.svelte.js";
 import type { SelectTriggerProps } from "../types.js";
-import { createId } from "$lib/internal/create-id.js";
-import { FloatingLayer } from "$lib/bits/utilities/floating-layer/index.js";
 
 const uid = $props.id();
 
@@ -20,13 +20,11 @@ const triggerState = SelectTriggerState.create({
 	id: boxWith(() => id),
 	ref: boxWith(
 		() => ref,
-		(v) => (ref = v),
+		(v) => (ref = v)
 	),
 });
 
-const mergedProps = $derived(
-	mergeProps(restProps, triggerState.props, { type }),
-);
+const mergedProps = $derived(mergeProps(restProps, triggerState.props, { type }));
 </script>
 
 <FloatingLayer.Anchor {id} ref={triggerState.opts.ref}>

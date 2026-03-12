@@ -17,7 +17,7 @@ export class CustomEventDispatcher<T = unknown> {
 		options: Omit<CustomEventInit<T>, "detail"> = {
 			bubbles: true,
 			cancelable: true,
-		},
+		}
 	) {
 		this.eventName = eventName;
 		this.options = options;
@@ -39,7 +39,7 @@ export class CustomEventDispatcher<T = unknown> {
 	listen(
 		element: EventTarget,
 		callback: (event: CustomEvent<T>) => void,
-		options?: AddEventListenerOptions,
+		options?: AddEventListenerOptions
 	) {
 		const handler = (event: Event) => {
 			callback(event as CustomEvent<T>);

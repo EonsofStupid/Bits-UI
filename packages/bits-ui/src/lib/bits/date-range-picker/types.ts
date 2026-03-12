@@ -1,6 +1,7 @@
 import type { DateValue } from "@internationalized/date";
 import type { OnChangeFn, WithChild, Without } from "$lib/internal/types.js";
 import type { BitsPrimitiveDivAttributes } from "$lib/shared/attributes.js";
+import type { Granularity, WeekStartsOn } from "$lib/shared/date/types.js";
 import type {
 	DateMatcher,
 	DateOnInvalid,
@@ -9,7 +10,6 @@ import type {
 	EditableSegmentPart,
 } from "$lib/shared/index.js";
 import type { CalendarRootSnippetProps } from "$lib/types.js";
-import type { Granularity, WeekStartsOn } from "$lib/shared/date/types.js";
 
 export type DateRangePickerRootPropsWithoutHTML = WithChild<{
 	/**
@@ -305,9 +305,7 @@ export type DateRangePickerRootPropsWithoutHTML = WithChild<{
 	 *
 	 * @default "long"
 	 */
-	monthFormat?:
-		| Intl.DateTimeFormatOptions["month"]
-		| ((month: number) => string);
+	monthFormat?: Intl.DateTimeFormatOptions["month"] | ((month: number) => string);
 
 	/**
 	 * The format of the year names in the calendar.
@@ -321,62 +319,54 @@ export type DateRangePickerRootProps = DateRangePickerRootPropsWithoutHTML &
 	Without<BitsPrimitiveDivAttributes, DateRangePickerRootPropsWithoutHTML>;
 
 export type {
-	PopoverTriggerPropsWithoutHTML as DateRangePickerTriggerPropsWithoutHTML,
-	PopoverTriggerProps as DateRangePickerTriggerProps,
-	PopoverContentPropsWithoutHTML as DateRangePickerContentPropsWithoutHTML,
-	PopoverContentProps as DateRangePickerContentProps,
-	PopoverArrowPropsWithoutHTML as DateRangePickerArrowPropsWithoutHTML,
+	DateRangeFieldInputProps as DateRangePickerInputProps,
+	DateRangeFieldInputPropsWithoutHTML as DateRangePickerInputPropsWithoutHTML,
+	DateRangeFieldLabelProps as DateRangePickerLabelProps,
+	DateRangeFieldLabelPropsWithoutHTML as DateRangePickerLabelPropsWithoutHTML,
+	DateRangeFieldSegmentProps as DateRangePickerSegmentProps,
+	DateRangeFieldSegmentPropsWithoutHTML as DateRangePickerSegmentPropsWithoutHTML,
+} from "$lib/bits/date-range-field/types.js";
+export type {
 	PopoverArrowProps as DateRangePickerArrowProps,
-	PopoverClosePropsWithoutHTML as DateRangePickerClosePropsWithoutHTML,
+	PopoverArrowPropsWithoutHTML as DateRangePickerArrowPropsWithoutHTML,
 	PopoverCloseProps as DateRangePickerCloseProps,
+	PopoverClosePropsWithoutHTML as DateRangePickerClosePropsWithoutHTML,
+	PopoverContentProps as DateRangePickerContentProps,
+	PopoverContentPropsWithoutHTML as DateRangePickerContentPropsWithoutHTML,
+	PopoverTriggerProps as DateRangePickerTriggerProps,
+	PopoverTriggerPropsWithoutHTML as DateRangePickerTriggerPropsWithoutHTML,
 } from "$lib/bits/popover/types.js";
 
-export type {
-	DateRangeFieldInputPropsWithoutHTML as DateRangePickerInputPropsWithoutHTML,
-	DateRangeFieldInputProps as DateRangePickerInputProps,
-	DateRangeFieldLabelPropsWithoutHTML as DateRangePickerLabelPropsWithoutHTML,
-	DateRangeFieldLabelProps as DateRangePickerLabelProps,
-	DateRangeFieldSegmentPropsWithoutHTML as DateRangePickerSegmentPropsWithoutHTML,
-	DateRangeFieldSegmentProps as DateRangePickerSegmentProps,
-} from "$lib/bits/date-range-field/types.js";
+export type DateRangePickerCalendarPropsWithoutHTML = WithChild<{}, CalendarRootSnippetProps>;
 
-export type DateRangePickerCalendarPropsWithoutHTML = WithChild<
-	{},
-	CalendarRootSnippetProps
->;
-
-export type DateRangePickerCalendarProps =
-	DateRangePickerCalendarPropsWithoutHTML &
-		Without<
-			BitsPrimitiveDivAttributes,
-			DateRangePickerCalendarPropsWithoutHTML
-		>;
+export type DateRangePickerCalendarProps = DateRangePickerCalendarPropsWithoutHTML &
+	Without<BitsPrimitiveDivAttributes, DateRangePickerCalendarPropsWithoutHTML>;
 
 export type {
-	RangeCalendarCellPropsWithoutHTML as DateRangePickerCellPropsWithoutHTML,
 	RangeCalendarCellProps as DateRangePickerCellProps,
-	RangeCalendarDayPropsWithoutHTML as DateRangePickerDayPropsWithoutHTML,
+	RangeCalendarCellPropsWithoutHTML as DateRangePickerCellPropsWithoutHTML,
 	RangeCalendarDayProps as DateRangePickerDayProps,
-	RangeCalendarGridPropsWithoutHTML as DateRangePickerGridPropsWithoutHTML,
-	RangeCalendarGridProps as DateRangePickerGridProps,
-	RangeCalendarGridBodyPropsWithoutHTML as DateRangePickerGridBodyPropsWithoutHTML,
+	RangeCalendarDayPropsWithoutHTML as DateRangePickerDayPropsWithoutHTML,
 	RangeCalendarGridBodyProps as DateRangePickerGridBodyProps,
-	RangeCalendarGridHeadPropsWithoutHTML as DateRangePickerGridHeadPropsWithoutHTML,
+	RangeCalendarGridBodyPropsWithoutHTML as DateRangePickerGridBodyPropsWithoutHTML,
 	RangeCalendarGridHeadProps as DateRangePickerGridHeadProps,
-	RangeCalendarGridRowPropsWithoutHTML as DateRangePickerGridRowPropsWithoutHTML,
+	RangeCalendarGridHeadPropsWithoutHTML as DateRangePickerGridHeadPropsWithoutHTML,
+	RangeCalendarGridProps as DateRangePickerGridProps,
+	RangeCalendarGridPropsWithoutHTML as DateRangePickerGridPropsWithoutHTML,
 	RangeCalendarGridRowProps as DateRangePickerGridRowProps,
-	RangeCalendarHeadCellPropsWithoutHTML as DateRangePickerHeadCellPropsWithoutHTML,
+	RangeCalendarGridRowPropsWithoutHTML as DateRangePickerGridRowPropsWithoutHTML,
 	RangeCalendarHeadCellProps as DateRangePickerHeadCellProps,
-	RangeCalendarHeaderPropsWithoutHTML as DateRangePickerHeaderPropsWithoutHTML,
+	RangeCalendarHeadCellPropsWithoutHTML as DateRangePickerHeadCellPropsWithoutHTML,
 	RangeCalendarHeaderProps as DateRangePickerHeaderProps,
-	RangeCalendarHeadingPropsWithoutHTML as DateRangePickerHeadingPropsWithoutHTML,
+	RangeCalendarHeaderPropsWithoutHTML as DateRangePickerHeaderPropsWithoutHTML,
 	RangeCalendarHeadingProps as DateRangePickerHeadingProps,
-	RangeCalendarNextButtonPropsWithoutHTML as DateRangePickerNextButtonPropsWithoutHTML,
-	RangeCalendarNextButtonProps as DateRangePickerNextButtonProps,
-	RangeCalendarPrevButtonPropsWithoutHTML as DateRangePickerPrevButtonPropsWithoutHTML,
-	RangeCalendarPrevButtonProps as DateRangePickerPrevButtonProps,
+	RangeCalendarHeadingPropsWithoutHTML as DateRangePickerHeadingPropsWithoutHTML,
 	RangeCalendarMonthSelectProps as DateRangePickerMonthSelectProps,
 	RangeCalendarMonthSelectPropsWithoutHTML as DateRangePickerMonthSelectPropsWithoutHTML,
+	RangeCalendarNextButtonProps as DateRangePickerNextButtonProps,
+	RangeCalendarNextButtonPropsWithoutHTML as DateRangePickerNextButtonPropsWithoutHTML,
+	RangeCalendarPrevButtonProps as DateRangePickerPrevButtonProps,
+	RangeCalendarPrevButtonPropsWithoutHTML as DateRangePickerPrevButtonPropsWithoutHTML,
 	RangeCalendarYearSelectProps as DateRangePickerYearSelectProps,
 	RangeCalendarYearSelectPropsWithoutHTML as DateRangePickerYearSelectPropsWithoutHTML,
 } from "$lib/bits/range-calendar/types.js";

@@ -1,5 +1,5 @@
-import { type AnyFn, executeCallbacks } from "svelte-toolbelt";
 import { on } from "svelte/events";
+import { type AnyFn, executeCallbacks } from "svelte-toolbelt";
 
 // Using global state to avoid multiple listeners.
 let isUsingKeyboard = $state(false);
@@ -36,7 +36,7 @@ export class IsUsingKeyboard {
 						}),
 						on(document, "keydown", handleKeydown, {
 							capture: true,
-						}),
+						})
 					);
 
 					// Don't forget to spread and call twice.

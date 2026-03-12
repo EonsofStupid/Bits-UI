@@ -36,7 +36,7 @@ const selectedLabel = $derived(
 				.filter((theme) => value.includes(theme.value))
 				.map((theme) => theme.label)
 				.join(", ")
-		: "Select your favorite themes",
+		: "Select your favorite themes"
 );
 </script>
 

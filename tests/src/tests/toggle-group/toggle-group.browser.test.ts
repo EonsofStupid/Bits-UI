@@ -1,15 +1,12 @@
-import { expect, it, describe } from "vitest";
+import { page, userEvent } from "@vitest/browser/context";
+import { describe, expect, it } from "vitest";
 import { render } from "vitest-browser-svelte";
 import { getTestKbd } from "../utils.js";
-import ToggleGroupTest from "./toggle-group-test.svelte";
-import type {
-	Item,
-	SingleToggleGroupTestProps,
-} from "./toggle-group-test.svelte";
 import ToggleGroupMultipleTest, {
 	type MultipleToggleGroupTestProps,
 } from "./toggle-group-multi-test.svelte";
-import { page, userEvent } from "@vitest/browser/context";
+import type { Item, SingleToggleGroupTestProps } from "./toggle-group-test.svelte";
+import ToggleGroupTest from "./toggle-group-test.svelte";
 
 const kbd = getTestKbd();
 
@@ -73,10 +70,7 @@ describe("Toggle Group", () => {
 		await expect.element(t.binding).toHaveTextContent("2");
 	});
 
-	it.each([
-		kbd.ENTER,
-		kbd.SPACE,
-	])("should toggle when the %s key is pressed", async (key) => {
+	it.each([kbd.ENTER, kbd.SPACE])("should toggle when the %s key is pressed", async (key) => {
 		const t = setup();
 		await expect.element(t.binding).toHaveTextContent("");
 		const item = page.getByTestId("item-1").element() as HTMLElement;

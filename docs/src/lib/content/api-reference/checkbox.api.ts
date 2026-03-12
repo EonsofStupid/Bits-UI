@@ -4,25 +4,21 @@ import type {
 	CheckboxRootPropsWithoutHTML,
 } from "bits-ui";
 import {
-	checkboxChildDefinition,
-	checkboxChildrenDefinition,
-	withChildProps,
-} from "./shared.js";
+	defineBooleanProp,
+	defineComponentApiSchema,
+	defineEnumDataAttr,
+	defineFunctionProp,
+	defineSimpleDataAttr,
+	defineSimplePropSchema,
+	defineStringProp,
+} from "../utils.js";
 import {
 	CheckboxGroupOnValueChangeProp,
 	CheckboxRootOnCheckedChangeProp,
 	CheckboxRootOnIndeterminateChangeProp,
 	CheckboxRootStateDataAttr,
 } from "./extended-types/checkbox/index.js";
-import {
-	defineBooleanProp,
-	defineComponentApiSchema,
-	defineEnumDataAttr,
-	defineFunctionProp,
-	defineSimpleDataAttr,
-	defineStringProp,
-	defineSimplePropSchema,
-} from "../utils.js";
+import { checkboxChildDefinition, checkboxChildrenDefinition, withChildProps } from "./shared.js";
 
 export const root = defineComponentApiSchema<CheckboxRootPropsWithoutHTML>({
 	title: "Root",
@@ -46,8 +42,7 @@ export const root = defineComponentApiSchema<CheckboxRootPropsWithoutHTML>({
 		}),
 		onIndeterminateChange: defineFunctionProp({
 			definition: CheckboxRootOnIndeterminateChangeProp,
-			description:
-				"A callback that is fired when the indeterminate state changes.",
+			description: "A callback that is fired when the indeterminate state changes.",
 			stringDefinition: "(indeterminate: boolean) => void",
 		}),
 		disabled: defineBooleanProp({
@@ -82,8 +77,7 @@ export const root = defineComponentApiSchema<CheckboxRootPropsWithoutHTML>({
 		defineEnumDataAttr({
 			name: "state",
 			options: ["checked", "unchecked", "indeterminate"],
-			description:
-				"The checkbox's state of checked, unchecked, or indeterminate.",
+			description: "The checkbox's state of checked, unchecked, or indeterminate.",
 			value: CheckboxRootStateDataAttr,
 		}),
 		defineSimpleDataAttr({
@@ -103,8 +97,7 @@ export const root = defineComponentApiSchema<CheckboxRootPropsWithoutHTML>({
 
 export const group = defineComponentApiSchema<CheckboxGroupPropsWithoutHTML>({
 	title: "Group",
-	description:
-		"A group that synchronizes its value state with its descendant checkboxes.",
+	description: "A group that synchronizes its value state with its descendant checkboxes.",
 	props: {
 		value: defineSimplePropSchema({
 			description:
@@ -115,8 +108,7 @@ export const group = defineComponentApiSchema<CheckboxGroupPropsWithoutHTML>({
 		}),
 		onValueChange: defineFunctionProp({
 			definition: CheckboxGroupOnValueChangeProp,
-			description:
-				"A callback that is fired when the checkbox group's value state changes.",
+			description: "A callback that is fired when the checkbox group's value state changes.",
 			stringDefinition: "(value: string[]) => void",
 		}),
 		disabled: defineBooleanProp({
@@ -126,8 +118,7 @@ export const group = defineComponentApiSchema<CheckboxGroupPropsWithoutHTML>({
 		}),
 		required: defineBooleanProp({
 			default: false,
-			description:
-				"Whether or not the checkbox group is required for form submission.",
+			description: "Whether or not the checkbox group is required for form submission.",
 		}),
 		name: defineStringProp({
 			description:
@@ -158,23 +149,22 @@ export const group = defineComponentApiSchema<CheckboxGroupPropsWithoutHTML>({
 	],
 });
 
-export const groupLabel =
-	defineComponentApiSchema<CheckboxGroupLabelPropsWithoutHTML>({
-		title: "GroupLabel",
-		description: "An accessible label for the checkbox group.",
-		props: withChildProps({
-			elType: "HTMLLabelElement",
+export const groupLabel = defineComponentApiSchema<CheckboxGroupLabelPropsWithoutHTML>({
+	title: "GroupLabel",
+	description: "An accessible label for the checkbox group.",
+	props: withChildProps({
+		elType: "HTMLLabelElement",
+	}),
+	dataAttributes: [
+		defineSimpleDataAttr({
+			name: "disabled",
+			description: "Present when the checkbox group is disabled.",
 		}),
-		dataAttributes: [
-			defineSimpleDataAttr({
-				name: "disabled",
-				description: "Present when the checkbox group is disabled.",
-			}),
-			defineSimpleDataAttr({
-				name: "checkbox-group-label",
-				description: "Present on the label element.",
-			}),
-		],
-	});
+		defineSimpleDataAttr({
+			name: "checkbox-group-label",
+			description: "Present on the label element.",
+		}),
+	],
+});
 
 export const checkbox = [root, group, groupLabel];

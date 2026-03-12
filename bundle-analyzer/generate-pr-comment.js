@@ -65,15 +65,11 @@ function analyzeBundleChanges(prReport, targetReport) {
 		if (prResult && targetResult) {
 			const sizeDiff = prResult.size - targetResult.size;
 			const gzipSizeDiff = prResult.gzipSize - targetResult.gzipSize;
-			const sizePercent =
-				targetResult.size > 0 ? (sizeDiff / targetResult.size) * 100 : 0;
+			const sizePercent = targetResult.size > 0 ? (sizeDiff / targetResult.size) * 100 : 0;
 			const gzipSizePercent =
-				targetResult.gzipSize > 0
-					? (gzipSizeDiff / targetResult.gzipSize) * 100
-					: 0;
+				targetResult.gzipSize > 0 ? (gzipSizeDiff / targetResult.gzipSize) * 100 : 0;
 
-			const hasSignificantChange =
-				Math.abs(sizeDiff) > 10 || Math.abs(sizePercent) > 0.1;
+			const hasSignificantChange = Math.abs(sizeDiff) > 10 || Math.abs(sizePercent) > 0.1;
 
 			changes.push({
 				component,
@@ -99,20 +95,16 @@ function generateComment(changes, hasBaseline = true) {
 	let comment = "## 📦 Bundle Size Analysis\n\n";
 
 	if (!hasBaseline) {
-		comment +=
-			"🆕 **Initial bundle size report** - No baseline to compare against\n\n";
+		comment += "🆕 **Initial bundle size report** - No baseline to compare against\n\n";
 		comment += "This appears to be the first bundle analysis for this branch. ";
-		comment +=
-			"Future PRs will show size comparisons against these baseline measurements.\n\n";
+		comment += "Future PRs will show size comparisons against these baseline measurements.\n\n";
 
 		if (changes.length > 0) {
 			comment += "### 📊 Current Component Sizes\n\n";
 			comment += "| Component | Size |\n";
 			comment += "|-----------|------|\n";
 
-			const sortedComponents = changes.sort((a, b) =>
-				a.component.localeCompare(b.component),
-			);
+			const sortedComponents = changes.sort((a, b) => a.component.localeCompare(b.component));
 			for (const comp of sortedComponents) {
 				comment += `| \`${comp.component}\` | ${formatBytes(comp.currentSize)} KB <sub>gzipped: (${formatBytes(comp.currentGzipSize)} KB)</sub> |\n`;
 			}
@@ -127,9 +119,7 @@ function generateComment(changes, hasBaseline = true) {
 		return comment;
 	}
 
-	const modifiedComponents = changedComponents.filter(
-		(c) => c.status === "changed",
-	);
+	const modifiedComponents = changedComponents.filter((c) => c.status === "changed");
 
 	if (modifiedComponents.length > 0) {
 		comment += "### 📊 Modified Components\n\n";
@@ -155,8 +145,7 @@ function generateComment(changes, hasBaseline = true) {
 		"- **Real-world Usage**: When multiple components are used together, shared dependencies are deduplicated thus the actual bundle size is smaller than the sum of the individual component sizes\n";
 	comment +=
 		"- **Thresholds**: Changes smaller than 0.01 KB or 0.1% are considered insignificant\n";
-	comment +=
-		"- **Gzipped Size**: Represents the compressed size served to users\n\n";
+	comment += "- **Gzipped Size**: Represents the compressed size served to users\n\n";
 	comment += "</details>\n";
 
 	return comment;
@@ -166,9 +155,7 @@ function main() {
 	const args = process.argv.slice(2);
 
 	if (args.length !== 2) {
-		console.error(
-			"Usage: node generate-pr-comment.js <pr-report.json> <target-report.json>",
-		);
+		console.error("Usage: node generate-pr-comment.js <pr-report.json> <target-report.json>");
 		process.exit(1);
 	}
 
@@ -178,9 +165,7 @@ function main() {
 		/** @type {BundleReport} */
 		const prReport = JSON.parse(readFileSync(resolve(prReportPath), "utf-8"));
 		/** @type {BundleReport} */
-		const targetReport = JSON.parse(
-			readFileSync(resolve(targetReportPath), "utf-8"),
-		);
+		const targetReport = JSON.parse(readFileSync(resolve(targetReportPath), "utf-8"));
 
 		const hasBaseline = targetReport.results && targetReport.results.length > 0;
 
@@ -209,16 +194,13 @@ function main() {
 		console.log("✅ Bundle analysis comment generated successfully");
 		if (hasBaseline) {
 			console.log(
-				`📊 Found ${changes.filter((c) => c.status !== "unchanged").length} component changes`,
+				`📊 Found ${changes.filter((c) => c.status !== "unchanged").length} component changes`
 			);
 		} else {
 			console.log("🆕 No baseline found - generated initial report");
 		}
 	} catch (error) {
-		console.error(
-			"❌ Failed to generate bundle analysis comment:",
-			error.message,
-		);
+		console.error("❌ Failed to generate bundle analysis comment:", error.message);
 		process.exit(1);
 	}
 }

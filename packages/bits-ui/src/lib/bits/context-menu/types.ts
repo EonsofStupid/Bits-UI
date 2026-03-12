@@ -1,9 +1,6 @@
-import type {
-	MenuContentProps,
-	MenuContentPropsWithoutHTML,
-} from "../menu/types.js";
 import type { WithChild, Without } from "$lib/internal/types.js";
 import type { BitsPrimitiveDivAttributes } from "$lib/shared/attributes.js";
+import type { MenuContentProps, MenuContentPropsWithoutHTML } from "../menu/types.js";
 
 export type ContextMenuContentPropsWithoutHTML = MenuContentPropsWithoutHTML;
 
@@ -22,38 +19,35 @@ export type ContextMenuTriggerProps = ContextMenuTriggerPropsWithoutHTML &
 
 export type {
 	MenuArrowProps as ContextMenuArrowProps,
-	MenuContentStaticProps as ContextMenuContentStaticProps,
-	MenuCheckboxItemProps as ContextMenuCheckboxItemProps,
-	MenuGroupProps as ContextMenuGroupProps,
-	MenuItemProps as ContextMenuItemProps,
-	MenuGroupHeadingProps as ContextMenuGroupHeadingProps,
-	MenuRootProps as ContextMenuRootProps,
-	MenuRadioGroupProps as ContextMenuRadioGroupProps,
-	MenuRadioItemProps as ContextMenuRadioItemProps,
-	MenuSeparatorProps as ContextMenuSeparatorProps,
-	MenuSubContentProps as ContextMenuSubContentProps,
-	MenuSubContentStaticProps as ContextMenuSubContentStaticProps,
-	MenuSubProps as ContextMenuSubProps,
-	MenuSubTriggerProps as ContextMenuSubTriggerProps,
-	MenuPortalProps as ContextMenuPortalProps,
-	MenuCheckboxGroupProps as ContextMenuCheckboxGroupProps,
-} from "$lib/bits/menu/types.js";
-
-export type {
-	MenuRootPropsWithoutHTML as ContextMenuRootPropsWithoutHTML,
-	MenuContentStaticPropsWithoutHTML as ContextMenuContentStaticPropsWithoutHTML,
 	MenuArrowPropsWithoutHTML as ContextMenuArrowPropsWithoutHTML,
-	MenuCheckboxItemPropsWithoutHTML as ContextMenuCheckboxItemPropsWithoutHTML,
-	MenuGroupPropsWithoutHTML as ContextMenuGroupPropsWithoutHTML,
-	MenuItemPropsWithoutHTML as ContextMenuItemPropsWithoutHTML,
-	MenuGroupHeadingPropsWithoutHTML as ContextMenuGroupHeadingPropsWithoutHTML,
-	MenuRadioGroupPropsWithoutHTML as ContextMenuRadioGroupPropsWithoutHTML,
-	MenuRadioItemPropsWithoutHTML as ContextMenuRadioItemPropsWithoutHTML,
-	MenuSeparatorPropsWithoutHTML as ContextMenuSeparatorPropsWithoutHTML,
-	MenuSubPropsWithoutHTML as ContextMenuSubPropsWithoutHTML,
-	MenuSubTriggerPropsWithoutHTML as ContextMenuSubTriggerPropsWithoutHTML,
-	MenuSubContentPropsWithoutHTML as ContextMenuSubContentPropsWithoutHTML,
-	MenuSubContentStaticPropsWithoutHTML as ContextMenuSubContentStaticPropsWithoutHTML,
-	MenuPortalPropsWithoutHTML as ContextMenuPortalPropsWithoutHTML,
+	MenuCheckboxGroupProps as ContextMenuCheckboxGroupProps,
 	MenuCheckboxGroupPropsWithoutHTML as ContextMenuCheckboxGroupPropsWithoutHTML,
+	MenuCheckboxItemProps as ContextMenuCheckboxItemProps,
+	MenuCheckboxItemPropsWithoutHTML as ContextMenuCheckboxItemPropsWithoutHTML,
+	MenuContentStaticProps as ContextMenuContentStaticProps,
+	MenuContentStaticPropsWithoutHTML as ContextMenuContentStaticPropsWithoutHTML,
+	MenuGroupHeadingProps as ContextMenuGroupHeadingProps,
+	MenuGroupHeadingPropsWithoutHTML as ContextMenuGroupHeadingPropsWithoutHTML,
+	MenuGroupProps as ContextMenuGroupProps,
+	MenuGroupPropsWithoutHTML as ContextMenuGroupPropsWithoutHTML,
+	MenuItemProps as ContextMenuItemProps,
+	MenuItemPropsWithoutHTML as ContextMenuItemPropsWithoutHTML,
+	MenuPortalProps as ContextMenuPortalProps,
+	MenuPortalPropsWithoutHTML as ContextMenuPortalPropsWithoutHTML,
+	MenuRadioGroupProps as ContextMenuRadioGroupProps,
+	MenuRadioGroupPropsWithoutHTML as ContextMenuRadioGroupPropsWithoutHTML,
+	MenuRadioItemProps as ContextMenuRadioItemProps,
+	MenuRadioItemPropsWithoutHTML as ContextMenuRadioItemPropsWithoutHTML,
+	MenuRootProps as ContextMenuRootProps,
+	MenuRootPropsWithoutHTML as ContextMenuRootPropsWithoutHTML,
+	MenuSeparatorProps as ContextMenuSeparatorProps,
+	MenuSeparatorPropsWithoutHTML as ContextMenuSeparatorPropsWithoutHTML,
+	MenuSubContentProps as ContextMenuSubContentProps,
+	MenuSubContentPropsWithoutHTML as ContextMenuSubContentPropsWithoutHTML,
+	MenuSubContentStaticProps as ContextMenuSubContentStaticProps,
+	MenuSubContentStaticPropsWithoutHTML as ContextMenuSubContentStaticPropsWithoutHTML,
+	MenuSubProps as ContextMenuSubProps,
+	MenuSubPropsWithoutHTML as ContextMenuSubPropsWithoutHTML,
+	MenuSubTriggerProps as ContextMenuSubTriggerProps,
+	MenuSubTriggerPropsWithoutHTML as ContextMenuSubTriggerPropsWithoutHTML,
 } from "$lib/bits/menu/types.js";

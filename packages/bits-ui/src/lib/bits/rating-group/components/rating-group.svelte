@@ -1,10 +1,10 @@
 <script lang="ts">
 import { boxWith, mergeProps } from "svelte-toolbelt";
-import type { RatingGroupRootProps } from "../types.js";
-import { RatingGroupRootState } from "../rating-group.svelte.js";
-import RatingGroupInput from "./rating-group-input.svelte";
 import { createId } from "$lib/internal/create-id.js";
 import { noop } from "$lib/internal/noop.js";
+import { RatingGroupRootState } from "../rating-group.svelte.js";
+import type { RatingGroupRootProps } from "../types.js";
+import RatingGroupInput from "./rating-group-input.svelte";
 
 const uid = $props.id();
 
@@ -33,11 +33,10 @@ if (value < min || value > max) {
 	value = Math.max(min, Math.min(max, value));
 }
 
-const ariaValuetext: NonNullable<RatingGroupRootProps["aria-valuetext"]> =
-	$derived.by(() => {
-		if (ariaValuetextProp) return ariaValuetextProp;
-		return (value: number, max: number) => `${value} out of ${max}`;
-	});
+const ariaValuetext: NonNullable<RatingGroupRootProps["aria-valuetext"]> = $derived.by(() => {
+	if (ariaValuetextProp) return ariaValuetextProp;
+	return (value: number, max: number) => `${value} out of ${max}`;
+});
 
 const rootState = RatingGroupRootState.create({
 	orientation: boxWith(() => orientation),
@@ -55,19 +54,17 @@ const rootState = RatingGroupRootState.create({
 			if (v === value) return;
 			value = v;
 			onValueChange?.(v);
-		},
+		}
 	),
 	ref: boxWith(
 		() => ref,
-		(v) => (ref = v),
+		(v) => (ref = v)
 	),
 	ariaValuetext: boxWith(() => ariaValuetext),
 	hoverPreview: boxWith(() => hoverPreview),
 });
 
-const mergedProps = $derived(
-	mergeProps(restProps, rootState.props, { "aria-label": ariaLabel }),
-);
+const mergedProps = $derived(mergeProps(restProps, rootState.props, { "aria-label": ariaLabel }));
 </script>
 
 {#if child}

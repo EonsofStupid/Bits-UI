@@ -13,9 +13,7 @@ const scrollbarXState = ScrollAreaScrollbarXState.create({
 	mounted: boxWith(() => isMounted.current),
 });
 // oxlint-disable-next-line no-explicit-any
-const mergedProps = $derived(
-	mergeProps(restProps, scrollbarXState.props),
-) as any;
+const mergedProps = $derived(mergeProps(restProps, scrollbarXState.props)) as any;
 </script>
 
 <ScrollAreaScrollbarShared {...mergedProps} />

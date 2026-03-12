@@ -1,8 +1,7 @@
 <script lang="ts" module>
-import { RangeCalendar, type WithoutChildrenOrChild } from "bits-ui";
+import type { RangeCalendar, WithoutChildrenOrChild } from "bits-ui";
 
-export type RangeCalendarTestProps =
-	WithoutChildrenOrChild<RangeCalendar.RootProps>;
+export type RangeCalendarTestProps = WithoutChildrenOrChild<RangeCalendar.RootProps>;
 </script>
 
 <script lang="ts">

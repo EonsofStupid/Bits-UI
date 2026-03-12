@@ -1,9 +1,9 @@
 <script lang="ts">
 import { Select } from "bits-ui";
-import Check from "phosphor-svelte/lib/Check";
-import CaretUpDown from "phosphor-svelte/lib/CaretUpDown";
-import CaretDoubleUp from "phosphor-svelte/lib/CaretDoubleUp";
 import CaretDoubleDown from "phosphor-svelte/lib/CaretDoubleDown";
+import CaretDoubleUp from "phosphor-svelte/lib/CaretDoubleUp";
+import CaretUpDown from "phosphor-svelte/lib/CaretUpDown";
+import Check from "phosphor-svelte/lib/Check";
 
 const themes = [
 	{ value: "new", label: "New App" },
@@ -14,7 +14,7 @@ const themes = [
 let { value = $bindable("new") }: { value: string } = $props();
 
 const selectedLabel = $derived(
-	value ? themes.find((theme) => theme.value === value)?.label : "New app",
+	value ? themes.find((theme) => theme.value === value)?.label : "New app"
 );
 </script>
 

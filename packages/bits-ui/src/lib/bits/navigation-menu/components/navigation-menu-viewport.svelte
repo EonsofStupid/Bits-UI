@@ -1,10 +1,10 @@
 <script lang="ts">
-import type { NavigationMenuViewportProps } from "../types.js";
-import { NavigationMenuViewportState } from "../navigation-menu.svelte.js";
-import { createId } from "$lib/internal/create-id.js";
-import PresenceLayer from "$lib/bits/utilities/presence-layer/presence-layer.svelte";
 import { boxWith, mergeProps } from "svelte-toolbelt";
 import { Mounted } from "$lib/bits/utilities/index.js";
+import PresenceLayer from "$lib/bits/utilities/presence-layer/presence-layer.svelte";
+import { createId } from "$lib/internal/create-id.js";
+import { NavigationMenuViewportState } from "../navigation-menu.svelte.js";
+import type { NavigationMenuViewportProps } from "../types.js";
 
 const uid = $props.id();
 
@@ -21,7 +21,7 @@ const viewportState = NavigationMenuViewportState.create({
 	id: boxWith(() => id),
 	ref: boxWith(
 		() => ref,
-		(v) => (ref = v),
+		(v) => (ref = v)
 	),
 });
 

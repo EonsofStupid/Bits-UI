@@ -1,14 +1,14 @@
 <script lang="ts">
+import type { DateValue } from "@internationalized/date";
 import { watch } from "runed";
 import { boxWith, mergeProps } from "svelte-toolbelt";
-import type { DateValue } from "@internationalized/date";
-import { DateRangeFieldRootState } from "../date-range-field.svelte.js";
-import type { DateRangeFieldRootProps } from "../types.js";
+import { resolveLocaleProp } from "$lib/bits/utilities/config/prop-resolvers.js";
 import { createId } from "$lib/internal/create-id.js";
+import { getDefaultDate } from "$lib/internal/date-time/utils.js";
 import { noop } from "$lib/internal/noop.js";
 import type { DateRange } from "$lib/shared/index.js";
-import { getDefaultDate } from "$lib/internal/date-time/utils.js";
-import { resolveLocaleProp } from "$lib/bits/utilities/config/prop-resolvers.js";
+import { DateRangeFieldRootState } from "../date-range-field.svelte.js";
+import type { DateRangeFieldRootProps } from "../types.js";
 
 const uid = $props.id();
 
@@ -60,7 +60,7 @@ watch.pre(
 	() => placeholder,
 	() => {
 		handleDefaultPlaceholder();
-	},
+	}
 );
 
 function handleDefaultValue() {
@@ -81,14 +81,14 @@ watch.pre(
 	() => value,
 	() => {
 		handleDefaultValue();
-	},
+	}
 );
 
 const rootState = DateRangeFieldRootState.create({
 	id: boxWith(() => id),
 	ref: boxWith(
 		() => ref,
-		(v) => (ref = v),
+		(v) => (ref = v)
 	),
 	disabled: boxWith(() => disabled),
 	readonly: boxWith(() => readonly),
@@ -105,7 +105,7 @@ const rootState = DateRangeFieldRootState.create({
 		(v) => {
 			placeholder = v;
 			onPlaceholderChange(v);
-		},
+		}
 	),
 	readonlySegments: boxWith(() => readonlySegments),
 	value: boxWith(
@@ -113,21 +113,21 @@ const rootState = DateRangeFieldRootState.create({
 		(v) => {
 			value = v;
 			onValueChange(v);
-		},
+		}
 	),
 	startValue: boxWith(
 		() => startValue,
 		(v) => {
 			startValue = v;
 			onStartValueChange(v);
-		},
+		}
 	),
 	endValue: boxWith(
 		() => endValue,
 		(v) => {
 			endValue = v;
 			onEndValueChange(v);
-		},
+		}
 	),
 	onInvalid: boxWith(() => onInvalid),
 	errorMessageId: boxWith(() => errorMessageId),

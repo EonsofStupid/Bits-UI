@@ -1,14 +1,9 @@
-import type {
-	CalendarDateTime,
-	DateValue,
-	Time,
-	ZonedDateTime,
-} from "@internationalized/date";
+import type { CalendarDateTime, DateValue, Time, ZonedDateTime } from "@internationalized/date";
 import type {
 	DATE_SEGMENT_PARTS,
 	EDITABLE_SEGMENT_PARTS,
-	NON_EDITABLE_SEGMENT_PARTS,
 	EDITABLE_TIME_SEGMENT_PARTS,
+	NON_EDITABLE_SEGMENT_PARTS,
 } from "$lib/internal/date-time/field/parts.js";
 
 export type Granularity = "day" | "hour" | "minute" | "second";
@@ -20,9 +15,7 @@ export type DateMatcher = (date: DateValue) => boolean;
 
 export type TimeValue = Time | CalendarDateTime | ZonedDateTime;
 
-export type TimeValidator<T extends TimeValue> = (
-	time: T,
-) => string[] | string | void;
+export type TimeValidator<T extends TimeValue> = (time: T) => string[] | string | void;
 
 /**
  * A function that returns a string or array of strings as validation errors if the date is
@@ -48,19 +41,13 @@ export type TimeRangeValidator<T extends TimeValue = Time> = (range: {
  * A callback fired when the date field's value is invalid. Use this to display an error
  * message to the user.
  */
-export type DateOnInvalid = (
-	reason: "min" | "max" | "custom",
-	msg?: string | string[],
-) => void;
+export type DateOnInvalid = (reason: "min" | "max" | "custom", msg?: string | string[]) => void;
 
 /**
  * A callback fired when the time field's value is invalid. Use this to display an error
  * message to the user.
  */
-export type TimeOnInvalid = (
-	reason: "min" | "max" | "custom",
-	msg?: string | string[],
-) => void;
+export type TimeOnInvalid = (reason: "min" | "max" | "custom", msg?: string | string[]) => void;
 
 export type DateRange = {
 	start: DateValue | undefined;
@@ -101,17 +88,12 @@ export type Month<T> = {
 };
 
 export type DateSegmentPart = (typeof DATE_SEGMENT_PARTS)[number];
-export type EditableTimeSegmentPart =
-	(typeof EDITABLE_TIME_SEGMENT_PARTS)[number];
+export type EditableTimeSegmentPart = (typeof EDITABLE_TIME_SEGMENT_PARTS)[number];
 export type EditableSegmentPart = (typeof EDITABLE_SEGMENT_PARTS)[number];
-export type NonEditableSegmentPart =
-	(typeof NON_EDITABLE_SEGMENT_PARTS)[number];
+export type NonEditableSegmentPart = (typeof NON_EDITABLE_SEGMENT_PARTS)[number];
 export type SegmentPart = EditableSegmentPart | NonEditableSegmentPart;
 
-export type TimeSegmentPart =
-	| EditableTimeSegmentPart
-	| "literal"
-	| "timeZoneName";
+export type TimeSegmentPart = EditableTimeSegmentPart | "literal" | "timeZoneName";
 export type AnyTimeExceptLiteral = Exclude<TimeSegmentPart, "literal">;
 
 export type AnyExceptLiteral = Exclude<SegmentPart, "literal">;
@@ -121,9 +103,7 @@ export type DateSegmentObj = {
 	[K in DateSegmentPart]: string | null;
 };
 export type TimeSegmentObj = {
-	[K in EditableTimeSegmentPart]: K extends "dayPeriod"
-		? DayPeriod
-		: string | null;
+	[K in EditableTimeSegmentPart]: K extends "dayPeriod" ? DayPeriod : string | null;
 };
 export type DateAndTimeSegmentObj = DateSegmentObj & TimeSegmentObj;
 export type SegmentValueObj = DateSegmentObj | DateAndTimeSegmentObj;
