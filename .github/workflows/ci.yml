@@ -40,17 +40,15 @@ jobs:
               run: pnpm check
 
     Lint:
-        runs-on: macos-latest
-        name: Lint
+        runs-on: ubuntu-latest
+        name: Biome CI
         steps:
             - uses: actions/checkout@v4
-            - uses: pnpm/action-setup@v4
-            - uses: actions/setup-node@v4
+
+            - name: Setup Biome
+              uses: biomejs/setup-biome@v2
               with:
-                  node-version: 20
-                  cache: pnpm
+                  version: latest
 
-            - name: Install dependencies
-              run: pnpm install --frozen-lockfile
-
-            - run: pnpm lint
+            - name: Run Biome CI
+              run: biome ci --reporter=github .
