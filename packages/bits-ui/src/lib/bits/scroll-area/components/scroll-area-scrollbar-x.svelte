@@ -12,7 +12,7 @@ const isMounted = new IsMounted();
 const scrollbarXState = ScrollAreaScrollbarXState.create({
 	mounted: boxWith(() => isMounted.current),
 });
-// oxlint-disable-next-line no-explicit-any
+// biome-ignore lint/suspicious/noExplicitAny: required for type flexibility
 const mergedProps = $derived(mergeProps(restProps, scrollbarXState.props)) as any;
 </script>
 

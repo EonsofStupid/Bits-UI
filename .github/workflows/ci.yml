@@ -5,6 +5,7 @@ on:
         branches:
             - main
             - next
+            - coldlight
         paths-ignore:
             - ".changeset/**"
             - README.md
@@ -54,3 +55,27 @@ jobs:
               run: pnpm install --frozen-lockfile
 
             - run: pnpm lint
+
+    Test:
+        name: Browser Tests
+        runs-on: macos-latest
+        needs: [Check, Lint]
+        steps:
+            - uses: actions/checkout@v4
+            - uses: pnpm/action-setup@v4
+            - uses: actions/setup-node@v4
+              with:
+                  node-version: 20
+                  cache: pnpm
+
+            - name: Install dependencies
+              run: pnpm install --frozen-lockfile
+
+            - name: Install Playwright browsers
+              run: pnpm exec playwright install --with-deps chromium
+
+            - name: Build bits-ui
+              run: pnpm --filter bits-ui build
+
+            - name: Run browser tests
+              run: pnpm --filter tests test:browser

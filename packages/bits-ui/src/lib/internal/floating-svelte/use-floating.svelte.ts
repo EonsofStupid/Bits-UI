@@ -72,7 +72,7 @@ export function useFloating(options: UseFloatingOptions): UseFloatingReturn {
 				middlewareData = {
 					...middlewareData,
 					hide: {
-						// oxlint-disable-next-line no-explicit-any
+						// biome-ignore lint/suspicious/noExplicitAny: required for type flexibility
 						...(middlewareData as any).hide,
 						referenceHidden: true,
 					},

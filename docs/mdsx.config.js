@@ -1,4 +1,4 @@
-// oxlint-disable ban-ts-comment
+
 // @ts-nocheck
 
 import { readFileSync } from "node:fs";

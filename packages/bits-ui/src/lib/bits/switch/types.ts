@@ -37,7 +37,7 @@ export type SwitchRootPropsWithoutHTML = WithChild<
 		 *
 		 * @defaultValue undefined
 		 */
-		// oxlint-disable-next-line no-explicit-any
+		// biome-ignore lint/suspicious/noExplicitAny: required for type flexibility
 		value?: any;
 
 		/**

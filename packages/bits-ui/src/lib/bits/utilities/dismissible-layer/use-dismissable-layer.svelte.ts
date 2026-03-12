@@ -306,10 +306,10 @@ function createWrappedEvent(e: PointerEvent | MouseEvent): PointerEvent {
 				return isPrevented;
 			}
 			if (prop in target) {
-				// oxlint-disable-next-line no-explicit-any
+				// biome-ignore lint/suspicious/noExplicitAny: required for type flexibility
 				return (target as any)[prop];
 			}
-			// oxlint-disable-next-line no-explicit-any
+			// biome-ignore lint/suspicious/noExplicitAny: required for type flexibility
 			return (e as any)[prop];
 		},
 	});
