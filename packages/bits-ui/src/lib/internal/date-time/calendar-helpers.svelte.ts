@@ -382,7 +382,7 @@ export function handleCalendarKeydown({
 }: HandleCalendarKeydownProps) {
 	const currentCell = event.target;
 	if (!isCalendarDayNode(currentCell)) return;
-	// oxlint-disable-next-line no-explicit-any
+	// biome-ignore lint/suspicious/noExplicitAny: required for type flexibility
 	if (!ARROW_KEYS.includes(event.key as any) && !SELECT_KEYS.includes(event.key)) return;
 
 	event.preventDefault();
@@ -394,7 +394,7 @@ export function handleCalendarKeydown({
 		[kbd.ARROW_RIGHT]: 1,
 	};
 
-	// oxlint-disable-next-line no-explicit-any
+	// biome-ignore lint/suspicious/noExplicitAny: required for type flexibility
 	if (ARROW_KEYS.includes(event.key as any)) {
 		const add = kbdFocusMap[event.key as (typeof ARROW_KEYS)[number]];
 		if (add !== undefined) {

@@ -5,6 +5,7 @@ on:
         branches:
             - main
             - next
+            - coldlight
         paths-ignore:
             - ".changeset/**"
             - "README.md"
@@ -38,13 +39,11 @@ jobs:
               with:
                   version: latest
 
-            # GitHub-native annotations (errors shown inline on PR diffs)
             - name: Biome CI (GitHub reporter)
               run: biome ci --reporter=github .
-              continue-on-error: true
 
-            # JSON report saved as an artifact — consumed by the ColdLight devtool UI
             - name: Biome CI (JSON report)
+              if: always()
               run: biome ci --reporter=json . > biome-report.json 2>&1 || true
 
             - name: Upload Biome report artifact
@@ -55,7 +54,6 @@ jobs:
                   path: biome-report.json
                   retention-days: 7
 
-            # Summary written to the GitHub Actions job summary page
             - name: Write job summary
               if: always()
               run: |
@@ -63,7 +61,3 @@ jobs:
                   echo '```json' >> $GITHUB_STEP_SUMMARY
                   cat biome-report.json | head -100 >> $GITHUB_STEP_SUMMARY
                   echo '```' >> $GITHUB_STEP_SUMMARY
-
-            # Final enforcement — fails the job if Biome finds real errors
-            - name: Biome CI (enforce)
-              run: biome ci .

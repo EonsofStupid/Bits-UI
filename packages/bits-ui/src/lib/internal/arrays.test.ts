@@ -55,7 +55,7 @@ describe("arraysAreEqual", () => {
 	});
 
 	it("should handle sparse arrays", () => {
-		// oxlint-disable-next-line no-sparse-arrays
+		// biome-ignore lint/suspicious/noSparseArray: intentional sparse array for test
 		const arr1 = [1, , 3];
 		const arr2 = [1, undefined, 3];
 		expect(arraysAreEqual(arr1, arr2)).toBe(true);

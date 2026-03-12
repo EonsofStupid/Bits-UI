@@ -1,4 +1,4 @@
-// oxlint-disable-next-line ban-ts-comment
+
 // @ts-nocheck
 
 import { writeFileSync } from "node:fs";

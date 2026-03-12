@@ -1,4 +1,4 @@
-// oxlint-disable-next-line no-explicit-any
+// biome-ignore lint/suspicious/noExplicitAny: required for type flexibility
 export function debounce<T extends (...args: any[]) => any>(fn: T, wait = 500) {
 	let timeout: NodeJS.Timeout | null = null;
 

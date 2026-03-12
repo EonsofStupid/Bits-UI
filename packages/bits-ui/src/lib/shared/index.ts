@@ -1,4 +1,3 @@
-// oxlint-disable no-explicit-any
 import type * as CSS from "csstype";
 
 export {

@@ -38,10 +38,10 @@ interface PinInputRootStateOpts
 		ReadableBoxedValues<{
 			inputId: string;
 			disabled: boolean;
-			// oxlint-disable-next-line no-explicit-any
+			// biome-ignore lint/suspicious/noExplicitAny: required for type flexibility
 			onComplete: (...args: any[]) => void;
 			pasteTransformer?: (text: string) => string;
-			// oxlint-disable-next-line no-explicit-any
+			// biome-ignore lint/suspicious/noExplicitAny: required for type flexibility
 			pattern: any;
 			maxLength: number;
 			pushPasswordManagerStrategy: "increase-width" | "none";
@@ -558,7 +558,7 @@ export class PinInputCellState {
 	);
 }
 
-// oxlint-disable-next-line no-explicit-any
+// biome-ignore lint/suspicious/noExplicitAny: required for type flexibility
 export function syncTimeouts(cb: (...args: any[]) => unknown, domContext: DOMContext): number[] {
 	const t1 = domContext.setTimeout(cb, 0); // For faster machines
 	const t2 = domContext.setTimeout(cb, 1_0);
@@ -570,7 +570,7 @@ function safeInsertRule(sheet: CSSStyleSheet, rule: string) {
 	try {
 		sheet.insertRule(rule);
 	} catch {
-		// oxlint-disable-next-line no-console
+		// biome-ignore lint/suspicious/noConsole: intentional logging
 		console.error("pin input could not insert CSS rule:", rule);
 	}
 }

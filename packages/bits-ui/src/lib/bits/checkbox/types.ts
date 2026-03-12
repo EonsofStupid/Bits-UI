@@ -42,7 +42,7 @@ export type CheckboxRootPropsWithoutHTML = WithChild<
 		 *
 		 * @default undefined
 		 */
-		// oxlint-disable-next-line no-explicit-any
+		// biome-ignore lint/suspicious/noExplicitAny: required for type flexibility
 		name?: any;
 
 		/**
@@ -120,7 +120,7 @@ export type CheckboxGroupPropsWithoutHTML = WithChild<{
 	 *
 	 * @default undefined
 	 */
-	// oxlint-disable-next-line no-explicit-any
+	// biome-ignore lint/suspicious/noExplicitAny: required for type flexibility
 	name?: any;
 
 	/**

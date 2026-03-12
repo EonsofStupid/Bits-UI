@@ -10,6 +10,6 @@ export function warn(...messages: string[]) {
 	const msg = messages.join(" ");
 	if (set.has(msg)) return;
 	set.add(msg);
-	// oxlint-disable-next-line no-console
+	// biome-ignore lint/suspicious/noConsole: intentional logging
 	console.warn(`[Bits UI]: ${msg}`);
 }

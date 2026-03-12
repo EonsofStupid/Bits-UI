@@ -51,7 +51,7 @@ export type PinInputRootPropsWithoutHTML = Omit<
 			 * A callback function that is called when the input is completely filled.
 			 *
 			 */
-			// oxlint-disable-next-line no-explicit-any
+			// biome-ignore lint/suspicious/noExplicitAny: required for type flexibility
 			onComplete?: (...args: any[]) => void;
 
 			/**
