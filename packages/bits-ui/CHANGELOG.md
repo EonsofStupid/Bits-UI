@@ -1,5 +1,83 @@
 # bits-ui
 
+## 2.16.3
+
+### Patch Changes
+
+- fix: floating content exit animations ([#1980](https://github.com/huntabyte/bits-ui/pull/1980))
+
+- fix(Tooltip): improve transit handling from trigger to content ([#1981](https://github.com/huntabyte/bits-ui/pull/1981))
+
+## 2.16.2
+
+### Patch Changes
+
+- fix(TimeField): prevent mobile keyboard input from appending raw characters to the day period (AM/PM) segment by handling `beforeinput` events ([#1970](https://github.com/huntabyte/bits-ui/pull/1970))
+
+## 2.16.1
+
+### Patch Changes
+
+- fix(FloatingLayer): prevent floating content from visibly jumping to the viewport origin when its reference becomes hidden by ignoring detached/hidden-anchor position updates until close completes ([#1964](https://github.com/huntabyte/bits-ui/pull/1964))
+
+## 2.16.0
+
+### Minor Changes
+
+- feat(Tooltip): introduce `tether` functionality/singleton tooltip support ([#1962](https://github.com/huntabyte/bits-ui/pull/1962))
+
+### Patch Changes
+
+- fix(Tooltip): resolve issue where SafePolygon wasn't respected under specific conditions ([#1962](https://github.com/huntabyte/bits-ui/pull/1962))
+
+## 2.15.8
+
+### Patch Changes
+
+- perf(Popover): optimized hover tracking for openOnHover ([#1959](https://github.com/huntabyte/bits-ui/pull/1959))
+
+- perf: reduced rapid toggle overhead by avoiding unnecessary positioning/observer work while closed ([#1959](https://github.com/huntabyte/bits-ui/pull/1959))
+
+- perf(Tooltip): use only a single scroll listener per provider ([#1959](https://github.com/huntabyte/bits-ui/pull/1959))
+
+- fix(Tooltip): improve hover-close reliability ([#1959](https://github.com/huntabyte/bits-ui/pull/1959))
+
+- perf: optimize safe polygon and floating layers ([#1959](https://github.com/huntabyte/bits-ui/pull/1959))
+
+## 2.15.7
+
+### Patch Changes
+
+- fix(Select): restore initial highlight in unpadded Select.Viewport ([#1956](https://github.com/huntabyte/bits-ui/pull/1956))
+
+## 2.15.6
+
+### Patch Changes
+
+- fix(Dialog): remove paint containment ([#1946](https://github.com/huntabyte/bits-ui/pull/1946))
+
+- fix(Popover): remove paint containment ([#1946](https://github.com/huntabyte/bits-ui/pull/1946))
+
+- fix(Menu): remove paint containment ([#1946](https://github.com/huntabyte/bits-ui/pull/1946))
+
+## 2.15.5
+
+### Patch Changes
+
+- fix(Tooltip): allow overriding trigger tabindex ([#1932](https://github.com/huntabyte/bits-ui/pull/1932))
+
+- fix(Pin Input): keyboard navigation ([#1872](https://github.com/huntabyte/bits-ui/pull/1872))
+
+- fix(ScrollArea): cleanup when pointercapture is lost ([#1935](https://github.com/huntabyte/bits-ui/pull/1935))
+
+- fix(Accordion): allow overriding trigger tabindex ([#1932](https://github.com/huntabyte/bits-ui/pull/1932))
+
+- fix(Presence): optimize animation detection for large DOMs ([#1924](https://github.com/huntabyte/bits-ui/pull/1924))
+
+- fix: floating components should respect `style` prop ([#1934](https://github.com/huntabyte/bits-ui/pull/1934))
+
+- fix(FocusScope): ensure focus scopes works with only 1 tabbable item ([#1933](https://github.com/huntabyte/bits-ui/pull/1933))
+
 ## 2.15.4
 
 ### Patch Changes

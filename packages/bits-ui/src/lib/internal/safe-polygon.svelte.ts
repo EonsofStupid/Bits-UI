@@ -52,6 +52,9 @@ export interface SafePolygonOptions {
 	contentNode: Getter<HTMLElement | null>;
 	onPointerExit: () => void;
 	buffer?: number;
+	transitIntentTimeout?: number;
+	/** nodes that should not trigger a close when they become the relatedTarget on trigger leave (e.g. sibling triggers in singleton mode) */
+	ignoredTargets?: Getter<HTMLElement[]>;
 }
 
 /**
@@ -61,29 +64,78 @@ export interface SafePolygonOptions {
 export class SafePolygon {
 	readonly #opts: SafePolygonOptions;
 	readonly #buffer: number;
+	readonly #transitIntentTimeout: number | null;
 
 	// tracks the cursor position when leaving trigger or content
 	#exitPoint: Point | null = null;
 	// tracks what we're moving toward: "content" when leaving trigger, "trigger" when leaving content
 	#exitTarget: "trigger" | "content" | null = null;
+	#transitTargets: HTMLElement[] = [];
+	#trackedTriggerNode: HTMLElement | null = null;
+	#leaveFallbackRafId: number | null = null;
+	#transitIntentTimeoutId: number | null = null;
+
+	#cancelLeaveFallback() {
+		if (this.#leaveFallbackRafId !== null) {
+			cancelAnimationFrame(this.#leaveFallbackRafId);
+			this.#leaveFallbackRafId = null;
+		}
+	}
+
+	#scheduleLeaveFallback() {
+		this.#cancelLeaveFallback();
+		this.#leaveFallbackRafId = requestAnimationFrame(() => {
+			this.#leaveFallbackRafId = null;
+			if (!this.#exitPoint || !this.#exitTarget) return;
+			this.#clearTracking();
+			this.#opts.onPointerExit();
+		});
+	}
+
+	#cancelTransitIntentTimeout() {
+		if (this.#transitIntentTimeoutId !== null) {
+			clearTimeout(this.#transitIntentTimeoutId);
+			this.#transitIntentTimeoutId = null;
+		}
+	}
+
+	#scheduleTransitIntentTimeout() {
+		if (this.#transitIntentTimeout === null) return;
+		this.#cancelTransitIntentTimeout();
+		this.#transitIntentTimeoutId = window.setTimeout(() => {
+			this.#transitIntentTimeoutId = null;
+			if (!this.#exitPoint || !this.#exitTarget) return;
+			this.#clearTracking();
+			this.#opts.onPointerExit();
+		}, this.#transitIntentTimeout);
+	}
 
 	constructor(opts: SafePolygonOptions) {
 		this.#opts = opts;
 		this.#buffer = opts.buffer ?? 1;
+		const transitIntentTimeout = opts.transitIntentTimeout;
+		this.#transitIntentTimeout =
+			typeof transitIntentTimeout === "number" && transitIntentTimeout > 0
+				? transitIntentTimeout
+				: null;
 
 		watch(
 			[opts.triggerNode, opts.contentNode, opts.enabled],
 			([triggerNode, contentNode, enabled]) => {
 				if (!triggerNode || !contentNode || !enabled) {
-					this.#exitPoint = null;
-					this.#exitTarget = null;
+					this.#trackedTriggerNode = null;
+					this.#clearTracking();
 					return;
 				}
+				if (this.#trackedTriggerNode && this.#trackedTriggerNode !== triggerNode) {
+					this.#clearTracking();
+				}
+				this.#trackedTriggerNode = triggerNode;
 
 				const doc = getDocument(triggerNode);
 
 				const handlePointerMove = (e: PointerEvent) => {
-					this.#onPointerMove(e, triggerNode, contentNode);
+					this.#onPointerMove([e.clientX, e.clientY], triggerNode, contentNode);
 				};
 
 				const handleTriggerLeave = (e: PointerEvent) => {
@@ -93,20 +145,35 @@ export class SafePolygon {
 					if (isElement(target) && contentNode.contains(target)) {
 						return;
 					}
+					// if moving to an ignored target (e.g. a sibling trigger), don't close —
+					// the sibling's enter handler will take over
+					const ignoredTargets = this.#opts.ignoredTargets?.() ?? [];
+					if (
+						isElement(target) &&
+						ignoredTargets.some((n) => n === target || n.contains(target))
+					) {
+						return;
+					}
+					this.#transitTargets =
+						isElement(target) && ignoredTargets.length > 0
+							? ignoredTargets.filter((n) => target.contains(n))
+							: [];
+					// for unrelated elements, defer close decisions to pointer geometry checks.
+					// this allows the cursor to pass through intermediate elements on the way
+					// to content without immediately closing.
 					this.#exitPoint = [e.clientX, e.clientY];
 					this.#exitTarget = "content";
+					this.#scheduleLeaveFallback();
 				};
 
 				const handleTriggerEnter = () => {
 					// reached trigger, clear tracking
-					this.#exitPoint = null;
-					this.#exitTarget = null;
+					this.#clearTracking();
 				};
 
 				const handleContentEnter = () => {
 					// reached content, clear tracking
-					this.#exitPoint = null;
-					this.#exitTarget = null;
+					this.#clearTracking();
 				};
 
 				const handleContentLeave = (e: PointerEvent) => {
@@ -116,9 +183,10 @@ export class SafePolygon {
 						// going directly to trigger, no polygon tracking needed
 						return;
 					}
-					// might be traversing gap back to trigger, set up polygon tracking
+					// set up polygon tracking toward trigger — pointermove decides whether to close
 					this.#exitPoint = [e.clientX, e.clientY];
 					this.#exitTarget = "trigger";
+					this.#scheduleLeaveFallback();
 				};
 
 				return [
@@ -138,24 +206,37 @@ export class SafePolygon {
 		);
 	}
 
-	#onPointerMove(e: PointerEvent, triggerNode: HTMLElement, contentNode: HTMLElement): void {
+	#onPointerMove(clientPoint: Point, triggerNode: HTMLElement, contentNode: HTMLElement): void {
 		// if no exit point recorded, nothing to check
 		if (!this.#exitPoint || !this.#exitTarget) return;
+		this.#cancelLeaveFallback();
+		this.#scheduleTransitIntentTimeout();
 
-		const clientPoint: Point = [e.clientX, e.clientY];
 		const triggerRect = triggerNode.getBoundingClientRect();
 		const contentRect = contentNode.getBoundingClientRect();
 
 		// check if pointer reached the target
 		if (this.#exitTarget === "content" && isInsideRect(clientPoint, contentRect)) {
-			this.#exitPoint = null;
-			this.#exitTarget = null;
+			this.#clearTracking();
 			return;
 		}
 		if (this.#exitTarget === "trigger" && isInsideRect(clientPoint, triggerRect)) {
-			this.#exitPoint = null;
-			this.#exitTarget = null;
+			this.#clearTracking();
 			return;
+		}
+
+		if (this.#exitTarget === "content" && this.#transitTargets.length > 0) {
+			for (const transitTarget of this.#transitTargets) {
+				const transitRect = transitTarget.getBoundingClientRect();
+				if (isInsideRect(clientPoint, transitRect)) return;
+				const transitSide = getSide(triggerRect, transitRect);
+				const transitCorridor = this.#getCorridorPolygon(
+					triggerRect,
+					transitRect,
+					transitSide
+				);
+				if (transitCorridor && isPointInPolygon(clientPoint, transitCorridor)) return;
+			}
 		}
 
 		// check if pointer is in the rectangular corridor between trigger and content
@@ -173,9 +254,16 @@ export class SafePolygon {
 		}
 
 		// pointer is outside all safe zones - close
+		this.#clearTracking();
+		this.#opts.onPointerExit();
+	}
+
+	#clearTracking() {
 		this.#exitPoint = null;
 		this.#exitTarget = null;
-		this.#opts.onPointerExit();
+		this.#transitTargets = [];
+		this.#cancelLeaveFallback();
+		this.#cancelTransitIntentTimeout();
 	}
 
 	/**

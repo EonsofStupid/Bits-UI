@@ -27,6 +27,7 @@ export function useFloating(options: UseFloatingOptions): UseFloatingReturn {
 	let placement = $state(placementOption);
 	let middlewareData = $state({});
 	let isPositioned = $state(false);
+	let hasWhileMountedPosition = false;
 	const floatingStyles = $derived.by(() => {
 		// preserve last known position when floating ref is null (during transitions)
 		const xVal = floating.current ? roundByDPR(floating.current, x) : x;
@@ -63,6 +64,22 @@ export function useFloating(options: UseFloatingOptions): UseFloatingReturn {
 			placement: placementOption,
 			strategy: strategyOption,
 		}).then((position) => {
+			const referenceNode = reference.current;
+			const referenceHidden = isReferenceHidden(referenceNode);
+			if (referenceHidden) {
+				// keep last good coordinates when the anchor disappears to avoid
+				// a transient jump to viewport origin before close propagates.
+				middlewareData = {
+					...middlewareData,
+					hide: {
+						// oxlint-disable-next-line no-explicit-any
+						...(middlewareData as any).hide,
+						referenceHidden: true,
+					},
+				};
+				return;
+			}
+
 			// ignore bad coordinates that cause jumping during close transitions
 			if (!openOption && x !== 0 && y !== 0) {
 				// if we had a good position and now getting coordinates near
@@ -99,6 +116,8 @@ export function useFloating(options: UseFloatingOptions): UseFloatingReturn {
 			return;
 		}
 
+		if (!openOption) return;
+
 		if (reference.current === null || floating.current === null) return;
 
 		whileElementsMountedCleanup = whileElementsMountedOption(
@@ -109,13 +128,50 @@ export function useFloating(options: UseFloatingOptions): UseFloatingReturn {
 	}
 
 	function reset() {
-		if (!openOption) {
+		if (!openOption && floating.current === null) {
 			isPositioned = false;
 		}
 	}
 
-	$effect(update);
+	function trackWhileMountedDeps() {
+		return [
+			middlewareOption,
+			placementOption,
+			strategyOption,
+			sideOffsetOption,
+			alignOffsetOption,
+			openOption,
+		] as const;
+	}
+
+	$effect(() => {
+		if (whileElementsMountedOption !== undefined) return;
+		if (!openOption) return;
+		update();
+	});
 	$effect(attach);
+	$effect(() => {
+		if (whileElementsMountedOption === undefined) return;
+
+		trackWhileMountedDeps();
+		if (!openOption) {
+			hasWhileMountedPosition = false;
+			return;
+		}
+
+		if (!isPositioned) {
+			hasWhileMountedPosition = false;
+			return;
+		}
+
+		// skip the first post-position run, since autoUpdate already computed it
+		if (!hasWhileMountedPosition) {
+			hasWhileMountedPosition = true;
+			return;
+		}
+
+		update();
+	});
 	$effect(reset);
 	$effect(() => cleanup);
 
@@ -141,4 +197,11 @@ export function useFloating(options: UseFloatingOptions): UseFloatingReturn {
 			return update;
 		},
 	};
+}
+
+function isReferenceHidden(node: unknown): boolean {
+	if (!(node instanceof Element)) return false;
+	if (!node.isConnected) return true;
+	if (node instanceof HTMLElement && node.hidden) return true;
+	return node.getClientRects().length === 0;
 }

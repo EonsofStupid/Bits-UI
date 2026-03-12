@@ -153,3 +153,34 @@ it("should forceMount the content when `forceMount` is true and the `open` snipp
 	await t.trigger.hover();
 	await expectExists(page.getByTestId("content"));
 });
+
+it("should reopen on hover after closing via hover out with forceMount", async () => {
+	const t = setup({ withOpenCheck: true }, LinkPreviewForceMountTest);
+	const outside = page.getByTestId("outside");
+	const binding = page.getByTestId("binding");
+
+	await expectNotExists(page.getByTestId("content"));
+	await expect.element(binding).toHaveTextContent("false");
+
+	await t.trigger.hover();
+	await expectExists(page.getByTestId("content"));
+	await expect.element(binding).toHaveTextContent("true");
+
+	await outside.hover();
+	await expectNotExists(page.getByTestId("content"));
+	await expect.element(binding).toHaveTextContent("false");
+
+	await t.trigger.hover();
+	await expectExists(page.getByTestId("content"));
+	await expect.element(binding).toHaveTextContent("true");
+});
+
+it("should apply custom style prop to content", async () => {
+	await open({
+		contentProps: {
+			style: { backgroundColor: "rgb(255, 0, 0)" },
+		},
+	});
+	const contentEl = page.getByTestId("content").element() as HTMLElement;
+	expect(contentEl.style.backgroundColor).toBe("rgb(255, 0, 0)");
+});
