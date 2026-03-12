@@ -8,7 +8,9 @@ type MachineEvent<T> = keyof UnionToIntersection<T[keyof T]>;
 
 // 🤯 https://fettblog.eu/typescript-union-to-intersection/
 // oxlint-disable-next-line no-explicit-any
-type UnionToIntersection<T> = (T extends any ? (x: T) => any : never) extends (x: infer R) => any
+type UnionToIntersection<T> = (T extends any ? (x: T) => any : never) extends (
+	x: infer R,
+) => any
 	? R
 	: never;
 
@@ -16,7 +18,10 @@ export class StateMachine<M> {
 	readonly state: WritableBox<MachineState<M>>;
 	readonly #machine: M & Machine<MachineState<M>>;
 
-	constructor(initialState: MachineState<M>, machine: M & Machine<MachineState<M>>) {
+	constructor(
+		initialState: MachineState<M>,
+		machine: M & Machine<MachineState<M>>,
+	) {
 		this.state = simpleBox(initialState);
 		this.#machine = machine;
 		this.dispatch = this.dispatch.bind(this);

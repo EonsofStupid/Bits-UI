@@ -150,54 +150,56 @@ type ChildSnippetProps = {
 	],
 });
 
-export const segment = defineComponentApiSchema<DateFieldSegmentPropsWithoutHTML>({
-	title: "Segment",
-	description: "A segment of the date field.",
-	props: {
-		part: defineComponentPropSchema({
-			type: "SegmentPart",
-			definition: SegmentPartProp,
-			stringDefinition: `"day" |"month" | "year" | "hour" | "minute" | "second" | "dayPeriod" | "timeZoneName" | "literal";`,
-			description: "The part of the date to render.",
-			required: true,
-		}),
-		...withChildProps({ elType: "HTMLDivElement" }),
-	},
-	dataAttributes: [
-		defineSimpleDataAttr({
-			name: "invalid",
-			description: "Present on the element when the field is invalid",
-		}),
-		defineSimpleDataAttr({
-			name: "disabled",
-			description: "Present on the element when the field is disabled",
-		}),
-		defineSimpleDataAttr({
-			name: "readonly",
-			description: "Present on the element when the field or segment is readonly",
-		}),
-		defineEnumDataAttr({
-			name: "segment",
-			description: "The part of the date being rendered.",
-			value: DateFieldSegmentDataAttr,
-			options: [
-				"day",
-				"month",
-				"year",
-				"hour",
-				"minute",
-				"second",
-				"dayPeriod",
-				"timeZoneName",
-				"literal",
-			],
-		}),
-		defineSimpleDataAttr({
-			name: "date-field-segment",
-			description: "Present on the element.",
-		}),
-	],
-});
+export const segment =
+	defineComponentApiSchema<DateFieldSegmentPropsWithoutHTML>({
+		title: "Segment",
+		description: "A segment of the date field.",
+		props: {
+			part: defineComponentPropSchema({
+				type: "SegmentPart",
+				definition: SegmentPartProp,
+				stringDefinition: `"day" |"month" | "year" | "hour" | "minute" | "second" | "dayPeriod" | "timeZoneName" | "literal";`,
+				description: "The part of the date to render.",
+				required: true,
+			}),
+			...withChildProps({ elType: "HTMLDivElement" }),
+		},
+		dataAttributes: [
+			defineSimpleDataAttr({
+				name: "invalid",
+				description: "Present on the element when the field is invalid",
+			}),
+			defineSimpleDataAttr({
+				name: "disabled",
+				description: "Present on the element when the field is disabled",
+			}),
+			defineSimpleDataAttr({
+				name: "readonly",
+				description:
+					"Present on the element when the field or segment is readonly",
+			}),
+			defineEnumDataAttr({
+				name: "segment",
+				description: "The part of the date being rendered.",
+				value: DateFieldSegmentDataAttr,
+				options: [
+					"day",
+					"month",
+					"year",
+					"hour",
+					"minute",
+					"second",
+					"dayPeriod",
+					"timeZoneName",
+					"literal",
+				],
+			}),
+			defineSimpleDataAttr({
+				name: "date-field-segment",
+				description: "Present on the element.",
+			}),
+		],
+	});
 
 export const label = defineComponentApiSchema<DateFieldLabelPropsWithoutHTML>({
 	title: "Label",

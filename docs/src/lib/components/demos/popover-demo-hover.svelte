@@ -1,7 +1,7 @@
 <script lang="ts">
-	import { Button, Popover, Separator } from "bits-ui";
-	import MapPin from "phosphor-svelte/lib/MapPin";
-	import Calendar from "phosphor-svelte/lib/Calendar";
+import { Button, Popover, Separator } from "bits-ui";
+import MapPin from "phosphor-svelte/lib/MapPin";
+import Calendar from "phosphor-svelte/lib/Calendar";
 </script>
 
 <Popover.Root>

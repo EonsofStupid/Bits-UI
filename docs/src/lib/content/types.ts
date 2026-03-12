@@ -86,4 +86,6 @@ export type UtilityAPISchema<T = Record<string, unknown>> = {
 	props?: PropObj<T>;
 };
 
-export type APISchema<T = Record<string, unknown>> = ComponentAPISchema<T> | UtilityAPISchema<T>;
+export type APISchema<T = Record<string, unknown>> =
+	| ComponentAPISchema<T>
+	| UtilityAPISchema<T>;

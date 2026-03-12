@@ -1,7 +1,7 @@
 <script lang="ts" module>
-	import { CalendarDateTime, ZonedDateTime } from "@internationalized/date";
-	import { Calendar, type CalendarSingleRootProps } from "bits-ui";
-	export type CalendarSingleTestProps = CalendarSingleRootProps;
+import { CalendarDateTime, ZonedDateTime } from "@internationalized/date";
+import { Calendar, type CalendarSingleRootProps } from "bits-ui";
+export type CalendarSingleTestProps = CalendarSingleRootProps;
 </script>
 
 <script lang="ts">

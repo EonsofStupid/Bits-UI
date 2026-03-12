@@ -1,58 +1,60 @@
 <script lang="ts">
-	import { boxWith, mergeProps } from "svelte-toolbelt";
-	import type { LinkPreviewContentProps } from "../types.js";
-	import { LinkPreviewContentState } from "../link-preview.svelte.js";
-	import PopperLayer from "$lib/bits/utilities/popper-layer/popper-layer.svelte";
-	import { getFloatingContentCSSVars } from "$lib/internal/floating-svelte/floating-utils.svelte.js";
-	import PopperLayerForceMount from "$lib/bits/utilities/popper-layer/popper-layer-force-mount.svelte";
-	import Mounted from "$lib/bits/utilities/mounted.svelte";
-	import { noop } from "$lib/internal/noop.js";
-	import { createId } from "$lib/internal/create-id.js";
+import { boxWith, mergeProps } from "svelte-toolbelt";
+import type { LinkPreviewContentProps } from "../types.js";
+import { LinkPreviewContentState } from "../link-preview.svelte.js";
+import PopperLayer from "$lib/bits/utilities/popper-layer/popper-layer.svelte";
+import { getFloatingContentCSSVars } from "$lib/internal/floating-svelte/floating-utils.svelte.js";
+import PopperLayerForceMount from "$lib/bits/utilities/popper-layer/popper-layer-force-mount.svelte";
+import Mounted from "$lib/bits/utilities/mounted.svelte";
+import { noop } from "$lib/internal/noop.js";
+import { createId } from "$lib/internal/create-id.js";
 
-	const uid = $props.id();
+const uid = $props.id();
 
-	let {
-		children,
-		child,
-		id = createId(uid),
-		ref = $bindable(null),
-		side = "top",
-		sideOffset = 0,
-		align = "center",
-		avoidCollisions = true,
-		arrowPadding = 0,
-		sticky = "partial",
-		hideWhenDetached = false,
-		collisionPadding = 0,
-		onInteractOutside = noop,
-		onEscapeKeydown = noop,
-		forceMount = false,
-		style,
-		...restProps
-	}: LinkPreviewContentProps = $props();
+let {
+	children,
+	child,
+	id = createId(uid),
+	ref = $bindable(null),
+	side = "top",
+	sideOffset = 0,
+	align = "center",
+	avoidCollisions = true,
+	arrowPadding = 0,
+	sticky = "partial",
+	hideWhenDetached = false,
+	collisionPadding = 0,
+	onInteractOutside = noop,
+	onEscapeKeydown = noop,
+	forceMount = false,
+	style,
+	...restProps
+}: LinkPreviewContentProps = $props();
 
-	const contentState = LinkPreviewContentState.create({
-		id: boxWith(() => id),
-		ref: boxWith(
-			() => ref,
-			(v) => (ref = v)
-		),
-		onInteractOutside: boxWith(() => onInteractOutside),
-		onEscapeKeydown: boxWith(() => onEscapeKeydown),
-	});
+const contentState = LinkPreviewContentState.create({
+	id: boxWith(() => id),
+	ref: boxWith(
+		() => ref,
+		(v) => (ref = v),
+	),
+	onInteractOutside: boxWith(() => onInteractOutside),
+	onEscapeKeydown: boxWith(() => onEscapeKeydown),
+});
 
-	const floatingProps = $derived({
-		side,
-		sideOffset,
-		align,
-		avoidCollisions,
-		arrowPadding,
-		sticky,
-		hideWhenDetached,
-		collisionPadding,
-	});
+const floatingProps = $derived({
+	side,
+	sideOffset,
+	align,
+	avoidCollisions,
+	arrowPadding,
+	sticky,
+	hideWhenDetached,
+	collisionPadding,
+});
 
-	const mergedProps = $derived(mergeProps(restProps, floatingProps, contentState.props));
+const mergedProps = $derived(
+	mergeProps(restProps, floatingProps, contentState.props),
+);
 </script>
 
 {#if forceMount}

@@ -1,8 +1,12 @@
 <script lang="ts">
-	import type { HTMLAttributes } from "svelte/elements";
-	import { cn } from "$lib/utils/styles.js";
+import type { HTMLAttributes } from "svelte/elements";
+import { cn } from "$lib/utils/styles.js";
 
-	let { class: className, children, ...restProps }: HTMLAttributes<HTMLPreElement> = $props();
+let {
+	class: className,
+	children,
+	...restProps
+}: HTMLAttributes<HTMLPreElement> = $props();
 </script>
 
 <pre

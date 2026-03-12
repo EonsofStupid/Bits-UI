@@ -1,7 +1,9 @@
 import { expect, it, vi, describe } from "vitest";
 import { render } from "vitest-browser-svelte";
 import { getTestKbd } from "../utils.js";
-import ScrollAreaTest, { type ScrollAreaTestProps } from "./scroll-area-test.svelte";
+import ScrollAreaTest, {
+	type ScrollAreaTestProps,
+} from "./scroll-area-test.svelte";
 import { expectExists, expectNotExists } from "../browser-utils";
 import { page, userEvent } from "@vitest/browser/context";
 
@@ -125,7 +127,12 @@ describe("ScrollArea", () => {
 	});
 
 	it("should show corner when both scrollbars are visible", async () => {
-		const t = setup({ wrapText: false, numParagraphs: 20, height: 100, width: 50 });
+		const t = setup({
+			wrapText: false,
+			numParagraphs: 20,
+			height: 100,
+			width: 50,
+		});
 
 		await t.root.hover();
 
@@ -175,7 +182,12 @@ describe("ScrollArea", () => {
 	});
 
 	it("should show scrollbars when content overflows when type is `auto`", async () => {
-		const t = setup({ type: "auto", numParagraphs: 20, height: 100, width: 100 });
+		const t = setup({
+			type: "auto",
+			numParagraphs: 20,
+			height: 100,
+			width: 100,
+		});
 
 		await expectExists(t.getScrollbarY());
 	});
@@ -225,7 +237,7 @@ describe("ScrollArea", () => {
 		await userEvent.keyboard(kbd.ARROW_DOWN);
 
 		await vi.waitFor(() =>
-			expect(t.viewport.element().scrollTop).toBeGreaterThan(initialScrollTop)
+			expect(t.viewport.element().scrollTop).toBeGreaterThan(initialScrollTop),
 		);
 	});
 
@@ -235,7 +247,12 @@ describe("ScrollArea", () => {
 			return;
 		}
 
-		const t = setup({ wrapText: false, numParagraphs: 20, height: 100, width: 50 });
+		const t = setup({
+			wrapText: false,
+			numParagraphs: 20,
+			height: 100,
+			width: 50,
+		});
 
 		await t.root.hover();
 
@@ -251,10 +268,12 @@ describe("ScrollArea", () => {
 		await userEvent.keyboard(kbd.ARROW_RIGHT);
 
 		await vi.waitFor(() =>
-			expect(t.viewport.element().scrollTop).toBeGreaterThan(initialScrollTop)
+			expect(t.viewport.element().scrollTop).toBeGreaterThan(initialScrollTop),
 		);
 		await vi.waitFor(() =>
-			expect(t.viewport.element().scrollLeft).toBeGreaterThan(initialScrollLeft)
+			expect(t.viewport.element().scrollLeft).toBeGreaterThan(
+				initialScrollLeft,
+			),
 		);
 	});
 
@@ -274,17 +293,17 @@ describe("ScrollArea", () => {
 
 		await userEvent.keyboard(kbd.ARROW_DOWN);
 		await vi.waitFor(() =>
-			expect(t.viewport.element().scrollTop).toBeGreaterThan(initialScrollTop)
+			expect(t.viewport.element().scrollTop).toBeGreaterThan(initialScrollTop),
 		);
 
 		await userEvent.keyboard(kbd.PAGE_DOWN);
 		await vi.waitFor(() =>
-			expect(t.viewport.element().scrollTop).toBeGreaterThan(initialScrollTop)
+			expect(t.viewport.element().scrollTop).toBeGreaterThan(initialScrollTop),
 		);
 
 		await userEvent.keyboard(kbd.END);
 		await vi.waitFor(() =>
-			expect(t.viewport.element().scrollTop).toBeGreaterThan(initialScrollTop)
+			expect(t.viewport.element().scrollTop).toBeGreaterThan(initialScrollTop),
 		);
 
 		await userEvent.keyboard(kbd.HOME);
@@ -297,7 +316,12 @@ describe("ScrollArea", () => {
 			return;
 		}
 
-		const t = setup({ dir: "rtl", wrapText: false, numParagraphs: 1, width: 50 });
+		const t = setup({
+			dir: "rtl",
+			wrapText: false,
+			numParagraphs: 1,
+			width: 50,
+		});
 
 		await t.root.hover();
 		const scrollbarX = t.getScrollbarX();
@@ -308,7 +332,9 @@ describe("ScrollArea", () => {
 		await t.viewport.click();
 		await userEvent.keyboard(kbd.ARROW_LEFT);
 
-		await vi.waitFor(() => expect(t.viewport.element().scrollLeft).not.toBe(initialScrollLeft));
+		await vi.waitFor(() =>
+			expect(t.viewport.element().scrollLeft).not.toBe(initialScrollLeft),
+		);
 	});
 
 	it("should restore webkitUserSelect when pointer capture is lost without pointerup", async () => {

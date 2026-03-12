@@ -1,11 +1,11 @@
 <script lang="ts" module>
-	import { Popover } from "bits-ui";
-	export type PopoverForceMountTestProps = Popover.RootProps & {
-		triggerProps?: Omit<Popover.TriggerProps, "asChild" | "child" | "children">;
-		contentProps?: Omit<Popover.ContentProps, "asChild" | "child" | "children">;
-		portalProps?: Popover.PortalProps;
-		withOpenCheck?: boolean;
-	};
+import { Popover } from "bits-ui";
+export type PopoverForceMountTestProps = Popover.RootProps & {
+	triggerProps?: Omit<Popover.TriggerProps, "asChild" | "child" | "children">;
+	contentProps?: Omit<Popover.ContentProps, "asChild" | "child" | "children">;
+	portalProps?: Popover.PortalProps;
+	withOpenCheck?: boolean;
+};
 </script>
 
 <script lang="ts">

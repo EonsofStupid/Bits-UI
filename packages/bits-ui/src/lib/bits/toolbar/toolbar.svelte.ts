@@ -64,7 +64,7 @@ export class ToolbarRootState {
 				"data-orientation": this.opts.orientation.current,
 				[toolbarAttrs.root]: "",
 				...this.attachment,
-			}) as const
+			}) as const,
 	);
 }
 
@@ -94,7 +94,7 @@ abstract class ToolbarGroupBaseState {
 				"data-orientation": this.root.opts.orientation.current,
 				"data-disabled": boolToEmptyStrOrUndef(this.opts.disabled.current),
 				...this.attachment,
-			}) as const
+			}) as const,
 	);
 }
 
@@ -155,7 +155,9 @@ class ToolbarGroupMultipleState extends ToolbarGroupBaseState {
 
 	toggleItem(item: string) {
 		if (this.includesItem(item)) {
-			this.opts.value.current = this.opts.value.current.filter((v) => v !== item);
+			this.opts.value.current = this.opts.value.current.filter(
+				(v) => v !== item,
+			);
 		} else {
 			this.opts.value.current = [...this.opts.value.current, item];
 		}
@@ -179,8 +181,14 @@ export class ToolbarGroupState {
 		const rootState = ToolbarRootContext.get();
 		const groupState =
 			type === "single"
-				? new ToolbarGroupSingleState(rest as ToolbarGroupSingleStateOpts, rootState)
-				: new ToolbarGroupMultipleState(rest as ToolbarGroupMultipleStateOpts, rootState);
+				? new ToolbarGroupSingleState(
+						rest as ToolbarGroupSingleStateOpts,
+						rootState,
+					)
+				: new ToolbarGroupMultipleState(
+						rest as ToolbarGroupMultipleStateOpts,
+						rootState,
+					);
 
 		return ToolbarGroupContext.set(groupState);
 	}
@@ -207,17 +215,23 @@ export class ToolbarGroupItemState {
 	readonly root: ToolbarRootState;
 	readonly attachment: RefAttachment;
 	readonly #isDisabled = $derived.by(
-		() => this.opts.disabled.current || this.group.opts.disabled.current
+		() => this.opts.disabled.current || this.group.opts.disabled.current,
 	);
 
-	constructor(opts: ToolbarGroupItemStateOpts, group: ToolbarGroup, root: ToolbarRootState) {
+	constructor(
+		opts: ToolbarGroupItemStateOpts,
+		group: ToolbarGroup,
+		root: ToolbarRootState,
+	) {
 		this.opts = opts;
 		this.group = group;
 		this.root = root;
 		this.attachment = attachRef(this.opts.ref);
 
 		$effect(() => {
-			this.#tabIndex = this.root.rovingFocusGroup.getTabIndex(this.opts.ref.current);
+			this.#tabIndex = this.root.rovingFocusGroup.getTabIndex(
+				this.opts.ref.current,
+			);
 		});
 
 		this.onclick = this.onclick.bind(this);
@@ -245,10 +259,14 @@ export class ToolbarGroupItemState {
 		this.root.rovingFocusGroup.handleKeydown(this.opts.ref.current, e);
 	}
 
-	readonly isPressed = $derived.by(() => this.group.includesItem(this.opts.value.current));
+	readonly isPressed = $derived.by(() =>
+		this.group.includesItem(this.opts.value.current),
+	);
 
 	readonly #ariaChecked = $derived.by(() => {
-		return this.group.isMulti ? undefined : getAriaChecked(this.isPressed, false);
+		return this.group.isMulti
+			? undefined
+			: getAriaChecked(this.isPressed, false);
 	});
 
 	readonly #ariaPressed = $derived.by(() => {
@@ -276,7 +294,7 @@ export class ToolbarGroupItemState {
 				onclick: this.onclick,
 				onkeydown: this.onkeydown,
 				...this.attachment,
-			}) as const
+			}) as const,
 	);
 }
 
@@ -296,7 +314,9 @@ export class ToolbarLinkState {
 		this.attachment = attachRef(this.opts.ref);
 
 		$effect(() => {
-			this.#tabIndex = this.root.rovingFocusGroup.getTabIndex(this.opts.ref.current);
+			this.#tabIndex = this.root.rovingFocusGroup.getTabIndex(
+				this.opts.ref.current,
+			);
 		});
 
 		this.onkeydown = this.onkeydown.bind(this);
@@ -327,7 +347,7 @@ export class ToolbarLinkState {
 				//
 				onkeydown: this.onkeydown,
 				...this.attachment,
-			}) as const
+			}) as const,
 	);
 }
 
@@ -350,7 +370,9 @@ export class ToolbarButtonState {
 		this.root = root;
 		this.attachment = attachRef(this.opts.ref);
 		$effect(() => {
-			this.#tabIndex = this.root.rovingFocusGroup.getTabIndex(this.opts.ref.current);
+			this.#tabIndex = this.root.rovingFocusGroup.getTabIndex(
+				this.opts.ref.current,
+			);
 		});
 
 		this.onkeydown = this.onkeydown.bind(this);
@@ -383,7 +405,7 @@ export class ToolbarButtonState {
 				//
 				onkeydown: this.onkeydown,
 				...this.attachment,
-			}) as const
+			}) as const,
 	);
 }
 

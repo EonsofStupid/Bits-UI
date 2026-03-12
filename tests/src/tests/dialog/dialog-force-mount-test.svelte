@@ -1,16 +1,16 @@
 <script lang="ts">
-	import { Dialog } from "bits-ui";
-	import type { DialogTestProps } from "../dialog/dialog-test.svelte";
+import { Dialog } from "bits-ui";
+import type { DialogTestProps } from "../dialog/dialog-test.svelte";
 
-	let {
-		open = false,
-		contentProps = {},
-		portalProps = {},
-		titleProps = {},
-		descriptionProps = {},
-		withOpenCheck = false,
-		...restProps
-	}: DialogTestProps = $props();
+let {
+	open = false,
+	contentProps = {},
+	portalProps = {},
+	titleProps = {},
+	descriptionProps = {},
+	withOpenCheck = false,
+	...restProps
+}: DialogTestProps = $props();
 </script>
 
 <main>

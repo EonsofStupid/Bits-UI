@@ -1,4 +1,7 @@
-import type { ArrowProps, ArrowPropsWithoutHTML } from "../utilities/arrow/types.js";
+import type {
+	ArrowProps,
+	ArrowPropsWithoutHTML,
+} from "../utilities/arrow/types.js";
 import type { DismissibleLayerProps } from "../utilities/dismissible-layer/types.js";
 import type { EscapeLayerProps } from "../utilities/escape-layer/types.js";
 import type { FloatingLayerContentProps } from "../utilities/floating-layer/types.js";
@@ -14,7 +17,10 @@ import type {
 	WithChildren,
 	Without,
 } from "$lib/internal/types.js";
-import type { FloatingContentSnippetProps, StaticContentSnippetProps } from "$lib/shared/types.js";
+import type {
+	FloatingContentSnippetProps,
+	StaticContentSnippetProps,
+} from "$lib/shared/types.js";
 
 export type LinkPreviewRootPropsWithoutHTML = WithChildren<{
 	/**
@@ -66,53 +72,59 @@ export type LinkPreviewRootPropsWithoutHTML = WithChildren<{
 
 export type LinkPreviewRootProps = LinkPreviewRootPropsWithoutHTML;
 
-export type LinkPreviewContentPropsWithoutHTML = WithChildNoChildrenSnippetProps<
-	Pick<
-		FloatingLayerContentProps,
-		| "side"
-		| "sideOffset"
-		| "align"
-		| "alignOffset"
-		| "avoidCollisions"
-		| "collisionBoundary"
-		| "collisionPadding"
-		| "arrowPadding"
-		| "sticky"
-		| "hideWhenDetached"
-		| "dir"
-		| "customAnchor"
-	> &
-		Omit<DismissibleLayerProps, "onInteractOutsideStart"> &
-		EscapeLayerProps & {
-			/**
-			 * When `true`, the link preview content will be forced to mount in the DOM.
-			 *
-			 * Useful for more control over the transition behavior.
-			 */
-			forceMount?: boolean;
-		},
-	FloatingContentSnippetProps
->;
+export type LinkPreviewContentPropsWithoutHTML =
+	WithChildNoChildrenSnippetProps<
+		Pick<
+			FloatingLayerContentProps,
+			| "side"
+			| "sideOffset"
+			| "align"
+			| "alignOffset"
+			| "avoidCollisions"
+			| "collisionBoundary"
+			| "collisionPadding"
+			| "arrowPadding"
+			| "sticky"
+			| "hideWhenDetached"
+			| "dir"
+			| "customAnchor"
+		> &
+			Omit<DismissibleLayerProps, "onInteractOutsideStart"> &
+			EscapeLayerProps & {
+				/**
+				 * When `true`, the link preview content will be forced to mount in the DOM.
+				 *
+				 * Useful for more control over the transition behavior.
+				 */
+				forceMount?: boolean;
+			},
+		FloatingContentSnippetProps
+	>;
 
 export type LinkPreviewContentProps = LinkPreviewContentPropsWithoutHTML &
 	Without<BitsPrimitiveDivAttributes, LinkPreviewContentPropsWithoutHTML>;
 
-export type LinkPreviewContentStaticPropsWithoutHTML = WithChildNoChildrenSnippetProps<
-	Pick<FloatingLayerContentProps, "dir"> &
-		Omit<DismissibleLayerProps, "onInteractOutsideStart"> &
-		EscapeLayerProps & {
-			/**
-			 * When `true`, the link preview content will be forced to mount in the DOM.
-			 *
-			 * Useful for more control over the transition behavior.
-			 */
-			forceMount?: boolean;
-		},
-	StaticContentSnippetProps
->;
+export type LinkPreviewContentStaticPropsWithoutHTML =
+	WithChildNoChildrenSnippetProps<
+		Pick<FloatingLayerContentProps, "dir"> &
+			Omit<DismissibleLayerProps, "onInteractOutsideStart"> &
+			EscapeLayerProps & {
+				/**
+				 * When `true`, the link preview content will be forced to mount in the DOM.
+				 *
+				 * Useful for more control over the transition behavior.
+				 */
+				forceMount?: boolean;
+			},
+		StaticContentSnippetProps
+	>;
 
-export type LinkPreviewContentStaticProps = LinkPreviewContentStaticPropsWithoutHTML &
-	Without<BitsPrimitiveDivAttributes, LinkPreviewContentStaticPropsWithoutHTML>;
+export type LinkPreviewContentStaticProps =
+	LinkPreviewContentStaticPropsWithoutHTML &
+		Without<
+			BitsPrimitiveDivAttributes,
+			LinkPreviewContentStaticPropsWithoutHTML
+		>;
 
 export type LinkPreviewArrowPropsWithoutHTML = ArrowPropsWithoutHTML;
 export type LinkPreviewArrowProps = ArrowProps;

@@ -1,9 +1,9 @@
 <script lang="ts" module>
-	import { Popover } from "bits-ui";
-	export type PopoverHoverTestProps = Popover.RootProps & {
-		triggerProps?: Omit<Popover.TriggerProps, "asChild" | "child" | "children">;
-		contentProps?: Omit<Popover.ContentProps, "asChild" | "child" | "children">;
-	};
+import { Popover } from "bits-ui";
+export type PopoverHoverTestProps = Popover.RootProps & {
+	triggerProps?: Omit<Popover.TriggerProps, "asChild" | "child" | "children">;
+	contentProps?: Omit<Popover.ContentProps, "asChild" | "child" | "children">;
+};
 </script>
 
 <script lang="ts">

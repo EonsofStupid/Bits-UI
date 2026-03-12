@@ -1,9 +1,9 @@
 <script lang="ts">
-	import { Tooltip } from "bits-ui";
+import { Tooltip } from "bits-ui";
 
-	const tether = Tooltip.createTether<{ label: string }>();
-	let open = $state(false);
-	let triggerId = $state<string | null>(null);
+const tether = Tooltip.createTether<{ label: string }>();
+let open = $state(false);
+let triggerId = $state<string | null>(null);
 </script>
 
 <main data-testid="main">

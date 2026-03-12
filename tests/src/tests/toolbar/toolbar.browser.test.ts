@@ -13,7 +13,9 @@ function setup(props: Partial<ToolbarTestProps> = {}) {
 	const groupMultiple = page.getByTestId("group-multiple");
 	const groupMultipleItemBold = page.getByTestId("group-multiple-bold");
 	const groupMultipleItemItalic = page.getByTestId("group-multiple-italic");
-	const groupMultipleItemStrikethrough = page.getByTestId("group-multiple-strikethrough");
+	const groupMultipleItemStrikethrough = page.getByTestId(
+		"group-multiple-strikethrough",
+	);
 
 	const groupSingle = page.getByTestId("group-single");
 	const groupSingleItemLeft = page.getByTestId("group-single-left");
@@ -47,9 +49,13 @@ describe("Toolbar", () => {
 		const t = setup();
 		await expect.element(t.root).toHaveAttribute("data-toolbar-root");
 		await expect.element(t.groupMultiple).toHaveAttribute("data-toolbar-group");
-		await expect.element(t.groupMultipleItemBold).toHaveAttribute("data-toolbar-group-item");
+		await expect
+			.element(t.groupMultipleItemBold)
+			.toHaveAttribute("data-toolbar-group-item");
 		await expect.element(t.groupSingle).toHaveAttribute("data-toolbar-group");
-		await expect.element(t.groupSingleItemLeft).toHaveAttribute("data-toolbar-group-item");
+		await expect
+			.element(t.groupSingleItemLeft)
+			.toHaveAttribute("data-toolbar-group-item");
 		await expect.element(t.link).toHaveAttribute("data-toolbar-link");
 		await expect.element(t.button).toHaveAttribute("data-toolbar-button");
 	});
@@ -106,19 +112,19 @@ describe("Toolbar", () => {
 		await expect.element(t.alignBinding).toHaveTextContent("center");
 	});
 
-	it.each([kbd.ENTER, kbd.SPACE])(
-		"should toggles when the %s key is pressed when toolbar toogle group, type `'single'`",
-		async (key) => {
-			const t = setup();
-			await expect.element(t.alignBinding).toHaveTextContent("");
-			(t.groupSingleItemLeft.element() as HTMLElement).focus();
-			await userEvent.keyboard(key);
-			await expect.element(t.alignBinding).toHaveTextContent("left");
-			(t.groupSingleItemCenter.element() as HTMLElement).focus();
-			await userEvent.keyboard(key);
-			await expect.element(t.alignBinding).toHaveTextContent("center");
-		}
-	);
+	it.each([
+		kbd.ENTER,
+		kbd.SPACE,
+	])("should toggles when the %s key is pressed when toolbar toogle group, type `'single'`", async (key) => {
+		const t = setup();
+		await expect.element(t.alignBinding).toHaveTextContent("");
+		(t.groupSingleItemLeft.element() as HTMLElement).focus();
+		await userEvent.keyboard(key);
+		await expect.element(t.alignBinding).toHaveTextContent("left");
+		(t.groupSingleItemCenter.element() as HTMLElement).focus();
+		await userEvent.keyboard(key);
+		await expect.element(t.alignBinding).toHaveTextContent("center");
+	});
 
 	it("should allow multiple items to be selected with toolbar toggle group type `'multiple'`", async () => {
 		const t = setup();
@@ -126,9 +132,13 @@ describe("Toolbar", () => {
 		await t.groupMultipleItemItalic.click();
 		await expect.element(t.styleBinding).toHaveTextContent("bold,italic");
 		await t.groupMultipleItemStrikethrough.click();
-		await expect.element(t.styleBinding).toHaveTextContent("bold,italic,strikethrough");
+		await expect
+			.element(t.styleBinding)
+			.toHaveTextContent("bold,italic,strikethrough");
 		await t.groupMultipleItemBold.click();
-		await expect.element(t.styleBinding).toHaveTextContent("italic,strikethrough");
+		await expect
+			.element(t.styleBinding)
+			.toHaveTextContent("italic,strikethrough");
 		await t.groupMultipleItemItalic.click();
 		await expect.element(t.styleBinding).toHaveTextContent("strikethrough");
 		await t.groupMultipleItemStrikethrough.click();
@@ -175,43 +185,59 @@ describe("Toolbar", () => {
 		const t = setup();
 		await expect.element(t.styleBinding).toHaveTextContent("bold");
 		await expect.element(t.alignBinding).toHaveTextContent("");
-		await expect.element(t.groupMultipleItemItalic).toHaveAttribute("data-state", "off");
-		await expect.element(t.groupMultipleItemItalic).toHaveAttribute("aria-pressed", "false");
-		await expect.element(t.groupSingleItemCenter).toHaveAttribute("data-state", "off");
-		await expect.element(t.groupSingleItemCenter).toHaveAttribute("aria-checked", "false");
+		await expect
+			.element(t.groupMultipleItemItalic)
+			.toHaveAttribute("data-state", "off");
+		await expect
+			.element(t.groupMultipleItemItalic)
+			.toHaveAttribute("aria-pressed", "false");
+		await expect
+			.element(t.groupSingleItemCenter)
+			.toHaveAttribute("data-state", "off");
+		await expect
+			.element(t.groupSingleItemCenter)
+			.toHaveAttribute("aria-checked", "false");
 
 		await t.styleBinding.click();
 		await expect.element(t.styleBinding).toHaveTextContent("italic");
-		await expect.element(t.groupMultipleItemItalic).toHaveAttribute("data-state", "on");
-		await expect.element(t.groupMultipleItemItalic).toHaveAttribute("aria-pressed", "true");
+		await expect
+			.element(t.groupMultipleItemItalic)
+			.toHaveAttribute("data-state", "on");
+		await expect
+			.element(t.groupMultipleItemItalic)
+			.toHaveAttribute("aria-pressed", "true");
 
 		await t.alignBinding.click();
 		await expect.element(t.alignBinding).toHaveTextContent("center");
-		await expect.element(t.groupSingleItemCenter).toHaveAttribute("data-state", "on");
-		await expect.element(t.groupSingleItemCenter).toHaveAttribute("aria-checked", "true");
+		await expect
+			.element(t.groupSingleItemCenter)
+			.toHaveAttribute("data-state", "on");
+		await expect
+			.element(t.groupSingleItemCenter)
+			.toHaveAttribute("aria-checked", "true");
 	});
 
-	it.each(["link", "button"])(
-		"should forward click event when the %s is clicked",
-		async (kind) => {
-			const t = setup();
+	it.each([
+		"link",
+		"button",
+	])("should forward click event when the %s is clicked", async (kind) => {
+		const t = setup();
 
-			expect(t.clickedBinding).toHaveTextContent("");
-			const el = t[kind as keyof ReturnType<typeof setup>];
-			await el.click();
-			await expect.element(t.clickedBinding).toHaveTextContent(kind);
-		}
-	);
+		expect(t.clickedBinding).toHaveTextContent("");
+		const el = t[kind as keyof ReturnType<typeof setup>];
+		await el.click();
+		await expect.element(t.clickedBinding).toHaveTextContent(kind);
+	});
 
-	it.each([kbd.ENTER, kbd.SPACE])(
-		"should forward click event when the %s key is pressed",
-		async (key) => {
-			const t = setup();
+	it.each([
+		kbd.ENTER,
+		kbd.SPACE,
+	])("should forward click event when the %s key is pressed", async (key) => {
+		const t = setup();
 
-			(t.button.element() as HTMLElement).focus();
-			await expect.element(t.clickedBinding).toHaveTextContent("");
-			await userEvent.keyboard(key);
-			await expect.element(t.clickedBinding).toHaveTextContent("button");
-		}
-	);
+		(t.button.element() as HTMLElement).focus();
+		await expect.element(t.clickedBinding).toHaveTextContent("");
+		await userEvent.keyboard(key);
+		await expect.element(t.clickedBinding).toHaveTextContent("button");
+	});
 });

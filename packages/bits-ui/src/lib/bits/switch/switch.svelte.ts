@@ -1,4 +1,8 @@
-import { attachRef, type ReadableBoxedValues, type WritableBoxedValues } from "svelte-toolbelt";
+import {
+	attachRef,
+	type ReadableBoxedValues,
+	type WritableBoxedValues,
+} from "svelte-toolbelt";
 import { Context } from "runed";
 import {
 	getAriaChecked,
@@ -54,7 +58,11 @@ export class SwitchRootState {
 	}
 
 	onkeydown(e: BitsKeyboardEvent) {
-		if (!(e.key === kbd.ENTER || e.key === kbd.SPACE) || this.opts.disabled.current) return;
+		if (
+			!(e.key === kbd.ENTER || e.key === kbd.SPACE) ||
+			this.opts.disabled.current
+		)
+			return;
 		e.preventDefault();
 		this.#toggle();
 	}
@@ -88,7 +96,7 @@ export class SwitchRootState {
 				onclick: this.onclick,
 				onkeydown: this.onkeydown,
 				...this.attachment,
-			}) as const
+			}) as const,
 	);
 }
 
@@ -97,7 +105,9 @@ export class SwitchInputState {
 		return new SwitchInputState(SwitchRootContext.get());
 	}
 	readonly root: SwitchRootState;
-	readonly shouldRender = $derived.by(() => this.root.opts.name.current !== undefined);
+	readonly shouldRender = $derived.by(
+		() => this.root.opts.name.current !== undefined,
+	);
 
 	constructor(root: SwitchRootState) {
 		this.root = root;
@@ -112,7 +122,7 @@ export class SwitchInputState {
 				checked: this.root.opts.checked.current,
 				disabled: this.root.opts.disabled.current,
 				required: this.root.opts.required.current,
-			}) as const
+			}) as const,
 	);
 }
 
@@ -143,6 +153,6 @@ export class SwitchThumbState {
 				id: this.opts.id.current,
 				[switchAttrs.thumb]: "",
 				...this.attachment,
-			}) as const
+			}) as const,
 	);
 }

@@ -30,7 +30,10 @@ describe("toggle", () => {
 		await expect.element(t.root).toHaveAttribute("aria-pressed", "true");
 	});
 
-	it.each([kbd.ENTER, kbd.SPACE])("should toggle when the `%s` key is pressed", async (key) => {
+	it.each([
+		kbd.ENTER,
+		kbd.SPACE,
+	])("should toggle when the `%s` key is pressed", async (key) => {
 		const t = setup();
 		await expect.element(t.root).toHaveAttribute("data-state", "off");
 		await expect.element(t.root).toHaveAttribute("aria-pressed", "false");

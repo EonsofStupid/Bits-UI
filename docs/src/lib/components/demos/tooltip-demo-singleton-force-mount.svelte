@@ -1,40 +1,43 @@
 <script lang="ts">
-	import { Tooltip } from "bits-ui";
-	import { fly } from "svelte/transition";
+import { Tooltip } from "bits-ui";
+import { fly } from "svelte/transition";
 
-	type PlanPayload = {
-		name: string;
-		description: string;
-	};
+type PlanPayload = {
+	name: string;
+	description: string;
+};
 
-	const planTether = Tooltip.createTether<PlanPayload>();
+const planTether = Tooltip.createTether<PlanPayload>();
 
-	const plans = [
-		{
-			id: "starter",
-			label: "Starter",
-			payload: {
-				name: "Starter plan",
-				description: "Great for small teams shipping one project with basic analytics.",
-			},
+const plans = [
+	{
+		id: "starter",
+		label: "Starter",
+		payload: {
+			name: "Starter plan",
+			description:
+				"Great for small teams shipping one project with basic analytics.",
 		},
-		{
-			id: "growth",
-			label: "Growth",
-			payload: {
-				name: "Growth plan",
-				description: "Adds feature flags, role permissions, and alert integrations.",
-			},
+	},
+	{
+		id: "growth",
+		label: "Growth",
+		payload: {
+			name: "Growth plan",
+			description:
+				"Adds feature flags, role permissions, and alert integrations.",
 		},
-		{
-			id: "enterprise",
-			label: "Enterprise",
-			payload: {
-				name: "Enterprise plan",
-				description: "Includes SSO, audit trails, and dedicated support response SLAs.",
-			},
+	},
+	{
+		id: "enterprise",
+		label: "Enterprise",
+		payload: {
+			name: "Enterprise plan",
+			description:
+				"Includes SSO, audit trails, and dedicated support response SLAs.",
 		},
-	];
+	},
+];
 </script>
 
 <Tooltip.Provider delayDuration={200}>

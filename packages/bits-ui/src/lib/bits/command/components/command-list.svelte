@@ -1,30 +1,30 @@
 <script lang="ts">
-	import { boxWith, mergeProps } from "svelte-toolbelt";
-	import type { CommandListProps } from "../types.js";
-	import { CommandListState } from "../command.svelte.js";
-	import { createId } from "$lib/internal/create-id.js";
+import { boxWith, mergeProps } from "svelte-toolbelt";
+import type { CommandListProps } from "../types.js";
+import { CommandListState } from "../command.svelte.js";
+import { createId } from "$lib/internal/create-id.js";
 
-	const uid = $props.id();
+const uid = $props.id();
 
-	let {
-		id = createId(uid),
-		ref = $bindable(null),
-		child,
-		children,
-		"aria-label": ariaLabel,
-		...restProps
-	}: CommandListProps = $props();
+let {
+	id = createId(uid),
+	ref = $bindable(null),
+	child,
+	children,
+	"aria-label": ariaLabel,
+	...restProps
+}: CommandListProps = $props();
 
-	const listState = CommandListState.create({
-		id: boxWith(() => id),
-		ref: boxWith(
-			() => ref,
-			(v) => (ref = v)
-		),
-		ariaLabel: boxWith(() => ariaLabel ?? "Suggestions..."),
-	});
+const listState = CommandListState.create({
+	id: boxWith(() => id),
+	ref: boxWith(
+		() => ref,
+		(v) => (ref = v),
+	),
+	ariaLabel: boxWith(() => ariaLabel ?? "Suggestions..."),
+});
 
-	const mergedProps = $derived(mergeProps(restProps, listState.props));
+const mergedProps = $derived(mergeProps(restProps, listState.props));
 </script>
 
 {#key listState.root._commandState.search === ""}

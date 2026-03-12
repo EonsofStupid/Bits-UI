@@ -13,7 +13,11 @@ import type {
 	RefAttachment,
 	WithRefOpts,
 } from "$lib/internal/types.js";
-import { boolToStr, boolToEmptyStrOrUndef, getDataOpenClosed } from "$lib/internal/attrs.js";
+import {
+	boolToStr,
+	boolToEmptyStrOrUndef,
+	getDataOpenClosed,
+} from "$lib/internal/attrs.js";
 import { kbd } from "$lib/internal/kbd.js";
 import type { Orientation } from "$lib/shared/index.js";
 import { createBitsAttrs } from "$lib/internal/attrs.js";
@@ -115,7 +119,7 @@ abstract class AccordionBaseState {
 				"data-disabled": boolToEmptyStrOrUndef(this.opts.disabled.current),
 				[accordionAttrs.root]: "",
 				...this.attachment,
-			}) as const
+			}) as const,
 	);
 }
 
@@ -173,17 +177,24 @@ export class AccordionRootState {
 }
 
 export class AccordionItemState {
-	static create(props: Omit<AccordionItemStateOpts, "rootState">): AccordionItemState {
+	static create(
+		props: Omit<AccordionItemStateOpts, "rootState">,
+	): AccordionItemState {
 		return AccordionItemContext.set(
-			new AccordionItemState({ ...props, rootState: AccordionRootContext.get() })
+			new AccordionItemState({
+				...props,
+				rootState: AccordionRootContext.get(),
+			}),
 		);
 	}
 
 	readonly opts: AccordionItemStateOpts;
 	readonly root: AccordionRoot;
-	readonly isActive = $derived.by(() => this.root.includesItem(this.opts.value.current));
+	readonly isActive = $derived.by(() =>
+		this.root.includesItem(this.opts.value.current),
+	);
 	readonly isDisabled = $derived.by(
-		() => this.opts.disabled.current || this.root.opts.disabled.current
+		() => this.opts.disabled.current || this.root.opts.disabled.current,
 	);
 	readonly attachment: RefAttachment;
 	contentNode = $state<HTMLElement | null>(null);
@@ -214,7 +225,7 @@ export class AccordionItemState {
 				"data-orientation": this.root.opts.orientation.current,
 				[accordionAttrs.item]: "",
 				...this.attachment,
-			}) as const
+			}) as const,
 	);
 }
 
@@ -226,7 +237,7 @@ export class AccordionTriggerState {
 		() =>
 			this.opts.disabled.current ||
 			this.itemState.opts.disabled.current ||
-			this.#root.opts.disabled.current
+			this.#root.opts.disabled.current,
 	);
 	readonly attachment: RefAttachment;
 
@@ -278,7 +289,7 @@ export class AccordionTriggerState {
 				onclick: this.onclick,
 				onkeydown: this.onkeydown,
 				...this.attachment,
-			}) as const
+			}) as const,
 	);
 }
 
@@ -287,7 +298,9 @@ export class AccordionContentState {
 	readonly item: AccordionItemState;
 	readonly attachment: RefAttachment;
 
-	#originalStyles: { transitionDuration: string; animationName: string } | undefined = undefined;
+	#originalStyles:
+		| { transitionDuration: string; animationName: string }
+		| undefined = undefined;
 	#isMountAnimationPrevented = false;
 	#dimensions = $state({ width: 0, height: 0 });
 
@@ -300,7 +313,10 @@ export class AccordionContentState {
 		this.opts = opts;
 		this.item = item;
 		this.#isMountAnimationPrevented = this.item.isActive;
-		this.attachment = attachRef(this.opts.ref, (v) => (this.item.contentNode = v));
+		this.attachment = attachRef(
+			this.opts.ref,
+			(v) => (this.item.contentNode = v),
+		);
 		// Prevent mount animations on initial render
 		$effect(() => {
 			const rAF = requestAnimationFrame(() => {
@@ -325,11 +341,14 @@ export class AccordionContentState {
 				};
 
 				return on(node, "beforematch", handleBeforeMatch);
-			}
+			},
 		);
 
 		// Handle dimension updates
-		watch([() => this.open, () => this.opts.ref.current], this.#updateDimensions);
+		watch(
+			[() => this.open, () => this.opts.ref.current],
+			this.#updateDimensions,
+		);
 	}
 
 	static create(props: AccordionContentStateOpts): AccordionContentState {
@@ -358,7 +377,8 @@ export class AccordionContentState {
 
 			// restore animations if not initial mount
 			if (!this.#isMountAnimationPrevented && this.#originalStyles) {
-				element.style.transitionDuration = this.#originalStyles.transitionDuration;
+				element.style.transitionDuration =
+					this.#originalStyles.transitionDuration;
 				element.style.animationName = this.#originalStyles.animationName;
 			}
 		});
@@ -396,7 +416,7 @@ export class AccordionContentState {
 									: !this.shouldRender,
 						}),
 				...this.attachment,
-			}) as const
+			}) as const,
 	);
 }
 
@@ -426,6 +446,6 @@ export class AccordionHeaderState {
 				"data-orientation": this.item.root.opts.orientation.current,
 				[accordionAttrs.header]: "",
 				...this.attachment,
-			}) as const
+			}) as const,
 	);
 }

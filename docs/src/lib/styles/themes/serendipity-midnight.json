@@ -473,7 +473,11 @@
 			}
 		},
 		{
-			"scope": ["constant.numeric", "constant.language", "constant.charcter.escape"],
+			"scope": [
+				"constant.numeric",
+				"constant.language",
+				"constant.charcter.escape"
+			],
 			"settings": {
 				"foreground": "#eeeeee"
 			}

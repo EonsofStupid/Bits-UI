@@ -17,7 +17,8 @@ const IGNORED_COMPONENTS = ["Menu"];
 function extractExportsFromFile(filePath: string): string[] {
 	try {
 		const content = readFileSync(filePath, "utf-8");
-		const exportMatches = content.match(/export\s+{\s*default\s+as\s+(\w+)\s*}/g) || [];
+		const exportMatches =
+			content.match(/export\s+{\s*default\s+as\s+(\w+)\s*}/g) || [];
 
 		return exportMatches
 			.map((match) => {
@@ -45,10 +46,11 @@ function extractComponents(): ComponentInfo[] {
 
 			if (exports.length > 0) {
 				// capitalize first letter for component name
-				const componentName = componentDir.charAt(0).toUpperCase() + componentDir.slice(1);
+				const componentName =
+					componentDir.charAt(0).toUpperCase() + componentDir.slice(1);
 				// handle kebab-case names
 				const formattedName = componentName.replace(/-([a-z])/g, (_, letter) =>
-					letter.toUpperCase()
+					letter.toUpperCase(),
 				);
 
 				// skip ignored components

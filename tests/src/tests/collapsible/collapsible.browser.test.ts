@@ -10,7 +10,7 @@ import { expectExists, expectNotExists } from "../browser-utils";
 
 function setup(
 	props: Collapsible.RootProps & { withOpenCheck?: boolean } = {},
-	component: Component = CollapsibleTest
+	component: Component = CollapsibleTest,
 ) {
 	render(component, props);
 	const root = page.getByTestId("root");
@@ -25,8 +25,12 @@ describe("Collapsible ", () => {
 		it("should have bits data attrs", async () => {
 			const t = setup();
 			await expect.element(t.root).toHaveAttribute("data-collapsible-root");
-			await expect.element(t.trigger).toHaveAttribute("data-collapsible-trigger");
-			await expect.element(t.content).toHaveAttribute("data-collapsible-content");
+			await expect
+				.element(t.trigger)
+				.toHaveAttribute("data-collapsible-trigger");
+			await expect
+				.element(t.content)
+				.toHaveAttribute("data-collapsible-content");
 		});
 	});
 
@@ -87,7 +91,7 @@ describe("Collapsible ", () => {
 
 	describe("Hidden Until Found Behavior", () => {
 		function setupHiddenUntilFound(
-			props: Collapsible.RootProps & { hiddenUntilFound?: boolean } = {}
+			props: Collapsible.RootProps & { hiddenUntilFound?: boolean } = {},
 		) {
 			render(CollapsibleHiddenUntilFoundTest, props);
 			const root = page.getByTestId("root");

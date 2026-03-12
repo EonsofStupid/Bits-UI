@@ -1,13 +1,13 @@
 <script lang="ts">
-	import { Command } from "bits-ui";
-	import type { ComponentProps } from "svelte";
+import { Command } from "bits-ui";
+import type { ComponentProps } from "svelte";
 
-	let {
-		separatorProps,
-		...rest
-	}: ComponentProps<typeof Command.Root> & {
-		separatorProps: ComponentProps<typeof Command.Separator>;
-	} = $props();
+let {
+	separatorProps,
+	...rest
+}: ComponentProps<typeof Command.Root> & {
+	separatorProps: ComponentProps<typeof Command.Separator>;
+} = $props();
 </script>
 
 <Command.Root {...rest} columns={3} data-testid="root">

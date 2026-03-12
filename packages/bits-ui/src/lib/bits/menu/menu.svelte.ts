@@ -32,7 +32,11 @@ import type {
 	RefAttachment,
 	WithRefOpts,
 } from "$lib/internal/types.js";
-import { isElement, isElementOrSVGElement, isHTMLElement } from "$lib/internal/is.js";
+import {
+	isElement,
+	isElementOrSVGElement,
+	isHTMLElement,
+} from "$lib/internal/is.js";
 import { kbd } from "$lib/internal/kbd.js";
 import {
 	createBitsAttrs,
@@ -45,7 +49,11 @@ import type { Direction } from "$lib/shared/index.js";
 import { IsUsingKeyboard } from "$lib/bits/utilities/is-using-keyboard/is-using-keyboard.svelte.js";
 import { getTabbableFrom } from "$lib/internal/tabbable.js";
 import { isTabbable } from "tabbable";
-import type { KeyboardEventHandler, PointerEventHandler, MouseEventHandler } from "svelte/elements";
+import type {
+	KeyboardEventHandler,
+	PointerEventHandler,
+	MouseEventHandler,
+} from "svelte/elements";
 import { DOMTypeahead } from "$lib/internal/dom-typeahead.svelte.js";
 import { RovingFocusGroup } from "$lib/internal/roving-focus-group.js";
 import { GraceArea } from "$lib/internal/grace-area.svelte.js";
@@ -59,10 +67,14 @@ const MenuRootContext = new Context<MenuRootState>("Menu.Root");
 const MenuMenuContext = new Context<MenuMenuState>("Menu.Root | Menu.Sub");
 const MenuContentContext = new Context<MenuContentState>("Menu.Content");
 const MenuGroupContext = new Context<MenuGroupState | MenuRadioGroupState>(
-	"Menu.Group | Menu.RadioGroup"
+	"Menu.Group | Menu.RadioGroup",
 );
-const MenuRadioGroupContext = new Context<MenuRadioGroupState>("Menu.RadioGroup");
-export const MenuCheckboxGroupContext = new Context<MenuCheckboxGroupState>("Menu.CheckboxGroup");
+const MenuRadioGroupContext = new Context<MenuRadioGroupState>(
+	"Menu.RadioGroup",
+);
+export const MenuCheckboxGroupContext = new Context<MenuCheckboxGroupState>(
+	"Menu.CheckboxGroup",
+);
 
 type MenuVariant = "context-menu" | "dropdown-menu" | "menubar";
 
@@ -139,7 +151,11 @@ export class MenuMenuState {
 	contentPresence: PresenceManager;
 	triggerNode = $state<HTMLElement | null>(null);
 
-	constructor(opts: MenuMenuStateOpts, root: MenuRootState, parentMenu: MenuMenuState | null) {
+	constructor(
+		opts: MenuMenuStateOpts,
+		root: MenuRootState,
+		parentMenu: MenuMenuState | null,
+	) {
 		this.opts = opts;
 		this.root = root;
 		this.parentMenu = parentMenu;
@@ -158,7 +174,7 @@ export class MenuMenuState {
 				() => {
 					if (parentMenu.opts.open.current) return;
 					this.opts.open.current = false;
-				}
+				},
 			);
 		}
 	}
@@ -187,7 +203,9 @@ interface MenuContentStateOpts
 
 export class MenuContentState {
 	static create(opts: MenuContentStateOpts) {
-		return MenuContentContext.set(new MenuContentState(opts, MenuMenuContext.get()));
+		return MenuContentContext.set(
+			new MenuContentState(opts, MenuMenuContext.get()),
+		);
 	}
 
 	readonly opts: MenuContentStateOpts;
@@ -226,8 +244,8 @@ export class MenuContentState {
 				this.parentMenu.opts.open.current &&
 				Boolean(
 					this.parentMenu.triggerNode?.hasAttribute(
-						this.parentMenu.root.getBitsAttr("sub-trigger")
-					)
+						this.parentMenu.root.getBitsAttr("sub-trigger"),
+					),
 				),
 			onPointerExit: () => {
 				this.parentMenu.opts.open.current = false;
@@ -259,7 +277,7 @@ export class MenuContentState {
 					});
 				};
 				return MenuOpenEvent.listen(contentNode, handler);
-			}
+			},
 		);
 
 		$effect(() => {
@@ -274,8 +292,8 @@ export class MenuContentState {
 		if (!node) return [];
 		const candidates = Array.from(
 			node.querySelectorAll<HTMLElement>(
-				`[${this.parentMenu.root.getBitsAttr("item")}]:not([data-disabled])`
-			)
+				`[${this.parentMenu.root.getBitsAttr("item")}]:not([data-disabled])`,
+			),
 		);
 		return candidates;
 	}
@@ -288,7 +306,10 @@ export class MenuContentState {
 		this.opts.onCloseAutoFocus.current?.(e);
 		if (e.defaultPrevented || this.#isSub) return;
 
-		if (this.parentMenu.triggerNode && isTabbable(this.parentMenu.triggerNode)) {
+		if (
+			this.parentMenu.triggerNode &&
+			isTabbable(this.parentMenu.triggerNode)
+		) {
 			e.preventDefault();
 			this.parentMenu.triggerNode.focus();
 		}
@@ -311,7 +332,10 @@ export class MenuContentState {
 		e.preventDefault();
 
 		// find the next/previous tabbable
-		const nodeToFocus = getTabbableFrom(rootMenu.triggerNode, e.shiftKey ? "prev" : "next");
+		const nodeToFocus = getTabbableFrom(
+			rootMenu.triggerNode,
+			e.shiftKey ? "prev" : "next",
+		);
 		if (nodeToFocus) {
 			/**
 			 * We set a flag to ignore the `onCloseAutoFocus` event handler
@@ -365,7 +389,8 @@ export class MenuContentState {
 		}
 
 		// focus first/last based on key pressed
-		if ((e.target as HTMLElement)?.id !== this.parentMenu.contentId.current) return;
+		if ((e.target as HTMLElement)?.id !== this.parentMenu.contentId.current)
+			return;
 
 		if (!FIRST_LAST_KEYS.includes(e.key)) return;
 		e.preventDefault();
@@ -373,7 +398,9 @@ export class MenuContentState {
 		if (LAST_KEYS.includes(e.key)) {
 			candidateNodes.reverse();
 		}
-		focusFirst(candidateNodes, { select: false }, () => this.domContext.getActiveElement());
+		focusFirst(candidateNodes, { select: false }, () =>
+			this.domContext.getActiveElement(),
+		);
 	}
 
 	onblur(e: BitsFocusEvent) {
@@ -396,8 +423,16 @@ export class MenuContentState {
 	}
 
 	onItemLeave(e: BitsPointerEvent) {
-		if (e.currentTarget.hasAttribute(this.parentMenu.root.getBitsAttr("sub-trigger"))) return;
-		if (this.#isPointerMovingToSubmenu() || this.parentMenu.root.isUsingKeyboard.current)
+		if (
+			e.currentTarget.hasAttribute(
+				this.parentMenu.root.getBitsAttr("sub-trigger"),
+			)
+		)
+			return;
+		if (
+			this.#isPointerMovingToSubmenu() ||
+			this.parentMenu.root.isUsingKeyboard.current
+		)
 			return;
 		const contentNode = this.parentMenu.contentNode;
 		contentNode?.focus();
@@ -425,7 +460,9 @@ export class MenuContentState {
 		return this.parentMenu.contentPresence.shouldRender;
 	}
 
-	readonly snippetProps = $derived.by(() => ({ open: this.parentMenu.opts.open.current }));
+	readonly snippetProps = $derived.by(() => ({
+		open: this.parentMenu.opts.open.current,
+	}));
 
 	readonly props = $derived.by(
 		() =>
@@ -445,7 +482,7 @@ export class MenuContentState {
 					contain: "layout style",
 				},
 				...this.attachment,
-			}) as const
+			}) as const,
 	);
 
 	readonly popperProps = {
@@ -526,7 +563,7 @@ class MenuItemSharedState {
 				onfocus: this.onfocus,
 				onblur: this.onblur,
 				...this.attachment,
-			}) as const
+			}) as const,
 	);
 }
 
@@ -562,7 +599,10 @@ export class MenuItemState {
 
 	#handleSelect() {
 		if (this.item.opts.disabled.current) return;
-		const selectEvent = new CustomEvent("menuitemselect", { bubbles: true, cancelable: true });
+		const selectEvent = new CustomEvent("menuitemselect", {
+			bubbles: true,
+			cancelable: true,
+		});
 		this.opts.onSelect.current(selectEvent);
 		if (selectEvent.defaultPrevented) {
 			this.item.content.parentMenu.root.isUsingKeyboard.current = false;
@@ -575,7 +615,11 @@ export class MenuItemState {
 
 	onkeydown(e: BitsKeyboardEvent) {
 		const isTypingAhead = this.item.content.search !== "";
-		if (this.item.opts.disabled.current || (isTypingAhead && e.key === kbd.SPACE)) return;
+		if (
+			this.item.opts.disabled.current ||
+			(isTypingAhead && e.key === kbd.SPACE)
+		)
+			return;
 		if (SELECTION_KEYS.includes(e.key)) {
 			if (!isHTMLElement(e.currentTarget)) return;
 			e.currentTarget.click();
@@ -612,7 +656,7 @@ export class MenuItemState {
 			onpointerdown: this.onpointerdown,
 			onpointerup: this.onpointerup,
 			onkeydown: this.onkeydown,
-		})
+		}),
 	);
 }
 
@@ -640,13 +684,16 @@ export class MenuSubTriggerState {
 		opts: MenuSubTriggerStateOpts,
 		item: MenuItemSharedState,
 		content: MenuContentState,
-		submenu: MenuMenuState
+		submenu: MenuMenuState,
 	) {
 		this.opts = opts;
 		this.item = item;
 		this.content = content;
 		this.submenu = submenu;
-		this.attachment = attachRef(this.opts.ref, (v) => (this.submenu.triggerNode = v));
+		this.attachment = attachRef(
+			this.opts.ref,
+			(v) => (this.submenu.triggerNode = v),
+		);
 		this.onpointerleave = this.onpointerleave.bind(this);
 		this.onpointermove = this.onpointermove.bind(this);
 		this.onkeydown = this.onkeydown.bind(this);
@@ -686,7 +733,11 @@ export class MenuSubTriggerState {
 
 	onkeydown(e: BitsKeyboardEvent) {
 		const isTypingAhead = this.content.search !== "";
-		if (this.item.opts.disabled.current || (isTypingAhead && e.key === kbd.SPACE)) return;
+		if (
+			this.item.opts.disabled.current ||
+			(isTypingAhead && e.key === kbd.SPACE)
+		)
+			return;
 
 		if (SUB_OPEN_KEYS[this.submenu.root.opts.dir.current].includes(e.key)) {
 			e.currentTarget.click();
@@ -734,8 +785,8 @@ export class MenuSubTriggerState {
 				onkeydown: this.onkeydown,
 				...this.attachment,
 			},
-			this.item.props
-		)
+			this.item.props,
+		),
 	);
 }
 
@@ -751,11 +802,11 @@ interface MenuCheckboxItemStateOpts
 export class MenuCheckboxItemState {
 	static create(
 		opts: MenuItemCombinedProps & MenuCheckboxItemStateOpts,
-		checkboxGroup: MenuCheckboxGroupState | null
+		checkboxGroup: MenuCheckboxGroupState | null,
 	) {
 		const item = new MenuItemState(
 			opts,
-			new MenuItemSharedState(opts, MenuContentContext.get())
+			new MenuItemSharedState(opts, MenuContentContext.get()),
 		);
 		return new MenuCheckboxItemState(opts, item, checkboxGroup);
 	}
@@ -767,7 +818,7 @@ export class MenuCheckboxItemState {
 	constructor(
 		opts: MenuCheckboxItemStateOpts,
 		item: MenuItemState,
-		group: MenuCheckboxGroupState | null = null
+		group: MenuCheckboxGroupState | null = null,
 	) {
 		this.opts = opts;
 		this.item = item;
@@ -778,8 +829,10 @@ export class MenuCheckboxItemState {
 			watch(
 				() => this.group!.opts.value.current,
 				(groupValues) => {
-					this.opts.checked.current = groupValues.includes(this.opts.value.current);
-				}
+					this.opts.checked.current = groupValues.includes(
+						this.opts.value.current,
+					);
+				},
 			);
 
 			// Watch for checked state changes and sync with group
@@ -791,7 +844,7 @@ export class MenuCheckboxItemState {
 					} else {
 						this.group!.removeValue(this.opts.value.current);
 					}
-				}
+				},
 			);
 		}
 	}
@@ -817,11 +870,11 @@ export class MenuCheckboxItemState {
 				role: "menuitemcheckbox",
 				"aria-checked": getAriaChecked(
 					this.opts.checked.current,
-					this.opts.indeterminate.current
+					this.opts.indeterminate.current,
 				),
 				"data-state": getCheckedState(this.opts.checked.current),
 				[this.item.root.getBitsAttr("checkbox-item")]: "",
-			}) as const
+			}) as const,
 	);
 }
 
@@ -829,7 +882,9 @@ interface MenuGroupStateOpts extends WithRefOpts {}
 
 export class MenuGroupState {
 	static create(opts: MenuGroupStateOpts) {
-		return MenuGroupContext.set(new MenuGroupState(opts, MenuRootContext.get()));
+		return MenuGroupContext.set(
+			new MenuGroupState(opts, MenuRootContext.get()),
+		);
 	}
 
 	readonly opts: MenuGroupStateOpts;
@@ -851,7 +906,7 @@ export class MenuGroupState {
 				"aria-labelledby": this.groupHeadingId,
 				[this.root.getBitsAttr("group")]: "",
 				...this.attachment,
-			}) as const
+			}) as const,
 	);
 }
 
@@ -874,11 +929,14 @@ export class MenuGroupHeadingState {
 
 	constructor(
 		opts: MenuGroupHeadingStateOpts,
-		group: MenuGroupState | MenuRadioGroupState | MenuCheckboxGroupState
+		group: MenuGroupState | MenuRadioGroupState | MenuCheckboxGroupState,
 	) {
 		this.opts = opts;
 		this.group = group;
-		this.attachment = attachRef(this.opts.ref, (v) => (this.group.groupHeadingId = v?.id));
+		this.attachment = attachRef(
+			this.opts.ref,
+			(v) => (this.group.groupHeadingId = v?.id),
+		);
 	}
 
 	readonly props = $derived.by(
@@ -888,7 +946,7 @@ export class MenuGroupHeadingState {
 				role: "group",
 				[this.group.root.getBitsAttr("group-heading")]: "",
 				...this.attachment,
-			}) as const
+			}) as const,
 	);
 }
 
@@ -916,7 +974,7 @@ export class MenuSeparatorState {
 				role: "group",
 				[this.root.getBitsAttr("separator")]: "",
 				...this.attachment,
-			}) as const
+			}) as const,
 	);
 }
 
@@ -935,7 +993,7 @@ export class MenuArrowState {
 		() =>
 			({
 				[this.root.getBitsAttr("arrow")]: "",
-			}) as const
+			}) as const,
 	);
 }
 
@@ -948,7 +1006,9 @@ interface MenuRadioGroupStateOpts
 export class MenuRadioGroupState {
 	static create(opts: MenuRadioGroupStateOpts) {
 		return MenuGroupContext.set(
-			MenuRadioGroupContext.set(new MenuRadioGroupState(opts, MenuContentContext.get()))
+			MenuRadioGroupContext.set(
+				new MenuRadioGroupState(opts, MenuContentContext.get()),
+			),
 		);
 	}
 	readonly opts: MenuRadioGroupStateOpts;
@@ -976,7 +1036,7 @@ export class MenuRadioGroupState {
 				role: "group",
 				"aria-labelledby": this.groupHeadingId,
 				...this.attachment,
-			}) as const
+			}) as const,
 	);
 }
 
@@ -999,10 +1059,14 @@ export class MenuRadioItemState {
 	readonly group: MenuRadioGroupState;
 	readonly attachment: RefAttachment;
 	readonly isChecked = $derived.by(
-		() => this.group.opts.value.current === this.opts.value.current
+		() => this.group.opts.value.current === this.opts.value.current,
 	);
 
-	constructor(opts: MenuRadioItemStateOpts, item: MenuItemState, group: MenuRadioGroupState) {
+	constructor(
+		opts: MenuRadioItemStateOpts,
+		item: MenuItemState,
+		group: MenuRadioGroupState,
+	) {
 		this.opts = opts;
 		this.item = item;
 		this.group = group;
@@ -1022,7 +1086,7 @@ export class MenuRadioItemState {
 				"aria-checked": getAriaChecked(this.isChecked, false),
 				"data-state": getCheckedState(this.isChecked),
 				...this.attachment,
-			}) as const
+			}) as const,
 	);
 }
 
@@ -1048,7 +1112,10 @@ export class DropdownMenuTriggerState {
 	constructor(opts: DropdownMenuTriggerStateOpts, parentMenu: MenuMenuState) {
 		this.opts = opts;
 		this.parentMenu = parentMenu;
-		this.attachment = attachRef(this.opts.ref, (v) => (this.parentMenu.triggerNode = v));
+		this.attachment = attachRef(
+			this.opts.ref,
+			(v) => (this.parentMenu.triggerNode = v),
+		);
 	}
 
 	onclick: MouseEventHandler<HTMLElement> = (e) => {
@@ -1118,7 +1185,7 @@ export class DropdownMenuTriggerState {
 				onpointerup: this.onpointerup,
 				onkeydown: this.onkeydown,
 				...this.attachment,
-			}) as const
+			}) as const,
 	);
 }
 
@@ -1139,14 +1206,18 @@ export class ContextMenuTriggerState {
 	#point = $state({ x: 0, y: 0 });
 
 	virtualElement = simpleBox({
-		getBoundingClientRect: () => DOMRect.fromRect({ width: 0, height: 0, ...this.#point }),
+		getBoundingClientRect: () =>
+			DOMRect.fromRect({ width: 0, height: 0, ...this.#point }),
 	});
 	#longPressTimer: number | null = null;
 
 	constructor(opts: ContextMenuTriggerStateOpts, parentMenu: MenuMenuState) {
 		this.opts = opts;
 		this.parentMenu = parentMenu;
-		this.attachment = attachRef(this.opts.ref, (v) => (this.parentMenu.triggerNode = v));
+		this.attachment = attachRef(
+			this.opts.ref,
+			(v) => (this.parentMenu.triggerNode = v),
+		);
 		this.oncontextmenu = this.oncontextmenu.bind(this);
 		this.onpointerdown = this.onpointerdown.bind(this);
 		this.onpointermove = this.onpointermove.bind(this);
@@ -1160,7 +1231,7 @@ export class ContextMenuTriggerState {
 					getBoundingClientRect: () =>
 						DOMRect.fromRect({ width: 0, height: 0, ...point }),
 				};
-			}
+			},
 		);
 
 		watch(
@@ -1169,7 +1240,7 @@ export class ContextMenuTriggerState {
 				if (isDisabled) {
 					this.#clearLongPressTimer();
 				}
-			}
+			},
 		);
 
 		onDestroyEffect(() => this.#clearLongPressTimer());
@@ -1199,7 +1270,7 @@ export class ContextMenuTriggerState {
 		this.#clearLongPressTimer();
 		this.#longPressTimer = getWindow(this.opts.ref.current).setTimeout(
 			() => this.#handleOpen(e),
-			700
+			700,
 		);
 	}
 
@@ -1234,7 +1305,7 @@ export class ContextMenuTriggerState {
 				onpointerup: this.onpointerup,
 				oncontextmenu: this.oncontextmenu,
 				...this.attachment,
-			}) as const
+			}) as const,
 	);
 }
 
@@ -1250,7 +1321,7 @@ interface MenuCheckboxGroupStateOpts
 export class MenuCheckboxGroupState {
 	static create(opts: MenuCheckboxGroupStateOpts) {
 		return MenuCheckboxGroupContext.set(
-			new MenuCheckboxGroupState(opts, MenuContentContext.get())
+			new MenuCheckboxGroupState(opts, MenuContentContext.get()),
 		);
 	}
 
@@ -1270,7 +1341,10 @@ export class MenuCheckboxGroupState {
 	addValue(checkboxValue: string | undefined) {
 		if (!checkboxValue) return;
 		if (!this.opts.value.current.includes(checkboxValue)) {
-			const newValue = [...$state.snapshot(this.opts.value.current), checkboxValue];
+			const newValue = [
+				...$state.snapshot(this.opts.value.current),
+				checkboxValue,
+			];
 			this.opts.value.current = newValue;
 			if (arraysAreEqual(this.opts.value.current, newValue)) return;
 			this.opts.onValueChange.current(newValue);
@@ -1295,7 +1369,7 @@ export class MenuCheckboxGroupState {
 				role: "group",
 				"aria-labelledby": this.groupHeadingId,
 				...this.attachment,
-			}) as const
+			}) as const,
 	);
 }
 

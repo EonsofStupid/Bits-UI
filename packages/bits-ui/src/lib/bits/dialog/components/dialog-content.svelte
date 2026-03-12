@@ -1,41 +1,41 @@
 <script lang="ts">
-	import { boxWith, mergeProps } from "svelte-toolbelt";
-	import { DialogContentState } from "../dialog.svelte.js";
-	import type { DialogContentProps } from "../types.js";
-	import DismissibleLayer from "$lib/bits/utilities/dismissible-layer/dismissible-layer.svelte";
-	import EscapeLayer from "$lib/bits/utilities/escape-layer/escape-layer.svelte";
-	import FocusScope from "$lib/bits/utilities/focus-scope/focus-scope.svelte";
-	import TextSelectionLayer from "$lib/bits/utilities/text-selection-layer/text-selection-layer.svelte";
-	import { createId } from "$lib/internal/create-id.js";
-	import { noop } from "$lib/internal/noop.js";
-	import ScrollLock from "$lib/bits/utilities/scroll-lock/scroll-lock.svelte";
-	const uid = $props.id();
+import { boxWith, mergeProps } from "svelte-toolbelt";
+import { DialogContentState } from "../dialog.svelte.js";
+import type { DialogContentProps } from "../types.js";
+import DismissibleLayer from "$lib/bits/utilities/dismissible-layer/dismissible-layer.svelte";
+import EscapeLayer from "$lib/bits/utilities/escape-layer/escape-layer.svelte";
+import FocusScope from "$lib/bits/utilities/focus-scope/focus-scope.svelte";
+import TextSelectionLayer from "$lib/bits/utilities/text-selection-layer/text-selection-layer.svelte";
+import { createId } from "$lib/internal/create-id.js";
+import { noop } from "$lib/internal/noop.js";
+import ScrollLock from "$lib/bits/utilities/scroll-lock/scroll-lock.svelte";
+const uid = $props.id();
 
-	let {
-		id = createId(uid),
-		children,
-		child,
-		ref = $bindable(null),
-		forceMount = false,
-		onCloseAutoFocus = noop,
-		onOpenAutoFocus = noop,
-		onEscapeKeydown = noop,
-		onInteractOutside = noop,
-		trapFocus = true,
-		preventScroll = true,
-		restoreScrollDelay = null,
-		...restProps
-	}: DialogContentProps = $props();
+let {
+	id = createId(uid),
+	children,
+	child,
+	ref = $bindable(null),
+	forceMount = false,
+	onCloseAutoFocus = noop,
+	onOpenAutoFocus = noop,
+	onEscapeKeydown = noop,
+	onInteractOutside = noop,
+	trapFocus = true,
+	preventScroll = true,
+	restoreScrollDelay = null,
+	...restProps
+}: DialogContentProps = $props();
 
-	const contentState = DialogContentState.create({
-		id: boxWith(() => id),
-		ref: boxWith(
-			() => ref,
-			(v) => (ref = v)
-		),
-	});
+const contentState = DialogContentState.create({
+	id: boxWith(() => id),
+	ref: boxWith(
+		() => ref,
+		(v) => (ref = v),
+	),
+});
 
-	const mergedProps = $derived(mergeProps(restProps, contentState.props));
+const mergedProps = $derived(mergeProps(restProps, contentState.props));
 </script>
 
 {#if contentState.shouldRender || forceMount}

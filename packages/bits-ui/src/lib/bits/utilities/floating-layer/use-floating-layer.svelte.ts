@@ -26,7 +26,10 @@ import type { Arrayable, WithRefOpts } from "$lib/internal/types.js";
 import { isNotNull } from "$lib/internal/is.js";
 import { useId } from "$lib/internal/use-id.js";
 import { useFloating } from "$lib/internal/floating-svelte/use-floating.svelte.js";
-import type { Measurable, UseFloatingReturn } from "$lib/internal/floating-svelte/types.js";
+import type {
+	Measurable,
+	UseFloatingReturn,
+} from "$lib/internal/floating-svelte/types.js";
 import type { Direction, StyleProperties } from "$lib/shared/index.js";
 
 export const SIDE_OPTIONS = ["top", "right", "bottom", "left"] as const;
@@ -40,8 +43,12 @@ const OPPOSITE_SIDE: Record<Side, Side> = {
 };
 
 const FloatingRootContext = new Context<FloatingRootState>("Floating.Root");
-const FloatingContentContext = new Context<FloatingContentState>("Floating.Content");
-const FloatingTooltipRootContext = new Context<FloatingRootState>("Floating.Root");
+const FloatingContentContext = new Context<FloatingContentState>(
+	"Floating.Content",
+);
+const FloatingTooltipRootContext = new Context<FloatingRootState>(
+	"Floating.Root",
+);
 
 export type Side = (typeof SIDE_OPTIONS)[number];
 export type Align = (typeof ALIGN_OPTIONS)[number];
@@ -62,7 +69,9 @@ export class FloatingRootState {
 		$effect(() => {
 			if (this.customAnchorNode.current) {
 				if (typeof this.customAnchorNode.current === "string") {
-					this.anchorNode.current = document.querySelector(this.customAnchorNode.current);
+					this.anchorNode.current = document.querySelector(
+						this.customAnchorNode.current,
+					);
 				} else {
 					this.anchorNode.current = this.customAnchorNode.current;
 				}
@@ -100,9 +109,11 @@ export class FloatingContentState {
 	static create(opts: FloatingContentStateOpts, tooltip = false) {
 		return tooltip
 			? FloatingContentContext.set(
-					new FloatingContentState(opts, FloatingTooltipRootContext.get())
+					new FloatingContentState(opts, FloatingTooltipRootContext.get()),
 				)
-			: FloatingContentContext.set(new FloatingContentState(opts, FloatingRootContext.get()));
+			: FloatingContentContext.set(
+					new FloatingContentState(opts, FloatingRootContext.get()),
+				);
 	}
 	readonly opts: FloatingContentStateOpts;
 	readonly root: FloatingRootState;
@@ -119,7 +130,8 @@ export class FloatingContentState {
 	arrowId: Box<string> = simpleBox(useId());
 
 	#transformedStyle = $derived.by(() => {
-		if (typeof this.opts.style === "string") return cssToStyleObj(this.opts.style);
+		if (typeof this.opts.style === "string")
+			return cssToStyleObj(this.opts.style);
 		if (!this.opts.style) return {};
 	});
 
@@ -133,12 +145,12 @@ export class FloatingContentState {
 			(this.opts.side?.current +
 				(this.opts.align.current !== "center"
 					? `-${this.opts.align.current}`
-					: "")) as Placement
+					: "")) as Placement,
 	);
 	#boundary = $derived.by(() =>
 		Array.isArray(this.opts.collisionBoundary.current)
 			? this.opts.collisionBoundary.current
-			: [this.opts.collisionBoundary.current]
+			: [this.opts.collisionBoundary.current],
 	);
 	hasExplicitBoundaries = $derived(this.#boundary.length > 0);
 	detectOverflowOptions = $derived.by(() => ({
@@ -161,14 +173,17 @@ export class FloatingContentState {
 					shift({
 						mainAxis: true,
 						crossAxis: false,
-						limiter: this.opts.sticky.current === "partial" ? limitShift() : undefined,
+						limiter:
+							this.opts.sticky.current === "partial" ? limitShift() : undefined,
 						...this.detectOverflowOptions,
 					}),
-				this.opts.avoidCollisions.current && flip({ ...this.detectOverflowOptions }),
+				this.opts.avoidCollisions.current &&
+					flip({ ...this.detectOverflowOptions }),
 				size({
 					...this.detectOverflowOptions,
 					apply: ({ rects, availableWidth, availableHeight }) => {
-						const { width: anchorWidth, height: anchorHeight } = rects.reference;
+						const { width: anchorWidth, height: anchorHeight } =
+							rects.reference;
 						this.#availableWidth = availableWidth;
 						this.#availableHeight = availableHeight;
 						this.#anchorWidth = anchorWidth;
@@ -180,17 +195,24 @@ export class FloatingContentState {
 						element: this.arrowRef.current,
 						padding: this.opts.arrowPadding.current,
 					}),
-				transformOrigin({ arrowWidth: this.#arrowWidth, arrowHeight: this.#arrowHeight }),
+				transformOrigin({
+					arrowWidth: this.#arrowWidth,
+					arrowHeight: this.#arrowHeight,
+				}),
 				this.opts.hideWhenDetached.current &&
 					hide({ strategy: "referenceHidden", ...this.detectOverflowOptions }),
-			].filter(Boolean) as Middleware[]
+			].filter(Boolean) as Middleware[],
 	);
 	floating: UseFloatingReturn;
 	placedSide = $derived.by(() => getSideFromPlacement(this.floating.placement));
-	placedAlign = $derived.by(() => getAlignFromPlacement(this.floating.placement));
+	placedAlign = $derived.by(() =>
+		getAlignFromPlacement(this.floating.placement),
+	);
 	arrowX = $derived.by(() => this.floating.middlewareData.arrow?.x ?? 0);
 	arrowY = $derived.by(() => this.floating.middlewareData.arrow?.y ?? 0);
-	cannotCenterArrow = $derived.by(() => this.floating.middlewareData.arrow?.centerOffset !== 0);
+	cannotCenterArrow = $derived.by(
+		() => this.floating.middlewareData.arrow?.centerOffset !== 0,
+	);
 	contentZIndex = $state<string>();
 	arrowBaseSide = $derived(OPPOSITE_SIDE[this.placedSide]);
 	wrapperProps = $derived.by(
@@ -221,7 +243,7 @@ export class FloatingContentState {
 				// Floating UI calculates logical alignment based the `dir` attribute
 				dir: this.opts.dir.current,
 				...this.wrapperAttachment,
-			}) as const
+			}) as const,
 	);
 	props = $derived.by(
 		() =>
@@ -232,7 +254,7 @@ export class FloatingContentState {
 					...this.#transformedStyle,
 				}),
 				...this.contentAttachment,
-			}) as const
+			}) as const,
 	);
 
 	arrowStyle = $derived({
@@ -268,7 +290,7 @@ export class FloatingContentState {
 			() => opts.customAnchor.current,
 			(customAnchor) => {
 				this.root.customAnchorNode.current = customAnchor;
-			}
+			},
 		);
 
 		this.floating = useFloating({
@@ -299,7 +321,11 @@ export class FloatingContentState {
 				const win = getWindow(contentNode);
 				const rafId = win.requestAnimationFrame(() => {
 					// avoid applying stale values when refs change quickly
-					if (this.contentRef.current !== contentNode || !this.opts.enabled.current) return;
+					if (
+						this.contentRef.current !== contentNode ||
+						!this.opts.enabled.current
+					)
+						return;
 					const zIndex = win.getComputedStyle(contentNode).zIndex;
 					if (zIndex !== this.contentZIndex) {
 						this.contentZIndex = zIndex;
@@ -309,7 +335,7 @@ export class FloatingContentState {
 				return () => {
 					win.cancelAnimationFrame(rafId);
 				};
-			}
+			},
 		);
 
 		$effect(() => {
@@ -339,7 +365,7 @@ export class FloatingArrowState {
 				style: this.content.arrowStyle,
 				"data-side": this.content.placedSide,
 				...this.content.arrowAttachment,
-			}) as const
+			}) as const,
 	);
 }
 
@@ -375,7 +401,10 @@ export class FloatingAnchorState {
 // HELPERS
 //
 
-function transformOrigin(options: { arrowWidth: number; arrowHeight: number }): Middleware {
+function transformOrigin(options: {
+	arrowWidth: number;
+	arrowHeight: number;
+}): Middleware {
 	return {
 		name: "transformOrigin",
 		options,
@@ -388,7 +417,9 @@ function transformOrigin(options: { arrowWidth: number; arrowHeight: number }): 
 			const arrowHeight = isArrowHidden ? 0 : options.arrowHeight;
 
 			const [placedSide, placedAlign] = getSideAndAlignFromPlacement(placement);
-			const noArrowAlign = { start: "0%", center: "50%", end: "100%" }[placedAlign];
+			const noArrowAlign = { start: "0%", center: "50%", end: "100%" }[
+				placedAlign
+			];
 
 			const arrowXCenter = (middlewareData.arrow?.x ?? 0) + arrowWidth / 2;
 			const arrowYCenter = (middlewareData.arrow?.y ?? 0) + arrowHeight / 2;

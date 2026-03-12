@@ -1,5 +1,8 @@
 import type { Snippet } from "svelte";
-import type { EscapeLayerImplProps, EscapeLayerProps } from "../escape-layer/types.js";
+import type {
+	EscapeLayerImplProps,
+	EscapeLayerProps,
+} from "../escape-layer/types.js";
 import type {
 	DismissibleLayerImplProps,
 	DismissibleLayerProps,
@@ -12,8 +15,14 @@ import type {
 	TextSelectionLayerImplProps,
 	TextSelectionLayerProps,
 } from "../text-selection-layer/types.js";
-import type { PresenceLayerImplProps, PresenceLayerProps } from "../presence-layer/types.js";
-import type { FocusScopeImplProps, FocusScopeProps } from "../focus-scope/types.js";
+import type {
+	PresenceLayerImplProps,
+	PresenceLayerProps,
+} from "../presence-layer/types.js";
+import type {
+	FocusScopeImplProps,
+	FocusScopeProps,
+} from "../focus-scope/types.js";
 import type { ScrollLockProps } from "../scroll-lock/index.js";
 import type { Direction } from "$lib/shared/index.js";
 
@@ -43,7 +52,12 @@ export type PopperLayerImplProps = Omit<
 		TextSelectionLayerImplProps &
 		FocusScopeImplProps & {
 			popper: Snippet<
-				[{ props: Record<string, unknown>; wrapperProps: Record<string, unknown> }]
+				[
+					{
+						props: Record<string, unknown>;
+						wrapperProps: Record<string, unknown>;
+					},
+				]
 			>;
 			isStatic?: boolean;
 			/**

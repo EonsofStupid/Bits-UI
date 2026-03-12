@@ -1,9 +1,9 @@
 <script lang="ts" module>
-	import { Popover } from "bits-ui";
-	export type PopoverOverlayTestProps = Popover.RootProps & {
-		overlayProps?: Omit<Popover.OverlayProps, "asChild" | "child" | "children">;
-		withChild?: boolean;
-	};
+import { Popover } from "bits-ui";
+export type PopoverOverlayTestProps = Popover.RootProps & {
+	overlayProps?: Omit<Popover.OverlayProps, "asChild" | "child" | "children">;
+	withChild?: boolean;
+};
 </script>
 
 <script lang="ts">

@@ -1,4 +1,7 @@
-import type { PinInputCellPropsWithoutHTML, PinInputRootPropsWithoutHTML } from "bits-ui";
+import type {
+	PinInputCellPropsWithoutHTML,
+	PinInputRootPropsWithoutHTML,
+} from "bits-ui";
 import {
 	PinInputCellCellProp,
 	PinInputRootChildSnippetProps,
@@ -30,7 +33,8 @@ const root = defineComponentApiSchema<PinInputRootPropsWithoutHTML>({
 			bindable: true,
 		}),
 		onValueChange: defineFunctionProp({
-			description: "A callback function that is called when the value of the input changes.",
+			description:
+				"A callback function that is called when the value of the input changes.",
 			definition: OnStringValueChangeProp,
 			stringDefinition: "(value: string) => void",
 		}),
@@ -50,7 +54,8 @@ const root = defineComponentApiSchema<PinInputRootPropsWithoutHTML>({
 			default: 6,
 		}),
 		onComplete: defineFunctionProp({
-			description: "A callback function that is called when the input is completely filled.",
+			description:
+				"A callback function that is called when the input is completely filled.",
 			definition: PinInputRootOnCompleteProp,
 			stringDefinition: "(...args: any[]) => void",
 		}),
@@ -61,7 +66,8 @@ const root = defineComponentApiSchema<PinInputRootPropsWithoutHTML>({
 			stringDefinition: "(text: string) => string",
 		}),
 		inputId: defineStringProp({
-			description: "Optionally provide an ID to apply to the hidden input element.",
+			description:
+				"Optionally provide an ID to apply to the hidden input element.",
 		}),
 		pushPasswordManagerStrategy: defineEnumProp({
 			description:

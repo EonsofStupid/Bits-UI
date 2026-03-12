@@ -133,8 +133,12 @@ it("should handle multiple portals to different targets", async () => {
 	const stringTarget = page.getByTestId("string-target").element();
 	const classTarget = page.getByTestId("class-target").element();
 
-	const firstContent = contents.find((el) => el.element().textContent === "First portal");
-	const secondContent = contents.find((el) => el.element().textContent === "Second portal");
+	const firstContent = contents.find(
+		(el) => el.element().textContent === "First portal",
+	);
+	const secondContent = contents.find(
+		(el) => el.element().textContent === "Second portal",
+	);
 
 	if (!firstContent || !secondContent) {
 		throw new Error("Could not find portal contents");

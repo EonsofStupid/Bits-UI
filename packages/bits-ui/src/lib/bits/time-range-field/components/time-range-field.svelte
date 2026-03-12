@@ -1,8 +1,8 @@
 <script lang="ts" module>
-	import type { TimeRange, TimeValue } from "$lib/shared/date/types.js";
-	import type { Time } from "@internationalized/date";
+import type { TimeRange, TimeValue } from "$lib/shared/date/types.js";
+import type { Time } from "@internationalized/date";
 
-	type T = unknown;
+type T = unknown;
 </script>
 
 <script lang="ts" generics="T extends TimeValue = Time">

@@ -9,7 +9,10 @@ import {
 } from "../utils.js";
 
 export const root = defineComponentApiSchema<
-	ButtonRootPropsWithoutHTML & { href: string; disabled: HTMLButtonAttributes["disabled"] }
+	ButtonRootPropsWithoutHTML & {
+		href: string;
+		disabled: HTMLButtonAttributes["disabled"];
+	}
 >({
 	title: "Root",
 	description:

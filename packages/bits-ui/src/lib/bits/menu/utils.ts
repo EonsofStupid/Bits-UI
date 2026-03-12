@@ -16,12 +16,18 @@ export const SUB_CLOSE_KEYS: Record<Direction, string[]> = {
 	rtl: [kbd.ARROW_RIGHT],
 };
 
-export function isIndeterminate(checked?: CheckedState): checked is "indeterminate" {
+export function isIndeterminate(
+	checked?: CheckedState,
+): checked is "indeterminate" {
 	return checked === "indeterminate";
 }
 
 export function getCheckedState(checked: CheckedState) {
-	return isIndeterminate(checked) ? "indeterminate" : checked ? "checked" : "unchecked";
+	return isIndeterminate(checked)
+		? "indeterminate"
+		: checked
+			? "checked"
+			: "unchecked";
 }
 
 export function isMouseEvent(event: PointerEvent) {

@@ -11,7 +11,8 @@ export const buttonVariants = tv({
 	variants: {
 		variant: {
 			default: "bg-primary text-primary-foreground hover:bg-primary/90",
-			destructive: "text-destructive-foreground bg-destructive hover:bg-destructive/90",
+			destructive:
+				"text-destructive-foreground bg-destructive hover:bg-destructive/90",
 			outline:
 				"border-input bg-background hover:bg-accent hover:text-accent-foreground border",
 			secondary: "bg-secondary text-secondary-foreground hover:bg-secondary/80",

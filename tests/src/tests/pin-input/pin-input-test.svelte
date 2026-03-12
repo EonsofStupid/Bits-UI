@@ -1,17 +1,17 @@
 <script lang="ts">
-	import { PinInput, type PinInputRootSnippetProps } from "bits-ui";
+import { PinInput, type PinInputRootSnippetProps } from "bits-ui";
 
-	let {
-		onComplete = () => {},
-		maxlength = 6,
-		value = "",
-		toCopy,
-		...restProps
-	}: Omit<PinInput.RootProps, "children"> & {
-		toCopy?: string;
-	} = $props();
+let {
+	onComplete = () => {},
+	maxlength = 6,
+	value = "",
+	toCopy,
+	...restProps
+}: Omit<PinInput.RootProps, "children"> & {
+	toCopy?: string;
+} = $props();
 
-	type CellProps = PinInputRootSnippetProps["cells"][0];
+type CellProps = PinInputRootSnippetProps["cells"][0];
 </script>
 
 <main>

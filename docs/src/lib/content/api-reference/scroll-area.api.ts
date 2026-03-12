@@ -52,52 +52,54 @@ export const root = defineComponentApiSchema<ScrollAreaRootPropsWithoutHTML>({
 	],
 });
 
-export const viewport = defineComponentApiSchema<ScrollAreaViewportPropsWithoutHTML>({
-	title: "Viewport",
-	description:
-		"The component which wraps the content and is responsible for computing the scroll area size.",
-	props: {
-		ref: refProp({ elType: "HTMLDivElement" }),
-		children: childrenSnippet(),
-	},
-	dataAttributes: [
-		defineSimpleDataAttr({
-			name: "scroll-area-viewport",
-			description: "Present on the viewport element.",
-		}),
-	],
-});
+export const viewport =
+	defineComponentApiSchema<ScrollAreaViewportPropsWithoutHTML>({
+		title: "Viewport",
+		description:
+			"The component which wraps the content and is responsible for computing the scroll area size.",
+		props: {
+			ref: refProp({ elType: "HTMLDivElement" }),
+			children: childrenSnippet(),
+		},
+		dataAttributes: [
+			defineSimpleDataAttr({
+				name: "scroll-area-viewport",
+				description: "Present on the viewport element.",
+			}),
+		],
+	});
 
-export const scrollbar = defineComponentApiSchema<ScrollAreaScrollbarPropsWithoutHTML>({
-	title: "Scrollbar",
-	description: "A scrollbar of the scroll area.",
-	props: {
-		orientation: defineEnumProp({
-			options: ["horizontal", "vertical"],
-			description: "The orientation of the scrollbar.",
-			required: true,
-			definition: OrientationProp,
-		}),
-		forceMount: forceMountProp,
-		...withChildProps({ elType: "HTMLDivElement" }),
-	},
-	dataAttributes: [
-		defineEnumDataAttr({
-			name: "state",
-			description: "The visibility state of the scrollbar",
-			options: ["visible", "hidden"],
-			value: ScrollAreaVisibleHiddenProp,
-		}),
-		defineSimpleDataAttr({
-			name: "scroll-area-scrollbar-x",
-			description: "Present on the `'horizontal'` scrollbar element.",
-		}),
-		defineSimpleDataAttr({
-			name: "scroll-area-scrollbar-y",
-			description: "Present on the `'vertical'` scrollbar element.",
-		}),
-	],
-});
+export const scrollbar =
+	defineComponentApiSchema<ScrollAreaScrollbarPropsWithoutHTML>({
+		title: "Scrollbar",
+		description: "A scrollbar of the scroll area.",
+		props: {
+			orientation: defineEnumProp({
+				options: ["horizontal", "vertical"],
+				description: "The orientation of the scrollbar.",
+				required: true,
+				definition: OrientationProp,
+			}),
+			forceMount: forceMountProp,
+			...withChildProps({ elType: "HTMLDivElement" }),
+		},
+		dataAttributes: [
+			defineEnumDataAttr({
+				name: "state",
+				description: "The visibility state of the scrollbar",
+				options: ["visible", "hidden"],
+				value: ScrollAreaVisibleHiddenProp,
+			}),
+			defineSimpleDataAttr({
+				name: "scroll-area-scrollbar-x",
+				description: "Present on the `'horizontal'` scrollbar element.",
+			}),
+			defineSimpleDataAttr({
+				name: "scroll-area-scrollbar-y",
+				description: "Present on the `'vertical'` scrollbar element.",
+			}),
+		],
+	});
 
 export const thumb = defineComponentApiSchema<ScrollAreaThumbPropsWithoutHTML>({
 	title: "Thumb",
@@ -124,16 +126,17 @@ export const thumb = defineComponentApiSchema<ScrollAreaThumbPropsWithoutHTML>({
 	],
 });
 
-export const corner = defineComponentApiSchema<ScrollAreaCornerPropsWithoutHTML>({
-	title: "Corner",
-	description: "The corner element between the X and Y scrollbars.",
-	props: withChildProps({ elType: "HTMLDivElement" }),
-	dataAttributes: [
-		defineSimpleDataAttr({
-			name: "scroll-area-corner",
-			description: "Present on the corner element.",
-		}),
-	],
-});
+export const corner =
+	defineComponentApiSchema<ScrollAreaCornerPropsWithoutHTML>({
+		title: "Corner",
+		description: "The corner element between the X and Y scrollbars.",
+		props: withChildProps({ elType: "HTMLDivElement" }),
+		dataAttributes: [
+			defineSimpleDataAttr({
+				name: "scroll-area-corner",
+				description: "Present on the corner element.",
+			}),
+		],
+	});
 
 export const scrollArea = [root, viewport, scrollbar, thumb, corner];

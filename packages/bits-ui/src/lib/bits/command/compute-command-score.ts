@@ -59,7 +59,7 @@ function computeCommandScoreInner(
 	lowerAbbreviation,
 	stringIndex,
 	abbreviationIndex,
-	memoizedResults
+	memoizedResults,
 ) {
 	if (abbreviationIndex === abbreviation.length) {
 		if (stringIndex === string.length) return SCORE_CONTINUE_MATCH;
@@ -67,7 +67,8 @@ function computeCommandScoreInner(
 	}
 
 	const memoizeKey = `${stringIndex},${abbreviationIndex}`;
-	if (memoizedResults[memoizeKey] !== undefined) return memoizedResults[memoizeKey];
+	if (memoizedResults[memoizeKey] !== undefined)
+		return memoizedResults[memoizeKey];
 
 	const abbreviationChar = lowerAbbreviation.charAt(abbreviationIndex);
 	let index = lowerString.indexOf(abbreviationChar, stringIndex);
@@ -83,20 +84,24 @@ function computeCommandScoreInner(
 			lowerAbbreviation,
 			index + 1,
 			abbreviationIndex + 1,
-			memoizedResults
+			memoizedResults,
 		);
 		if (score > highScore) {
 			if (index === stringIndex) {
 				score *= SCORE_CONTINUE_MATCH;
 			} else if (IS_GAP_REGEXP.test(string.charAt(index - 1))) {
 				score *= SCORE_NON_SPACE_WORD_JUMP;
-				wordBreaks = string.slice(stringIndex, index - 1).match(COUNT_GAPS_REGEXP);
+				wordBreaks = string
+					.slice(stringIndex, index - 1)
+					.match(COUNT_GAPS_REGEXP);
 				if (wordBreaks && stringIndex > 0) {
 					score *= PENALTY_SKIPPED ** wordBreaks.length;
 				}
 			} else if (IS_SPACE_REGEXP.test(string.charAt(index - 1))) {
 				score *= SCORE_SPACE_WORD_JUMP;
-				spaceBreaks = string.slice(stringIndex, index - 1).match(COUNT_SPACE_REGEXP);
+				spaceBreaks = string
+					.slice(stringIndex, index - 1)
+					.match(COUNT_SPACE_REGEXP);
 				if (spaceBreaks && stringIndex > 0) {
 					score *= PENALTY_SKIPPED ** spaceBreaks.length;
 				}
@@ -118,7 +123,8 @@ function computeCommandScoreInner(
 					lowerAbbreviation.charAt(abbreviationIndex + 1)) ||
 			(lowerAbbreviation.charAt(abbreviationIndex + 1) ===
 				lowerAbbreviation.charAt(abbreviationIndex) &&
-				lowerString.charAt(index - 1) !== lowerAbbreviation.charAt(abbreviationIndex))
+				lowerString.charAt(index - 1) !==
+					lowerAbbreviation.charAt(abbreviationIndex))
 		) {
 			transposedScore = computeCommandScoreInner(
 				string,
@@ -127,7 +133,7 @@ function computeCommandScoreInner(
 				lowerAbbreviation,
 				index + 1,
 				abbreviationIndex + 2,
-				memoizedResults
+				memoizedResults,
 			);
 
 			if (transposedScore * SCORE_TRANSPOSITION > score) {
@@ -184,7 +190,7 @@ function formatInput(string) {
 export function computeCommandScore(
 	command: string,
 	search: string,
-	commandKeywords?: string[]
+	commandKeywords?: string[],
 ): number {
 	/**
 	 * NOTE: We used to do lower-casing on each recursive call, but this meant that `toLowerCase()`
@@ -202,6 +208,6 @@ export function computeCommandScore(
 		formatInput(search),
 		0,
 		0,
-		{}
+		{},
 	);
 }

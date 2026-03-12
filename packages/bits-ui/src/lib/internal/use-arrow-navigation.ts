@@ -74,11 +74,12 @@ export function useArrowNavigation(
 	e: KeyboardEvent,
 	currentElement: HTMLElement,
 	parentElement: HTMLElement | undefined,
-	options: ArrowNavigationOptions
+	options: ArrowNavigationOptions,
 ): HTMLElement | null {
 	if (
 		!currentElement ||
-		(options.enableIgnoredElement && ignoredElement.includes(currentElement.nodeName))
+		(options.enableIgnoredElement &&
+			ignoredElement.includes(currentElement.nodeName))
 	) {
 		return null;
 	}
@@ -146,7 +147,7 @@ function findNextFocusableElement(
 	elements: HTMLElement[],
 	currentElement: HTMLElement,
 	{ goForward, loop }: { goForward: boolean; loop?: boolean },
-	iterations = elements.length
+	iterations = elements.length,
 ): HTMLElement | null {
 	if (--iterations === 0) return null;
 
@@ -160,9 +161,15 @@ function findNextFocusableElement(
 	if (!candidate) return null;
 
 	const isDisabled =
-		candidate.hasAttribute("disabled") && candidate.getAttribute("disabled") !== "false";
+		candidate.hasAttribute("disabled") &&
+		candidate.getAttribute("disabled") !== "false";
 	if (isDisabled) {
-		return findNextFocusableElement(elements, candidate, { goForward, loop }, iterations);
+		return findNextFocusableElement(
+			elements,
+			candidate,
+			{ goForward, loop },
+			iterations,
+		);
 	}
 	return candidate;
 }

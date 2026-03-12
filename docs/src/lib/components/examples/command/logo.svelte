@@ -1,6 +1,7 @@
 <script lang="ts">
-	import type { Snippet } from "svelte";
-	let { size = "20px", children }: { size?: string; children: Snippet } = $props();
+import type { Snippet } from "svelte";
+let { size = "20px", children }: { size?: string; children: Snippet } =
+	$props();
 </script>
 
 <div class="blurLogo" style:width={size} style:height={size}>

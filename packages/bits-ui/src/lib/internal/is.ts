@@ -15,7 +15,9 @@ function getIsIOS() {
 	);
 }
 
-export function isFunction(value: unknown): value is (...args: unknown[]) => unknown {
+export function isFunction(
+	value: unknown,
+): value is (...args: unknown[]) => unknown {
 	return typeof value === "function";
 }
 
@@ -27,12 +29,16 @@ export function isElement(element: unknown): element is Element {
 	return element instanceof Element;
 }
 
-export function isElementOrSVGElement(element: unknown): element is Element | SVGElement {
+export function isElementOrSVGElement(
+	element: unknown,
+): element is Element | SVGElement {
 	return element instanceof Element || element instanceof SVGElement;
 }
 
 export function isNumberString(value: string) {
-	return !Number.isNaN(Number(value)) && !Number.isNaN(Number.parseFloat(value));
+	return (
+		!Number.isNaN(Number(value)) && !Number.isNaN(Number.parseFloat(value))
+	);
 }
 
 export function isNull(value: unknown): value is null {
@@ -56,7 +62,7 @@ export function isNotNull<T>(value: T | null): value is T {
  * a `select` method available.
  */
 export function isSelectableInput(
-	element: unknown
+	element: unknown,
 ): element is FocusableTarget & { select: () => void } {
 	return element instanceof HTMLInputElement && "select" in element;
 }

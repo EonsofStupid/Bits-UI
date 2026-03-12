@@ -9,7 +9,10 @@ export const SELECTION_KEYS = [kbd.SPACE, kbd.ENTER];
 /**
  * A utility function that returns the next key based on the direction and orientation.
  */
-export function getNextKey(dir: Direction = "ltr", orientation: Orientation = "horizontal") {
+export function getNextKey(
+	dir: Direction = "ltr",
+	orientation: Orientation = "horizontal",
+) {
 	return {
 		horizontal: dir === "rtl" ? kbd.ARROW_LEFT : kbd.ARROW_RIGHT,
 		vertical: kbd.ARROW_DOWN,
@@ -19,7 +22,10 @@ export function getNextKey(dir: Direction = "ltr", orientation: Orientation = "h
 /**
  * A utility function that returns the previous key based on the direction and orientation.
  */
-export function getPrevKey(dir: Direction = "ltr", orientation: Orientation = "horizontal") {
+export function getPrevKey(
+	dir: Direction = "ltr",
+	orientation: Orientation = "horizontal",
+) {
 	return {
 		horizontal: dir === "rtl" ? kbd.ARROW_RIGHT : kbd.ARROW_LEFT,
 		vertical: kbd.ARROW_UP,
@@ -32,10 +38,11 @@ export function getPrevKey(dir: Direction = "ltr", orientation: Orientation = "h
  */
 export function getDirectionalKeys(
 	dir: Direction = "ltr",
-	orientation: Orientation = "horizontal"
+	orientation: Orientation = "horizontal",
 ) {
 	if (!["ltr", "rtl"].includes(dir)) dir = "ltr";
-	if (!["horizontal", "vertical"].includes(orientation)) orientation = "horizontal";
+	if (!["horizontal", "vertical"].includes(orientation))
+		orientation = "horizontal";
 	return {
 		nextKey: getNextKey(dir, orientation),
 		prevKey: getPrevKey(dir, orientation),

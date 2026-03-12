@@ -12,7 +12,10 @@ async function replaceContents() {
 	});
 	if (!data) return;
 
-	const updatedContent = data.replace("'../velite.config'", "'../velite.config.js'");
+	const updatedContent = data.replace(
+		"'../velite.config'",
+		"'../velite.config.js'",
+	);
 	if (updatedContent === data) return;
 
 	await writeFile(dtsPath, updatedContent, "utf8").catch((err) => {
@@ -26,7 +29,10 @@ async function replaceIndexContents() {
 	});
 	if (!data) return;
 
-	const updatedContent = data.replaceAll(".json'", ".json' with { type: 'json' }");
+	const updatedContent = data.replaceAll(
+		/\.json'(?!\s*with)/g,
+		".json' with { type: 'json' }",
+	);
 	if (updatedContent === data) return;
 
 	await writeFile(indexPath, updatedContent, "utf8").catch((err) => {

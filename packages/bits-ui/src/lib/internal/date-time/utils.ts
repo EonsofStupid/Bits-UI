@@ -98,7 +98,10 @@ export function getDefaultTime(opts: GetDefaultTimeProps): TimeValue {
  * Useful for parsing strings from data attributes, which are always
  * strings, to the same type being used by the date component.
  */
-export function parseStringToDateValue(dateStr: string, referenceVal: DateValue): DateValue {
+export function parseStringToDateValue(
+	dateStr: string,
+	referenceVal: DateValue,
+): DateValue {
 	let dateValue: DateValue;
 	if (referenceVal instanceof ZonedDateTime) {
 		dateValue = parseZonedDateTime(dateStr);
@@ -147,15 +150,21 @@ export function parseAnyDateValue(value: string, type: string): DateValue {
 	}
 }
 
-function isCalendarDateTime(dateValue: DateValue): dateValue is CalendarDateTime {
+function isCalendarDateTime(
+	dateValue: DateValue,
+): dateValue is CalendarDateTime {
 	return dateValue instanceof CalendarDateTime;
 }
 
-export function isZonedDateTime(dateValue: DateValue | TimeValue): dateValue is ZonedDateTime {
+export function isZonedDateTime(
+	dateValue: DateValue | TimeValue,
+): dateValue is ZonedDateTime {
 	return dateValue instanceof ZonedDateTime;
 }
 
-export function hasTime(dateValue: DateValue): dateValue is CalendarDateTime | ZonedDateTime {
+export function hasTime(
+	dateValue: DateValue,
+): dateValue is CalendarDateTime | ZonedDateTime {
 	return isCalendarDateTime(dateValue) || isZonedDateTime(dateValue);
 }
 
@@ -232,14 +241,18 @@ function isAfterOrSame(dateToCompare: DateValue, referenceDate: DateValue) {
  *
  * @see {@link isBetween} for non-inclusive
  */
-export function isBetweenInclusive(date: DateValue, start: DateValue, end: DateValue) {
+export function isBetweenInclusive(
+	date: DateValue,
+	start: DateValue,
+	end: DateValue,
+) {
 	return isAfterOrSame(date, start) && isBeforeOrSame(date, end);
 }
 
 export function getLastFirstDayOfWeek<T extends DateValue = DateValue>(
 	date: T,
 	firstDayOfWeek: number,
-	locale: string
+	locale: string,
 ): T {
 	const day = getDayOfWeek(date, locale);
 
@@ -255,7 +268,7 @@ export function getLastFirstDayOfWeek<T extends DateValue = DateValue>(
 export function getNextLastDayOfWeek<T extends DateValue = DateValue>(
 	date: T,
 	firstDayOfWeek: number,
-	locale: string
+	locale: string,
 ): T {
 	const day = getDayOfWeek(date, locale);
 	const lastDayOfWeek = firstDayOfWeek === 0 ? 6 : firstDayOfWeek - 1;
@@ -275,7 +288,7 @@ export function areAllDaysBetweenValid(
 	start: DateValue,
 	end: DateValue,
 	isUnavailable: DateMatcher | undefined,
-	isDisabled: DateMatcher | undefined
+	isDisabled: DateMatcher | undefined,
 ) {
 	if (isUnavailable === undefined && isDisabled === undefined) {
 		return true;

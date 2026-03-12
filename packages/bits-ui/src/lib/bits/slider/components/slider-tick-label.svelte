@@ -1,46 +1,46 @@
 <script lang="ts">
-	import { boxWith, mergeProps } from "svelte-toolbelt";
-	import type { SliderTickLabelProps } from "../types.js";
-	import { SliderRootContext, SliderTickLabelState } from "../slider.svelte.js";
-	import { createId } from "$lib/internal/create-id.js";
+import { boxWith, mergeProps } from "svelte-toolbelt";
+import type { SliderTickLabelProps } from "../types.js";
+import { SliderRootContext, SliderTickLabelState } from "../slider.svelte.js";
+import { createId } from "$lib/internal/create-id.js";
 
-	const uid = $props.id();
+const uid = $props.id();
 
-	let {
-		children,
-		child,
-		ref = $bindable(null),
-		id = createId(uid),
-		index,
-		position: positionProp,
-		...restProps
-	}: SliderTickLabelProps = $props();
+let {
+	children,
+	child,
+	ref = $bindable(null),
+	id = createId(uid),
+	index,
+	position: positionProp,
+	...restProps
+}: SliderTickLabelProps = $props();
 
-	const root = SliderRootContext.get();
+const root = SliderRootContext.get();
 
-	const position = $derived.by(() => {
-		if (positionProp !== undefined) return positionProp;
-		switch (root.direction) {
-			case "lr":
-			case "rl":
-				return "top";
-			case "tb":
-			case "bt":
-				return "left";
-		}
-	});
+const position = $derived.by(() => {
+	if (positionProp !== undefined) return positionProp;
+	switch (root.direction) {
+		case "lr":
+		case "rl":
+			return "top";
+		case "tb":
+		case "bt":
+			return "left";
+	}
+});
 
-	const tickLabelState = SliderTickLabelState.create({
-		id: boxWith(() => id),
-		ref: boxWith(
-			() => ref,
-			(v) => (ref = v)
-		),
-		index: boxWith(() => index),
-		position: boxWith(() => position),
-	});
+const tickLabelState = SliderTickLabelState.create({
+	id: boxWith(() => id),
+	ref: boxWith(
+		() => ref,
+		(v) => (ref = v),
+	),
+	index: boxWith(() => index),
+	position: boxWith(() => position),
+});
 
-	const mergedProps = $derived(mergeProps(restProps, tickLabelState.props));
+const mergedProps = $derived(mergeProps(restProps, tickLabelState.props));
 </script>
 
 {#if child}

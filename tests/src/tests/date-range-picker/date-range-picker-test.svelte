@@ -1,10 +1,11 @@
 <script lang="ts" module>
-	import {
-		DateRangePicker,
-		type DateRangePickerInputProps,
-		type WithoutChildrenOrChild,
-	} from "bits-ui";
-	export type DateRangePickerTestProps = WithoutChildrenOrChild<DateRangePicker.RootProps> & {
+import {
+	DateRangePicker,
+	type DateRangePickerInputProps,
+	type WithoutChildrenOrChild,
+} from "bits-ui";
+export type DateRangePickerTestProps =
+	WithoutChildrenOrChild<DateRangePicker.RootProps> & {
 		startProps?: Omit<DateRangePickerInputProps, "type">;
 		endProps?: Omit<DateRangePickerInputProps, "type">;
 	};

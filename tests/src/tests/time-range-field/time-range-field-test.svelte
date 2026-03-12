@@ -1,21 +1,20 @@
 <script lang="ts" module>
-	import type { Time } from "@internationalized/date";
-	import {
-		TimeRangeField,
-		type TimeValue,
-		type TimeRangeFieldInputProps,
-		type TimeRangeFieldRootProps,
-		type WithoutChildrenOrChild,
-	} from "bits-ui";
+import type { Time } from "@internationalized/date";
+import {
+	TimeRangeField,
+	type TimeValue,
+	type TimeRangeFieldInputProps,
+	type TimeRangeFieldRootProps,
+	type WithoutChildrenOrChild,
+} from "bits-ui";
 
-	export type TimeRangeFieldTestProps<T extends TimeValue = Time> = WithoutChildrenOrChild<
-		TimeRangeFieldRootProps<T>
-	> & {
+export type TimeRangeFieldTestProps<T extends TimeValue = Time> =
+	WithoutChildrenOrChild<TimeRangeFieldRootProps<T>> & {
 		startProps?: Omit<TimeRangeFieldInputProps, "type">;
 		endProps?: Omit<TimeRangeFieldInputProps, "type">;
 	};
 
-	type T = unknown;
+type T = unknown;
 </script>
 
 <script lang="ts" generics="T extends TimeValue = Time">

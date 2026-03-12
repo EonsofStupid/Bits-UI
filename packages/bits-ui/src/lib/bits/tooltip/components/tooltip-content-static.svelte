@@ -1,38 +1,38 @@
 <script lang="ts">
-	import { boxWith, mergeProps } from "svelte-toolbelt";
-	import type { TooltipContentStaticProps } from "../types.js";
-	import { TooltipContentState } from "../tooltip.svelte.js";
-	import { createId } from "$lib/internal/create-id.js";
-	import PopperLayer from "$lib/bits/utilities/popper-layer/popper-layer.svelte";
-	import { getFloatingContentCSSVars } from "$lib/internal/floating-svelte/floating-utils.svelte.js";
-	import PopperLayerForceMount from "$lib/bits/utilities/popper-layer/popper-layer-force-mount.svelte";
-	import { noop } from "$lib/internal/noop.js";
+import { boxWith, mergeProps } from "svelte-toolbelt";
+import type { TooltipContentStaticProps } from "../types.js";
+import { TooltipContentState } from "../tooltip.svelte.js";
+import { createId } from "$lib/internal/create-id.js";
+import PopperLayer from "$lib/bits/utilities/popper-layer/popper-layer.svelte";
+import { getFloatingContentCSSVars } from "$lib/internal/floating-svelte/floating-utils.svelte.js";
+import PopperLayerForceMount from "$lib/bits/utilities/popper-layer/popper-layer-force-mount.svelte";
+import { noop } from "$lib/internal/noop.js";
 
-	const uid = $props.id();
+const uid = $props.id();
 
-	let {
-		children,
-		child,
-		id = createId(uid),
-		ref = $bindable(null),
-		onInteractOutside = noop,
-		onEscapeKeydown = noop,
-		forceMount = false,
-		style,
-		...restProps
-	}: TooltipContentStaticProps = $props();
+let {
+	children,
+	child,
+	id = createId(uid),
+	ref = $bindable(null),
+	onInteractOutside = noop,
+	onEscapeKeydown = noop,
+	forceMount = false,
+	style,
+	...restProps
+}: TooltipContentStaticProps = $props();
 
-	const contentState = TooltipContentState.create({
-		id: boxWith(() => id),
-		ref: boxWith(
-			() => ref,
-			(v) => (ref = v)
-		),
-		onInteractOutside: boxWith(() => onInteractOutside),
-		onEscapeKeydown: boxWith(() => onEscapeKeydown),
-	});
+const contentState = TooltipContentState.create({
+	id: boxWith(() => id),
+	ref: boxWith(
+		() => ref,
+		(v) => (ref = v),
+	),
+	onInteractOutside: boxWith(() => onInteractOutside),
+	onEscapeKeydown: boxWith(() => onEscapeKeydown),
+});
 
-	const mergedProps = $derived(mergeProps(restProps, contentState.props));
+const mergedProps = $derived(mergeProps(restProps, contentState.props));
 </script>
 
 {#if forceMount}

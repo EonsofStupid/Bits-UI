@@ -13,11 +13,17 @@ export function getFirstNonCommentChild(element: HTMLElement | null) {
  * This was added to handle password managers and other elements that may be injected
  * into the DOM but visually appear inside the content.
  */
-export function isClickTrulyOutside(event: PointerEvent, contentNode: HTMLElement): boolean {
+export function isClickTrulyOutside(
+	event: PointerEvent,
+	contentNode: HTMLElement,
+): boolean {
 	const { clientX, clientY } = event;
 	const rect = contentNode.getBoundingClientRect();
 
 	return (
-		clientX < rect.left || clientX > rect.right || clientY < rect.top || clientY > rect.bottom
+		clientX < rect.left ||
+		clientX > rect.right ||
+		clientY < rect.top ||
+		clientY > rect.bottom
 	);
 }

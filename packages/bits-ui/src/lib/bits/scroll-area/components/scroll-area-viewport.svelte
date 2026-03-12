@@ -1,28 +1,28 @@
 <script lang="ts">
-	import { boxWith, mergeProps } from "svelte-toolbelt";
-	import type { ScrollAreaViewportProps } from "../types.js";
-	import { ScrollAreaViewportState } from "../scroll-area.svelte.js";
-	import { createId } from "$lib/internal/create-id.js";
+import { boxWith, mergeProps } from "svelte-toolbelt";
+import type { ScrollAreaViewportProps } from "../types.js";
+import { ScrollAreaViewportState } from "../scroll-area.svelte.js";
+import { createId } from "$lib/internal/create-id.js";
 
-	const uid = $props.id();
+const uid = $props.id();
 
-	let {
-		ref = $bindable(null),
-		id = createId(uid),
-		children,
-		...restProps
-	}: ScrollAreaViewportProps = $props();
+let {
+	ref = $bindable(null),
+	id = createId(uid),
+	children,
+	...restProps
+}: ScrollAreaViewportProps = $props();
 
-	const viewportState = ScrollAreaViewportState.create({
-		id: boxWith(() => id),
-		ref: boxWith(
-			() => ref,
-			(v) => (ref = v)
-		),
-	});
+const viewportState = ScrollAreaViewportState.create({
+	id: boxWith(() => id),
+	ref: boxWith(
+		() => ref,
+		(v) => (ref = v),
+	),
+});
 
-	const mergedProps = $derived(mergeProps(restProps, viewportState.props));
-	const mergedContentProps = $derived(mergeProps({}, viewportState.contentProps));
+const mergedProps = $derived(mergeProps(restProps, viewportState.props));
+const mergedContentProps = $derived(mergeProps({}, viewportState.contentProps));
 </script>
 
 <div {...mergedProps}>

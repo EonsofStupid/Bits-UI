@@ -1,18 +1,18 @@
 <script lang="ts">
-	import { BitsConfig, getBitsConfig } from "bits-ui";
+import { BitsConfig, getBitsConfig } from "bits-ui";
 
-	function ConfigDisplay() {
-		const config = getBitsConfig();
-		const portalTo = config.defaultPortalTo?.current;
-		const locale = config.defaultLocale?.current;
+function ConfigDisplay() {
+	const config = getBitsConfig();
+	const portalTo = config.defaultPortalTo?.current;
+	const locale = config.defaultLocale?.current;
 
-		return {
-			portalTo: portalTo ?? "undefined",
-			locale: locale ?? "undefined",
-		};
-	}
+	return {
+		portalTo: portalTo ?? "undefined",
+		locale: locale ?? "undefined",
+	};
+}
 
-	const noConfigResult = ConfigDisplay();
+const noConfigResult = ConfigDisplay();
 </script>
 
 <!-- no config (baseline) -->

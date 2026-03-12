@@ -1,37 +1,37 @@
 <script lang="ts">
-	import { boxWith, mergeProps } from "svelte-toolbelt";
-	import type { CalendarYearSelectProps } from "../types.js";
-	import { CalendarYearSelectState } from "../calendar.svelte.js";
-	import { createId } from "$lib/internal/create-id.js";
+import { boxWith, mergeProps } from "svelte-toolbelt";
+import type { CalendarYearSelectProps } from "../types.js";
+import { CalendarYearSelectState } from "../calendar.svelte.js";
+import { createId } from "$lib/internal/create-id.js";
 
-	const uid = $props.id();
+const uid = $props.id();
 
-	let {
-		children,
-		child,
-		ref = $bindable(null),
-		id = createId(uid),
-		years,
-		yearFormat = "numeric",
-		disabled = false,
-		"aria-label": ariaLabel = "Select a year",
-		...restProps
-	}: CalendarYearSelectProps = $props();
+let {
+	children,
+	child,
+	ref = $bindable(null),
+	id = createId(uid),
+	years,
+	yearFormat = "numeric",
+	disabled = false,
+	"aria-label": ariaLabel = "Select a year",
+	...restProps
+}: CalendarYearSelectProps = $props();
 
-	const yearSelectState = CalendarYearSelectState.create({
-		id: boxWith(() => id),
-		ref: boxWith(
-			() => ref,
-			(v) => (ref = v)
-		),
-		years: boxWith(() => years),
-		yearFormat: boxWith(() => yearFormat),
-		disabled: boxWith(() => Boolean(disabled)),
-	});
+const yearSelectState = CalendarYearSelectState.create({
+	id: boxWith(() => id),
+	ref: boxWith(
+		() => ref,
+		(v) => (ref = v),
+	),
+	years: boxWith(() => years),
+	yearFormat: boxWith(() => yearFormat),
+	disabled: boxWith(() => Boolean(disabled)),
+});
 
-	const mergedProps = $derived(
-		mergeProps(restProps, yearSelectState.props, { "aria-label": ariaLabel })
-	);
+const mergedProps = $derived(
+	mergeProps(restProps, yearSelectState.props, { "aria-label": ariaLabel }),
+);
 </script>
 
 {#if child}

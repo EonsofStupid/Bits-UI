@@ -1,5 +1,5 @@
 <script lang="ts">
-	import ComboboxSingleTest from "../tests/combobox/combobox-test.svelte";
+import ComboboxSingleTest from "../tests/combobox/combobox-test.svelte";
 </script>
 
 <ComboboxSingleTest

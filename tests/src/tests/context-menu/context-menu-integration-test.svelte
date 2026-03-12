@@ -1,18 +1,21 @@
 <script lang="ts" module>
-	import { ContextMenu, Dialog, DropdownMenu } from "bits-ui";
-	export type ContextMenuTestProps = ContextMenu.RootProps & {
-		checked?: boolean;
-		subChecked?: boolean;
-		radio?: string;
-		subRadio?: string;
-		open?: boolean;
-		group?: string[];
-		contentProps?: Omit<ContextMenu.ContentProps, "children" | "child">;
-		portalProps?: Omit<ContextMenu.PortalProps, "children" | "child">;
-		subTriggerProps?: Omit<ContextMenu.SubTriggerProps, "children" | "child">;
-		checkboxGroupProps?: Omit<ContextMenu.CheckboxGroupProps, "children" | "child" | "value">;
-		openFocusOverride?: boolean;
-	};
+import { ContextMenu, Dialog, DropdownMenu } from "bits-ui";
+export type ContextMenuTestProps = ContextMenu.RootProps & {
+	checked?: boolean;
+	subChecked?: boolean;
+	radio?: string;
+	subRadio?: string;
+	open?: boolean;
+	group?: string[];
+	contentProps?: Omit<ContextMenu.ContentProps, "children" | "child">;
+	portalProps?: Omit<ContextMenu.PortalProps, "children" | "child">;
+	subTriggerProps?: Omit<ContextMenu.SubTriggerProps, "children" | "child">;
+	checkboxGroupProps?: Omit<
+		ContextMenu.CheckboxGroupProps,
+		"children" | "child" | "value"
+	>;
+	openFocusOverride?: boolean;
+};
 </script>
 
 {#snippet contextMenu({ id }: { id: string })}

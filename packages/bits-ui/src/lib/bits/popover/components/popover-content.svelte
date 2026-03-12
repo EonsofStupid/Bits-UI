@@ -1,55 +1,55 @@
 <script lang="ts">
-	import { boxWith, mergeProps } from "svelte-toolbelt";
-	import type { PopoverContentProps } from "../types.js";
-	import { PopoverContentState } from "../popover.svelte.js";
-	import PopperLayer from "$lib/bits/utilities/popper-layer/popper-layer.svelte";
-	import { noop } from "$lib/internal/noop.js";
-	import { createId } from "$lib/internal/create-id.js";
-	import { getFloatingContentCSSVars } from "$lib/internal/floating-svelte/floating-utils.svelte.js";
-	import PopperLayerForceMount from "$lib/bits/utilities/popper-layer/popper-layer-force-mount.svelte";
+import { boxWith, mergeProps } from "svelte-toolbelt";
+import type { PopoverContentProps } from "../types.js";
+import { PopoverContentState } from "../popover.svelte.js";
+import PopperLayer from "$lib/bits/utilities/popper-layer/popper-layer.svelte";
+import { noop } from "$lib/internal/noop.js";
+import { createId } from "$lib/internal/create-id.js";
+import { getFloatingContentCSSVars } from "$lib/internal/floating-svelte/floating-utils.svelte.js";
+import PopperLayerForceMount from "$lib/bits/utilities/popper-layer/popper-layer-force-mount.svelte";
 
-	const uid = $props.id();
+const uid = $props.id();
 
-	let {
-		child,
-		children,
-		ref = $bindable(null),
-		id = createId(uid),
-		forceMount = false,
-		onOpenAutoFocus = noop,
-		onCloseAutoFocus = noop,
-		onEscapeKeydown = noop,
-		onInteractOutside = noop,
-		trapFocus = true,
-		preventScroll = false,
-		customAnchor = null,
-		style,
-		...restProps
-	}: PopoverContentProps = $props();
+let {
+	child,
+	children,
+	ref = $bindable(null),
+	id = createId(uid),
+	forceMount = false,
+	onOpenAutoFocus = noop,
+	onCloseAutoFocus = noop,
+	onEscapeKeydown = noop,
+	onInteractOutside = noop,
+	trapFocus = true,
+	preventScroll = false,
+	customAnchor = null,
+	style,
+	...restProps
+}: PopoverContentProps = $props();
 
-	const contentState = PopoverContentState.create({
-		id: boxWith(() => id),
-		ref: boxWith(
-			() => ref,
-			(v) => (ref = v)
-		),
-		onInteractOutside: boxWith(() => onInteractOutside),
-		onEscapeKeydown: boxWith(() => onEscapeKeydown),
-		customAnchor: boxWith(() => customAnchor),
-	});
+const contentState = PopoverContentState.create({
+	id: boxWith(() => id),
+	ref: boxWith(
+		() => ref,
+		(v) => (ref = v),
+	),
+	onInteractOutside: boxWith(() => onInteractOutside),
+	onEscapeKeydown: boxWith(() => onEscapeKeydown),
+	customAnchor: boxWith(() => customAnchor),
+});
 
-	const mergedProps = $derived(mergeProps(restProps, contentState.props));
+const mergedProps = $derived(mergeProps(restProps, contentState.props));
 
-	// respect user's trapFocus setting, but disable when hover-opened without interaction
-	const effectiveTrapFocus = $derived(trapFocus && contentState.shouldTrapFocus);
+// respect user's trapFocus setting, but disable when hover-opened without interaction
+const effectiveTrapFocus = $derived(trapFocus && contentState.shouldTrapFocus);
 
-	// prevent auto-focus when opened via hover until user interacts
-	function handleOpenAutoFocus(e: Event) {
-		if (!contentState.shouldTrapFocus) {
-			e.preventDefault();
-		}
-		onOpenAutoFocus(e);
+// prevent auto-focus when opened via hover until user interacts
+function handleOpenAutoFocus(e: Event) {
+	if (!contentState.shouldTrapFocus) {
+		e.preventDefault();
 	}
+	onOpenAutoFocus(e);
+}
 </script>
 
 {#if forceMount}

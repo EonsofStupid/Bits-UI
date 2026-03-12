@@ -1,57 +1,57 @@
 <script lang="ts">
-	import { boxWith, mergeProps } from "svelte-toolbelt";
-	import { untrack, type Snippet } from "svelte";
-	import type { NavigationMenuContentProps } from "../types.js";
-	import {
-		NavigationMenuItemContext,
-		NavigationMenuItemState,
-		NavigationMenuContentImplState,
-	} from "../navigation-menu.svelte.js";
-	import { noop } from "$lib/internal/noop.js";
-	import { createId } from "$lib/internal/create-id.js";
-	import DismissibleLayer from "$lib/bits/utilities/dismissible-layer/dismissible-layer.svelte";
-	import EscapeLayer from "$lib/bits/utilities/escape-layer/escape-layer.svelte";
+import { boxWith, mergeProps } from "svelte-toolbelt";
+import { untrack, type Snippet } from "svelte";
+import type { NavigationMenuContentProps } from "../types.js";
+import {
+	NavigationMenuItemContext,
+	NavigationMenuItemState,
+	NavigationMenuContentImplState,
+} from "../navigation-menu.svelte.js";
+import { noop } from "$lib/internal/noop.js";
+import { createId } from "$lib/internal/create-id.js";
+import DismissibleLayer from "$lib/bits/utilities/dismissible-layer/dismissible-layer.svelte";
+import EscapeLayer from "$lib/bits/utilities/escape-layer/escape-layer.svelte";
 
-	const uid = $props.id();
+const uid = $props.id();
 
-	let {
-		ref = $bindable(null),
-		id = createId(uid),
-		child: childProp,
-		children: childrenProp,
-		onInteractOutside = noop,
-		onFocusOutside = noop,
-		onEscapeKeydown = noop,
-		escapeKeydownBehavior = "close",
-		interactOutsideBehavior = "close",
-		itemState,
-		onRefChange,
-		...restProps
-	}: Omit<NavigationMenuContentProps, "child"> & {
-		itemState?: NavigationMenuItemState;
-		onRefChange?: (ref: HTMLElement | null) => void;
-		child?: Snippet<[{ props: Record<string, unknown> }]>;
-	} = $props();
+let {
+	ref = $bindable(null),
+	id = createId(uid),
+	child: childProp,
+	children: childrenProp,
+	onInteractOutside = noop,
+	onFocusOutside = noop,
+	onEscapeKeydown = noop,
+	escapeKeydownBehavior = "close",
+	interactOutsideBehavior = "close",
+	itemState,
+	onRefChange,
+	...restProps
+}: Omit<NavigationMenuContentProps, "child"> & {
+	itemState?: NavigationMenuItemState;
+	onRefChange?: (ref: HTMLElement | null) => void;
+	child?: Snippet<[{ props: Record<string, unknown> }]>;
+} = $props();
 
-	const contentImplState = NavigationMenuContentImplState.create(
-		{
-			id: boxWith(() => id),
-			ref: boxWith(
-				() => ref,
-				(v) => {
-					ref = v;
-					untrack(() => onRefChange?.(v));
-				}
-			),
-		},
-		itemState
-	);
+const contentImplState = NavigationMenuContentImplState.create(
+	{
+		id: boxWith(() => id),
+		ref: boxWith(
+			() => ref,
+			(v) => {
+				ref = v;
+				untrack(() => onRefChange?.(v));
+			},
+		),
+	},
+	itemState,
+);
 
-	if (itemState) {
-		NavigationMenuItemContext.set(itemState);
-	}
+if (itemState) {
+	NavigationMenuItemContext.set(itemState);
+}
 
-	const mergedProps = $derived(mergeProps(restProps, contentImplState.props));
+const mergedProps = $derived(mergeProps(restProps, contentImplState.props));
 </script>
 
 <DismissibleLayer

@@ -1,9 +1,9 @@
 <script lang="ts" module>
-	import { Toolbar, type WithoutChildrenOrChild } from "bits-ui";
-	export type ToolbarTestProps = WithoutChildrenOrChild<Toolbar.RootProps> & {
-		multipleProps?: Partial<Toolbar.GroupProps>;
-		singleProps?: Partial<Toolbar.GroupProps>;
-	};
+import { Toolbar, type WithoutChildrenOrChild } from "bits-ui";
+export type ToolbarTestProps = WithoutChildrenOrChild<Toolbar.RootProps> & {
+	multipleProps?: Partial<Toolbar.GroupProps>;
+	singleProps?: Partial<Toolbar.GroupProps>;
+};
 </script>
 
 <script lang="ts">

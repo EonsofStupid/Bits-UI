@@ -1,47 +1,49 @@
 <script lang="ts">
-	import { Tooltip } from "bits-ui";
+import { Tooltip } from "bits-ui";
 
-	type ColumnPayload = {
-		name: string;
-		description: string;
-	};
+type ColumnPayload = {
+	name: string;
+	description: string;
+};
 
-	const boardTether = Tooltip.createTether<ColumnPayload>();
+const boardTether = Tooltip.createTether<ColumnPayload>();
 
-	const columns = [
-		{
-			id: "backlog",
-			label: "Backlog",
-			payload: {
-				name: "Backlog",
-				description: "Unstarted ideas and tasks waiting to be scoped and prioritized.",
-			},
+const columns = [
+	{
+		id: "backlog",
+		label: "Backlog",
+		payload: {
+			name: "Backlog",
+			description:
+				"Unstarted ideas and tasks waiting to be scoped and prioritized.",
 		},
-		{
-			id: "in-progress",
-			label: "In Progress",
-			payload: {
-				name: "In Progress",
-				description: "Active work with an assignee and an expected ship date.",
-			},
+	},
+	{
+		id: "in-progress",
+		label: "In Progress",
+		payload: {
+			name: "In Progress",
+			description: "Active work with an assignee and an expected ship date.",
 		},
-		{
-			id: "blocked",
-			label: "Blocked",
-			payload: {
-				name: "Blocked",
-				description: "Work that cannot move until an external dependency is resolved.",
-			},
+	},
+	{
+		id: "blocked",
+		label: "Blocked",
+		payload: {
+			name: "Blocked",
+			description:
+				"Work that cannot move until an external dependency is resolved.",
 		},
-		{
-			id: "done",
-			label: "Done",
-			payload: {
-				name: "Done",
-				description: "Completed tasks ready for release notes and QA sign-off.",
-			},
+	},
+	{
+		id: "done",
+		label: "Done",
+		payload: {
+			name: "Done",
+			description: "Completed tasks ready for release notes and QA sign-off.",
 		},
-	];
+	},
+];
 </script>
 
 <Tooltip.Provider delayDuration={200} skipDelayDuration={600}>

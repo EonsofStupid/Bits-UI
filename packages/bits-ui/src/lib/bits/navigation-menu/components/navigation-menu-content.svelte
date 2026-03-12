@@ -1,33 +1,33 @@
 <script lang="ts">
-	import { boxWith, mergeProps } from "svelte-toolbelt";
-	import { NavigationMenuContentState } from "../navigation-menu.svelte.js";
-	import NavigationMenuContentImpl from "./navigation-menu-content-impl.svelte";
-	import { createId } from "$lib/internal/create-id.js";
-	import type { NavigationMenuContentProps } from "$lib/types.js";
-	import Portal from "$lib/bits/utilities/portal/portal.svelte";
-	import PresenceLayer from "$lib/bits/utilities/presence-layer/presence-layer.svelte";
-	import Mounted from "$lib/bits/utilities/mounted.svelte";
+import { boxWith, mergeProps } from "svelte-toolbelt";
+import { NavigationMenuContentState } from "../navigation-menu.svelte.js";
+import NavigationMenuContentImpl from "./navigation-menu-content-impl.svelte";
+import { createId } from "$lib/internal/create-id.js";
+import type { NavigationMenuContentProps } from "$lib/types.js";
+import Portal from "$lib/bits/utilities/portal/portal.svelte";
+import PresenceLayer from "$lib/bits/utilities/presence-layer/presence-layer.svelte";
+import Mounted from "$lib/bits/utilities/mounted.svelte";
 
-	const uid = $props.id();
+const uid = $props.id();
 
-	let {
-		ref = $bindable(null),
-		id = createId(uid),
-		children,
-		child,
-		forceMount = false,
-		...restProps
-	}: NavigationMenuContentProps = $props();
+let {
+	ref = $bindable(null),
+	id = createId(uid),
+	children,
+	child,
+	forceMount = false,
+	...restProps
+}: NavigationMenuContentProps = $props();
 
-	const contentState = NavigationMenuContentState.create({
-		id: boxWith(() => id),
-		ref: boxWith(
-			() => ref,
-			(v) => (ref = v)
-		),
-	});
+const contentState = NavigationMenuContentState.create({
+	id: boxWith(() => id),
+	ref: boxWith(
+		() => ref,
+		(v) => (ref = v),
+	),
+});
 
-	const mergedProps = $derived(mergeProps(restProps, contentState.props));
+const mergedProps = $derived(mergeProps(restProps, contentState.props));
 </script>
 
 <Portal

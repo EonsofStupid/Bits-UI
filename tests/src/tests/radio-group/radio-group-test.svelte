@@ -1,16 +1,16 @@
 <script lang="ts" module>
-	import { RadioGroup } from "bits-ui";
-	export type Item = {
-		value: string;
-		disabled: boolean;
-	};
+import { RadioGroup } from "bits-ui";
+export type Item = {
+	value: string;
+	disabled: boolean;
+};
 
-	export type RadioGroupTestProps = Omit<
-		RadioGroup.RootProps,
-		"child" | "children" | "asChild"
-	> & {
-		items: Item[];
-	};
+export type RadioGroupTestProps = Omit<
+	RadioGroup.RootProps,
+	"child" | "children" | "asChild"
+> & {
+	items: Item[];
+};
 </script>
 
 <script lang="ts">

@@ -40,7 +40,7 @@ export class PresenceManager {
 						this.#opts.onComplete?.();
 					}
 				});
-			}
+			},
 		);
 	}
 

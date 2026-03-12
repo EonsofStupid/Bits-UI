@@ -63,7 +63,7 @@ abstract class ToggleGroupBaseState {
 				"data-orientation": this.opts.orientation.current,
 				"data-disabled": boolToEmptyStrOrUndef(this.opts.disabled.current),
 				...this.attachment,
-			}) as const
+			}) as const,
 	);
 }
 
@@ -124,7 +124,9 @@ class ToggleGroupMultipleState extends ToggleGroupBaseState {
 
 	toggleItem(item: string, id: string) {
 		if (this.includesItem(item)) {
-			this.opts.value.current = this.opts.value.current.filter((v) => v !== item);
+			this.opts.value.current = this.opts.value.current.filter(
+				(v) => v !== item,
+			);
 		} else {
 			this.opts.value.current = [...this.opts.value.current, item];
 			this.rovingFocusGroup.setCurrentTabStopId(id);
@@ -172,12 +174,16 @@ export class ToggleGroupItemState {
 	readonly root: ToggleGroup;
 	readonly attachment: RefAttachment;
 	readonly #isDisabled = $derived.by(
-		() => this.opts.disabled.current || this.root.opts.disabled.current
+		() => this.opts.disabled.current || this.root.opts.disabled.current,
 	);
-	readonly isPressed = $derived.by(() => this.root.includesItem(this.opts.value.current));
+	readonly isPressed = $derived.by(() =>
+		this.root.includesItem(this.opts.value.current),
+	);
 
 	readonly #ariaChecked = $derived.by(() => {
-		return this.root.isMulti ? undefined : getAriaChecked(this.isPressed, false);
+		return this.root.isMulti
+			? undefined
+			: getAriaChecked(this.isPressed, false);
 	});
 
 	readonly #ariaPressed = $derived.by(() => {
@@ -192,7 +198,9 @@ export class ToggleGroupItemState {
 			if (!this.root.opts.rovingFocus.current) {
 				this.#tabIndex = 0;
 			} else {
-				this.#tabIndex = this.root.rovingFocusGroup.getTabIndex(this.opts.ref.current);
+				this.#tabIndex = this.root.rovingFocusGroup.getTabIndex(
+					this.opts.ref.current,
+				);
 			}
 		});
 
@@ -246,7 +254,7 @@ export class ToggleGroupItemState {
 				onclick: this.onclick,
 				onkeydown: this.onkeydown,
 				...this.attachment,
-			}) as const
+			}) as const,
 	);
 }
 

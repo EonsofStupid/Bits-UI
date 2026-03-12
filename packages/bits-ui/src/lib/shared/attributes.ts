@@ -18,7 +18,8 @@ export type BitsSpanAttributes = HTMLAttributes<HTMLSpanElement>;
 export type BitsHeadingAttributes = HTMLAttributes<HTMLHeadingElement>;
 export type BitsUListAttributes = HTMLAttributes<HTMLUListElement>;
 export type BitsElementAttributes = HTMLAttributes<HTMLElement>;
-export type BitsTableSectionAttributes = HTMLAttributes<HTMLTableSectionElement>;
+export type BitsTableSectionAttributes =
+	HTMLAttributes<HTMLTableSectionElement>;
 export type BitsTableRowAttributes = HTMLAttributes<HTMLTableRowElement>;
 export type BitsSVGElementAttributes = SVGAttributes<SVGElement>;
 export type BitsSelectAttributes = HTMLSelectAttributes;
@@ -36,18 +37,24 @@ export type BitsPrimitiveDivAttributes = BitsPrimitive<BitsDivAttributes>;
 export type BitsPrimitiveInputAttributes = BitsPrimitive<HTMLInputAttributes>;
 export type BitsPrimitiveSpanAttributes = BitsPrimitive<BitsSpanAttributes>;
 export type BitsPrimitiveImgAttributes = BitsPrimitive<HTMLImgAttributes>;
-export type BitsPrimitiveHeadingAttributes = BitsPrimitive<BitsHeadingAttributes>;
+export type BitsPrimitiveHeadingAttributes =
+	BitsPrimitive<BitsHeadingAttributes>;
 export type BitsPrimitiveLabelAttributes = BitsPrimitive<HTMLLabelAttributes>;
-export type BitsPrimitiveSVGAttributes = BitsPrimitive<BitsSVGElementAttributes>;
+export type BitsPrimitiveSVGAttributes =
+	BitsPrimitive<BitsSVGElementAttributes>;
 export type BitsPrimitiveAnchorAttributes = BitsPrimitive<HTMLAnchorAttributes>;
 export type BitsPrimitiveLiAttributes = BitsPrimitive<HTMLLiAttributes>;
-export type BitsPrimitiveElementAttributes = BitsPrimitive<BitsElementAttributes>;
+export type BitsPrimitiveElementAttributes =
+	BitsPrimitive<BitsElementAttributes>;
 export type BitsPrimitiveUListAttributes = BitsPrimitive<BitsUListAttributes>;
 export type BitsPrimitiveTdAttributes = BitsPrimitive<HTMLTdAttributes>;
 export type BitsPrimitiveThAttributes = BitsPrimitive<HTMLThAttributes>;
 export type BitsPrimitiveTableAttributes = BitsPrimitive<HTMLTableAttributes>;
-export type BitsPrimitiveTbodyAttributes = BitsPrimitive<BitsTableSectionAttributes>;
+export type BitsPrimitiveTbodyAttributes =
+	BitsPrimitive<BitsTableSectionAttributes>;
 export type BitsPrimitiveTrAttributes = BitsPrimitive<BitsTableRowAttributes>;
-export type BitsPrimitiveTheadAttributes = BitsPrimitive<BitsTableSectionAttributes>;
-export type BitsPrimitiveHeaderAttributes = BitsPrimitive<BitsElementAttributes>;
+export type BitsPrimitiveTheadAttributes =
+	BitsPrimitive<BitsTableSectionAttributes>;
+export type BitsPrimitiveHeaderAttributes =
+	BitsPrimitive<BitsElementAttributes>;
 export type BitsPrimitiveSelectAttributes = BitsPrimitive<BitsSelectAttributes>;

@@ -1,18 +1,18 @@
 <script lang="ts">
-	import { Progress } from "bits-ui";
-	import { onMount } from "svelte";
-	import { cubicInOut } from "svelte/easing";
-	import { Tween } from "svelte/motion";
+import { Progress } from "bits-ui";
+import { onMount } from "svelte";
+import { cubicInOut } from "svelte/easing";
+import { Tween } from "svelte/motion";
 
-	const tween = new Tween(13, { duration: 1000, easing: cubicInOut });
-	const labelId = $props.id();
+const tween = new Tween(13, { duration: 1000, easing: cubicInOut });
+const labelId = $props.id();
 
-	onMount(() => {
-		const timer = setTimeout(() => tween.set(66), 500);
-		return () => {
-			clearTimeout(timer);
-		};
-	});
+onMount(() => {
+	const timer = setTimeout(() => tween.set(66), 500);
+	return () => {
+		clearTimeout(timer);
+	};
+});
 </script>
 
 <div class="flex w-[60%] flex-col gap-2">

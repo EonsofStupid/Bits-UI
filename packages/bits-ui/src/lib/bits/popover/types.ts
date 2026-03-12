@@ -1,5 +1,11 @@
-import type { ArrowProps, ArrowPropsWithoutHTML } from "../utilities/arrow/types.js";
-import type { PopperLayerProps, PopperLayerStaticProps } from "../utilities/popper-layer/types.js";
+import type {
+	ArrowProps,
+	ArrowPropsWithoutHTML,
+} from "../utilities/arrow/types.js";
+import type {
+	PopperLayerProps,
+	PopperLayerStaticProps,
+} from "../utilities/popper-layer/types.js";
 import type {
 	OnChangeFn,
 	WithChild,
@@ -11,7 +17,10 @@ import type {
 	BitsPrimitiveButtonAttributes,
 	BitsPrimitiveDivAttributes,
 } from "$lib/shared/attributes.js";
-import type { FloatingContentSnippetProps, StaticContentSnippetProps } from "$lib/shared/types.js";
+import type {
+	FloatingContentSnippetProps,
+	StaticContentSnippetProps,
+} from "$lib/shared/types.js";
 import type { PortalProps } from "$lib/types.js";
 import type { PresenceLayerProps } from "../utilities/presence-layer/types.js";
 
@@ -42,10 +51,11 @@ export type PopoverContentPropsWithoutHTML = WithChildNoChildrenSnippetProps<
 export type PopoverContentProps = PopoverContentPropsWithoutHTML &
 	Without<BitsPrimitiveDivAttributes, PopoverContentPropsWithoutHTML>;
 
-export type PopoverContentStaticPropsWithoutHTML = WithChildNoChildrenSnippetProps<
-	Omit<PopperLayerStaticProps, "content" | "loop">,
-	StaticContentSnippetProps
->;
+export type PopoverContentStaticPropsWithoutHTML =
+	WithChildNoChildrenSnippetProps<
+		Omit<PopperLayerStaticProps, "content" | "loop">,
+		StaticContentSnippetProps
+	>;
 
 export type PopoverContentStaticProps = PopoverContentStaticPropsWithoutHTML &
 	Without<BitsPrimitiveDivAttributes, PopoverContentStaticPropsWithoutHTML>;

@@ -1,12 +1,12 @@
 <script lang="ts">
-	import type { BitsPrimitiveSpanAttributes, WithChildren } from "bits-ui";
-	import { cn } from "$lib/utils/styles.js";
+import type { BitsPrimitiveSpanAttributes, WithChildren } from "bits-ui";
+import { cn } from "$lib/utils/styles.js";
 
-	let {
-		children,
-		class: className,
-		...restProps
-	}: WithChildren<BitsPrimitiveSpanAttributes> = $props();
+let {
+	children,
+	class: className,
+	...restProps
+}: WithChildren<BitsPrimitiveSpanAttributes> = $props();
 </script>
 
 <span

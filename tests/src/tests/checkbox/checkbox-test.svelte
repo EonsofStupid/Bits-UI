@@ -1,13 +1,13 @@
 <script lang="ts">
-	import { Checkbox } from "bits-ui";
+import { Checkbox } from "bits-ui";
 
-	let {
-		checked = false,
-		onFormSubmit,
-		...restProps
-	}: Checkbox.RootProps & {
-		onFormSubmit?: (fd: FormData) => void;
-	} = $props();
+let {
+	checked = false,
+	onFormSubmit,
+	...restProps
+}: Checkbox.RootProps & {
+	onFormSubmit?: (fd: FormData) => void;
+} = $props();
 </script>
 
 <main>

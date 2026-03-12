@@ -305,7 +305,9 @@ export type DateRangePickerRootPropsWithoutHTML = WithChild<{
 	 *
 	 * @default "long"
 	 */
-	monthFormat?: Intl.DateTimeFormatOptions["month"] | ((month: number) => string);
+	monthFormat?:
+		| Intl.DateTimeFormatOptions["month"]
+		| ((month: number) => string);
 
 	/**
 	 * The format of the year names in the calendar.
@@ -338,10 +340,17 @@ export type {
 	DateRangeFieldSegmentProps as DateRangePickerSegmentProps,
 } from "$lib/bits/date-range-field/types.js";
 
-export type DateRangePickerCalendarPropsWithoutHTML = WithChild<{}, CalendarRootSnippetProps>;
+export type DateRangePickerCalendarPropsWithoutHTML = WithChild<
+	{},
+	CalendarRootSnippetProps
+>;
 
-export type DateRangePickerCalendarProps = DateRangePickerCalendarPropsWithoutHTML &
-	Without<BitsPrimitiveDivAttributes, DateRangePickerCalendarPropsWithoutHTML>;
+export type DateRangePickerCalendarProps =
+	DateRangePickerCalendarPropsWithoutHTML &
+		Without<
+			BitsPrimitiveDivAttributes,
+			DateRangePickerCalendarPropsWithoutHTML
+		>;
 
 export type {
 	RangeCalendarCellPropsWithoutHTML as DateRangePickerCellPropsWithoutHTML,

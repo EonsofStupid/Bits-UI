@@ -1,7 +1,7 @@
 <script lang="ts">
-	import { RatingGroup } from "bits-ui";
-	import Star from "phosphor-svelte/lib/Star";
-	let value = $state(3);
+import { RatingGroup } from "bits-ui";
+import Star from "phosphor-svelte/lib/Star";
+let value = $state(3);
 </script>
 
 <RatingGroup.Root bind:value max={5} class="flex gap-1">

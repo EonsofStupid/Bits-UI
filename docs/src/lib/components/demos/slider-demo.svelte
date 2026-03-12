@@ -1,8 +1,8 @@
 <script lang="ts">
-	import { Slider } from "bits-ui";
-	import { cn } from "$lib/utils/styles.js";
+import { Slider } from "bits-ui";
+import { cn } from "$lib/utils/styles.js";
 
-	let value = $state(50);
+let value = $state(50);
 </script>
 
 <div class="w-full md:max-w-[280px]">

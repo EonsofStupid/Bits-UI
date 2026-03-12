@@ -1,16 +1,16 @@
 <script lang="ts">
-	import { Label, Switch, type WithoutChildrenOrChild, useId } from "bits-ui";
-	import DemoContainer from "../demo-container.svelte";
+import { Label, Switch, type WithoutChildrenOrChild, useId } from "bits-ui";
+import DemoContainer from "../demo-container.svelte";
 
-	let {
-		id = useId(),
-		checked = $bindable(false),
-		ref = $bindable(null),
-		labelText,
-		...restProps
-	}: WithoutChildrenOrChild<Switch.RootProps> & {
-		labelText: string;
-	} = $props();
+let {
+	id = useId(),
+	checked = $bindable(false),
+	ref = $bindable(null),
+	labelText,
+	...restProps
+}: WithoutChildrenOrChild<Switch.RootProps> & {
+	labelText: string;
+} = $props();
 </script>
 
 <DemoContainer size="xs" wrapperClass="rounded-bl-card rounded-br-card">

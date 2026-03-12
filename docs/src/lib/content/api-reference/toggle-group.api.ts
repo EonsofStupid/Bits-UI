@@ -1,11 +1,17 @@
-import type { ToggleGroupItemPropsWithoutHTML, ToggleGroupRootPropsWithoutHTML } from "bits-ui";
+import type {
+	ToggleGroupItemPropsWithoutHTML,
+	ToggleGroupRootPropsWithoutHTML,
+} from "bits-ui";
 import {
 	OnChangeStringOrArrayProp,
 	OrientationProp,
 	StringOrArrayStringProp,
 } from "./extended-types/shared/index.js";
 import { ToggleRootStateDataAttr } from "./extended-types/toggle/index.js";
-import { typeSingleOrMultipleProp, withChildProps } from "$lib/content/api-reference/shared.js";
+import {
+	typeSingleOrMultipleProp,
+	withChildProps,
+} from "$lib/content/api-reference/shared.js";
 import {
 	defineBooleanProp,
 	defineComponentApiSchema,
@@ -41,7 +47,8 @@ const root = defineComponentApiSchema<ToggleGroupRootPropsWithoutHTML>({
 		}),
 		loop: defineBooleanProp({
 			default: true,
-			description: "Whether or not the toggle group should loop when navigating.",
+			description:
+				"Whether or not the toggle group should loop when navigating.",
 		}),
 		orientation: defineEnumProp({
 			options: ["horizontal", "vertical"],
@@ -51,7 +58,8 @@ const root = defineComponentApiSchema<ToggleGroupRootPropsWithoutHTML>({
 		}),
 		rovingFocus: defineBooleanProp({
 			default: true,
-			description: "Whether or not the toggle group should use roving focus when navigating.",
+			description:
+				"Whether or not the toggle group should use roving focus when navigating.",
 		}),
 		...withChildProps({ elType: "HTMLDivElement" }),
 	},

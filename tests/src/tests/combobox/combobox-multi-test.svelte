@@ -1,28 +1,28 @@
 <script lang="ts" module>
-	import {
-		Combobox,
-		type ComboboxMultipleRootProps,
-		type WithoutChildren,
-		type WithoutChildrenOrChild,
-	} from "bits-ui";
+import {
+	Combobox,
+	type ComboboxMultipleRootProps,
+	type WithoutChildren,
+	type WithoutChildrenOrChild,
+} from "bits-ui";
 
-	export type Item = {
-		value: string;
-		label: string;
-		disabled?: boolean;
-	};
+export type Item = {
+	value: string;
+	label: string;
+	disabled?: boolean;
+};
 
-	export type ComboboxMultipleTestProps = Omit<
-		WithoutChildren<ComboboxMultipleRootProps>,
-		"type"
-	> & {
-		contentProps?: WithoutChildrenOrChild<Combobox.ContentProps>;
-		portalProps?: WithoutChildrenOrChild<Combobox.PortalProps>;
-		inputProps?: WithoutChildrenOrChild<Combobox.InputProps>;
-		items: Item[];
-		searchValue?: string;
-		onFormSubmit?: (fd: FormData) => void;
-	};
+export type ComboboxMultipleTestProps = Omit<
+	WithoutChildren<ComboboxMultipleRootProps>,
+	"type"
+> & {
+	contentProps?: WithoutChildrenOrChild<Combobox.ContentProps>;
+	portalProps?: WithoutChildrenOrChild<Combobox.PortalProps>;
+	inputProps?: WithoutChildrenOrChild<Combobox.InputProps>;
+	items: Item[];
+	searchValue?: string;
+	onFormSubmit?: (fd: FormData) => void;
+};
 </script>
 
 <script lang="ts">

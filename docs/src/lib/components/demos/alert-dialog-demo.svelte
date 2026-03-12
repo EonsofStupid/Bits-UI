@@ -1,5 +1,5 @@
 <script lang="ts">
-	import { AlertDialog } from "bits-ui";
+import { AlertDialog } from "bits-ui";
 </script>
 
 <AlertDialog.Root>

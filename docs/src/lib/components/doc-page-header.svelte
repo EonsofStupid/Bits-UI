@@ -1,40 +1,40 @@
 <script lang="ts">
-	import type { DocMetadata } from "$lib/utils/docs.js";
-	import PageHeaderDescription from "./page-header/page-header-description.svelte";
-	import PageHeaderHeading from "./page-header/page-header-heading.svelte";
-	import PageHeader from "./page-header/page-header.svelte";
-	import Copy from "phosphor-svelte/lib/Copy";
-	import { CopyToClipboard } from "$lib/utils/copy-to-clipboard.svelte.js";
-	import { page } from "$app/state";
-	import Check from "phosphor-svelte/lib/Check";
-	import CopyPageDropdown from "./copy-page-dropdown.svelte";
-	import { watch } from "runed";
-	import SidebarSponsorMobile from "./sidebar-sponsor-mobile.svelte";
+import type { DocMetadata } from "$lib/utils/docs.js";
+import PageHeaderDescription from "./page-header/page-header-description.svelte";
+import PageHeaderHeading from "./page-header/page-header-heading.svelte";
+import PageHeader from "./page-header/page-header.svelte";
+import Copy from "phosphor-svelte/lib/Copy";
+import { CopyToClipboard } from "$lib/utils/copy-to-clipboard.svelte.js";
+import { page } from "$app/state";
+import Check from "phosphor-svelte/lib/Check";
+import CopyPageDropdown from "./copy-page-dropdown.svelte";
+import { watch } from "runed";
+import SidebarSponsorMobile from "./sidebar-sponsor-mobile.svelte";
 
-	let { metadata }: { metadata: DocMetadata } = $props();
+let { metadata }: { metadata: DocMetadata } = $props();
 
-	let text = $state("");
-	const copyState = new CopyToClipboard();
+let text = $state("");
+const copyState = new CopyToClipboard();
 
-	function copyMarkdown() {
-		copyState.setCodeString(text);
-		copyState.copyToClipboard();
-	}
+function copyMarkdown() {
+	copyState.setCodeString(text);
+	copyState.copyToClipboard();
+}
 
-	async function fetchText() {
-		if (text !== "") return;
+async function fetchText() {
+	if (text !== "") return;
 
-		const url = page.url.origin + page.url.pathname + "/llms.txt";
-		const res = await fetch(url);
-		text = await res.text();
-	}
+	const url = page.url.origin + page.url.pathname + "/llms.txt";
+	const res = await fetch(url);
+	text = await res.text();
+}
 
-	watch(
-		() => page.url.pathname,
-		() => {
-			text = "";
-		}
-	);
+watch(
+	() => page.url.pathname,
+	() => {
+		text = "";
+	},
+);
 </script>
 
 <PageHeader>

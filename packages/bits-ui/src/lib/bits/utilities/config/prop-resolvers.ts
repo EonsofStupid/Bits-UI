@@ -9,7 +9,7 @@ import { type BitsConfigState, getBitsConfig } from "./bits-config.js";
  */
 function createPropResolver<T>(
 	configOption: (config: BitsConfigState["opts"]) => { current: T | undefined },
-	fallback: T
+	fallback: T,
 ) {
 	return (getProp: Getter<T | undefined>): ReadableBox<T> => {
 		const config = getBitsConfig();
@@ -31,11 +31,17 @@ function createPropResolver<T>(
  *
  * Default value: `"en"`
  */
-export const resolveLocaleProp = createPropResolver((config) => config.defaultLocale, "en");
+export const resolveLocaleProp = createPropResolver(
+	(config) => config.defaultLocale,
+	"en",
+);
 
 /**
  * Resolves a portal's `to` value using the prop, the config default, or a fallback.
  *
  * Default value: `"body"`
  */
-export const resolvePortalToProp = createPropResolver((config) => config.defaultPortalTo, "body");
+export const resolvePortalToProp = createPropResolver(
+	(config) => config.defaultPortalTo,
+	"body",
+);

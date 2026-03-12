@@ -25,12 +25,16 @@ function setup(props: Partial<ComponentProps<typeof CommandGridTest>> = {}) {
 it("should select the first item by default", async () => {
 	setup();
 
-	await expect.element(page.getByText("Introduction")).toHaveAttribute("data-selected");
+	await expect
+		.element(page.getByText("Introduction"))
+		.toHaveAttribute("data-selected");
 });
 
 it("should allow forcing the selected value", async () => {
 	setup({ value: "Introduction" });
-	await expect.element(page.getByText("Introduction")).toHaveAttribute("data-selected");
+	await expect
+		.element(page.getByText("Introduction"))
+		.toHaveAttribute("data-selected");
 });
 
 it("should render the separator when search is empty and remove it when search is not empty", async () => {
@@ -74,13 +78,17 @@ it("should restore original order when search is cleared", async () => {
 	input.focus();
 	await userEvent.keyboard("d");
 	await expect.element(t.input).toHaveValue("d");
-	await expect.element(page.getByText("Delegation")).toHaveAttribute("data-selected");
+	await expect
+		.element(page.getByText("Delegation"))
+		.toHaveAttribute("data-selected");
 	await expect
 		.element(page.getByTestId("group-a-items").element().children[0])
 		.toHaveTextContent("Delegation");
 	await userEvent.keyboard(kbd.BACKSPACE);
 	await expect.element(t.input).toHaveValue("");
-	await expect.element(page.getByText("Introduction")).toHaveAttribute("data-selected");
+	await expect
+		.element(page.getByText("Introduction"))
+		.toHaveAttribute("data-selected");
 	await expect
 		.element(page.getByTestId("group-a-items").element().children[0])
 		.toHaveTextContent("Introduction");
@@ -92,18 +100,30 @@ it("should hide the group if all items are filtered out", async () => {
 	await userEvent.type(t.input.element(), "radio");
 	await expect.element(page.getByTestId("group-a")).not.toBeVisible();
 	await expect.element(page.getByTestId("group-b")).toBeVisible();
-	await expect.element(page.getByText("Radio Group")).toHaveAttribute("data-selected");
+	await expect
+		.element(page.getByText("Radio Group"))
+		.toHaveAttribute("data-selected");
 });
 
 it("should navigate to the correct column in the next row", async () => {
 	const t = setup();
-	await expect.element(page.getByText("Introduction")).toHaveAttribute("data-selected");
+	await expect
+		.element(page.getByText("Introduction"))
+		.toHaveAttribute("data-selected");
 	await userEvent.type(t.input.element(), kbd.ARROW_DOWN);
-	await expect.element(page.getByText("Calendar")).toHaveAttribute("data-selected");
+	await expect
+		.element(page.getByText("Calendar"))
+		.toHaveAttribute("data-selected");
 	await userEvent.type(t.input.element(), kbd.ARROW_UP);
-	await expect.element(page.getByText("Introduction")).toHaveAttribute("data-selected");
+	await expect
+		.element(page.getByText("Introduction"))
+		.toHaveAttribute("data-selected");
 	await userEvent.type(t.input.element(), kbd.ARROW_RIGHT);
-	await expect.element(page.getByText("Delegation")).toHaveAttribute("data-selected");
+	await expect
+		.element(page.getByText("Delegation"))
+		.toHaveAttribute("data-selected");
 	await userEvent.type(t.input.element(), kbd.ARROW_DOWN);
-	await expect.element(page.getByText("Radio Group")).toHaveAttribute("data-selected");
+	await expect
+		.element(page.getByText("Radio Group"))
+		.toHaveAttribute("data-selected");
 });

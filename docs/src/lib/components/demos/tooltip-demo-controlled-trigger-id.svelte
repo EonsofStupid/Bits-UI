@@ -1,20 +1,20 @@
 <script lang="ts">
-	import { Tooltip } from "bits-ui";
-	import CursorClick from "phosphor-svelte/lib/CursorClick";
+import { Tooltip } from "bits-ui";
+import CursorClick from "phosphor-svelte/lib/CursorClick";
 
-	type StepPayload = {
-		title: string;
-		description: string;
-	};
+type StepPayload = {
+	title: string;
+	description: string;
+};
 
-	const setupTether = Tooltip.createTether<StepPayload>();
-	let open = $state(false);
-	let triggerId = $state<string | null>(null);
+const setupTether = Tooltip.createTether<StepPayload>();
+let open = $state(false);
+let triggerId = $state<string | null>(null);
 
-	function openStep(id: string) {
-		triggerId = id;
-		open = true;
-	}
+function openStep(id: string) {
+	triggerId = id;
+	open = true;
+}
 </script>
 
 <Tooltip.Provider delayDuration={200}>

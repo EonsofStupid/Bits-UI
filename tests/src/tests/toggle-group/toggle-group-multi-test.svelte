@@ -1,15 +1,18 @@
 <script lang="ts" module>
-	import type { MultipleToggleGroupRootProps, WithoutChildrenOrChild } from "bits-ui";
-	import { ToggleGroup } from "bits-ui";
-	export type Item = {
-		value: string;
-		disabled?: boolean;
-	};
+import type {
+	MultipleToggleGroupRootProps,
+	WithoutChildrenOrChild,
+} from "bits-ui";
+import { ToggleGroup } from "bits-ui";
+export type Item = {
+	value: string;
+	disabled?: boolean;
+};
 
-	export type MultipleToggleGroupTestProps =
-		WithoutChildrenOrChild<MultipleToggleGroupRootProps> & {
-			items: Item[];
-		};
+export type MultipleToggleGroupTestProps =
+	WithoutChildrenOrChild<MultipleToggleGroupRootProps> & {
+		items: Item[];
+	};
 </script>
 
 <script lang="ts">

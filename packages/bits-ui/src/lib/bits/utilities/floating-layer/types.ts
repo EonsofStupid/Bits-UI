@@ -79,7 +79,9 @@ export type FloatingLayerContentProps = {
 	 */
 	updatePositionStrategy?: "optimized" | "always";
 
-	content?: Snippet<[{ props: Record<string, unknown>; wrapperProps: Record<string, unknown> }]>;
+	content?: Snippet<
+		[{ props: Record<string, unknown>; wrapperProps: Record<string, unknown> }]
+	>;
 
 	/**
 	 * The positioning strategy to use for the floating element.

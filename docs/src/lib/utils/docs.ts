@@ -7,10 +7,22 @@ import {
 	isBit,
 	isUtility,
 } from "$lib/content/api-reference/index.js";
-import { utilityDocs, componentDocs, docs, typeHelperDocs, policyDocs } from "$content/index.js";
+import {
+	utilityDocs,
+	componentDocs,
+	docs,
+	typeHelperDocs,
+	policyDocs,
+} from "$content/index.js";
 import type { APISchema } from "$lib/content/types.js";
 
-const allDocs = [...docs, ...componentDocs, ...utilityDocs, ...typeHelperDocs, ...policyDocs];
+const allDocs = [
+	...docs,
+	...componentDocs,
+	...utilityDocs,
+	...typeHelperDocs,
+	...policyDocs,
+];
 
 export type DocResolver = () => Promise<{ default: Component; metadata: Doc }>;
 export type DocMetadata = (typeof allDocs)[number];
@@ -24,7 +36,7 @@ function getDocMetadata(slug: string): DocMetadata | undefined {
 }
 
 export async function getDoc(
-	slug: string
+	slug: string,
 ): Promise<{ component: Component; metadata: DocMetadata }> {
 	if (slug === "components") {
 		redirect(303, "/docs/components/accordion");
@@ -55,8 +67,12 @@ export async function getDoc(
 }
 
 export async function getComponentDoc(
-	slug: string
-): Promise<{ component: Component; metadata: DocMetadata; schemas: APISchema[] }> {
+	slug: string,
+): Promise<{
+	component: Component;
+	metadata: DocMetadata;
+	schemas: APISchema[];
+}> {
 	if (slug === "components") {
 		redirect(303, "/docs/components/accordion");
 	}
@@ -90,8 +106,12 @@ export async function getComponentDoc(
 }
 
 export async function getUtilityDoc(
-	slug: string
-): Promise<{ component: Component; metadata: DocMetadata; schemas: APISchema[] }> {
+	slug: string,
+): Promise<{
+	component: Component;
+	metadata: DocMetadata;
+	schemas: APISchema[];
+}> {
 	if (slug === "utilities") {
 		redirect(303, "/docs/utilities/bits-config");
 	}

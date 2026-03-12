@@ -1,14 +1,17 @@
 <script lang="ts" module>
-	import { Menubar } from "bits-ui";
-	export type MenubarMenuProps = Menubar.MenuProps & {
-		id: string;
-		checked?: boolean;
-		subChecked?: boolean;
-		radio?: string;
-		subRadio?: string;
-		open?: boolean;
-		subTriggerProps?: Omit<Menubar.SubTriggerProps, "children" | "child" | "asChild">;
-	};
+import { Menubar } from "bits-ui";
+export type MenubarMenuProps = Menubar.MenuProps & {
+	id: string;
+	checked?: boolean;
+	subChecked?: boolean;
+	radio?: string;
+	subRadio?: string;
+	open?: boolean;
+	subTriggerProps?: Omit<
+		Menubar.SubTriggerProps,
+		"children" | "child" | "asChild"
+	>;
+};
 </script>
 
 <script lang="ts">

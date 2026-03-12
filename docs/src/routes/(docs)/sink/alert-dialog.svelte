@@ -1,24 +1,24 @@
 <script lang="ts">
-	import { AlertDialog } from "bits-ui";
-	import { onDestroy, onMount } from "svelte";
+import { AlertDialog } from "bits-ui";
+import { onDestroy, onMount } from "svelte";
 
-	let {
-		title = $bindable("Loading"),
-		message = $bindable("Please wait while we load your settings"),
-	}: { title: string; message: string } = $props();
+let {
+	title = $bindable("Loading"),
+	message = $bindable("Please wait while we load your settings"),
+}: { title: string; message: string } = $props();
 
-	onMount(() => {
-		console.log("onMount loader");
-	});
+onMount(() => {
+	console.log("onMount loader");
+});
 
-	onDestroy(async () => {
-		console.log("onDestroy loader");
+onDestroy(async () => {
+	console.log("onDestroy loader");
 
-		// Fix
-		// if (document.body.style.pointerEvents === 'none') {
-		// 	document.body.style.pointerEvents = '';
-		// }
-	});
+	// Fix
+	// if (document.body.style.pointerEvents === 'none') {
+	// 	document.body.style.pointerEvents = '';
+	// }
+});
 </script>
 
 <AlertDialog.Root open={true}>

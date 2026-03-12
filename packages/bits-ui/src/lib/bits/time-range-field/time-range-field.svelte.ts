@@ -21,7 +21,10 @@ import type {
 	TimeRangeValidator,
 	TimeValue,
 } from "$lib/shared/date/types.js";
-import { type TimeFormatter, createTimeFormatter } from "$lib/internal/date-time/formatter.js";
+import {
+	type TimeFormatter,
+	createTimeFormatter,
+} from "$lib/internal/date-time/formatter.js";
 import { removeDescriptionElement } from "$lib/internal/date-time/field/helpers.js";
 import { getFirstSegment } from "$lib/internal/date-time/field/segments.js";
 import {
@@ -35,7 +38,7 @@ export const timeRangeFieldAttrs = createBitsAttrs({
 });
 
 export const TimeRangeFieldRootContext = new Context<TimeRangeFieldRootState>(
-	"TimeRangeField.Root"
+	"TimeRangeField.Root",
 );
 
 interface TimeRangeFieldRootStateOpts<T extends TimeValue = Time>
@@ -63,9 +66,11 @@ interface TimeRangeFieldRootStateOpts<T extends TimeValue = Time>
 		}> {}
 
 export class TimeRangeFieldRootState<T extends TimeValue = Time> {
-	static create<T extends TimeValue = Time>(opts: TimeRangeFieldRootStateOpts<T>) {
+	static create<T extends TimeValue = Time>(
+		opts: TimeRangeFieldRootStateOpts<T>,
+	) {
 		return TimeRangeFieldRootContext.set(
-			new TimeRangeFieldRootState(opts) as unknown as TimeRangeFieldRootState
+			new TimeRangeFieldRootState(opts) as unknown as TimeRangeFieldRootState,
 		);
 	}
 	readonly opts: TimeRangeFieldRootStateOpts<T>;
@@ -77,9 +82,15 @@ export class TimeRangeFieldRootState<T extends TimeValue = Time> {
 	fieldNode = $state<HTMLElement | null>(null);
 	labelNode = $state<HTMLElement | null>(null);
 	descriptionNode = $state<HTMLElement | null>(null);
-	readonly startValueComplete = $derived.by(() => this.opts.startValue.current !== undefined);
-	readonly endValueComplete = $derived.by(() => this.opts.endValue.current !== undefined);
-	readonly rangeComplete = $derived(this.startValueComplete && this.endValueComplete);
+	readonly startValueComplete = $derived.by(
+		() => this.opts.startValue.current !== undefined,
+	);
+	readonly endValueComplete = $derived.by(
+		() => this.opts.endValue.current !== undefined,
+	);
+	readonly rangeComplete = $derived(
+		this.startValueComplete && this.endValueComplete,
+	);
 
 	readonly startValueTime = $derived.by(() => {
 		if (!this.opts.startValue.current) return undefined;
@@ -108,7 +119,10 @@ export class TimeRangeFieldRootState<T extends TimeValue = Time> {
 		this.domContext = new DOMContext(this.opts.ref);
 		this.attachment = attachRef(this.opts.ref, (v) => (this.fieldNode = v));
 		onDestroyEffect(() => {
-			removeDescriptionElement(this.descriptionId, this.domContext.getDocument());
+			removeDescriptionElement(
+				this.descriptionId,
+				this.domContext.getDocument(),
+			);
 		});
 
 		$effect(() => {
@@ -133,7 +147,7 @@ export class TimeRangeFieldRootState<T extends TimeValue = Time> {
 					this.opts.startValue.current = undefined;
 					this.opts.endValue.current = undefined;
 				}
-			}
+			},
 		);
 
 		/**
@@ -146,7 +160,7 @@ export class TimeRangeFieldRootState<T extends TimeValue = Time> {
 				if (startValue && this.opts.placeholder.current !== startValue) {
 					this.opts.placeholder.current = startValue;
 				}
-			}
+			},
 		);
 
 		watch(
@@ -178,14 +192,15 @@ export class TimeRangeFieldRootState<T extends TimeValue = Time> {
 					this.opts.value.current.start = undefined;
 					this.opts.value.current.end = undefined;
 				}
-			}
+			},
 		);
 	}
 
 	readonly validationStatus = $derived.by(() => {
 		const value = this.opts.value.current;
 		if (value === undefined) return false as const;
-		if (value.start === undefined || value.end === undefined) return false as const;
+		if (value.start === undefined || value.end === undefined)
+			return false as const;
 
 		const msg = this.opts.validate.current?.({
 			start: value.start,
@@ -241,7 +256,7 @@ export class TimeRangeFieldRootState<T extends TimeValue = Time> {
 				[timeRangeFieldAttrs.root]: "",
 				"data-invalid": boolToEmptyStrOrUndef(this.isInvalid),
 				...this.attachment,
-			}) as const
+			}) as const,
 	);
 }
 
@@ -255,10 +270,16 @@ export class TimeRangeFieldLabelState {
 	readonly root: TimeRangeFieldRootState;
 	readonly attachment: RefAttachment;
 
-	constructor(opts: TimeRangeFieldLabelStateOpts, root: TimeRangeFieldRootState) {
+	constructor(
+		opts: TimeRangeFieldLabelStateOpts,
+		root: TimeRangeFieldRootState,
+	) {
 		this.opts = opts;
 		this.root = root;
-		this.attachment = attachRef(this.opts.ref, (v) => (this.root.labelNode = v));
+		this.attachment = attachRef(
+			this.opts.ref,
+			(v) => (this.root.labelNode = v),
+		);
 	}
 
 	#onclick = () => {
@@ -277,7 +298,7 @@ export class TimeRangeFieldLabelState {
 				[timeRangeFieldAttrs.label]: "",
 				onclick: this.#onclick,
 				...this.attachment,
-			}) as const
+			}) as const,
 	);
 }
 
@@ -291,7 +312,10 @@ interface TimeRangeFieldInputStateOpts<T extends TimeValue = Time>
 		WithRefOpts {}
 
 export class TimeRangeFieldInputState {
-	static create(opts: Omit<TimeRangeFieldInputStateOpts, "value">, type: "start" | "end") {
+	static create(
+		opts: Omit<TimeRangeFieldInputStateOpts, "value">,
+		type: "start" | "end",
+	) {
 		const root = TimeRangeFieldRootContext.get();
 		const fieldState = TimeFieldRootState.create(
 			{
@@ -312,9 +336,12 @@ export class TimeRangeFieldInputState {
 				errorMessageId: root.opts.errorMessageId,
 				isInvalidProp: boxWith(() => root.isInvalid),
 			},
-			root
+			root,
 		);
 
-		return new TimeFieldInputState({ name: opts.name, id: opts.id, ref: opts.ref }, fieldState);
+		return new TimeFieldInputState(
+			{ name: opts.name, id: opts.id, ref: opts.ref },
+			fieldState,
+		);
 	}
 }

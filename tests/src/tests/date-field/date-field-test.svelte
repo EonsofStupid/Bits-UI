@@ -1,8 +1,12 @@
 <script lang="ts" module>
-	import { DateField, type DateFieldRootProps, type WithoutChildrenOrChild } from "bits-ui";
-	export type DateFieldTestProps = WithoutChildrenOrChild<DateFieldRootProps> & {
-		name?: string;
-	};
+import {
+	DateField,
+	type DateFieldRootProps,
+	type WithoutChildrenOrChild,
+} from "bits-ui";
+export type DateFieldTestProps = WithoutChildrenOrChild<DateFieldRootProps> & {
+	name?: string;
+};
 </script>
 
 <script lang="ts">

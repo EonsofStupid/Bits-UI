@@ -1,7 +1,7 @@
 <script lang="ts" module>
-	import { Calendar, type CalendarMultipleRootProps } from "bits-ui";
+import { Calendar, type CalendarMultipleRootProps } from "bits-ui";
 
-	export type CalendarMultiTestProps = CalendarMultipleRootProps;
+export type CalendarMultiTestProps = CalendarMultipleRootProps;
 </script>
 
 <script lang="ts">

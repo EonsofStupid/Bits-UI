@@ -1,12 +1,12 @@
 <script lang="ts" module>
-	import { Dialog, type WithoutChildrenOrChild } from "bits-ui";
-	export type DialogTestProps = Dialog.RootProps & {
-		contentProps?: Omit<Dialog.ContentProps, "asChild" | "child" | "children">;
-		portalProps?: Dialog.PortalProps;
-		titleProps?: WithoutChildrenOrChild<Dialog.TitleProps>;
-		descriptionProps?: WithoutChildrenOrChild<Dialog.DescriptionProps>;
-		withOpenCheck?: boolean;
-	};
+import { Dialog, type WithoutChildrenOrChild } from "bits-ui";
+export type DialogTestProps = Dialog.RootProps & {
+	contentProps?: Omit<Dialog.ContentProps, "asChild" | "child" | "children">;
+	portalProps?: Dialog.PortalProps;
+	titleProps?: WithoutChildrenOrChild<Dialog.TitleProps>;
+	descriptionProps?: WithoutChildrenOrChild<Dialog.DescriptionProps>;
+	withOpenCheck?: boolean;
+};
 </script>
 
 <script lang="ts">

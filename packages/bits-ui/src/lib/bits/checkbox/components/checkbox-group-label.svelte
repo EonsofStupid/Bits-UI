@@ -1,28 +1,28 @@
 <script lang="ts">
-	import { boxWith, mergeProps } from "svelte-toolbelt";
-	import type { CheckboxGroupLabelProps } from "../types.js";
-	import { CheckboxGroupLabelState } from "../checkbox.svelte.js";
-	import { createId } from "$lib/internal/create-id.js";
+import { boxWith, mergeProps } from "svelte-toolbelt";
+import type { CheckboxGroupLabelProps } from "../types.js";
+import { CheckboxGroupLabelState } from "../checkbox.svelte.js";
+import { createId } from "$lib/internal/create-id.js";
 
-	const uid = $props.id();
+const uid = $props.id();
 
-	let {
-		ref = $bindable(null),
-		id = createId(uid),
-		child,
-		children,
-		...restProps
-	}: CheckboxGroupLabelProps = $props();
+let {
+	ref = $bindable(null),
+	id = createId(uid),
+	child,
+	children,
+	...restProps
+}: CheckboxGroupLabelProps = $props();
 
-	const labelState = CheckboxGroupLabelState.create({
-		id: boxWith(() => id),
-		ref: boxWith(
-			() => ref,
-			(v) => (ref = v)
-		),
-	});
+const labelState = CheckboxGroupLabelState.create({
+	id: boxWith(() => id),
+	ref: boxWith(
+		() => ref,
+		(v) => (ref = v),
+	),
+});
 
-	const mergedProps = $derived(mergeProps(restProps, labelState.props));
+const mergedProps = $derived(mergeProps(restProps, labelState.props));
 </script>
 
 {#if child}

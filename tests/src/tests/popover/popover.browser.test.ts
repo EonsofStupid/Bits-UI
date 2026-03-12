@@ -11,14 +11,16 @@ import { expectExists, expectNotExists } from "../browser-utils";
 import { page, userEvent } from "@vitest/browser/context";
 import PopoverMultipleTriggersTest from "./popover-multiple-triggers-test.svelte";
 import PopoverOverlayTest from "./popover-overlay-test.svelte";
-import PopoverHoverTest, { type PopoverHoverTestProps } from "./popover-hover-test.svelte";
+import PopoverHoverTest, {
+	type PopoverHoverTestProps,
+} from "./popover-hover-test.svelte";
 import PopoverHiddenTriggerTabsTest from "./popover-hidden-trigger-tabs-test.svelte";
 
 const kbd = getTestKbd();
 
 function setup(
 	props: PopoverTestProps | PopoverForceMountTestProps = {},
-	component: Component = PopoverTest
+	component: Component = PopoverTest,
 ) {
 	render(component, { ...props });
 
@@ -29,7 +31,10 @@ function setup(
 	return { trigger, getContent };
 }
 
-async function open(props: PopoverTestProps = {}, openWith: "click" | (string & {}) = "click") {
+async function open(
+	props: PopoverTestProps = {},
+	openWith: "click" | (string & {}) = "click",
+) {
 	const t = setup(props);
 	await expectNotExists(t.getContent());
 	if (openWith === "click") {
@@ -70,7 +75,7 @@ it("should apply custom style prop to content (static)", async () => {
 				style: { backgroundColor: "rgb(0, 255, 0)" },
 			},
 		},
-		PopoverForceMountTest
+		PopoverForceMountTest,
 	);
 	await expectExists(t.getContent());
 	const contentEl = t.getContent().element() as HTMLElement;
@@ -118,7 +123,9 @@ it("should close before content visibly jumps to viewport origin when outside in
 
 	await page.getByTestId("trigger").click();
 	await expectExists(page.getByTestId("content"));
-	await expect.element(page.getByTestId("open-binding")).toHaveTextContent("true");
+	await expect
+		.element(page.getByTestId("open-binding"))
+		.toHaveTextContent("true");
 
 	const content = page.getByTestId("content").element() as HTMLElement;
 	const wrapper = content.parentElement as HTMLElement;
@@ -157,7 +164,9 @@ it("should close before content visibly jumps to viewport origin when outside in
 	await page.getByTestId("tab-other").click();
 
 	await expectNotExists(page.getByTestId("content"));
-	await expect.element(page.getByTestId("open-binding")).toHaveTextContent("false");
+	await expect
+		.element(page.getByTestId("open-binding"))
+		.toHaveTextContent("false");
 
 	stopSampling = true;
 	observer.disconnect();
@@ -190,7 +199,9 @@ it("should portal to the body by default", async () => {
 
 it("should portal to a custom element if specified", async () => {
 	const t = await open({ portalProps: { to: "#portal-target" } });
-	const portalTarget = page.getByTestId("portal-target").element() as HTMLElement;
+	const portalTarget = page
+		.getByTestId("portal-target")
+		.element() as HTMLElement;
 	const contentWrapper = t.getContent().element()?.parentElement;
 	expect(contentWrapper?.parentElement).toBe(portalTarget);
 });
@@ -338,7 +349,9 @@ it("should portal overlay along with content by default", async () => {
 
 it("should portal overlay to custom element if specified", async () => {
 	await open({ withOverlay: true, portalProps: { to: "#portal-target" } });
-	const portalTarget = page.getByTestId("portal-target").element() as HTMLElement;
+	const portalTarget = page
+		.getByTestId("portal-target")
+		.element() as HTMLElement;
 	const overlay = page.getByTestId("overlay").element();
 	expect(overlay?.parentElement).toBe(portalTarget);
 });
@@ -347,7 +360,9 @@ it("should render overlay with child snippet", async () => {
 	render(PopoverOverlayTest, { withChild: true });
 	await page.getByTestId("trigger").click();
 	await expectExists(page.getByTestId("overlay-child"));
-	await expect.element(page.getByTestId("overlay-child")).toHaveAttribute("data-popover-overlay");
+	await expect
+		.element(page.getByTestId("overlay-child"))
+		.toHaveAttribute("data-popover-overlay");
 });
 
 it("should pass open snippet prop to overlay child", async () => {
@@ -355,14 +370,19 @@ it("should pass open snippet prop to overlay child", async () => {
 	const trigger = page.getByTestId("trigger");
 	await trigger.click();
 	await expectExists(page.getByTestId("overlay-child"));
-	await expect.element(page.getByTestId("overlay-child")).toHaveAttribute("data-open", "true");
+	await expect
+		.element(page.getByTestId("overlay-child"))
+		.toHaveAttribute("data-open", "true");
 
 	await userEvent.keyboard(kbd.ESCAPE);
 	await expectNotExists(page.getByTestId("overlay-child"));
 });
 
 it("should pass open snippet prop to overlay children", async () => {
-	render(PopoverOverlayTest, { withChild: true, overlayProps: { forceMount: true } });
+	render(PopoverOverlayTest, {
+		withChild: true,
+		overlayProps: { forceMount: true },
+	});
 	const overlayChild = page.getByTestId("overlay-child");
 	await expect.element(overlayChild).toHaveAttribute("data-open", "false");
 
@@ -398,7 +418,9 @@ describe("openOnHover", () => {
 	});
 
 	it("should respect openDelay before opening", async () => {
-		const t = setupHover({ triggerProps: { openOnHover: true, openDelay: 100 } });
+		const t = setupHover({
+			triggerProps: { openOnHover: true, openDelay: 100 },
+		});
 		await expectNotExists(t.getContent());
 
 		await t.trigger.hover();
@@ -410,12 +432,14 @@ describe("openOnHover", () => {
 			async () => {
 				await expectExists(t.getContent());
 			},
-			{ timeout: 200 }
+			{ timeout: 200 },
 		);
 	});
 
 	it("should close on hover out when no interaction", async () => {
-		const t = setupHover({ triggerProps: { openOnHover: true, openDelay: 0, closeDelay: 0 } });
+		const t = setupHover({
+			triggerProps: { openOnHover: true, openDelay: 0, closeDelay: 0 },
+		});
 
 		await t.trigger.hover();
 		await expectExists(t.getContent());
@@ -443,12 +467,14 @@ describe("openOnHover", () => {
 			async () => {
 				await expectNotExists(t.getContent());
 			},
-			{ timeout: 200 }
+			{ timeout: 200 },
 		);
 	});
 
 	it("should stay open when moving from trigger to content (grace area)", async () => {
-		const t = setupHover({ triggerProps: { openOnHover: true, openDelay: 0, closeDelay: 0 } });
+		const t = setupHover({
+			triggerProps: { openOnHover: true, openDelay: 0, closeDelay: 0 },
+		});
 
 		await t.trigger.hover();
 		await expectExists(t.getContent());
@@ -459,7 +485,9 @@ describe("openOnHover", () => {
 	});
 
 	it("should stay open when moving from content back to trigger", async () => {
-		const t = setupHover({ triggerProps: { openOnHover: true, openDelay: 0, closeDelay: 0 } });
+		const t = setupHover({
+			triggerProps: { openOnHover: true, openDelay: 0, closeDelay: 0 },
+		});
 
 		await t.trigger.hover();
 		await expectExists(t.getContent());
@@ -474,7 +502,9 @@ describe("openOnHover", () => {
 	});
 
 	it("should close when leaving content without interaction", async () => {
-		const t = setupHover({ triggerProps: { openOnHover: true, openDelay: 0, closeDelay: 0 } });
+		const t = setupHover({
+			triggerProps: { openOnHover: true, openDelay: 0, closeDelay: 0 },
+		});
 
 		await t.trigger.hover();
 		await expectExists(t.getContent());
@@ -488,7 +518,9 @@ describe("openOnHover", () => {
 	});
 
 	it("should stay open after clicking trigger while hovering (converts to click-opened)", async () => {
-		const t = setupHover({ triggerProps: { openOnHover: true, openDelay: 0, closeDelay: 0 } });
+		const t = setupHover({
+			triggerProps: { openOnHover: true, openDelay: 0, closeDelay: 0 },
+		});
 
 		await t.trigger.hover();
 		await expectExists(t.getContent());
@@ -502,7 +534,9 @@ describe("openOnHover", () => {
 	});
 
 	it("should stay open after clicking inside content (interaction)", async () => {
-		const t = setupHover({ triggerProps: { openOnHover: true, openDelay: 0, closeDelay: 0 } });
+		const t = setupHover({
+			triggerProps: { openOnHover: true, openDelay: 0, closeDelay: 0 },
+		});
 
 		await t.trigger.hover();
 		await expectExists(t.getContent());
@@ -516,7 +550,9 @@ describe("openOnHover", () => {
 	});
 
 	it("should stay open after focusing interactive element inside content", async () => {
-		const t = setupHover({ triggerProps: { openOnHover: true, openDelay: 0, closeDelay: 0 } });
+		const t = setupHover({
+			triggerProps: { openOnHover: true, openDelay: 0, closeDelay: 0 },
+		});
 
 		await t.trigger.hover();
 		await expectExists(t.getContent());
@@ -550,7 +586,9 @@ describe("openOnHover", () => {
 	});
 
 	it("should still open via click when openOnHover is true", async () => {
-		const t = setupHover({ triggerProps: { openOnHover: true, openDelay: 300 } });
+		const t = setupHover({
+			triggerProps: { openOnHover: true, openDelay: 300 },
+		});
 		await expectNotExists(t.getContent());
 
 		// click should open immediately without waiting for hover delay
@@ -559,7 +597,9 @@ describe("openOnHover", () => {
 	});
 
 	it("should still open via keyboard when openOnHover is true", async () => {
-		const t = setupHover({ triggerProps: { openOnHover: true, openDelay: 300 } });
+		const t = setupHover({
+			triggerProps: { openOnHover: true, openDelay: 300 },
+		});
 		await expectNotExists(t.getContent());
 
 		// keyboard should open immediately
@@ -569,7 +609,9 @@ describe("openOnHover", () => {
 	});
 
 	it("should cancel open timeout if pointer leaves before delay completes", async () => {
-		const t = setupHover({ triggerProps: { openOnHover: true, openDelay: 200 } });
+		const t = setupHover({
+			triggerProps: { openOnHover: true, openDelay: 200 },
+		});
 		await expectNotExists(t.getContent());
 
 		await t.trigger.hover();
@@ -601,7 +643,9 @@ describe("openOnHover", () => {
 	});
 
 	it("should close on second click and not reopen immediately via hover", async () => {
-		const t = setupHover({ triggerProps: { openOnHover: true, openDelay: 0, closeDelay: 0 } });
+		const t = setupHover({
+			triggerProps: { openOnHover: true, openDelay: 0, closeDelay: 0 },
+		});
 
 		// hover opens
 		await t.trigger.hover();
@@ -621,7 +665,9 @@ describe("openOnHover", () => {
 	});
 
 	it("should allow hover reopen after leaving and re-entering trigger", async () => {
-		const t = setupHover({ triggerProps: { openOnHover: true, openDelay: 0, closeDelay: 0 } });
+		const t = setupHover({
+			triggerProps: { openOnHover: true, openDelay: 0, closeDelay: 0 },
+		});
 
 		// hover opens
 		await t.trigger.hover();
@@ -644,7 +690,9 @@ describe("openOnHover", () => {
 	});
 
 	it("should allow click to explicitly reopen while in cooldown", async () => {
-		const t = setupHover({ triggerProps: { openOnHover: true, openDelay: 0, closeDelay: 0 } });
+		const t = setupHover({
+			triggerProps: { openOnHover: true, openDelay: 0, closeDelay: 0 },
+		});
 
 		// hover opens
 		await t.trigger.hover();
@@ -678,7 +726,9 @@ describe("openOnHover with forceMount", () => {
 	}
 
 	it("should open on hover when openOnHover is true", async () => {
-		const t = setupForceMountHover({ triggerProps: { openOnHover: true, openDelay: 0 } });
+		const t = setupForceMountHover({
+			triggerProps: { openOnHover: true, openDelay: 0 },
+		});
 		await expectNotExists(t.getContent());
 
 		await t.trigger.hover();
@@ -694,7 +744,9 @@ describe("openOnHover with forceMount", () => {
 	});
 
 	it("should respect openDelay before opening", async () => {
-		const t = setupForceMountHover({ triggerProps: { openOnHover: true, openDelay: 100 } });
+		const t = setupForceMountHover({
+			triggerProps: { openOnHover: true, openDelay: 100 },
+		});
 		await expectNotExists(t.getContent());
 
 		await t.trigger.hover();
@@ -706,7 +758,7 @@ describe("openOnHover with forceMount", () => {
 			async () => {
 				await expectExists(t.getContent());
 			},
-			{ timeout: 200 }
+			{ timeout: 200 },
 		);
 	});
 
@@ -759,7 +811,7 @@ describe("openOnHover with forceMount", () => {
 			async () => {
 				await expectNotExists(t.getContent());
 			},
-			{ timeout: 200 }
+			{ timeout: 200 },
 		);
 	});
 
@@ -858,7 +910,9 @@ describe("openOnHover with forceMount", () => {
 	});
 
 	it("should close on escape even when hover-opened", async () => {
-		const t = setupForceMountHover({ triggerProps: { openOnHover: true, openDelay: 0 } });
+		const t = setupForceMountHover({
+			triggerProps: { openOnHover: true, openDelay: 0 },
+		});
 
 		await t.trigger.hover();
 		await expectExists(t.getContent());
@@ -868,7 +922,9 @@ describe("openOnHover with forceMount", () => {
 	});
 
 	it("should close on outside click even when hover-opened", async () => {
-		const t = setupForceMountHover({ triggerProps: { openOnHover: true, openDelay: 0 } });
+		const t = setupForceMountHover({
+			triggerProps: { openOnHover: true, openDelay: 0 },
+		});
 
 		await t.trigger.hover();
 		await expectExists(t.getContent());
@@ -878,7 +934,9 @@ describe("openOnHover with forceMount", () => {
 	});
 
 	it("should still open via click when openOnHover is true", async () => {
-		const t = setupForceMountHover({ triggerProps: { openOnHover: true, openDelay: 300 } });
+		const t = setupForceMountHover({
+			triggerProps: { openOnHover: true, openDelay: 300 },
+		});
 		await expectNotExists(t.getContent());
 
 		// click should open immediately without waiting for hover delay
@@ -887,7 +945,9 @@ describe("openOnHover with forceMount", () => {
 	});
 
 	it("should still open via keyboard when openOnHover is true", async () => {
-		const t = setupForceMountHover({ triggerProps: { openOnHover: true, openDelay: 300 } });
+		const t = setupForceMountHover({
+			triggerProps: { openOnHover: true, openDelay: 300 },
+		});
 		await expectNotExists(t.getContent());
 
 		// keyboard should open immediately
@@ -897,7 +957,9 @@ describe("openOnHover with forceMount", () => {
 	});
 
 	it("should cancel open timeout if pointer leaves before delay completes", async () => {
-		const t = setupForceMountHover({ triggerProps: { openOnHover: true, openDelay: 200 } });
+		const t = setupForceMountHover({
+			triggerProps: { openOnHover: true, openDelay: 200 },
+		});
 		await expectNotExists(t.getContent());
 
 		await t.trigger.hover();

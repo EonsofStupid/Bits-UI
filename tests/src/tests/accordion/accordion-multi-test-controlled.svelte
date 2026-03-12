@@ -1,24 +1,29 @@
 <script lang="ts">
-	import { Accordion, type BitsPrimitiveDivAttributes } from "bits-ui";
+import { Accordion, type BitsPrimitiveDivAttributes } from "bits-ui";
 
-	type Item = {
-		value: string;
-		title: string;
-		disabled: boolean;
-		content: string;
-		level: 1 | 2 | 3 | 4 | 5 | 6;
-	};
+type Item = {
+	value: string;
+	title: string;
+	disabled: boolean;
+	content: string;
+	level: 1 | 2 | 3 | 4 | 5 | 6;
+};
 
-	type Props = {
-		disabled?: boolean;
-		items?: Item[];
-		value?: string[];
-		onValueChange?: (v: string[]) => void;
-	} & Omit<BitsPrimitiveDivAttributes, "value">;
+type Props = {
+	disabled?: boolean;
+	items?: Item[];
+	value?: string[];
+	onValueChange?: (v: string[]) => void;
+} & Omit<BitsPrimitiveDivAttributes, "value">;
 
-	let { disabled = false, items = [], value: valueProp = [], ...restProps }: Props = $props();
+let {
+	disabled = false,
+	items = [],
+	value: valueProp = [],
+	...restProps
+}: Props = $props();
 
-	let value = $state(valueProp);
+let value = $state(valueProp);
 </script>
 
 <div data-testid="value">

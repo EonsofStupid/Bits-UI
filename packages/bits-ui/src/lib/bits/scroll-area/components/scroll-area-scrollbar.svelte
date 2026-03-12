@@ -1,32 +1,32 @@
 <script lang="ts">
-	import { boxWith } from "svelte-toolbelt";
-	import type { ScrollAreaScrollbarProps } from "../types.js";
-	import { ScrollAreaScrollbarState } from "../scroll-area.svelte.js";
-	import ScrollAreaScrollbarAuto from "./scroll-area-scrollbar-auto.svelte";
-	import ScrollAreaScrollbarScroll from "./scroll-area-scrollbar-scroll.svelte";
-	import ScrollAreaScrollbarHover from "./scroll-area-scrollbar-hover.svelte";
-	import ScrollAreaScrollbarVisible from "./scroll-area-scrollbar-visible.svelte";
-	import { createId } from "$lib/internal/create-id.js";
+import { boxWith } from "svelte-toolbelt";
+import type { ScrollAreaScrollbarProps } from "../types.js";
+import { ScrollAreaScrollbarState } from "../scroll-area.svelte.js";
+import ScrollAreaScrollbarAuto from "./scroll-area-scrollbar-auto.svelte";
+import ScrollAreaScrollbarScroll from "./scroll-area-scrollbar-scroll.svelte";
+import ScrollAreaScrollbarHover from "./scroll-area-scrollbar-hover.svelte";
+import ScrollAreaScrollbarVisible from "./scroll-area-scrollbar-visible.svelte";
+import { createId } from "$lib/internal/create-id.js";
 
-	const uid = $props.id();
+const uid = $props.id();
 
-	let {
-		ref = $bindable(null),
-		id = createId(uid),
-		orientation,
-		...restProps
-	}: ScrollAreaScrollbarProps = $props();
+let {
+	ref = $bindable(null),
+	id = createId(uid),
+	orientation,
+	...restProps
+}: ScrollAreaScrollbarProps = $props();
 
-	const scrollbarState = ScrollAreaScrollbarState.create({
-		orientation: boxWith(() => orientation),
-		id: boxWith(() => id),
-		ref: boxWith(
-			() => ref,
-			(v) => (ref = v)
-		),
-	});
+const scrollbarState = ScrollAreaScrollbarState.create({
+	orientation: boxWith(() => orientation),
+	id: boxWith(() => id),
+	ref: boxWith(
+		() => ref,
+		(v) => (ref = v),
+	),
+});
 
-	const type = $derived(scrollbarState.root.opts.type.current);
+const type = $derived(scrollbarState.root.opts.type.current);
 </script>
 
 {#if type === "hover"}

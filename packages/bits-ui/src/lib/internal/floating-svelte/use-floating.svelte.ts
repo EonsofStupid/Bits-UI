@@ -87,9 +87,10 @@ export function useFloating(options: UseFloatingOptions): UseFloatingReturn {
 				const maxExpectedOffset = Math.max(
 					Math.abs(sideOffsetOption),
 					Math.abs(alignOffsetOption),
-					15
+					15,
 				);
-				if (position.x <= maxExpectedOffset && position.y <= maxExpectedOffset) return;
+				if (position.x <= maxExpectedOffset && position.y <= maxExpectedOffset)
+					return;
 			}
 
 			x = position.x;
@@ -123,7 +124,7 @@ export function useFloating(options: UseFloatingOptions): UseFloatingReturn {
 		whileElementsMountedCleanup = whileElementsMountedOption(
 			reference.current,
 			floating.current,
-			update
+			update,
 		);
 	}
 

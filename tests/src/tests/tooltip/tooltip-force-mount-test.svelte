@@ -1,7 +1,8 @@
 <script lang="ts" module>
-	import { Tooltip, type WithoutChildrenOrChild } from "bits-ui";
+import { Tooltip, type WithoutChildrenOrChild } from "bits-ui";
 
-	export type TooltipForceMountTestProps = WithoutChildrenOrChild<Tooltip.RootProps> & {
+export type TooltipForceMountTestProps =
+	WithoutChildrenOrChild<Tooltip.RootProps> & {
 		contentProps?: WithoutChildrenOrChild<Tooltip.ContentProps>;
 		portalProps?: WithoutChildrenOrChild<Tooltip.PortalProps>;
 		withOpenCheck?: boolean;

@@ -26,10 +26,21 @@ type DialogVariant = "alert-dialog" | "dialog";
 
 const dialogAttrs = createBitsAttrs({
 	component: "dialog",
-	parts: ["content", "trigger", "overlay", "title", "description", "close", "cancel", "action"],
+	parts: [
+		"content",
+		"trigger",
+		"overlay",
+		"title",
+		"description",
+		"close",
+		"cancel",
+		"action",
+	],
 });
 
-const DialogRootContext = new Context<DialogRootState>("Dialog.Root | AlertDialog.Root");
+const DialogRootContext = new Context<DialogRootState>(
+	"Dialog.Root | AlertDialog.Root",
+);
 
 interface DialogRootStateOpts
 	extends WritableBoxedValues<{
@@ -94,7 +105,7 @@ export class DialogRootState {
 					this.parent.decrementNested();
 				}
 			},
-			{ lazy: true }
+			{ lazy: true },
 		);
 
 		onDestroyEffect(() => {
@@ -133,11 +144,13 @@ export class DialogRootState {
 		() =>
 			({
 				"data-state": getDataOpenClosed(this.opts.open.current),
-			}) as const
+			}) as const,
 	);
 }
 
-interface DialogTriggerStateOpts extends WithRefOpts, ReadableBoxedValues<{ disabled: boolean }> {}
+interface DialogTriggerStateOpts
+	extends WithRefOpts,
+		ReadableBoxedValues<{ disabled: boolean }> {}
 
 export class DialogTriggerState {
 	static create(opts: DialogTriggerStateOpts) {
@@ -186,13 +199,16 @@ export class DialogTriggerState {
 				disabled: this.opts.disabled.current ? true : undefined,
 				...this.root.sharedProps,
 				...this.attachment,
-			}) as const
+			}) as const,
 	);
 }
 
 interface DialogCloseStateOpts
 	extends WithRefOpts,
-		ReadableBoxedValues<{ variant: "action" | "cancel" | "close"; disabled: boolean }> {}
+		ReadableBoxedValues<{
+			variant: "action" | "cancel" | "close";
+			disabled: boolean;
+		}> {}
 
 export class DialogCloseState {
 	static create(opts: DialogCloseStateOpts) {
@@ -236,7 +252,7 @@ export class DialogCloseState {
 				tabindex: 0,
 				...this.root.sharedProps,
 				...this.attachment,
-			}) as const
+			}) as const,
 	);
 }
 
@@ -263,7 +279,7 @@ export class DialogActionState {
 				[this.root.getBitsAttr("action")]: "",
 				...this.root.sharedProps,
 				...this.attachment,
-			}) as const
+			}) as const,
 	);
 }
 
@@ -290,7 +306,7 @@ export class DialogTitleState {
 			() => this.opts.id.current,
 			(id) => {
 				this.root.titleId = id;
-			}
+			},
 		);
 	}
 
@@ -303,7 +319,7 @@ export class DialogTitleState {
 				[this.root.getBitsAttr("title")]: "",
 				...this.root.sharedProps,
 				...this.attachment,
-			}) as const
+			}) as const,
 	);
 }
 
@@ -329,7 +345,7 @@ export class DialogDescriptionState {
 			() => this.opts.id.current,
 			(id) => {
 				this.root.descriptionId = id;
-			}
+			},
 		);
 	}
 
@@ -340,7 +356,7 @@ export class DialogDescriptionState {
 				[this.root.getBitsAttr("description")]: "",
 				...this.root.sharedProps,
 				...this.attachment,
-			}) as const
+			}) as const,
 	);
 }
 
@@ -364,20 +380,28 @@ export class DialogContentState {
 		});
 	}
 
-	readonly snippetProps = $derived.by(() => ({ open: this.root.opts.open.current }));
+	readonly snippetProps = $derived.by(() => ({
+		open: this.root.opts.open.current,
+	}));
 
 	readonly props = $derived.by(
 		() =>
 			({
 				id: this.opts.id.current,
-				role: this.root.opts.variant.current === "alert-dialog" ? "alertdialog" : "dialog",
+				role:
+					this.root.opts.variant.current === "alert-dialog"
+						? "alertdialog"
+						: "dialog",
 				"aria-modal": "true",
 				"aria-describedby": this.root.descriptionId,
 				"aria-labelledby": this.root.titleId,
 				[this.root.getBitsAttr("content")]: "",
 				style: {
 					pointerEvents: "auto",
-					outline: this.root.opts.variant.current === "alert-dialog" ? "none" : undefined,
+					outline:
+						this.root.opts.variant.current === "alert-dialog"
+							? "none"
+							: undefined,
 					"--bits-dialog-depth": this.root.depth,
 					"--bits-dialog-nested-count": this.root.nestedOpenCount,
 					// CSS containment isolates style/layout calculations from the rest of the page,
@@ -385,12 +409,15 @@ export class DialogContentState {
 					// Paint is omitted so tooltips/selects can render outside dialog bounds.
 					contain: "layout style",
 				},
-				tabindex: this.root.opts.variant.current === "alert-dialog" ? -1 : undefined,
-				"data-nested-open": boolToEmptyStrOrUndef(this.root.nestedOpenCount > 0),
+				tabindex:
+					this.root.opts.variant.current === "alert-dialog" ? -1 : undefined,
+				"data-nested-open": boolToEmptyStrOrUndef(
+					this.root.nestedOpenCount > 0,
+				),
 				"data-nested": boolToEmptyStrOrUndef(this.root.parent !== null),
 				...this.root.sharedProps,
 				...this.attachment,
-			}) as const
+			}) as const,
 	);
 
 	get shouldRender() {
@@ -411,10 +438,15 @@ export class DialogOverlayState {
 	constructor(opts: DialogOverlayStateOpts, root: DialogRootState) {
 		this.opts = opts;
 		this.root = root;
-		this.attachment = attachRef(this.opts.ref, (v) => (this.root.overlayNode = v));
+		this.attachment = attachRef(
+			this.opts.ref,
+			(v) => (this.root.overlayNode = v),
+		);
 	}
 
-	readonly snippetProps = $derived.by(() => ({ open: this.root.opts.open.current }));
+	readonly snippetProps = $derived.by(() => ({
+		open: this.root.opts.open.current,
+	}));
 
 	readonly props = $derived.by(
 		() =>
@@ -426,11 +458,13 @@ export class DialogOverlayState {
 					"--bits-dialog-depth": this.root.depth,
 					"--bits-dialog-nested-count": this.root.nestedOpenCount,
 				},
-				"data-nested-open": boolToEmptyStrOrUndef(this.root.nestedOpenCount > 0),
+				"data-nested-open": boolToEmptyStrOrUndef(
+					this.root.nestedOpenCount > 0,
+				),
 				"data-nested": boolToEmptyStrOrUndef(this.root.parent !== null),
 				...this.root.sharedProps,
 				...this.attachment,
-			}) as const
+			}) as const,
 	);
 
 	get shouldRender() {
@@ -454,7 +488,10 @@ export class AlertDialogCancelState {
 	constructor(opts: AlertDialogCancelStateOpts, root: DialogRootState) {
 		this.opts = opts;
 		this.root = root;
-		this.attachment = attachRef(this.opts.ref, (v) => (this.root.cancelNode = v));
+		this.attachment = attachRef(
+			this.opts.ref,
+			(v) => (this.root.cancelNode = v),
+		);
 		this.onclick = this.onclick.bind(this);
 		this.onkeydown = this.onkeydown.bind(this);
 	}
@@ -483,6 +520,6 @@ export class AlertDialogCancelState {
 				tabindex: 0,
 				...this.root.sharedProps,
 				...this.attachment,
-			}) as const
+			}) as const,
 	);
 }

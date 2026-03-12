@@ -58,7 +58,7 @@ export function useToc(getItemIds: () => string[]) {
 					}
 				}
 			},
-			{ rootMargin: "0% 0% -80% 0% " }
+			{ rootMargin: "0% 0% -80% 0% " },
 		);
 
 		for (const id of itemIds) {

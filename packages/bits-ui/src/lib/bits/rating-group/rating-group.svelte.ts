@@ -12,7 +12,11 @@ import type {
 	RefAttachment,
 	WithRefOpts,
 } from "$lib/internal/types.js";
-import { createBitsAttrs, boolToStr, boolToEmptyStrOrUndef } from "$lib/internal/attrs.js";
+import {
+	createBitsAttrs,
+	boolToStr,
+	boolToEmptyStrOrUndef,
+} from "$lib/internal/attrs.js";
 import type {
 	RatingGroupAriaValuetext,
 	RatingGroupItemState as RatingGroupItemStateType,
@@ -25,7 +29,9 @@ const ratingGroupAttrs = createBitsAttrs({
 	parts: ["root", "item"],
 });
 
-const RatingGroupRootContext = new Context<RatingGroupRootState>("RatingGroup.Root");
+const RatingGroupRootContext = new Context<RatingGroupRootState>(
+	"RatingGroup.Root",
+);
 
 interface RatingGroupRootStateOpts
 	extends WithRefOpts,
@@ -57,7 +63,9 @@ export class RatingGroupRootState {
 	domContext: DOMContext;
 
 	readonly hasValue = $derived.by(() => this.opts.value.current > 0);
-	readonly valueToUse = $derived.by(() => this.#hoverValue ?? this.opts.value.current);
+	readonly valueToUse = $derived.by(
+		() => this.#hoverValue ?? this.opts.value.current,
+	);
 	readonly isRTL = $derived.by(() => {
 		const element = this.opts.ref.current;
 		if (!element) return false;
@@ -67,7 +75,10 @@ export class RatingGroupRootState {
 
 	readonly ariaValuetext = $derived.by(() => {
 		return typeof this.opts.ariaValuetext.current === "function"
-			? this.opts.ariaValuetext.current(this.opts.value.current, this.opts.max.current)
+			? this.opts.ariaValuetext.current(
+					this.opts.value.current,
+					this.opts.max.current,
+				)
 			: this.opts.ariaValuetext.current;
 	});
 
@@ -118,20 +129,23 @@ export class RatingGroupRootState {
 		this.#hoverValue =
 			value === null
 				? null
-				: Math.max(this.opts.min.current, Math.min(this.opts.max.current, value));
+				: Math.max(
+						this.opts.min.current,
+						Math.min(this.opts.max.current, value),
+					);
 	}
 
 	setValue(value: number): void {
 		if (this.opts.readonly.current || this.opts.disabled.current) return;
 		this.opts.value.current = Math.max(
 			this.opts.min.current,
-			Math.min(this.opts.max.current, value)
+			Math.min(this.opts.max.current, value),
 		);
 	}
 
 	calculateRatingFromPointer(
 		itemIndex: number,
-		event: { clientX: number; clientY: number; currentTarget: HTMLElement }
+		event: { clientX: number; clientY: number; currentTarget: HTMLElement },
 	): number {
 		const ratingValue = itemIndex + 1;
 		if (!this.opts.allowHalf.current) return ratingValue;
@@ -144,7 +158,8 @@ export class RatingGroupRootState {
 			? (event.clientX - rect.left) / rect.width
 			: (event.clientY - rect.top) / rect.height;
 
-		const normalizedPosition = style.direction === "rtl" ? 1 - position : position;
+		const normalizedPosition =
+			style.direction === "rtl" ? 1 - position : position;
 
 		return normalizedPosition < 0.5 ? ratingValue - 0.5 : ratingValue;
 	}
@@ -258,7 +273,10 @@ export class RatingGroupRootState {
 			this.domContext.clearTimeout(this.#keySequenceTimeout);
 		}
 
-		this.#keySequenceTimeout = this.domContext.setTimeout(() => this.#clearKeySequence(), 1000);
+		this.#keySequenceTimeout = this.domContext.setTimeout(
+			() => this.#clearKeySequence(),
+			1000,
+		);
 	}
 
 	#clearKeySequence(): void {
@@ -315,10 +333,14 @@ export class RatingGroupItemState {
 	readonly root: RatingGroupRootState;
 	readonly attachment: RefAttachment;
 	readonly #isDisabled = $derived.by(
-		() => this.opts.disabled.current || this.root.opts.disabled.current
+		() => this.opts.disabled.current || this.root.opts.disabled.current,
 	);
-	readonly #isActive = $derived.by(() => this.root.isActive(this.opts.index.current));
-	readonly #isPartial = $derived.by(() => this.root.isPartial(this.opts.index.current));
+	readonly #isActive = $derived.by(() =>
+		this.root.isActive(this.opts.index.current),
+	);
+	readonly #isPartial = $derived.by(() =>
+		this.root.isPartial(this.opts.index.current),
+	);
 	readonly #state: RatingGroupItemStateType = $derived.by(() => {
 		if (this.#isActive) return "active";
 		if (this.#isPartial) return "partial";
@@ -344,7 +366,10 @@ export class RatingGroupItemState {
 			this.root.opts.min.current === 0 &&
 			this.root.opts.value.current > 0
 		) {
-			const newValue = this.root.calculateRatingFromPointer(this.opts.index.current, e);
+			const newValue = this.root.calculateRatingFromPointer(
+				this.opts.index.current,
+				e,
+			);
 			const currentValue = this.root.opts.value.current;
 
 			// only clear if the calculated rating exactly matches current value
@@ -357,7 +382,10 @@ export class RatingGroupItemState {
 			}
 		}
 
-		const newValue = this.root.calculateRatingFromPointer(this.opts.index.current, e);
+		const newValue = this.root.calculateRatingFromPointer(
+			this.opts.index.current,
+			e,
+		);
 		this.root.setValue(newValue);
 
 		if (this.root.opts.ref.current) {
@@ -376,7 +404,10 @@ export class RatingGroupItemState {
 		// skip hover preview for touch devices
 		if (e.pointerType === "touch") return;
 
-		const hoverValue = this.root.calculateRatingFromPointer(this.opts.index.current, e);
+		const hoverValue = this.root.calculateRatingFromPointer(
+			this.opts.index.current,
+			e,
+		);
 		this.root.setHoverValue(hoverValue);
 	}
 
@@ -401,7 +432,7 @@ export class RatingGroupItemState {
 				onclick: this.onclick,
 				onpointermove: this.onpointermove,
 				...this.attachment,
-			}) as const
+			}) as const,
 	);
 }
 
@@ -410,7 +441,9 @@ export class RatingGroupHiddenInputState {
 		return new RatingGroupHiddenInputState(RatingGroupRootContext.get());
 	}
 	readonly root: RatingGroupRootState;
-	readonly shouldRender = $derived.by(() => this.root.opts.name.current !== undefined);
+	readonly shouldRender = $derived.by(
+		() => this.root.opts.name.current !== undefined,
+	);
 	readonly props = $derived.by(
 		() =>
 			({
@@ -418,7 +451,7 @@ export class RatingGroupHiddenInputState {
 				value: this.root.opts.value.current,
 				required: this.root.opts.required.current,
 				disabled: this.root.opts.disabled.current,
-			}) as const
+			}) as const,
 	);
 
 	constructor(root: RatingGroupRootState) {

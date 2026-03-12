@@ -12,7 +12,10 @@ import DropdownMenuMultipleTest from "./dropdown-menu-multiple-test.svelte";
 const kbd = getTestKbd();
 const OPEN_KEYS = [kbd.ENTER, kbd.ARROW_DOWN, kbd.SPACE];
 
-type DropdownMenuSetupProps = (DropdownMenuTestProps | DropdownMenuForceMountTestProps) & {
+type DropdownMenuSetupProps = (
+	| DropdownMenuTestProps
+	| DropdownMenuForceMountTestProps
+) & {
 	component?: typeof DropdownMenuTest | typeof DropdownMenuForceMountTest;
 };
 
@@ -46,7 +49,10 @@ async function open(props: DropdownMenuSetupProps = {}) {
 	return { ...t };
 }
 
-async function openWithKbd(props: DropdownMenuSetupProps = {}, key: string = kbd.ENTER) {
+async function openWithKbd(
+	props: DropdownMenuSetupProps = {},
+	key: string = kbd.ENTER,
+) {
 	const t = await setup(props);
 	await expectNotExists(page.getByTestId("content"));
 	(t.trigger.element() as HTMLElement).focus();
@@ -101,10 +107,14 @@ it("should have bits data attrs", async () => {
 	await page.getByTestId("sub-trigger").click();
 
 	const subContent = page.getByTestId("sub-content");
-	await expect.element(subContent).toHaveAttribute(`data-dropdown-menu-sub-content`);
+	await expect
+		.element(subContent)
+		.toHaveAttribute(`data-dropdown-menu-sub-content`);
 });
 
-it.each(OPEN_KEYS)("should open when %s is pressed & respects binding", async (key) => {
+it.each(
+	OPEN_KEYS,
+)("should open when %s is pressed & respects binding", async (key) => {
 	await openWithKbd({}, key);
 	await expect.element(page.getByTestId("item")).toHaveFocus();
 });
@@ -171,7 +181,9 @@ it("should toggle the checkbox item when clicked & respects binding", async () =
 	await checkedBinding.click();
 	await expect.element(checkedBinding).toHaveTextContent("true");
 	await t.trigger.click();
-	await expect.element(page.getByTestId("checkbox-indicator")).toHaveTextContent("true");
+	await expect
+		.element(page.getByTestId("checkbox-indicator"))
+		.toHaveTextContent("true");
 });
 
 it("should toggle checkbox items within submenus when clicked & respects binding", async () => {
@@ -304,7 +316,9 @@ it("should portal to the portal target if a valid `portal` prop is passed", asyn
 		},
 	});
 	const content = page.getByTestId("content").element() as HTMLElement;
-	const portalTarget = page.getByTestId("portal-target").element() as HTMLElement;
+	const portalTarget = page
+		.getByTestId("portal-target")
+		.element() as HTMLElement;
 	expect(content.parentElement?.parentElement).toEqual(portalTarget);
 });
 
@@ -315,7 +329,9 @@ it("should not portal if `disabled` is passed to the portal", async () => {
 		},
 	});
 	const content = page.getByTestId("content").element() as HTMLElement;
-	const ogContainer = page.getByTestId("non-portal-container").element() as HTMLElement;
+	const ogContainer = page
+		.getByTestId("non-portal-container")
+		.element() as HTMLElement;
 	const contentWrapper = content.parentElement;
 	expect(contentWrapper?.parentElement).not.toEqual(document.body);
 	expect(contentWrapper?.parentElement).toEqual(ogContainer);
@@ -351,34 +367,34 @@ it("should forceMount the content when `forceMount` is true and the `open` snipp
 	await expectExists(page.getByTestId("content"));
 });
 
-it.each([DropdownMenuTest, DropdownMenuForceMountTest])(
-	"should close the menu and focus the next tabbable element when `TAB` is pressed while the menu is open",
-	async (component) => {
-		await openWithKbd({
-			component,
-			withOpenCheck: true,
-		});
-		const nextButton = page.getByTestId("next-button");
-		await userEvent.tab();
+it.each([
+	DropdownMenuTest,
+	DropdownMenuForceMountTest,
+])("should close the menu and focus the next tabbable element when `TAB` is pressed while the menu is open", async (component) => {
+	await openWithKbd({
+		component,
+		withOpenCheck: true,
+	});
+	const nextButton = page.getByTestId("next-button");
+	await userEvent.tab();
 
-		await expectNotExists(page.getByTestId("content"));
-		await expect.element(nextButton).toHaveFocus();
-	}
-);
+	await expectNotExists(page.getByTestId("content"));
+	await expect.element(nextButton).toHaveFocus();
+});
 
-it.each([DropdownMenuTest, DropdownMenuForceMountTest])(
-	"should close the menu and focus the previous tabbable element when `SHIFT+TAB` is pressed while the menu is open",
-	async (component) => {
-		await openWithKbd({
-			component,
-			withOpenCheck: true,
-		});
-		const previousButton = page.getByTestId("previous-button");
-		await userEvent.keyboard(kbd.SHIFT_TAB);
-		await expect.element(previousButton).toHaveFocus();
-		await expectNotExists(page.getByTestId("content"));
-	}
-);
+it.each([
+	DropdownMenuTest,
+	DropdownMenuForceMountTest,
+])("should close the menu and focus the previous tabbable element when `SHIFT+TAB` is pressed while the menu is open", async (component) => {
+	await openWithKbd({
+		component,
+		withOpenCheck: true,
+	});
+	const previousButton = page.getByTestId("previous-button");
+	await userEvent.keyboard(kbd.SHIFT_TAB);
+	await expect.element(previousButton).toHaveFocus();
+	await expectNotExists(page.getByTestId("content"));
+});
 
 it("should respect the `onSelect` prop on SubTrigger", async () => {
 	const onSelect = vi.fn();
@@ -405,23 +421,37 @@ it("should respect the `value` prop on CheckboxGroup", async () => {
 	});
 
 	const checkboxGroupItem1 = page.getByTestId("checkbox-group-item-1");
-	await expect.element(checkboxGroupItem1).toHaveAttribute("aria-checked", "true");
+	await expect
+		.element(checkboxGroupItem1)
+		.toHaveAttribute("aria-checked", "true");
 
-	await expect.element(page.getByTestId("checkbox-indicator-1")).toHaveTextContent("true");
-	await expect.element(page.getByTestId("checkbox-indicator-2")).toHaveTextContent("false");
+	await expect
+		.element(page.getByTestId("checkbox-indicator-1"))
+		.toHaveTextContent("true");
+	await expect
+		.element(page.getByTestId("checkbox-indicator-2"))
+		.toHaveTextContent("false");
 
 	await checkboxGroupItem1.click();
 	await expectNotExists(page.getByTestId("content"));
 	await t.open();
 
-	await expect.element(page.getByTestId("checkbox-indicator-1")).toHaveTextContent("false");
-	await expect.element(page.getByTestId("checkbox-indicator-2")).toHaveTextContent("false");
+	await expect
+		.element(page.getByTestId("checkbox-indicator-1"))
+		.toHaveTextContent("false");
+	await expect
+		.element(page.getByTestId("checkbox-indicator-2"))
+		.toHaveTextContent("false");
 
 	await page.getByTestId("checkbox-group-item-2").click();
 	await t.open();
 
-	await expect.element(page.getByTestId("checkbox-indicator-1")).toHaveTextContent("false");
-	await expect.element(page.getByTestId("checkbox-indicator-2")).toHaveTextContent("true");
+	await expect
+		.element(page.getByTestId("checkbox-indicator-1"))
+		.toHaveTextContent("false");
+	await expect
+		.element(page.getByTestId("checkbox-indicator-2"))
+		.toHaveTextContent("true");
 
 	await userEvent.keyboard(kbd.ESCAPE);
 
@@ -431,8 +461,12 @@ it("should respect the `value` prop on CheckboxGroup", async () => {
 	await expectNotExists(page.getByTestId("content"));
 	await t.open();
 
-	await expect.element(page.getByTestId("checkbox-indicator-1")).toHaveTextContent("false");
-	await expect.element(page.getByTestId("checkbox-indicator-2")).toHaveTextContent("false");
+	await expect
+		.element(page.getByTestId("checkbox-indicator-1"))
+		.toHaveTextContent("false");
+	await expect
+		.element(page.getByTestId("checkbox-indicator-2"))
+		.toHaveTextContent("false");
 });
 
 // CI hates this
@@ -483,25 +517,25 @@ it("should call `onSelect` on the sub item when the sub item is selected", async
 	expect(onSelect).toHaveBeenCalled();
 });
 
-it.each([true, false])(
-	"should respect the `closeOnSelect=%s` prop on the sub item",
-	async (closeOnSelect) => {
-		await open({
-			subItemProps: {
-				closeOnSelect,
-			},
-		});
-		await page.getByTestId("sub-trigger").click();
-		await expectExists(page.getByTestId("sub-content"));
+it.each([
+	true,
+	false,
+])("should respect the `closeOnSelect=%s` prop on the sub item", async (closeOnSelect) => {
+	await open({
+		subItemProps: {
+			closeOnSelect,
+		},
+	});
+	await page.getByTestId("sub-trigger").click();
+	await expectExists(page.getByTestId("sub-content"));
 
-		await page.getByTestId("sub-item").click();
-		if (closeOnSelect) {
-			await expectNotExists(page.getByTestId("sub-content"));
-		} else {
-			await expectExists(page.getByTestId("sub-content"));
-		}
+	await page.getByTestId("sub-item").click();
+	if (closeOnSelect) {
+		await expectNotExists(page.getByTestId("sub-content"));
+	} else {
+		await expectExists(page.getByTestId("sub-content"));
 	}
-);
+});
 
 it("should not cause unwanted focus jumps between different dropdown menus", async () => {
 	const t = render(DropdownMenuMultipleTest);

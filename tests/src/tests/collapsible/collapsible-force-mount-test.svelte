@@ -1,13 +1,13 @@
 <script lang="ts">
-	import { Collapsible } from "bits-ui";
+import { Collapsible } from "bits-ui";
 
-	let {
-		open = false,
-		withOpenCheck = false,
-		...restProps
-	}: Omit<Collapsible.RootProps, "asChild" | "child" | "children"> & {
-		withOpenCheck?: boolean;
-	} = $props();
+let {
+	open = false,
+	withOpenCheck = false,
+	...restProps
+}: Omit<Collapsible.RootProps, "asChild" | "child" | "children"> & {
+	withOpenCheck?: boolean;
+} = $props();
 </script>
 
 <main>

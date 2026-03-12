@@ -18,7 +18,10 @@ const __dirname = dirname(fileURLToPath(import.meta.url));
 
 type FileMap = Record<string, string>;
 
-async function collectFiles(currentDir: string, baseDir: string): Promise<FileMap> {
+async function collectFiles(
+	currentDir: string,
+	baseDir: string,
+): Promise<FileMap> {
 	try {
 		const entries = await readdir(currentDir, { withFileTypes: true });
 		const files: FileMap = {};
@@ -41,7 +44,7 @@ async function collectFiles(currentDir: string, baseDir: string): Promise<FileMa
 		return files;
 	} catch (error) {
 		throw new Error(
-			`Failed to collect files from ${currentDir}: ${error instanceof Error ? error.message : String(error)}`
+			`Failed to collect files from ${currentDir}: ${error instanceof Error ? error.message : String(error)}`,
 		);
 	}
 }
@@ -52,7 +55,11 @@ async function collectFiles(currentDir: string, baseDir: string): Promise<FileMa
 function remarkCleanCodeBlocks() {
 	return (tree: Node) => {
 		function visit(node: Node) {
-			if (node.type === "code" && "value" in node && typeof node.value === "string") {
+			if (
+				node.type === "code" &&
+				"value" in node &&
+				typeof node.value === "string"
+			) {
 				// Remove lines that only contain whitespace
 				node.value = node.value
 					.split("\n")
@@ -80,7 +87,9 @@ function remarkDecodeTableEntities() {
 	return (tree: Node) => {
 		visitParents(tree, "text", (node: Node, ancestors: Node[]) => {
 			// Check if any ancestor is a tableCell
-			const isInTableCell = ancestors.some((ancestor) => ancestor.type === "tableCell");
+			const isInTableCell = ancestors.some(
+				(ancestor) => ancestor.type === "tableCell",
+			);
 
 			if (isInTableCell && "value" in node && typeof node.value === "string") {
 				node.value = node.value
@@ -112,7 +121,7 @@ async function transformAndSaveMarkdown(rawHtml: string) {
 	const targetElement = document.getElementById("main-content");
 
 	const elementsToRemove = Array.from(
-		document.querySelectorAll<HTMLElement>("[data-llm-ignore]")
+		document.querySelectorAll<HTMLElement>("[data-llm-ignore]"),
 	);
 
 	for (const element of elementsToRemove) {
@@ -183,7 +192,9 @@ async function generateRootLLMsTxt(fileNames: string[]) {
 
 		for (const file of files) {
 			const [baseName, path] = file.split("|");
-			const linkTitle = baseName.replace(/-/g, " ").replace(/\b\w/g, (l) => l.toUpperCase());
+			const linkTitle = baseName
+				.replace(/-/g, " ")
+				.replace(/\b\w/g, (l) => l.toUpperCase());
 			content += `- [${linkTitle} Documentation](https://bits-ui.com/docs/${path}): Detailed documentation for ${linkTitle}\n`;
 		}
 
@@ -221,14 +232,21 @@ async function main() {
 			const baseName = basename(fileName, ".html");
 			const dirPath = dirname(fileName);
 
-			const outputPath = join(__dirname, "../static/docs", dirPath, baseName, "llms.txt");
+			const outputPath = join(
+				__dirname,
+				"../static/docs",
+				dirPath,
+				baseName,
+				"llms.txt",
+			);
 			const outputDir = dirname(outputPath);
 			await mkdir(outputDir, { recursive: true });
 			await writeFile(outputPath, cleanedContent);
 
 			// Categorize content
 			const contentWithSeparator =
-				cleanedContent + "\n\n----------------------------------------------------\n\n";
+				cleanedContent +
+				"\n\n----------------------------------------------------\n\n";
 			if (dirPath === "." && baseName === "introduction") {
 				contentByCategory["Introduction"].push(contentWithSeparator);
 			} else if (dirPath === ".") {

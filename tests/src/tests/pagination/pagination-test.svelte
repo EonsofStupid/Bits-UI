@@ -1,6 +1,6 @@
 <script lang="ts" module>
-	import { Pagination, type WithoutChildrenOrChild } from "bits-ui";
-	export type PaginationTestProps = WithoutChildrenOrChild<Pagination.RootProps>;
+import { Pagination, type WithoutChildrenOrChild } from "bits-ui";
+export type PaginationTestProps = WithoutChildrenOrChild<Pagination.RootProps>;
 </script>
 
 <script lang="ts">

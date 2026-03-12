@@ -1,12 +1,12 @@
 <script lang="ts">
-	import { Tooltip } from "bits-ui";
+import { Tooltip } from "bits-ui";
 
-	type Payload = {
-		label: string;
-	};
+type Payload = {
+	label: string;
+};
 
-	const tether = Tooltip.createTether<Payload>();
-	let open = $state(false);
+const tether = Tooltip.createTether<Payload>();
+let open = $state(false);
 </script>
 
 <main data-testid="main" style="position: relative; width: 360px; height: 240px; padding: 24px;">

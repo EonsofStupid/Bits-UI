@@ -1,30 +1,30 @@
 <script lang="ts">
-	import { Checkbox } from "bits-ui";
+import { Checkbox } from "bits-ui";
 
-	let {
-		value: valueProp = $bindable([]),
-		items = [],
-		disabledItems = [],
-		readonlyItems = [],
-		type,
-		onFormSubmit,
-		getValue: getValueProp,
-		setValue: setValueProp,
-		...restProps
-	}: Checkbox.GroupProps & {
-		/**
-		 * The individual checkbox items.
-		 */
-		items?: string[];
-		disabledItems?: string[];
-		readonlyItems?: string[];
-		type?: "submit";
-		onFormSubmit?: (fd: FormData) => void;
-		setValue?: (value: string[]) => void;
-		getValue?: () => string[];
-	} = $props();
+let {
+	value: valueProp = $bindable([]),
+	items = [],
+	disabledItems = [],
+	readonlyItems = [],
+	type,
+	onFormSubmit,
+	getValue: getValueProp,
+	setValue: setValueProp,
+	...restProps
+}: Checkbox.GroupProps & {
+	/**
+	 * The individual checkbox items.
+	 */
+	items?: string[];
+	disabledItems?: string[];
+	readonlyItems?: string[];
+	type?: "submit";
+	onFormSubmit?: (fd: FormData) => void;
+	setValue?: (value: string[]) => void;
+	getValue?: () => string[];
+} = $props();
 
-	let myValue = $state(valueProp);
+let myValue = $state(valueProp);
 </script>
 
 {#snippet MyCheckbox({ itemValue }: { itemValue: string })}

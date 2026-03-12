@@ -11,7 +11,9 @@ const kbd = getTestKbd();
 function setup(props: Partial<ComponentProps<typeof PinInputTest>> = {}) {
 	// @ts-expect-error - testing lib needs to update their generic types
 	const returned = render(PinInputTest, { ...props });
-	const cells = new Array(6).fill(null).map((_, i) => returned.getByTestId(`cell-${i}`));
+	const cells = new Array(6)
+		.fill(null)
+		.map((_, i) => returned.getByTestId(`cell-${i}`));
 	const binding = returned.getByTestId("binding");
 	const hiddenInput = returned.getByTestId("input");
 

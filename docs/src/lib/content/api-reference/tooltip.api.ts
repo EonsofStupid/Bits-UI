@@ -98,20 +98,21 @@ const payloadProp = defineSimplePropSchema({
 		"Payload associated with this trigger. The active payload is available from the `Tooltip.Root` children snippet props.",
 });
 
-export const provider = defineComponentApiSchema<TooltipProviderPropsWithoutHTML>({
-	title: "Provider",
-	description:
-		"A provider component which contains shared state and logic for the tooltips within its subtree.",
-	props: {
-		delayDuration,
-		disableHoverableContent,
-		disabled,
-		disableCloseOnTriggerClick,
-		skipDelayDuration,
-		ignoreNonKeyboardFocus,
-		children: childrenSnippet(),
-	},
-});
+export const provider =
+	defineComponentApiSchema<TooltipProviderPropsWithoutHTML>({
+		title: "Provider",
+		description:
+			"A provider component which contains shared state and logic for the tooltips within its subtree.",
+		props: {
+			delayDuration,
+			disableHoverableContent,
+			disabled,
+			disableCloseOnTriggerClick,
+			skipDelayDuration,
+			ignoreNonKeyboardFocus,
+			children: childrenSnippet(),
+		},
+	});
 
 export const root = defineComponentApiSchema<TooltipRootPropsWithoutHTML>({
 	title: "Root",
@@ -132,78 +133,85 @@ export const root = defineComponentApiSchema<TooltipRootPropsWithoutHTML>({
 	},
 });
 
-export const trigger = defineComponentApiSchema<TooltipTriggerPropsWithoutHTML>({
-	title: "Trigger",
-	description:
-		"A component which triggers the opening and closing of the tooltip on hover or focus.",
-	props: {
-		disabled: defineBooleanProp({
-			default: false,
-			description: "Whether or not the tooltip trigger is disabled.",
-		}),
-		payload: payloadProp,
-		tether: tetherProp,
-		...withChildProps({ elType: "HTMLButtonElement" }),
+export const trigger = defineComponentApiSchema<TooltipTriggerPropsWithoutHTML>(
+	{
+		title: "Trigger",
+		description:
+			"A component which triggers the opening and closing of the tooltip on hover or focus.",
+		props: {
+			disabled: defineBooleanProp({
+				default: false,
+				description: "Whether or not the tooltip trigger is disabled.",
+			}),
+			payload: payloadProp,
+			tether: tetherProp,
+			...withChildProps({ elType: "HTMLButtonElement" }),
+		},
+		dataAttributes: [
+			openClosedDataAttr,
+			defineSimpleDataAttr({
+				name: "tooltip-trigger",
+				description: "Present on the tooltip trigger element.",
+			}),
+		],
 	},
-	dataAttributes: [
-		openClosedDataAttr,
-		defineSimpleDataAttr({
-			name: "tooltip-trigger",
-			description: "Present on the tooltip trigger element.",
-		}),
-	],
-});
+);
 
-export const content = defineComponentApiSchema<TooltipContentPropsWithoutHTML>({
-	title: "Content",
-	description: "The contents of the tooltip which are displayed when the tooltip is open.",
-	props: {
-		...floatingProps(),
-		...dismissibleLayerProps,
-		...escapeLayerProps,
-		forceMount: forceMountProp,
-		dir: dirProp,
-		...withChildProps({
-			elType: "HTMLDivElement",
-			child: floatingContentChildDefinition,
-		}),
+export const content = defineComponentApiSchema<TooltipContentPropsWithoutHTML>(
+	{
+		title: "Content",
+		description:
+			"The contents of the tooltip which are displayed when the tooltip is open.",
+		props: {
+			...floatingProps(),
+			...dismissibleLayerProps,
+			...escapeLayerProps,
+			forceMount: forceMountProp,
+			dir: dirProp,
+			...withChildProps({
+				elType: "HTMLDivElement",
+				child: floatingContentChildDefinition,
+			}),
+		},
+		dataAttributes: [
+			openClosedDataAttr,
+			defineSimpleDataAttr({
+				name: "tooltip-content",
+				description: "Present on the tooltip content element.",
+			}),
+		],
+		cssVars: floatingContentCSSVars("tooltip"),
 	},
-	dataAttributes: [
-		openClosedDataAttr,
-		defineSimpleDataAttr({
-			name: "tooltip-content",
-			description: "Present on the tooltip content element.",
-		}),
-	],
-	cssVars: floatingContentCSSVars("tooltip"),
-});
+);
 
-export const contentStatic = defineComponentApiSchema<TooltipContentStaticPropsWithoutHTML>({
-	title: "ContentStatic",
-	description:
-		"The contents of the tooltip which are displayed when the tooltip is open. (Static/No Floating UI)",
-	props: {
-		...dismissibleLayerProps,
-		...escapeLayerProps,
-		forceMount: forceMountProp,
-		dir: dirProp,
-		...withChildProps({
-			elType: "HTMLDivElement",
-			child: openChildDefinition,
-		}),
-	},
-	dataAttributes: [
-		openClosedDataAttr,
-		defineSimpleDataAttr({
-			name: "tooltip-content",
-			description: "Present on the tooltip content element.",
-		}),
-	],
-});
+export const contentStatic =
+	defineComponentApiSchema<TooltipContentStaticPropsWithoutHTML>({
+		title: "ContentStatic",
+		description:
+			"The contents of the tooltip which are displayed when the tooltip is open. (Static/No Floating UI)",
+		props: {
+			...dismissibleLayerProps,
+			...escapeLayerProps,
+			forceMount: forceMountProp,
+			dir: dirProp,
+			...withChildProps({
+				elType: "HTMLDivElement",
+				child: openChildDefinition,
+			}),
+		},
+		dataAttributes: [
+			openClosedDataAttr,
+			defineSimpleDataAttr({
+				name: "tooltip-content",
+				description: "Present on the tooltip content element.",
+			}),
+		],
+	});
 
 export const arrow = defineComponentApiSchema<TooltipArrowPropsWithoutHTML>({
 	title: "Arrow",
-	description: "An optional arrow element which points to the trigger when the tooltip is open.",
+	description:
+		"An optional arrow element which points to the trigger when the tooltip is open.",
 	props: arrowProps,
 	dataAttributes: [
 		defineSimpleDataAttr({
@@ -230,4 +238,12 @@ const portal = defineComponentApiSchema<TooltipPortalPropsWithoutHTML>({
 	props: portalProps,
 });
 
-export const tooltip = [provider, root, trigger, content, contentStatic, arrow, portal];
+export const tooltip = [
+	provider,
+	root,
+	trigger,
+	content,
+	contentStatic,
+	arrow,
+	portal,
+];

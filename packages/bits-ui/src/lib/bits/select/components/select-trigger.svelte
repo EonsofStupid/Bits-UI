@@ -1,30 +1,32 @@
 <script lang="ts">
-	import { boxWith, mergeProps } from "svelte-toolbelt";
-	import { SelectTriggerState } from "../select.svelte.js";
-	import type { SelectTriggerProps } from "../types.js";
-	import { createId } from "$lib/internal/create-id.js";
-	import { FloatingLayer } from "$lib/bits/utilities/floating-layer/index.js";
+import { boxWith, mergeProps } from "svelte-toolbelt";
+import { SelectTriggerState } from "../select.svelte.js";
+import type { SelectTriggerProps } from "../types.js";
+import { createId } from "$lib/internal/create-id.js";
+import { FloatingLayer } from "$lib/bits/utilities/floating-layer/index.js";
 
-	const uid = $props.id();
+const uid = $props.id();
 
-	let {
-		id = createId(uid),
-		ref = $bindable(null),
-		child,
-		children,
-		type = "button",
-		...restProps
-	}: SelectTriggerProps = $props();
+let {
+	id = createId(uid),
+	ref = $bindable(null),
+	child,
+	children,
+	type = "button",
+	...restProps
+}: SelectTriggerProps = $props();
 
-	const triggerState = SelectTriggerState.create({
-		id: boxWith(() => id),
-		ref: boxWith(
-			() => ref,
-			(v) => (ref = v)
-		),
-	});
+const triggerState = SelectTriggerState.create({
+	id: boxWith(() => id),
+	ref: boxWith(
+		() => ref,
+		(v) => (ref = v),
+	),
+});
 
-	const mergedProps = $derived(mergeProps(restProps, triggerState.props, { type }));
+const mergedProps = $derived(
+	mergeProps(restProps, triggerState.props, { type }),
+);
 </script>
 
 <FloatingLayer.Anchor {id} ref={triggerState.opts.ref}>

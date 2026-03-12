@@ -37,6 +37,6 @@ export class SeparatorRootState {
 				"data-orientation": this.opts.orientation.current,
 				[separatorAttrs.root]: "",
 				...this.attachment,
-			}) as const
+			}) as const,
 	);
 }

@@ -1,10 +1,10 @@
 <script lang="ts">
-	import { Popover } from "bits-ui";
+import { Popover } from "bits-ui";
 
-	type Tab = "popover" | "other";
+type Tab = "popover" | "other";
 
-	let activeTab = $state<Tab>("popover");
-	let open = $state(false);
+let activeTab = $state<Tab>("popover");
+let open = $state(false);
 </script>
 
 <main

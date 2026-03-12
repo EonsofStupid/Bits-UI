@@ -1,11 +1,11 @@
 <script lang="ts">
-	import Code from "$lib/components/markdown/code.svelte";
-	import { Popover } from "bits-ui";
-	import ScrollArea from "$lib/components/ui/scroll-area.svelte";
-	import type { PropSchema } from "$lib/types/index.js";
-	import Info from "phosphor-svelte/lib/Info";
+import Code from "$lib/components/markdown/code.svelte";
+import { Popover } from "bits-ui";
+import ScrollArea from "$lib/components/ui/scroll-area.svelte";
+import type { PropSchema } from "$lib/types/index.js";
+import Info from "phosphor-svelte/lib/Info";
 
-	let { prop }: { prop: PropSchema } = $props();
+let { prop }: { prop: PropSchema } = $props();
 </script>
 
 <div class="flex items-center gap-1.5">

@@ -1,13 +1,13 @@
 <script lang="ts" module>
-	import { Tooltip, type WithoutChildrenOrChild } from "bits-ui";
+import { Tooltip, type WithoutChildrenOrChild } from "bits-ui";
 
-	export type TooltipTestProps = WithoutChildrenOrChild<Tooltip.RootProps> & {
-		contentProps?: WithoutChildrenOrChild<Tooltip.ContentProps>;
-		portalProps?: WithoutChildrenOrChild<Tooltip.PortalProps>;
-		providerProps?: WithoutChildrenOrChild<Tooltip.ProviderProps>;
-		triggerProps?: WithoutChildrenOrChild<Tooltip.TriggerProps>;
-		withCustomAnchor?: boolean;
-	};
+export type TooltipTestProps = WithoutChildrenOrChild<Tooltip.RootProps> & {
+	contentProps?: WithoutChildrenOrChild<Tooltip.ContentProps>;
+	portalProps?: WithoutChildrenOrChild<Tooltip.PortalProps>;
+	providerProps?: WithoutChildrenOrChild<Tooltip.ProviderProps>;
+	triggerProps?: WithoutChildrenOrChild<Tooltip.TriggerProps>;
+	withCustomAnchor?: boolean;
+};
 </script>
 
 <script lang="ts">

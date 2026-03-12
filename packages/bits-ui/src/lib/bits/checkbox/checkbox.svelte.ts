@@ -1,4 +1,8 @@
-import { attachRef, type ReadableBoxedValues, type WritableBoxedValues } from "svelte-toolbelt";
+import {
+	attachRef,
+	type ReadableBoxedValues,
+	type WritableBoxedValues,
+} from "svelte-toolbelt";
 import type { HTMLButtonAttributes } from "svelte/elements";
 import { Context, watch } from "runed";
 import type {
@@ -37,7 +41,9 @@ interface CheckboxGroupStateOpts
 			value: string[];
 		}> {}
 
-export const CheckboxGroupContext = new Context<CheckboxGroupState>("Checkbox.Group");
+export const CheckboxGroupContext = new Context<CheckboxGroupState>(
+	"Checkbox.Group",
+);
 
 export class CheckboxGroupState {
 	static create(opts: CheckboxGroupStateOpts) {
@@ -56,7 +62,10 @@ export class CheckboxGroupState {
 	addValue(checkboxValue: string | undefined) {
 		if (!checkboxValue) return;
 		if (!this.opts.value.current.includes(checkboxValue)) {
-			const newValue = [...$state.snapshot(this.opts.value.current), checkboxValue];
+			const newValue = [
+				...$state.snapshot(this.opts.value.current),
+				checkboxValue,
+			];
 			this.opts.value.current = newValue;
 			if (arraysAreEqual(this.opts.value.current, newValue)) return;
 			this.opts.onValueChange.current(newValue);
@@ -82,7 +91,7 @@ export class CheckboxGroupState {
 				"data-disabled": boolToEmptyStrOrUndef(this.opts.disabled.current),
 				[checkboxAttrs.group]: "",
 				...this.attachment,
-			}) as const
+			}) as const,
 	);
 }
 
@@ -107,7 +116,7 @@ export class CheckboxGroupLabelState {
 			() => this.opts.id.current,
 			(id) => {
 				this.group.labelId = id;
-			}
+			},
 		);
 	}
 
@@ -115,10 +124,12 @@ export class CheckboxGroupLabelState {
 		() =>
 			({
 				id: this.opts.id.current,
-				"data-disabled": boolToEmptyStrOrUndef(this.group.opts.disabled.current),
+				"data-disabled": boolToEmptyStrOrUndef(
+					this.group.opts.disabled.current,
+				),
 				[checkboxAttrs["group-label"]]: "",
 				...this.attachment,
-			}) as const
+			}) as const,
 	);
 }
 
@@ -140,14 +151,18 @@ interface CheckboxRootStateOpts
 		}> {}
 
 export class CheckboxRootState {
-	static create(opts: CheckboxRootStateOpts, group: CheckboxGroupState | null = null) {
+	static create(
+		opts: CheckboxRootStateOpts,
+		group: CheckboxGroupState | null = null,
+	) {
 		return CheckboxRootContext.set(new CheckboxRootState(opts, group));
 	}
 
 	readonly opts: CheckboxRootStateOpts;
 	readonly group: CheckboxGroupState | null;
 	readonly trueName = $derived.by(() => {
-		if (this.group && this.group.opts.name.current) return this.group.opts.name.current;
+		if (this.group && this.group.opts.name.current)
+			return this.group.opts.name.current;
 		return this.opts.name.current;
 	});
 	readonly trueRequired = $derived.by(() => {
@@ -172,11 +187,14 @@ export class CheckboxRootState {
 		this.onclick = this.onclick.bind(this);
 
 		watch.pre(
-			[() => $state.snapshot(this.group?.opts.value.current), () => this.opts.value.current],
+			[
+				() => $state.snapshot(this.group?.opts.value.current),
+				() => this.opts.value.current,
+			],
 			([groupValue, value]) => {
 				if (!groupValue || !value) return;
 				this.opts.checked.current = groupValue.includes(value);
-			}
+			},
 		);
 
 		watch.pre(
@@ -188,7 +206,7 @@ export class CheckboxRootState {
 				} else {
 					this.group?.removeValue(this.opts.value.current);
 				}
-			}
+			},
 		);
 	}
 
@@ -241,7 +259,7 @@ export class CheckboxRootState {
 				disabled: this.trueDisabled,
 				"aria-checked": getAriaChecked(
 					this.opts.checked.current,
-					this.opts.indeterminate.current
+					this.opts.indeterminate.current,
 				),
 				"aria-required": boolToStr(this.trueRequired),
 				"aria-readonly": boolToStr(this.trueReadonly),
@@ -249,14 +267,14 @@ export class CheckboxRootState {
 				"data-readonly": boolToEmptyStrOrUndef(this.trueReadonly),
 				"data-state": getCheckboxDataState(
 					this.opts.checked.current,
-					this.opts.indeterminate.current
+					this.opts.indeterminate.current,
 				),
 				[checkboxAttrs.root]: "",
 				//
 				onclick: this.onclick,
 				onkeydown: this.onkeydown,
 				...this.attachment,
-			}) as const
+			}) as const,
 	);
 }
 
@@ -299,7 +317,7 @@ export class CheckboxInputState {
 				value: this.root.opts.value.current,
 				readonly: this.root.trueReadonly,
 				onfocus: this.onfocus,
-			}) as const
+			}) as const,
 	);
 }
 

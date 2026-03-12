@@ -1,48 +1,48 @@
 <script lang="ts">
-	import type { Snippet } from "svelte";
-	import { Collapsible, Tabs } from "bits-ui";
-	import DemoCodeTabs from "./demo-code-tabs.svelte";
-	import AppCSS from "./code-renders/app-css.svelte";
-	import ScrollArea from "$lib/components/ui/scroll-area.svelte";
-	import { cn } from "$lib/utils/styles.js";
-	import { useCopyToClipboard } from "$lib/utils/copy-to-clipboard.svelte.js";
-	import { watch } from "runed";
+import type { Snippet } from "svelte";
+import { Collapsible, Tabs } from "bits-ui";
+import DemoCodeTabs from "./demo-code-tabs.svelte";
+import AppCSS from "./code-renders/app-css.svelte";
+import ScrollArea from "$lib/components/ui/scroll-area.svelte";
+import { cn } from "$lib/utils/styles.js";
+import { useCopyToClipboard } from "$lib/utils/copy-to-clipboard.svelte.js";
+import { watch } from "runed";
 
-	let {
-		children,
-		fileName = "app.svelte",
-		class: className,
-		nonExpandableItems = [],
-		variant = "preview",
-	}: {
-		fileName?: string;
-		children: Snippet;
-		class?: string;
-		nonExpandableItems?: string[];
-		variant?: "preview" | "collapsed";
-	} = $props();
+let {
+	children,
+	fileName = "app.svelte",
+	class: className,
+	nonExpandableItems = [],
+	variant = "preview",
+}: {
+	fileName?: string;
+	children: Snippet;
+	class?: string;
+	nonExpandableItems?: string[];
+	variant?: "preview" | "collapsed";
+} = $props();
 
-	const items = $derived([
-		{
-			label: fileName,
-			value: fileName,
-		},
-		{
-			label: "app.css",
-			value: "app.css",
-		},
-	]);
+const items = $derived([
+	{
+		label: fileName,
+		value: fileName,
+	},
+	{
+		label: "app.css",
+		value: "app.css",
+	},
+]);
 
-	let open = $state(false);
-	let activeValue = $state(fileName);
-	let codeWrapper = $state<HTMLElement>(null!);
-	const expandable = $derived(!nonExpandableItems.includes(activeValue));
-	const copyToClipboard = useCopyToClipboard();
+let open = $state(false);
+let activeValue = $state(fileName);
+let codeWrapper = $state<HTMLElement>(null!);
+const expandable = $derived(!nonExpandableItems.includes(activeValue));
+const copyToClipboard = useCopyToClipboard();
 
-	watch([() => activeValue, () => codeWrapper], () => {
-		if (!codeWrapper) return;
-		copyToClipboard?.setCodeString(codeWrapper.innerText.trim() ?? "");
-	});
+watch([() => activeValue, () => codeWrapper], () => {
+	if (!codeWrapper) return;
+	copyToClipboard?.setCodeString(codeWrapper.innerText.trim() ?? "");
+});
 </script>
 
 <Collapsible.Root bind:open>

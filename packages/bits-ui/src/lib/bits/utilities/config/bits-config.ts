@@ -1,5 +1,9 @@
 import { Context } from "runed";
-import { boxWith, type ReadableBox, type ReadableBoxedValues } from "svelte-toolbelt";
+import {
+	boxWith,
+	type ReadableBox,
+	type ReadableBoxedValues,
+} from "svelte-toolbelt";
 import type { BitsConfigPropsWithoutChildren } from "$lib/bits/utilities/config/types.js";
 
 type BitsConfigStateProps = ReadableBoxedValues<BitsConfigPropsWithoutChildren>;
@@ -33,7 +37,9 @@ export function getBitsConfig() {
  * ```
  */
 export function useBitsConfig(opts: BitsConfigStateProps) {
-	return BitsConfigContext.set(new BitsConfigState(BitsConfigContext.getOr(null), opts));
+	return BitsConfigContext.set(
+		new BitsConfigState(BitsConfigContext.getOr(null), opts),
+	);
 }
 
 /**
@@ -59,8 +65,12 @@ export class BitsConfigState {
 	}
 }
 
-type ConfigOptionGetter<T> = (config: BitsConfigStateProps) => ReadableBox<T> | undefined;
-type ConfigOptionResolver = <T>(getter: ConfigOptionGetter<T>) => ReadableBox<T | undefined>;
+type ConfigOptionGetter<T> = (
+	config: BitsConfigStateProps,
+) => ReadableBox<T> | undefined;
+type ConfigOptionResolver = <T>(
+	getter: ConfigOptionGetter<T>,
+) => ReadableBox<T | undefined>;
 
 /**
  * Returns a config resolver that resolves a given config option's value.
@@ -88,7 +98,7 @@ type ConfigOptionResolver = <T>(getter: ConfigOptionGetter<T>) => ReadableBox<T 
  */
 function createConfigResolver(
 	parent: BitsConfigState | null,
-	currentOpts: BitsConfigStateProps
+	currentOpts: BitsConfigStateProps,
 ): ConfigOptionResolver {
 	return <T>(getter: ConfigOptionGetter<T>) => {
 		const configOption = boxWith(() => {

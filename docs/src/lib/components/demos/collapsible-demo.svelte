@@ -1,6 +1,6 @@
 <script lang="ts">
-	import { Collapsible } from "bits-ui";
-	import CaretUpDown from "phosphor-svelte/lib/CaretUpDown";
+import { Collapsible } from "bits-ui";
+import CaretUpDown from "phosphor-svelte/lib/CaretUpDown";
 </script>
 
 <Collapsible.Root class="w-[327px] space-y-3">
