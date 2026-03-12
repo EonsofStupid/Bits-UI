@@ -1,0 +1,46 @@
+
+Library
+Commands
+Search files
+Packager files
+Config files
+/
+Enable "Accessible Terminal" in Workspace Settings to use a screen reader with the shell.
+Remote Updates
+origin/coldlight•upstream
+last fetched 2 hours ago
+Commit
+There are no changes to commit.
+#1 - ColdLight Token Foundation (Style Dictionary)
+What & Why
+Establish Style Dictionary as the CSS generation engine for ColdLight. This creates the single source of truth for all design tokens — colors, spacing, radius, typography, shadows — and generates CSS custom properties, typed JS/TS constants, and .d.ts declaration files from them. The output feeds the UI package and replaces hand-authored CSS vars in app.css.
+
+Done looks like
+packages/tokens/ workspace package exists with a full Style Dictionary config
+Running pnpm build:tokens generates CSS custom properties, TS token constants, and .d.ts types
+scripts/dev/build/coldlight/styledictionary/ contains the build pipeline and transform config
+A coldlight.config.ts at the root (panda-css-inspired) defines the token schema and theme overrides
+Light and dark theme CSS outputs are generated cleanly from token definitions
+Generated output is importable by packages/ui/ and docs/
+Out of scope
+Styled components (that is the UI package task)
+BitsConfig extension (separate task)
+Devtools UI
+Tasks
+Create packages/tokens/ package — scaffold the workspace package with package.json, tsconfig.json, and Style Dictionary as a dependency.
+
+Define token schema — author the token definition files (color primitives, semantic color aliases, spacing scale, border-radius, typography, shadows) in Style Dictionary format with $extensions for ColdLight metadata.
+
+Write coldlight.config.ts — panda-css-inspired root config file that declares the token schema, theme map (light/dark), and output targets. Keep it human-readable for layman devs.
+
+Build pipeline in scripts/dev/build/coldlight/styledictionary/ — Style Dictionary config, custom transforms (HSL → CSS var, token path → CSS custom property name), and formatters that output: CSS file, ESM JS constants, and TypeScript .d.ts.
+
+Wire into monorepo scripts — add build:tokens and dev:tokens scripts to root package.json and make the docs site import generated CSS.
+
+Relevant files
+packages/bits-ui/package.json
+pnpm-workspace.yaml
+package.json
+docs/src/lib/styles/app.css
+docs/src/lib/styles/themes/custom-light.json
+docs/src/lib/styles/themes/custom-dark.json
