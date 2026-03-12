@@ -1,8 +1,8 @@
 import { DateFormatter, type DateValue } from "@internationalized/date";
-import { hasTime, isZonedDateTime, toDate } from "./utils.js";
+import type { ReadableBox } from "svelte-toolbelt";
 import type { HourCycle, TimeValue } from "$lib/shared/date/types.js";
 import { convertTimeValueToDateValue } from "./field/time-helpers.js";
-import type { ReadableBox } from "svelte-toolbelt";
+import { hasTime, isZonedDateTime, toDate } from "./utils.js";
 
 export type Formatter = ReturnType<typeof createFormatter>;
 export type TimeFormatter = ReturnType<typeof createTimeFormatter>;
@@ -18,12 +18,8 @@ const defaultPartOptions: Intl.DateTimeFormatOptions = {
 
 type CreateFormatterOptions = {
 	initialLocale: string;
-	monthFormat: ReadableBox<
-		Intl.DateTimeFormatOptions["month"] | ((month: number) => string)
-	>;
-	yearFormat: ReadableBox<
-		Intl.DateTimeFormatOptions["year"] | ((year: number) => string)
-	>;
+	monthFormat: ReadableBox<Intl.DateTimeFormatOptions["month"] | ((month: number) => string)>;
+	yearFormat: ReadableBox<Intl.DateTimeFormatOptions["year"] | ((year: number) => string)>;
 };
 
 /**
@@ -75,15 +71,11 @@ export function createFormatter(opts: CreateFormatterOptions) {
 		const formattedMonth =
 			typeof opts.monthFormat.current === "function"
 				? opts.monthFormat.current(date.getMonth() + 1)
-				: new DateFormatter(locale, { month: opts.monthFormat.current }).format(
-						date,
-					);
+				: new DateFormatter(locale, { month: opts.monthFormat.current }).format(date);
 		const formattedYear =
 			typeof opts.yearFormat.current === "function"
 				? opts.yearFormat.current(date.getFullYear())
-				: new DateFormatter(locale, { year: opts.yearFormat.current }).format(
-						date,
-					);
+				: new DateFormatter(locale, { year: opts.yearFormat.current }).format(date);
 
 		return `${formattedMonth} ${formattedYear}`;
 	}
@@ -107,10 +99,7 @@ export function createFormatter(opts: CreateFormatterOptions) {
 		}
 	}
 
-	function dayOfWeek(
-		date: Date,
-		length: Intl.DateTimeFormatOptions["weekday"] = "narrow",
-	) {
+	function dayOfWeek(date: Date, length: Intl.DateTimeFormatOptions["weekday"] = "narrow") {
 		return new DateFormatter(locale, { weekday: length }).format(date);
 	}
 
@@ -130,7 +119,7 @@ export function createFormatter(opts: CreateFormatterOptions) {
 	function part(
 		dateObj: DateValue,
 		type: Intl.DateTimeFormatPartTypes,
-		options: Intl.DateTimeFormatOptions = {},
+		options: Intl.DateTimeFormatOptions = {}
 	) {
 		const opts = { ...defaultPartOptions, ...options };
 		const parts = toParts(dateObj, opts);
@@ -183,9 +172,7 @@ export function createTimeFormatter(initialLocale: string) {
 				timeZone: dateValue.timeZone,
 			}).formatToParts(toDate(dateValue));
 		} else {
-			return new DateFormatter(locale, options).formatToParts(
-				toDate(dateValue),
-			);
+			return new DateFormatter(locale, options).formatToParts(toDate(dateValue));
 		}
 	}
 
@@ -203,7 +190,7 @@ export function createTimeFormatter(initialLocale: string) {
 	function part(
 		dateObj: TimeValue,
 		type: Intl.DateTimeFormatPartTypes,
-		options: Intl.DateTimeFormatOptions = {},
+		options: Intl.DateTimeFormatOptions = {}
 	) {
 		const opts = { ...defaultPartOptions, ...options };
 		const parts = toParts(dateObj, opts);

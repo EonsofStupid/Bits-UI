@@ -1,8 +1,8 @@
 <script lang="ts">
 import { boxWith, mergeProps } from "svelte-toolbelt";
-import type { CalendarYearSelectProps } from "../types.js";
-import { CalendarYearSelectState } from "../calendar.svelte.js";
 import { createId } from "$lib/internal/create-id.js";
+import { CalendarYearSelectState } from "../calendar.svelte.js";
+import type { CalendarYearSelectProps } from "../types.js";
 
 const uid = $props.id();
 
@@ -22,7 +22,7 @@ const yearSelectState = CalendarYearSelectState.create({
 	id: boxWith(() => id),
 	ref: boxWith(
 		() => ref,
-		(v) => (ref = v),
+		(v) => (ref = v)
 	),
 	years: boxWith(() => years),
 	yearFormat: boxWith(() => yearFormat),
@@ -30,7 +30,7 @@ const yearSelectState = CalendarYearSelectState.create({
 });
 
 const mergedProps = $derived(
-	mergeProps(restProps, yearSelectState.props, { "aria-label": ariaLabel }),
+	mergeProps(restProps, yearSelectState.props, { "aria-label": ariaLabel })
 );
 </script>
 

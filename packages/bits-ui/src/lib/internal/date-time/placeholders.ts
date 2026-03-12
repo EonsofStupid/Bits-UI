@@ -81,10 +81,7 @@ const placeholderFields = ["year", "month", "day"] as const;
 
 type SupportedLocale = (typeof supportedLocales)[number];
 type PlaceholderField = (typeof placeholderFields)[number];
-export type PlaceholderMap = Record<
-	SupportedLocale,
-	Record<PlaceholderField, string>
->;
+export type PlaceholderMap = Record<SupportedLocale, Record<PlaceholderField, string>>;
 
 const placeholders: PlaceholderMap = {
 	ach: { year: "mwaka", month: "dwe", day: "nino" },
@@ -177,20 +174,12 @@ function getPlaceholderObj(locale: SupportedLocale | (string & {})) {
 	}
 }
 
-type Field =
-	| "era"
-	| "year"
-	| "month"
-	| "day"
-	| "hour"
-	| "minute"
-	| "second"
-	| "dayPeriod";
+type Field = "era" | "year" | "month" | "day" | "hour" | "minute" | "second" | "dayPeriod";
 
 export function getPlaceholder(
 	field: Field,
 	value: string,
-	locale: SupportedLocale | (string & {}),
+	locale: SupportedLocale | (string & {})
 ) {
 	if (isPlaceholderField(field)) return getPlaceholderObj(locale)[field];
 	if (isDefaultField(field)) return value;

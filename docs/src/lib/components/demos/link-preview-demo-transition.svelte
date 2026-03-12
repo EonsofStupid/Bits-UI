@@ -1,5 +1,5 @@
 <script lang="ts">
-import { Avatar, LinkPreview } from "bits-ui";
+import { type Avatar, LinkPreview } from "bits-ui";
 import CalendarBlank from "phosphor-svelte/lib/CalendarBlank";
 import MapPin from "phosphor-svelte/lib/MapPin";
 import { fly } from "svelte/transition";

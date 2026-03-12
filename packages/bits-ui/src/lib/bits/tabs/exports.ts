@@ -4,8 +4,8 @@ export { default as List } from "./components/tabs-list.svelte";
 export { default as Trigger } from "./components/tabs-trigger.svelte";
 
 export type {
-	TabsRootProps as RootProps,
 	TabsContentProps as ContentProps,
-	TabsTriggerProps as TriggerProps,
 	TabsListProps as ListProps,
+	TabsRootProps as RootProps,
+	TabsTriggerProps as TriggerProps,
 } from "./types.js";

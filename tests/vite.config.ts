@@ -1,8 +1,8 @@
 import process from "node:process";
-import tailwindcss from "@tailwindcss/vite";
 import { sveltekit } from "@sveltejs/kit/vite";
-import { defineConfig } from "vite";
+import tailwindcss from "@tailwindcss/vite";
 import type { Plugin } from "vite";
+import { defineConfig } from "vite";
 
 const vitestBrowserConditionPlugin: Plugin = {
 	name: "vite-plugin-vitest-browser-condition",

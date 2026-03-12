@@ -1,11 +1,11 @@
 <script lang="ts">
-import { getAllContexts, mount, unmount } from "svelte";
 import { DEV } from "esm-env";
 import { watch } from "runed";
+import { getAllContexts, mount, unmount } from "svelte";
+import { resolvePortalToProp } from "$lib/bits/utilities/config/prop-resolvers.js";
+import { isBrowser } from "$lib/internal/is.js";
 import PortalConsumer from "./portal-consumer.svelte";
 import type { PortalProps } from "./types.js";
-import { isBrowser } from "$lib/internal/is.js";
-import { resolvePortalToProp } from "$lib/bits/utilities/config/prop-resolvers.js";
 
 let { to: toProp, children, disabled }: PortalProps = $props();
 
@@ -32,7 +32,7 @@ function getTarget() {
 	if (DEV && !(localTarget instanceof Element)) {
 		const type = localTarget === null ? "null" : typeof localTarget;
 		throw new TypeError(
-			`Unknown portal target type: ${type}. Allowed types: string (query selector) or Element.`,
+			`Unknown portal target type: ${type}. Allowed types: string (query selector) or Element.`
 		);
 	}
 

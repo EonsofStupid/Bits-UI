@@ -1,5 +1,5 @@
 import { simpleBox } from "svelte-toolbelt";
-import { FocusScope } from "./focus-scope.svelte.js";
+import type { FocusScope } from "./focus-scope.svelte.js";
 
 export class FocusScopeManager {
 	static instance: FocusScopeManager;
@@ -8,10 +8,10 @@ export class FocusScopeManager {
 	#preFocusHistory = new WeakMap<FocusScope, HTMLElement>();
 
 	static getInstance() {
-		if (!this.instance) {
-			this.instance = new FocusScopeManager();
+		if (!FocusScopeManager.instance) {
+			FocusScopeManager.instance = new FocusScopeManager();
 		}
-		return this.instance;
+		return FocusScopeManager.instance;
 	}
 
 	register(scope: FocusScope) {
@@ -26,16 +26,12 @@ export class FocusScopeManager {
 			this.#preFocusHistory.set(scope, activeElement);
 		}
 
-		this.#scopeStack.current = this.#scopeStack.current.filter(
-			(s) => s !== scope,
-		);
+		this.#scopeStack.current = this.#scopeStack.current.filter((s) => s !== scope);
 		this.#scopeStack.current.unshift(scope);
 	}
 
 	unregister(scope: FocusScope) {
-		this.#scopeStack.current = this.#scopeStack.current.filter(
-			(s) => s !== scope,
-		);
+		this.#scopeStack.current = this.#scopeStack.current.filter((s) => s !== scope);
 		const next = this.getActive();
 		if (next) {
 			next.resume();

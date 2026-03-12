@@ -1,17 +1,11 @@
-import { expect, it, describe } from "vitest";
-import { render } from "vitest-browser-svelte";
-import {
-	CalendarDate,
-	CalendarDateTime,
-	toZoned,
-} from "@internationalized/date";
-import type { DateRange } from "bits-ui";
-import { getTestKbd } from "../utils.js";
-import RangeCalendarTest, {
-	type RangeCalendarTestProps,
-} from "./range-calendar-test.svelte";
-import RangeCalendarSelectsTest from "./range-calendar-selects-test.svelte";
+import { CalendarDate, CalendarDateTime, toZoned } from "@internationalized/date";
 import { page, userEvent } from "@vitest/browser/context";
+import type { DateRange } from "bits-ui";
+import { describe, expect, it } from "vitest";
+import { render } from "vitest-browser-svelte";
+import { getTestKbd } from "../utils.js";
+import RangeCalendarSelectsTest from "./range-calendar-selects-test.svelte";
+import RangeCalendarTest, { type RangeCalendarTestProps } from "./range-calendar-test.svelte";
 
 const kbd = getTestKbd();
 
@@ -32,15 +26,7 @@ const zonedDateTimeRange = {
 
 const narrowWeekdays = ["S", "M", "T", "W", "T", "F", "S"];
 const shortWeekdays = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
-const longWeekdays = [
-	"Sunday",
-	"Monday",
-	"Tuesday",
-	"Wednesday",
-	"Thursday",
-	"Friday",
-	"Saturday",
-];
+const longWeekdays = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
 // prettier-ignore
 const months = [
 	"January",
@@ -67,9 +53,7 @@ function setup(props: Partial<RangeCalendarTestProps> = {}) {
 	expect(calendar).toBeVisible();
 
 	function getSelectedDays() {
-		return calendar
-			.element()
-			.querySelectorAll<HTMLElement>(SELECTED_DAY_SELECTOR);
+		return calendar.element().querySelectorAll<HTMLElement>(SELECTED_DAY_SELECTOR);
 	}
 
 	return { calendar, getSelectedDays, prevButton, nextButton };
@@ -125,12 +109,8 @@ it("should reset range on select when a range is already selected", async () => 
 	const startValue = page.getByTestId("start-value");
 	const endValue = page.getByTestId("end-value");
 
-	await expect
-		.element(startValue)
-		.toHaveTextContent(String(calendarDateRange.start));
-	await expect
-		.element(endValue)
-		.toHaveTextContent(String(calendarDateRange.end));
+	await expect.element(startValue).toHaveTextContent(String(calendarDateRange.start));
+	await expect.element(endValue).toHaveTextContent(String(calendarDateRange.end));
 
 	const fifthDayInMonth = page.getByTestId("date-1-5");
 	await fifthDayInMonth.click();
@@ -343,9 +323,7 @@ it("should handle unavailable dates appropriately", async () => {
 	const thirdDayInMonth = page.getByTestId("date-1-3");
 	await expect.element(thirdDayInMonth).toHaveTextContent("3");
 	await expect.element(thirdDayInMonth).toHaveAttribute("data-unavailable");
-	await expect
-		.element(thirdDayInMonth)
-		.toHaveAttribute("aria-disabled", "true");
+	await expect.element(thirdDayInMonth).toHaveAttribute("aria-disabled", "true");
 	await thirdDayInMonth.click({ force: true });
 	await expect.element(thirdDayInMonth).not.toHaveAttribute(SELECTED_ATTR);
 });
@@ -410,9 +388,7 @@ it("should respect the `weekStartsOn` prop regardless of locale", async () => {
 		weekdayFormat: "short",
 		locale: "fr",
 	});
-	await expect
-		.element(page.getByTestId("weekday-1-0").element())
-		.toHaveTextContent("mar.");
+	await expect.element(page.getByTestId("weekday-1-0").element()).toHaveTextContent("mar.");
 });
 
 it("should default the first day of the week to the locale's first day of the week if `weekStartsOn` is not provided", async () => {
@@ -421,9 +397,7 @@ it("should default the first day of the week to the locale's first day of the we
 		weekdayFormat: "short",
 		locale: "fr",
 	});
-	await expect
-		.element(page.getByTestId("weekday-1-0").element())
-		.toHaveTextContent("lun.");
+	await expect.element(page.getByTestId("weekday-1-0").element()).toHaveTextContent("lun.");
 });
 
 describe("minDays and maxDays constraints", () => {
@@ -615,27 +589,19 @@ describe("range selection data attributes", () => {
 		const middleDay2 = page.getByTestId("date-1-7");
 		await expect.element(middleDay1).toHaveAttribute("data-selected", "");
 		await expect.element(middleDay2).toHaveAttribute("data-selected", "");
-		await expect
-			.element(middleDay1)
-			.not.toHaveAttribute("data-selection-start");
+		await expect.element(middleDay1).not.toHaveAttribute("data-selection-start");
 		await expect.element(middleDay1).not.toHaveAttribute("data-selection-end");
-		await expect
-			.element(middleDay2)
-			.not.toHaveAttribute("data-selection-start");
+		await expect.element(middleDay2).not.toHaveAttribute("data-selection-start");
 		await expect.element(middleDay2).not.toHaveAttribute("data-selection-end");
 
 		// verify days outside range don't have selection attributes
 		const beforeRange = page.getByTestId("date-1-4");
 		const afterRange = page.getByTestId("date-1-9");
 		await expect.element(beforeRange).not.toHaveAttribute("data-selected");
-		await expect
-			.element(beforeRange)
-			.not.toHaveAttribute("data-selection-start");
+		await expect.element(beforeRange).not.toHaveAttribute("data-selection-start");
 		await expect.element(beforeRange).not.toHaveAttribute("data-selection-end");
 		await expect.element(afterRange).not.toHaveAttribute("data-selected");
-		await expect
-			.element(afterRange)
-			.not.toHaveAttribute("data-selection-start");
+		await expect.element(afterRange).not.toHaveAttribute("data-selection-start");
 		await expect.element(afterRange).not.toHaveAttribute("data-selection-end");
 	});
 
@@ -764,21 +730,13 @@ describe("range selection data attributes", () => {
 
 		// verify highlighted range (should include start through hovered day)
 		await expect.element(startDay).toHaveAttribute("data-highlighted", "");
-		await expect
-			.element(page.getByTestId("date-1-6"))
-			.toHaveAttribute("data-highlighted", "");
-		await expect
-			.element(page.getByTestId("date-1-7"))
-			.toHaveAttribute("data-highlighted", "");
+		await expect.element(page.getByTestId("date-1-6")).toHaveAttribute("data-highlighted", "");
+		await expect.element(page.getByTestId("date-1-7")).toHaveAttribute("data-highlighted", "");
 		await expect.element(endDay).toHaveAttribute("data-highlighted", "");
 
 		// verify days outside preview range don't have data-highlighted
-		await expect
-			.element(page.getByTestId("date-1-4"))
-			.not.toHaveAttribute("data-highlighted");
-		await expect
-			.element(page.getByTestId("date-1-9"))
-			.not.toHaveAttribute("data-highlighted");
+		await expect.element(page.getByTestId("date-1-4")).not.toHaveAttribute("data-highlighted");
+		await expect.element(page.getByTestId("date-1-9")).not.toHaveAttribute("data-highlighted");
 	});
 
 	it("should handle highlighted range for backward hover selection", async () => {
@@ -796,12 +754,8 @@ describe("range selection data attributes", () => {
 
 		// verify highlighted range is properly ordered
 		await expect.element(startDay).toHaveAttribute("data-highlighted", "");
-		await expect
-			.element(page.getByTestId("date-1-6"))
-			.toHaveAttribute("data-highlighted", "");
-		await expect
-			.element(page.getByTestId("date-1-7"))
-			.toHaveAttribute("data-highlighted", "");
+		await expect.element(page.getByTestId("date-1-6")).toHaveAttribute("data-highlighted", "");
+		await expect.element(page.getByTestId("date-1-7")).toHaveAttribute("data-highlighted", "");
 		await expect.element(endDay).toHaveAttribute("data-highlighted", "");
 	});
 });
@@ -1093,7 +1047,7 @@ describe("RangeCalendar Select Components", () => {
 			readonly?: boolean;
 			minValue?: CalendarDate;
 			maxValue?: CalendarDate;
-		} = {},
+		} = {}
 	) {
 		render(RangeCalendarSelectsTest, props);
 		const calendar = page.getByTestId("calendar");
@@ -1144,9 +1098,7 @@ describe("RangeCalendar Select Components", () => {
 		it("should have correct selected option for current month", async () => {
 			const t = setupWithSelects({ placeholder: calendarDateRange.start }); // January 1980
 			const monthSelect = t.monthSelect;
-			const selectedOption = monthSelect
-				.element()
-				.querySelector("option[selected]");
+			const selectedOption = monthSelect.element().querySelector("option[selected]");
 
 			await expect.element(selectedOption).toHaveTextContent("January");
 			await expect.element(selectedOption).toHaveValue("1");
@@ -1199,9 +1151,7 @@ describe("RangeCalendar Select Components", () => {
 			expect(firstYear).toBe(2020);
 
 			// should end at current year + 10 (since no maxValue specified)
-			const lastYear = parseInt(
-				options[options.length - 1].getAttribute("value") || "0",
-			);
+			const lastYear = parseInt(options[options.length - 1].getAttribute("value") || "0");
 			expect(lastYear).toBe(Math.max(2000, currentYear) + 10);
 
 			// verify range is exactly from 2020 to expected end
@@ -1219,9 +1169,7 @@ describe("RangeCalendar Select Components", () => {
 			const options = yearSelect.element().querySelectorAll("option");
 
 			// should end exactly at maxValue year (2025)
-			const lastYear = parseInt(
-				options[options.length - 1].getAttribute("value") || "0",
-			);
+			const lastYear = parseInt(options[options.length - 1].getAttribute("value") || "0");
 			expect(lastYear).toBe(2025);
 
 			// should start at default minimum (since no minValue specified)
@@ -1251,7 +1199,7 @@ describe("RangeCalendar Select Components", () => {
 
 			// verify the complete sequence 2020, 2021, 2022, 2023, 2024, 2025
 			const allYears = Array.from(options).map((option) =>
-				parseInt(option.getAttribute("value") || "0"),
+				parseInt(option.getAttribute("value") || "0")
 			);
 			expect(allYears).toEqual([2020, 2021, 2022, 2023, 2024, 2025]);
 		});
@@ -1307,9 +1255,7 @@ describe("RangeCalendar Select Components", () => {
 		it("should have correct selected option for current year", async () => {
 			const t = setupWithSelects({ placeholder: calendarDateRange.start }); // 1980
 			const yearSelect = t.yearSelect;
-			const selectedOption = yearSelect
-				.element()
-				.querySelector("option[selected]");
+			const selectedOption = yearSelect.element().querySelector("option[selected]");
 
 			await expect.element(selectedOption).toHaveTextContent("1980");
 			await expect.element(selectedOption).toHaveValue("1980");
@@ -1391,12 +1337,8 @@ describe("RangeCalendar Select Components", () => {
 			});
 
 			// Should have a range selected initially
-			await expect
-				.element(page.getByTestId("date-1-20"))
-				.toHaveAttribute("data-selected");
-			await expect
-				.element(page.getByTestId("date-1-25"))
-				.toHaveAttribute("data-selected");
+			await expect.element(page.getByTestId("date-1-20")).toHaveAttribute("data-selected");
+			await expect.element(page.getByTestId("date-1-25")).toHaveAttribute("data-selected");
 
 			// Change to February
 			await userEvent.selectOptions(t.monthSelect.element(), "2");
@@ -1404,12 +1346,8 @@ describe("RangeCalendar Select Components", () => {
 			// Range should still be selected (though not visible in February)
 			// Navigate back to January to verify
 			await userEvent.selectOptions(t.monthSelect.element(), "1");
-			await expect
-				.element(page.getByTestId("date-1-20"))
-				.toHaveAttribute("data-selected");
-			await expect
-				.element(page.getByTestId("date-1-25"))
-				.toHaveAttribute("data-selected");
+			await expect.element(page.getByTestId("date-1-20")).toHaveAttribute("data-selected");
+			await expect.element(page.getByTestId("date-1-25")).toHaveAttribute("data-selected");
 		});
 
 		it("should allow selecting new ranges after navigation", async () => {

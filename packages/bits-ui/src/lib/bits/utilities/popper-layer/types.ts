@@ -1,30 +1,21 @@
 import type { Snippet } from "svelte";
-import type {
-	EscapeLayerImplProps,
-	EscapeLayerProps,
-} from "../escape-layer/types.js";
+import type { Direction } from "$lib/shared/index.js";
 import type {
 	DismissibleLayerImplProps,
 	DismissibleLayerProps,
 } from "../dismissible-layer/types.js";
+import type { EscapeLayerImplProps, EscapeLayerProps } from "../escape-layer/types.js";
 import type {
 	FloatingLayerContentImplProps,
 	FloatingLayerContentProps,
 } from "../floating-layer/types.js";
+import type { FocusScopeImplProps, FocusScopeProps } from "../focus-scope/types.js";
+import type { PresenceLayerImplProps, PresenceLayerProps } from "../presence-layer/types.js";
+import type { ScrollLockProps } from "../scroll-lock/index.js";
 import type {
 	TextSelectionLayerImplProps,
 	TextSelectionLayerProps,
 } from "../text-selection-layer/types.js";
-import type {
-	PresenceLayerImplProps,
-	PresenceLayerProps,
-} from "../presence-layer/types.js";
-import type {
-	FocusScopeImplProps,
-	FocusScopeProps,
-} from "../focus-scope/types.js";
-import type { ScrollLockProps } from "../scroll-lock/index.js";
-import type { Direction } from "$lib/shared/index.js";
 
 export type PopperLayerProps = EscapeLayerProps &
 	Omit<DismissibleLayerProps, "onInteractOutsideStart"> &

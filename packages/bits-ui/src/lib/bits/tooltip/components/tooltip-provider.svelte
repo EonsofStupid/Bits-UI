@@ -1,7 +1,7 @@
 <script lang="ts">
 import { boxWith } from "svelte-toolbelt";
-import type { TooltipProviderProps } from "../types.js";
 import { TooltipProviderState } from "../tooltip.svelte.js";
+import type { TooltipProviderProps } from "../types.js";
 
 let {
 	children,

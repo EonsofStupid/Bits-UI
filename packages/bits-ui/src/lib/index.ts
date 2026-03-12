@@ -11,12 +11,15 @@ export {
 	Combobox,
 	Command,
 	ContextMenu,
+	computeCommandScore,
 	DateField,
 	DatePicker,
 	DateRangeField,
 	DateRangePicker,
 	Dialog,
 	DropdownMenu,
+	getBitsConfig,
+	IsUsingKeyboard,
 	Label,
 	LinkPreview,
 	Menubar,
@@ -25,6 +28,7 @@ export {
 	Pagination,
 	PinInput,
 	Popover,
+	Portal,
 	Progress,
 	RadioGroup,
 	RangeCalendar,
@@ -41,12 +45,7 @@ export {
 	ToggleGroup,
 	Toolbar,
 	Tooltip,
-	Portal,
-	IsUsingKeyboard,
-	computeCommandScore,
-	getBitsConfig,
 } from "./bits/index.js";
-
-export * from "./shared/index.js";
 export type * from "./shared/index.js";
+export * from "./shared/index.js";
 export * from "./types.js";

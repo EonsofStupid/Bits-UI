@@ -1,10 +1,10 @@
 <script lang="ts">
 import { Popover, Separator } from "bits-ui";
-import ScrollArea from "$lib/components/ui/scroll-area.svelte";
-import { parseMarkdown } from "$lib/utils/index.js";
-import PopoverContent from "$lib/components/ui/popover/popover-content.svelte";
 import Info from "phosphor-svelte/lib/Info";
+import PopoverContent from "$lib/components/ui/popover/popover-content.svelte";
+import ScrollArea from "$lib/components/ui/scroll-area.svelte";
 import type { CSSVarSchema } from "$lib/content/types.js";
+import { parseMarkdown } from "$lib/utils/index.js";
 
 let { cssVar }: { cssVar: CSSVarSchema } = $props();
 </script>

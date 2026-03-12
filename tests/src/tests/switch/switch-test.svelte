@@ -1,10 +1,7 @@
 <script lang="ts">
-import { Switch, type WithoutChildrenOrChild } from "bits-ui";
+import type { Switch, WithoutChildrenOrChild } from "bits-ui";
 
-let {
-	checked = false,
-	...restProps
-}: WithoutChildrenOrChild<Switch.RootProps> = $props();
+let { checked = false, ...restProps }: WithoutChildrenOrChild<Switch.RootProps> = $props();
 </script>
 
 <main>

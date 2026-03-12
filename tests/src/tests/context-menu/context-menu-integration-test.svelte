@@ -1,5 +1,5 @@
 <script lang="ts" module>
-import { ContextMenu, Dialog, DropdownMenu } from "bits-ui";
+import { type ContextMenu, Dialog, DropdownMenu } from "bits-ui";
 export type ContextMenuTestProps = ContextMenu.RootProps & {
 	checked?: boolean;
 	subChecked?: boolean;
@@ -10,10 +10,7 @@ export type ContextMenuTestProps = ContextMenu.RootProps & {
 	contentProps?: Omit<ContextMenu.ContentProps, "children" | "child">;
 	portalProps?: Omit<ContextMenu.PortalProps, "children" | "child">;
 	subTriggerProps?: Omit<ContextMenu.SubTriggerProps, "children" | "child">;
-	checkboxGroupProps?: Omit<
-		ContextMenu.CheckboxGroupProps,
-		"children" | "child" | "value"
-	>;
+	checkboxGroupProps?: Omit<ContextMenu.CheckboxGroupProps, "children" | "child" | "value">;
 	openFocusOverride?: boolean;
 };
 </script>

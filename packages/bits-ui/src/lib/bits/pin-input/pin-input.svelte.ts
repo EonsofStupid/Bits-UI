@@ -1,18 +1,15 @@
 import { Previous, watch } from "runed";
 import { onMount } from "svelte";
+import { on } from "svelte/events";
 import {
-	type WritableBox,
 	attachRef,
 	DOMContext,
 	type ReadableBoxedValues,
-	type WritableBoxedValues,
 	simpleBox,
+	type WritableBox,
+	type WritableBoxedValues,
 } from "svelte-toolbelt";
-import { usePasswordManagerBadge } from "./usePasswordManager.svelte.js";
-import type {
-	PinInputCell,
-	PinInputRootProps as RootComponentProps,
-} from "./types.js";
+import { boolToTrueOrUndef, createBitsAttrs } from "$lib/internal/attrs.js";
 import type {
 	BitsEvent,
 	BitsFocusEvent,
@@ -21,8 +18,8 @@ import type {
 	RefAttachment,
 	WithRefOpts,
 } from "$lib/internal/types.js";
-import { createBitsAttrs, boolToTrueOrUndef } from "$lib/internal/attrs.js";
-import { on } from "svelte/events";
+import type { PinInputCell, PinInputRootProps as RootComponentProps } from "./types.js";
+import { usePasswordManagerBadge } from "./usePasswordManager.svelte.js";
 
 export const REGEXP_ONLY_DIGITS = "^\\d+$";
 export const REGEXP_ONLY_CHARS = "^[a-zA-Z]+$";
@@ -88,9 +85,7 @@ export class PinInputRootState {
 	readonly attachment: RefAttachment;
 	#inputRef = simpleBox<HTMLInputElement | null>(null);
 	#isHoveringInput = $state(false);
-	readonly inputAttachment: RefAttachment<HTMLInputElement> = attachRef(
-		this.#inputRef,
-	);
+	readonly inputAttachment: RefAttachment<HTMLInputElement> = attachRef(this.#inputRef);
 	#isFocused = simpleBox(false);
 	#mirrorSelectionStart = $state<number | null>(null);
 	#mirrorSelectionEnd = $state<number | null>(null);
@@ -154,7 +149,7 @@ export class PinInputRootState {
 				this.#onDocumentSelectionChange,
 				{
 					capture: true,
-				},
+				}
 			);
 
 			this.#onDocumentSelectionChange();
@@ -170,7 +165,7 @@ export class PinInputRootState {
 				if (container) {
 					container.style.setProperty(
 						"--bits-pin-input-root-height",
-						`${input.clientHeight}px`,
+						`${input.clientHeight}px`
 					);
 				}
 			};
@@ -212,11 +207,7 @@ export class PinInputRootState {
 			const onComplete = this.opts.onComplete.current;
 
 			if (prevValue === undefined) return;
-			if (
-				value !== prevValue &&
-				prevValue.length < maxLength &&
-				value.length === maxLength
-			) {
+			if (value !== prevValue && prevValue.length < maxLength && value.length === maxLength) {
 				onComplete(value);
 			}
 		});
@@ -248,7 +239,7 @@ export class PinInputRootState {
 				[pinInputAttrs.root]: "",
 				style: this.#rootStyles,
 				...this.attachment,
-			}) as const,
+			}) as const
 	);
 
 	readonly inputWrapperProps = $derived.by(
@@ -259,7 +250,7 @@ export class PinInputRootState {
 					inset: 0,
 					pointerEvents: "none",
 				},
-			}) as const,
+			}) as const
 	);
 
 	readonly #inputStyle = $derived.by(() => ({
@@ -301,25 +292,22 @@ export class PinInputRootState {
 
 			safeInsertRule(
 				styleEl.sheet,
-				"[data-pin-input-input]::selection { background: transparent !important; color: transparent !important; }",
+				"[data-pin-input-input]::selection { background: transparent !important; color: transparent !important; }"
 			);
+			safeInsertRule(styleEl.sheet, `[data-pin-input-input]:autofill { ${autoFillStyles} }`);
 			safeInsertRule(
 				styleEl.sheet,
-				`[data-pin-input-input]:autofill { ${autoFillStyles} }`,
-			);
-			safeInsertRule(
-				styleEl.sheet,
-				`[data-pin-input-input]:-webkit-autofill { ${autoFillStyles} }`,
+				`[data-pin-input-input]:-webkit-autofill { ${autoFillStyles} }`
 			);
 			// iOS
 			safeInsertRule(
 				styleEl.sheet,
-				`@supports (-webkit-touch-callout: none) { [data-pin-input-input] { letter-spacing: -.6em !important; font-weight: 100 !important; font-stretch: ultra-condensed; font-optical-sizing: none !important; left: -1px !important; right: 1px !important; } }`,
+				`@supports (-webkit-touch-callout: none) { [data-pin-input-input] { letter-spacing: -.6em !important; font-weight: 100 !important; font-stretch: ultra-condensed; font-optical-sizing: none !important; left: -1px !important; right: 1px !important; } }`
 			);
 			// PWM badges
 			safeInsertRule(
 				styleEl.sheet,
-				`[data-pin-input-input] + * { pointer-events: all !important; }`,
+				`[data-pin-input-input] + * { pointer-events: all !important; }`
 			);
 		}
 	}
@@ -363,8 +351,7 @@ export class PinInputRootState {
 					let offset = 0;
 					if (prev[0] !== null && prev[1] !== null) {
 						direction = c < prev[1] ? "backward" : "forward";
-						const wasPreviouslyInserting =
-							prev[0] === prev[1] && prev[0] < maxLength;
+						const wasPreviouslyInserting = prev[0] === prev[1] && prev[0] < maxLength;
 						if (direction === "backward" && !wasPreviouslyInserting) {
 							offset = -1;
 						}
@@ -390,15 +377,8 @@ export class PinInputRootState {
 	};
 
 	oninput = (e: BitsEvent<InputEvent, HTMLInputElement>) => {
-		const newValue = e.currentTarget.value.slice(
-			0,
-			this.opts.maxLength.current,
-		);
-		if (
-			newValue.length > 0 &&
-			this.#regexPattern &&
-			!this.#regexPattern.test(newValue)
-		) {
+		const newValue = e.currentTarget.value.slice(0, this.opts.maxLength.current);
+		if (newValue.length > 0 && this.#regexPattern && !this.#regexPattern.test(newValue)) {
 			e.preventDefault();
 			return;
 		}
@@ -420,10 +400,7 @@ export class PinInputRootState {
 	onfocus = (_: BitsFocusEvent<HTMLInputElement>) => {
 		const input = this.#inputRef.current;
 		if (input) {
-			const start = Math.min(
-				input.value.length,
-				this.opts.maxLength.current - 1,
-			);
+			const start = Math.min(input.value.length, this.opts.maxLength.current - 1);
 			const end = input.value.length;
 			input.setSelectionRange(start, end);
 			this.#mirrorSelectionStart = start;
@@ -437,8 +414,7 @@ export class PinInputRootState {
 		if (!input) return;
 
 		const getNewValue = (finalContent: string | undefined) => {
-			const start =
-				input.selectionStart === null ? undefined : input.selectionStart;
+			const start = input.selectionStart === null ? undefined : input.selectionStart;
 			const end = input.selectionEnd === null ? undefined : input.selectionEnd;
 			const isReplacing = start !== end;
 			const initNewVal = this.opts.value.current;
@@ -449,11 +425,7 @@ export class PinInputRootState {
 		};
 
 		const isValueInvalid = (newValue: string) => {
-			return (
-				newValue.length > 0 &&
-				this.#regexPattern &&
-				!this.#regexPattern.test(newValue)
-			);
+			return newValue.length > 0 && this.#regexPattern && !this.#regexPattern.test(newValue);
 		};
 
 		if (
@@ -535,20 +507,17 @@ export class PinInputRootState {
 				this.#mirrorSelectionEnd !== null &&
 				((this.#mirrorSelectionStart === this.#mirrorSelectionEnd &&
 					idx === this.#mirrorSelectionStart) ||
-					(idx >= this.#mirrorSelectionStart &&
-						idx < this.#mirrorSelectionEnd));
+					(idx >= this.#mirrorSelectionStart && idx < this.#mirrorSelectionEnd));
 
 			const char =
-				this.opts.value.current[idx] !== undefined
-					? this.opts.value.current[idx]
-					: null;
+				this.opts.value.current[idx] !== undefined ? this.opts.value.current[idx] : null;
 
 			return {
 				char,
 				isActive,
 				hasFakeCaret: isActive && char === null,
 			} satisfies PinInputCell;
-		}),
+		})
 	);
 
 	readonly snippetProps = $derived.by(() => ({
@@ -585,15 +554,12 @@ export class PinInputCellState {
 				"data-active": this.opts.cell.current.isActive ? "" : undefined,
 				"data-inactive": !this.opts.cell.current.isActive ? "" : undefined,
 				...this.attachment,
-			}) as const,
+			}) as const
 	);
 }
 
 // oxlint-disable-next-line no-explicit-any
-export function syncTimeouts(
-	cb: (...args: any[]) => unknown,
-	domContext: DOMContext,
-): number[] {
+export function syncTimeouts(cb: (...args: any[]) => unknown, domContext: DOMContext): number[] {
 	const t1 = domContext.setTimeout(cb, 0); // For faster machines
 	const t2 = domContext.setTimeout(cb, 1_0);
 	const t3 = domContext.setTimeout(cb, 5_0);

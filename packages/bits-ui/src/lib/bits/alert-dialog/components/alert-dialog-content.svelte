@@ -1,14 +1,14 @@
 <script lang="ts">
 import { afterSleep, boxWith, mergeProps } from "svelte-toolbelt";
-import type { AlertDialogContentProps } from "../types.js";
+import { DialogContentState } from "$lib/bits/dialog/dialog.svelte.js";
 import DismissibleLayer from "$lib/bits/utilities/dismissible-layer/dismissible-layer.svelte";
 import EscapeLayer from "$lib/bits/utilities/escape-layer/escape-layer.svelte";
 import FocusScope from "$lib/bits/utilities/focus-scope/focus-scope.svelte";
+import ScrollLock from "$lib/bits/utilities/scroll-lock/scroll-lock.svelte";
 import TextSelectionLayer from "$lib/bits/utilities/text-selection-layer/text-selection-layer.svelte";
 import { createId } from "$lib/internal/create-id.js";
 import { noop } from "$lib/internal/noop.js";
-import ScrollLock from "$lib/bits/utilities/scroll-lock/scroll-lock.svelte";
-import { DialogContentState } from "$lib/bits/dialog/dialog.svelte.js";
+import type { AlertDialogContentProps } from "../types.js";
 
 const uid = $props.id();
 
@@ -33,7 +33,7 @@ const contentState = DialogContentState.create({
 	id: boxWith(() => id),
 	ref: boxWith(
 		() => ref,
-		(v) => (ref = v),
+		(v) => (ref = v)
 	),
 });
 

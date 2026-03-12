@@ -5,11 +5,10 @@ import {
 	type DateRangeFieldRootProps,
 	type WithoutChildrenOrChild,
 } from "bits-ui";
-export type DateRangeFieldTestProps =
-	WithoutChildrenOrChild<DateRangeFieldRootProps> & {
-		startProps?: Omit<DateRangeFieldInputProps, "type">;
-		endProps?: Omit<DateRangeFieldInputProps, "type">;
-	};
+export type DateRangeFieldTestProps = WithoutChildrenOrChild<DateRangeFieldRootProps> & {
+	startProps?: Omit<DateRangeFieldInputProps, "type">;
+	endProps?: Omit<DateRangeFieldInputProps, "type">;
+};
 </script>
 
 <script lang="ts">

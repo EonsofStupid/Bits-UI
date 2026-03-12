@@ -1,16 +1,11 @@
-import type { ArrowPropsWithoutHTML } from "../utilities/arrow/types.js";
-import type { MenuArrowProps } from "../menu/types.js";
-import type {
-	OnChangeFn,
-	WithChild,
-	WithChildren,
-	Without,
-} from "$lib/internal/types.js";
+import type { OnChangeFn, WithChild, WithChildren, Without } from "$lib/internal/types.js";
 import type {
 	BitsPrimitiveButtonAttributes,
 	BitsPrimitiveDivAttributes,
 } from "$lib/shared/attributes.js";
 import type { Direction } from "$lib/shared/index.js";
+import type { MenuArrowProps } from "../menu/types.js";
+import type { ArrowPropsWithoutHTML } from "../utilities/arrow/types.js";
 
 export type MenubarRootPropsWithoutHTML = WithChild<{
 	/**
@@ -66,35 +61,35 @@ export type MenubarTriggerProps = MenubarTriggerPropsWithoutHTML &
 	Without<BitsPrimitiveButtonAttributes, MenubarTriggerPropsWithoutHTML>;
 
 export type {
-	MenuContentPropsWithoutHTML as MenubarContentPropsWithoutHTML,
-	MenuContentProps as MenubarContentProps,
-	MenuContentStaticPropsWithoutHTML as MenubarContentStaticPropsWithoutHTML,
-	MenuContentStaticProps as MenubarContentStaticProps,
-	MenuItemPropsWithoutHTML as MenubarItemPropsWithoutHTML,
-	MenuItemProps as MenubarItemProps,
-	MenuGroupPropsWithoutHTML as MenubarGroupPropsWithoutHTML,
-	MenuGroupProps as MenubarGroupProps,
-	MenuGroupHeadingPropsWithoutHTML as MenubarGroupHeadingPropsWithoutHTML,
-	MenuGroupHeadingProps as MenubarGroupHeadingProps,
-	MenuCheckboxItemPropsWithoutHTML as MenubarCheckboxItemPropsWithoutHTML,
-	MenuCheckboxItemProps as MenubarCheckboxItemProps,
-	MenuRadioGroupPropsWithoutHTML as MenubarRadioGroupPropsWithoutHTML,
-	MenuRadioGroupProps as MenubarRadioGroupProps,
-	MenuRadioItemPropsWithoutHTML as MenubarRadioItemPropsWithoutHTML,
-	MenuRadioItemProps as MenubarRadioItemProps,
-	MenuSeparatorPropsWithoutHTML as MenubarSeparatorPropsWithoutHTML,
-	MenuSeparatorProps as MenubarSeparatorProps,
-	MenuSubContentPropsWithoutHTML as MenubarSubContentPropsWithoutHTML,
-	MenuSubContentProps as MenubarSubContentProps,
-	MenuSubContentStaticPropsWithoutHTML as MenubarSubContentStaticPropsWithoutHTML,
-	MenuSubContentStaticProps as MenubarSubContentStaticProps,
-	MenuSubTriggerPropsWithoutHTML as MenubarSubTriggerPropsWithoutHTML,
-	MenuSubTriggerProps as MenubarSubTriggerProps,
-	MenuSubPropsWithoutHTML as MenubarSubPropsWithoutHTML,
-	MenuPortalPropsWithoutHTML as MenubarPortalPropsWithoutHTML,
-	MenuPortalProps as MenubarPortalProps,
-	MenuCheckboxGroupPropsWithoutHTML as MenubarCheckboxGroupPropsWithoutHTML,
 	MenuCheckboxGroupProps as MenubarCheckboxGroupProps,
+	MenuCheckboxGroupPropsWithoutHTML as MenubarCheckboxGroupPropsWithoutHTML,
+	MenuCheckboxItemProps as MenubarCheckboxItemProps,
+	MenuCheckboxItemPropsWithoutHTML as MenubarCheckboxItemPropsWithoutHTML,
+	MenuContentProps as MenubarContentProps,
+	MenuContentPropsWithoutHTML as MenubarContentPropsWithoutHTML,
+	MenuContentStaticProps as MenubarContentStaticProps,
+	MenuContentStaticPropsWithoutHTML as MenubarContentStaticPropsWithoutHTML,
+	MenuGroupHeadingProps as MenubarGroupHeadingProps,
+	MenuGroupHeadingPropsWithoutHTML as MenubarGroupHeadingPropsWithoutHTML,
+	MenuGroupProps as MenubarGroupProps,
+	MenuGroupPropsWithoutHTML as MenubarGroupPropsWithoutHTML,
+	MenuItemProps as MenubarItemProps,
+	MenuItemPropsWithoutHTML as MenubarItemPropsWithoutHTML,
+	MenuPortalProps as MenubarPortalProps,
+	MenuPortalPropsWithoutHTML as MenubarPortalPropsWithoutHTML,
+	MenuRadioGroupProps as MenubarRadioGroupProps,
+	MenuRadioGroupPropsWithoutHTML as MenubarRadioGroupPropsWithoutHTML,
+	MenuRadioItemProps as MenubarRadioItemProps,
+	MenuRadioItemPropsWithoutHTML as MenubarRadioItemPropsWithoutHTML,
+	MenuSeparatorProps as MenubarSeparatorProps,
+	MenuSeparatorPropsWithoutHTML as MenubarSeparatorPropsWithoutHTML,
+	MenuSubContentProps as MenubarSubContentProps,
+	MenuSubContentPropsWithoutHTML as MenubarSubContentPropsWithoutHTML,
+	MenuSubContentStaticProps as MenubarSubContentStaticProps,
+	MenuSubContentStaticPropsWithoutHTML as MenubarSubContentStaticPropsWithoutHTML,
+	MenuSubPropsWithoutHTML as MenubarSubPropsWithoutHTML,
+	MenuSubTriggerProps as MenubarSubTriggerProps,
+	MenuSubTriggerPropsWithoutHTML as MenubarSubTriggerPropsWithoutHTML,
 } from "../menu/types.js";
 
 export type MenubarArrowPropsWithoutHTML = ArrowPropsWithoutHTML;

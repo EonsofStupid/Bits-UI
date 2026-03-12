@@ -32,8 +32,7 @@ export class DataTypeahead {
 
 		this.#search.current = this.#search.current + key;
 		const currentItem = this.#opts.getCurrentItem();
-		const currentMatch =
-			this.#candidateValues.find((item) => item === currentItem) ?? "";
+		const currentMatch = this.#candidateValues.find((item) => item === currentItem) ?? "";
 		const values = this.#candidateValues.map((item) => item ?? "");
 		const nextMatch = getNextMatch(values, this.#search.current, currentMatch);
 		const newItem = this.#candidateValues.find((item) => item === nextMatch);

@@ -1,9 +1,9 @@
 <script lang="ts">
-import type { TableOfContents } from "$lib/utils/use-toc.svelte.js";
-import { onMount } from "svelte";
-import TocTree from "./toc-tree.svelte";
 import { ScrollArea } from "bits-ui";
 import List from "phosphor-svelte/lib/List";
+import { onMount } from "svelte";
+import type { TableOfContents } from "$lib/utils/use-toc.svelte.js";
+import TocTree from "./toc-tree.svelte";
 
 let { toc }: { toc: TableOfContents } = $props();
 
@@ -36,7 +36,7 @@ onMount(() => {
 		}
 
 		let firstVisibleSection = Array.from(sections.entries()).find(([element]) =>
-			visibleElements.has(element),
+			visibleElements.has(element)
 		);
 		if (!firstVisibleSection) return;
 		activeUrl = firstVisibleSection[1];

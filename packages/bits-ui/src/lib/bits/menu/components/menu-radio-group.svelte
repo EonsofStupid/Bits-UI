@@ -1,9 +1,9 @@
 <script lang="ts">
 import { boxWith, mergeProps } from "svelte-toolbelt";
-import type { MenuRadioGroupProps } from "../types.js";
-import { MenuRadioGroupState } from "../menu.svelte.js";
-import { noop } from "$lib/internal/noop.js";
 import { createId } from "$lib/internal/create-id.js";
+import { noop } from "$lib/internal/noop.js";
+import { MenuRadioGroupState } from "../menu.svelte.js";
+import type { MenuRadioGroupProps } from "../types.js";
 
 const uid = $props.id();
 
@@ -23,11 +23,11 @@ const radioGroupState = MenuRadioGroupState.create({
 		(v) => {
 			value = v;
 			onValueChange(v);
-		},
+		}
 	),
 	ref: boxWith(
 		() => ref,
-		(v) => (ref = v),
+		(v) => (ref = v)
 	),
 	id: boxWith(() => id),
 });

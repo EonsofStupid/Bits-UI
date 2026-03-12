@@ -14,9 +14,7 @@ const scrollbarYState = ScrollAreaScrollbarYState.create({
 });
 
 // oxlint-disable-next-line no-explicit-any
-const mergedProps = $derived(
-	mergeProps(restProps, scrollbarYState.props),
-) as any;
+const mergedProps = $derived(mergeProps(restProps, scrollbarYState.props)) as any;
 </script>
 
 <ScrollAreaScrollbarShared {...mergedProps} />

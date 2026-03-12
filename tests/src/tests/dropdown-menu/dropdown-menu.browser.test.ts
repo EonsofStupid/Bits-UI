@@ -1,21 +1,18 @@
-import { expect, it, vi, afterEach, onTestFinished } from "vitest";
-import { render } from "vitest-browser-svelte";
 import { page, userEvent } from "@vitest/browser/context";
+import { afterEach, expect, it, onTestFinished, vi } from "vitest";
+import { render } from "vitest-browser-svelte";
+import { expectExists, expectNotExists } from "../browser-utils";
 import { getTestKbd } from "../utils.js";
-import type { DropdownMenuTestProps } from "./dropdown-menu-test.svelte";
 import type { DropdownMenuForceMountTestProps } from "./dropdown-menu-force-mount-test.svelte";
 import DropdownMenuForceMountTest from "./dropdown-menu-force-mount-test.svelte";
-import { expectExists, expectNotExists } from "../browser-utils";
-import DropdownMenuTest from "./dropdown-menu-test.svelte";
 import DropdownMenuMultipleTest from "./dropdown-menu-multiple-test.svelte";
+import type { DropdownMenuTestProps } from "./dropdown-menu-test.svelte";
+import DropdownMenuTest from "./dropdown-menu-test.svelte";
 
 const kbd = getTestKbd();
 const OPEN_KEYS = [kbd.ENTER, kbd.ARROW_DOWN, kbd.SPACE];
 
-type DropdownMenuSetupProps = (
-	| DropdownMenuTestProps
-	| DropdownMenuForceMountTestProps
-) & {
+type DropdownMenuSetupProps = (DropdownMenuTestProps | DropdownMenuForceMountTestProps) & {
 	component?: typeof DropdownMenuTest | typeof DropdownMenuForceMountTest;
 };
 
@@ -49,10 +46,7 @@ async function open(props: DropdownMenuSetupProps = {}) {
 	return { ...t };
 }
 
-async function openWithKbd(
-	props: DropdownMenuSetupProps = {},
-	key: string = kbd.ENTER,
-) {
+async function openWithKbd(props: DropdownMenuSetupProps = {}, key: string = kbd.ENTER) {
 	const t = await setup(props);
 	await expectNotExists(page.getByTestId("content"));
 	(t.trigger.element() as HTMLElement).focus();
@@ -107,14 +101,10 @@ it("should have bits data attrs", async () => {
 	await page.getByTestId("sub-trigger").click();
 
 	const subContent = page.getByTestId("sub-content");
-	await expect
-		.element(subContent)
-		.toHaveAttribute(`data-dropdown-menu-sub-content`);
+	await expect.element(subContent).toHaveAttribute(`data-dropdown-menu-sub-content`);
 });
 
-it.each(
-	OPEN_KEYS,
-)("should open when %s is pressed & respects binding", async (key) => {
+it.each(OPEN_KEYS)("should open when %s is pressed & respects binding", async (key) => {
 	await openWithKbd({}, key);
 	await expect.element(page.getByTestId("item")).toHaveFocus();
 });
@@ -181,9 +171,7 @@ it("should toggle the checkbox item when clicked & respects binding", async () =
 	await checkedBinding.click();
 	await expect.element(checkedBinding).toHaveTextContent("true");
 	await t.trigger.click();
-	await expect
-		.element(page.getByTestId("checkbox-indicator"))
-		.toHaveTextContent("true");
+	await expect.element(page.getByTestId("checkbox-indicator")).toHaveTextContent("true");
 });
 
 it("should toggle checkbox items within submenus when clicked & respects binding", async () => {
@@ -316,9 +304,7 @@ it("should portal to the portal target if a valid `portal` prop is passed", asyn
 		},
 	});
 	const content = page.getByTestId("content").element() as HTMLElement;
-	const portalTarget = page
-		.getByTestId("portal-target")
-		.element() as HTMLElement;
+	const portalTarget = page.getByTestId("portal-target").element() as HTMLElement;
 	expect(content.parentElement?.parentElement).toEqual(portalTarget);
 });
 
@@ -329,9 +315,7 @@ it("should not portal if `disabled` is passed to the portal", async () => {
 		},
 	});
 	const content = page.getByTestId("content").element() as HTMLElement;
-	const ogContainer = page
-		.getByTestId("non-portal-container")
-		.element() as HTMLElement;
+	const ogContainer = page.getByTestId("non-portal-container").element() as HTMLElement;
 	const contentWrapper = content.parentElement;
 	expect(contentWrapper?.parentElement).not.toEqual(document.body);
 	expect(contentWrapper?.parentElement).toEqual(ogContainer);
@@ -421,37 +405,23 @@ it("should respect the `value` prop on CheckboxGroup", async () => {
 	});
 
 	const checkboxGroupItem1 = page.getByTestId("checkbox-group-item-1");
-	await expect
-		.element(checkboxGroupItem1)
-		.toHaveAttribute("aria-checked", "true");
+	await expect.element(checkboxGroupItem1).toHaveAttribute("aria-checked", "true");
 
-	await expect
-		.element(page.getByTestId("checkbox-indicator-1"))
-		.toHaveTextContent("true");
-	await expect
-		.element(page.getByTestId("checkbox-indicator-2"))
-		.toHaveTextContent("false");
+	await expect.element(page.getByTestId("checkbox-indicator-1")).toHaveTextContent("true");
+	await expect.element(page.getByTestId("checkbox-indicator-2")).toHaveTextContent("false");
 
 	await checkboxGroupItem1.click();
 	await expectNotExists(page.getByTestId("content"));
 	await t.open();
 
-	await expect
-		.element(page.getByTestId("checkbox-indicator-1"))
-		.toHaveTextContent("false");
-	await expect
-		.element(page.getByTestId("checkbox-indicator-2"))
-		.toHaveTextContent("false");
+	await expect.element(page.getByTestId("checkbox-indicator-1")).toHaveTextContent("false");
+	await expect.element(page.getByTestId("checkbox-indicator-2")).toHaveTextContent("false");
 
 	await page.getByTestId("checkbox-group-item-2").click();
 	await t.open();
 
-	await expect
-		.element(page.getByTestId("checkbox-indicator-1"))
-		.toHaveTextContent("false");
-	await expect
-		.element(page.getByTestId("checkbox-indicator-2"))
-		.toHaveTextContent("true");
+	await expect.element(page.getByTestId("checkbox-indicator-1")).toHaveTextContent("false");
+	await expect.element(page.getByTestId("checkbox-indicator-2")).toHaveTextContent("true");
 
 	await userEvent.keyboard(kbd.ESCAPE);
 
@@ -461,12 +431,8 @@ it("should respect the `value` prop on CheckboxGroup", async () => {
 	await expectNotExists(page.getByTestId("content"));
 	await t.open();
 
-	await expect
-		.element(page.getByTestId("checkbox-indicator-1"))
-		.toHaveTextContent("false");
-	await expect
-		.element(page.getByTestId("checkbox-indicator-2"))
-		.toHaveTextContent("false");
+	await expect.element(page.getByTestId("checkbox-indicator-1")).toHaveTextContent("false");
+	await expect.element(page.getByTestId("checkbox-indicator-2")).toHaveTextContent("false");
 });
 
 // CI hates this

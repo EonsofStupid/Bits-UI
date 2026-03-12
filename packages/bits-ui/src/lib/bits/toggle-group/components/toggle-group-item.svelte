@@ -1,8 +1,8 @@
 <script lang="ts">
 import { boxWith, mergeProps } from "svelte-toolbelt";
-import type { ToggleGroupItemProps } from "../types.js";
-import { ToggleGroupItemState } from "../toggle-group.svelte.js";
 import { createId } from "$lib/internal/create-id.js";
+import { ToggleGroupItemState } from "../toggle-group.svelte.js";
+import type { ToggleGroupItemProps } from "../types.js";
 
 const uid = $props.id();
 
@@ -23,7 +23,7 @@ const itemState = ToggleGroupItemState.create({
 	disabled: boxWith(() => disabled ?? false),
 	ref: boxWith(
 		() => ref,
-		(v) => (ref = v),
+		(v) => (ref = v)
 	),
 });
 

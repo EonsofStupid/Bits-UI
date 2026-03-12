@@ -1,0 +1,154 @@
+{
+	"$schema": "https://biomejs.dev/schemas/2.4.6/schema.json",
+	"vcs": {
+		"enabled": true,
+		"clientKind": "git",
+		"useIgnoreFile": true,
+		"defaultBranch": "main"
+	},
+	"files": {
+		"ignoreUnknown": false,
+		"includes": [
+			"**",
+			"!**/node_modules",
+			"!**/build",
+			"!**/.svelte-kit",
+			"!**/dist",
+			"!**/.velite",
+			"!**/.changeset",
+			"!**/CHANGELOG.md",
+			"!pnpm-lock.yaml",
+			"!package-lock.json",
+			"!yarn.lock",
+			"!pnpm-workspace.yaml",
+			"!**/vite.config.*.timestamp-*",
+			"!docs/src/routes/api/search.json/search.json",
+			"!docs/src/routes/api/demos.json/demos.json",
+			"!docs/src/routes/api/demos.json/stackblitz-files.json",
+			"!docs/src/lib/content/api-reference/extended-types",
+			"!bundle-analyzer/.temp-bundle-analysis",
+			"!.local",
+			"!attached_assets"
+		]
+	},
+	"formatter": {
+		"enabled": true,
+		"indentStyle": "tab",
+		"indentWidth": 4,
+		"lineWidth": 100,
+		"lineEnding": "lf"
+	},
+	"javascript": {
+		"formatter": {
+			"quoteStyle": "double",
+			"jsxQuoteStyle": "double",
+			"trailingCommas": "es5",
+			"semicolons": "always",
+			"arrowParentheses": "always",
+			"bracketSpacing": true,
+			"bracketSameLine": false
+		},
+		"parser": {
+			"unsafeParameterDecoratorsEnabled": false
+		}
+	},
+	"json": {
+		"formatter": {
+			"enabled": true
+		}
+	},
+	"css": {
+		"parser": {
+			"cssModules": false,
+			"tailwindDirectives": true
+		},
+		"formatter": {
+			"enabled": true,
+			"indentStyle": "tab",
+			"indentWidth": 4,
+			"lineWidth": 100,
+			"quoteStyle": "double"
+		},
+		"linter": {
+			"enabled": true
+		}
+	},
+	"linter": {
+		"enabled": true,
+		"rules": {
+			"recommended": true,
+			"correctness": {
+				"noUnusedVariables": {
+					"level": "error",
+					"options": {
+						"ignoreRestSiblings": true
+					}
+				},
+				"noUnusedImports": "error",
+				"noUnusedFunctionParameters": "warn",
+				"useExhaustiveDependencies": "warn"
+			},
+			"suspicious": {
+				"noExplicitAny": "error",
+				"noArrayIndexKey": "warn",
+				"noConsole": "off",
+				"noDebugger": "error",
+				"noDoubleEquals": "error",
+				"noDuplicateCase": "error",
+				"noDuplicateObjectKeys": "error",
+				"noFallthroughSwitchClause": "error",
+				"noGlobalIsFinite": "warn",
+				"noGlobalIsNan": "warn",
+				"noPrototypeBuiltins": "error",
+				"noRedeclare": "error",
+				"noSelfCompare": "error",
+				"noSparseArray": "error"
+			},
+			"style": {
+				"useConst": "off",
+				"useTemplate": "warn",
+				"useSingleVarDeclarator": "off",
+				"noParameterAssign": "off"
+			},
+			"complexity": {
+				"noForEach": "off",
+				"useLiteralKeys": "warn",
+				"useOptionalChain": "warn"
+			},
+			"security": {
+				"noDangerouslySetInnerHtml": "warn"
+			}
+		}
+	},
+	"overrides": [
+		{
+			"includes": ["packages/bits-ui/src/lib/**/*"],
+			"linter": {
+				"rules": {
+					"suspicious": {
+						"noConsole": "error"
+					}
+				}
+			}
+		},
+		{
+			"includes": ["**/*.svelte"],
+			"linter": {
+				"rules": {
+					"correctness": {
+						"noUnusedVariables": "off",
+						"noUnusedImports": "off"
+					}
+				}
+			}
+		},
+		{
+			"includes": ["**/*.md"],
+			"formatter": {
+				"indentStyle": "space",
+				"indentWidth": 2,
+				"lineWidth": 79
+			}
+		}
+	]
+}

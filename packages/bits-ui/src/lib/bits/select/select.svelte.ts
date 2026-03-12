@@ -1,25 +1,32 @@
 import { Context, Previous, watch } from "runed";
+import { on } from "svelte/events";
 import {
 	afterSleep,
 	afterTick,
-	onDestroyEffect,
 	attachRef,
-	DOMContext,
-	type ReadableBoxedValues,
-	type WritableBoxedValues,
 	type Box,
 	boxWith,
+	DOMContext,
+	onDestroyEffect,
+	type ReadableBoxedValues,
+	type WritableBoxedValues,
 } from "svelte-toolbelt";
-import { on } from "svelte/events";
 import { backward, forward, next, prev } from "$lib/internal/arrays.js";
 import {
+	boolToEmptyStrOrUndef,
 	boolToStr,
 	boolToStrTrueOrUndef,
-	boolToEmptyStrOrUndef,
-	getDataOpenClosed,
 	boolToTrueOrUndef,
+	createBitsAttrs,
+	getDataOpenClosed,
 } from "$lib/internal/attrs.js";
+import { DataTypeahead } from "$lib/internal/data-typeahead.svelte.js";
+import { DOMTypeahead } from "$lib/internal/dom-typeahead.svelte.js";
+import { getFloatingContentCSSVars } from "$lib/internal/floating-svelte/floating-utils.svelte.js";
+import { isIOS } from "$lib/internal/is.js";
 import { kbd } from "$lib/internal/kbd.js";
+import { noop } from "$lib/internal/noop.js";
+import { PresenceManager } from "$lib/internal/presence-manager.svelte.js";
 import type {
 	BitsEvent,
 	BitsFocusEvent,
@@ -27,16 +34,9 @@ import type {
 	BitsMouseEvent,
 	BitsPointerEvent,
 	OnChangeFn,
-	WithRefOpts,
 	RefAttachment,
+	WithRefOpts,
 } from "$lib/internal/types.js";
-import { noop } from "$lib/internal/noop.js";
-import { isIOS } from "$lib/internal/is.js";
-import { createBitsAttrs } from "$lib/internal/attrs.js";
-import { getFloatingContentCSSVars } from "$lib/internal/floating-svelte/floating-utils.svelte.js";
-import { DataTypeahead } from "$lib/internal/data-typeahead.svelte.js";
-import { DOMTypeahead } from "$lib/internal/dom-typeahead.svelte.js";
-import { PresenceManager } from "$lib/internal/presence-manager.svelte.js";
 
 // prettier-ignore
 export const INTERACTION_KEYS = [
@@ -90,15 +90,9 @@ const selectAttrs = createBitsAttrs({
 	],
 });
 
-const SelectRootContext = new Context<SelectRoot>(
-	"Select.Root | Combobox.Root",
-);
-const SelectGroupContext = new Context<SelectGroupState>(
-	"Select.Group | Combobox.Group",
-);
-const SelectContentContext = new Context<SelectContentState>(
-	"Select.Content | Combobox.Content",
-);
+const SelectRootContext = new Context<SelectRoot>("Select.Root | Combobox.Root");
+const SelectGroupContext = new Context<SelectGroupState>("Select.Group | Combobox.Group");
+const SelectContentContext = new Context<SelectContentState>("Select.Content | Combobox.Content");
 
 interface SelectBaseRootStateOpts
 	extends ReadableBoxedValues<{
@@ -174,9 +168,7 @@ abstract class SelectBaseRootState {
 		const node = this.contentNode;
 		if (!node) return [];
 		return Array.from(
-			node.querySelectorAll<HTMLElement>(
-				`[${this.getBitsAttr("item")}]:not([data-disabled])`,
-			),
+			node.querySelectorAll<HTMLElement>(`[${this.getBitsAttr("item")}]:not([data-disabled])`)
 		);
 	}
 
@@ -252,16 +244,13 @@ export class SelectSingleRootState extends SelectBaseRootState {
 	readonly currentLabel = $derived.by(() => {
 		if (!this.opts.items.current.length) return "";
 		return (
-			this.opts.items.current.find(
-				(item) => item.value === this.opts.value.current,
-			)?.label ?? ""
+			this.opts.items.current.find((item) => item.value === this.opts.value.current)?.label ??
+			""
 		);
 	});
 	readonly candidateLabels = $derived.by(() => {
 		if (!this.opts.items.current.length) return [];
-		const filteredItems = this.opts.items.current.filter(
-			(item) => !item.disabled,
-		);
+		const filteredItems = this.opts.items.current.filter((item) => !item.disabled);
 		return filteredItems.map((item) => item.label);
 	});
 	readonly dataTypeaheadEnabled = $derived.by(() => {
@@ -286,7 +275,7 @@ export class SelectSingleRootState extends SelectBaseRootState {
 			() => {
 				if (!this.opts.open.current) return;
 				this.setInitialHighlightedNode();
-			},
+			}
 		);
 	}
 
@@ -349,7 +338,7 @@ class SelectMultipleRootState extends SelectBaseRootState {
 			() => {
 				if (!this.opts.open.current) return;
 				this.setInitialHighlightedNode();
-			},
+			}
 		);
 	}
 
@@ -359,9 +348,7 @@ class SelectMultipleRootState extends SelectBaseRootState {
 
 	toggleItem(itemValue: string, itemLabel: string = itemValue) {
 		if (this.includesItem(itemValue)) {
-			this.opts.value.current = this.opts.value.current.filter(
-				(v) => v !== itemValue,
-			);
+			this.opts.value.current = this.opts.value.current.filter((v) => v !== itemValue);
 		} else {
 			this.opts.value.current = [...this.opts.value.current, itemValue];
 		}
@@ -448,10 +435,7 @@ export class SelectInputState {
 		this.oninput = this.oninput.bind(this);
 
 		watch(
-			[
-				() => this.root.opts.value.current,
-				() => this.opts.clearOnDeselect.current,
-			],
+			[() => this.root.opts.value.current, () => this.opts.clearOnDeselect.current],
 			([value, clearOnDeselect], [prevValue]) => {
 				if (!clearOnDeselect) return;
 				if (Array.isArray(value) && Array.isArray(prevValue)) {
@@ -461,7 +445,7 @@ export class SelectInputState {
 				} else if (value === "" && prevValue !== "") {
 					this.root.opts.inputValue.current = "";
 				}
-			},
+			}
 		);
 	}
 
@@ -474,8 +458,7 @@ export class SelectInputState {
 		if (!this.root.opts.open.current) {
 			if (INTERACTION_KEYS.includes(e.key)) return;
 			if (e.key === kbd.TAB) return;
-			if (e.key === kbd.BACKSPACE && this.root.opts.inputValue.current === "")
-				return;
+			if (e.key === kbd.BACKSPACE && this.root.opts.inputValue.current === "") return;
 			this.root.handleOpen();
 			// we need to wait for a tick after the menu opens to ensure the highlighted nodes are
 			// set correctly.
@@ -520,7 +503,7 @@ export class SelectInputState {
 			) {
 				this.root.toggleItem(
 					this.root.highlightedValue,
-					this.root.highlightedLabel ?? undefined,
+					this.root.highlightedLabel ?? undefined
 				);
 			}
 			if (!this.root.isMulti && !isCurrentSelectedValue) {
@@ -587,7 +570,7 @@ export class SelectInputState {
 				oninput: this.oninput,
 				[this.root.getBitsAttr("input")]: "",
 				...this.attachment,
-			}) as const,
+			}) as const
 	);
 }
 
@@ -645,7 +628,7 @@ export class SelectComboTriggerState {
 				onpointerdown: this.onpointerdown,
 				onkeydown: this.onkeydown,
 				...this.attachment,
-			}) as const,
+			}) as const
 	);
 }
 
@@ -685,14 +668,13 @@ export class SelectTriggerState {
 				if (this.root.isMulti) return;
 				if (!this.root.opts.items.current) return;
 				const matchedItem = this.root.opts.items.current.find(
-					(item) => item.label === label,
+					(item) => item.label === label
 				);
 				if (!matchedItem) return;
 				this.root.opts.value.current = matchedItem.value;
 			},
 			enabled: () => !this.root.isMulti && this.root.dataTypeaheadEnabled,
-			candidateValues: () =>
-				this.root.isMulti ? [] : this.root.candidateLabels,
+			candidateValues: () => (this.root.isMulti ? [] : this.root.candidateLabels),
 			getWindow: () => this.root.domContext.getWindow(),
 		});
 
@@ -720,14 +702,9 @@ export class SelectTriggerState {
 	 *
 	 */
 	#handleKeyboardSelection() {
-		const isCurrentSelectedValue =
-			this.root.highlightedValue === this.root.opts.value.current;
+		const isCurrentSelectedValue = this.root.highlightedValue === this.root.opts.value.current;
 
-		if (
-			!this.root.opts.allowDeselect.current &&
-			isCurrentSelectedValue &&
-			!this.root.isMulti
-		) {
+		if (!this.root.opts.allowDeselect.current && isCurrentSelectedValue && !this.root.isMulti) {
 			this.root.handleClose();
 			return true;
 		}
@@ -736,7 +713,7 @@ export class SelectTriggerState {
 		if (this.root.highlightedValue !== null) {
 			this.root.toggleItem(
 				this.root.highlightedValue,
-				this.root.highlightedLabel ?? undefined,
+				this.root.highlightedLabel ?? undefined
 			);
 		}
 
@@ -841,10 +818,7 @@ export class SelectTriggerState {
 		if (e.key === kbd.TAB) return;
 
 		if (!isModifierKey && (isCharacterKey || isSpaceKey)) {
-			const matchedNode = this.#domTypeahead.handleTypeaheadSearch(
-				e.key,
-				candidateNodes,
-			);
+			const matchedNode = this.#domTypeahead.handleTypeaheadSearch(e.key, candidateNodes);
 			if (!matchedNode && isSpaceKey) {
 				e.preventDefault();
 				this.#handleKeyboardSelection();
@@ -918,7 +892,7 @@ export class SelectTriggerState {
 				onclick: this.onclick,
 				onpointerup: this.onpointerup,
 				...this.attachment,
-			}) as const,
+			}) as const
 	);
 }
 
@@ -931,9 +905,7 @@ interface SelectContentStateOpts
 
 export class SelectContentState {
 	static create(opts: SelectContentStateOpts) {
-		return SelectContentContext.set(
-			new SelectContentState(opts, SelectRootContext.get()),
-		);
+		return SelectContentContext.set(new SelectContentState(opts, SelectRootContext.get()));
 	}
 	readonly opts: SelectContentStateOpts;
 	readonly root: SelectRoot;
@@ -961,7 +933,7 @@ export class SelectContentState {
 			() => {
 				if (this.root.opts.open.current) return;
 				this.isPositioned = false;
-			},
+			}
 		);
 
 		this.onpointermove = this.onpointermove.bind(this);
@@ -972,16 +944,11 @@ export class SelectContentState {
 	}
 
 	readonly #styles = $derived.by(() => {
-		return getFloatingContentCSSVars(
-			this.root.isCombobox ? "combobox" : "select",
-		);
+		return getFloatingContentCSSVars(this.root.isCombobox ? "combobox" : "select");
 	});
 
 	onInteractOutside = (e: PointerEvent) => {
-		if (
-			e.target === this.root.triggerNode ||
-			e.target === this.root.inputNode
-		) {
+		if (e.target === this.root.triggerNode || e.target === this.root.inputNode) {
 			e.preventDefault();
 			return;
 		}
@@ -1030,7 +997,7 @@ export class SelectContentState {
 				},
 				onpointermove: this.onpointermove,
 				...this.attachment,
-			}) as const,
+			}) as const
 	);
 
 	readonly popperProps = {
@@ -1067,11 +1034,9 @@ export class SelectItemState {
 	readonly opts: SelectItemStateOpts;
 	readonly root: SelectRoot;
 	readonly attachment: RefAttachment;
-	readonly isSelected = $derived.by(() =>
-		this.root.includesItem(this.opts.value.current),
-	);
+	readonly isSelected = $derived.by(() => this.root.includesItem(this.opts.value.current));
 	readonly isHighlighted = $derived.by(
-		() => this.root.highlightedValue === this.opts.value.current,
+		() => this.root.highlightedValue === this.opts.value.current
 	);
 	readonly prevHighlighted = new Previous(() => this.isHighlighted);
 	mounted = $state(false);
@@ -1081,23 +1046,20 @@ export class SelectItemState {
 		this.root = root;
 		this.attachment = attachRef(opts.ref);
 
-		watch(
-			[() => this.isHighlighted, () => this.prevHighlighted.current],
-			() => {
-				if (this.isHighlighted) {
-					this.opts.onHighlight.current();
-				} else if (this.prevHighlighted.current) {
-					this.opts.onUnhighlight.current();
-				}
-			},
-		);
+		watch([() => this.isHighlighted, () => this.prevHighlighted.current], () => {
+			if (this.isHighlighted) {
+				this.opts.onHighlight.current();
+			} else if (this.prevHighlighted.current) {
+				this.opts.onUnhighlight.current();
+			}
+		});
 
 		watch(
 			() => this.mounted,
 			() => {
 				if (!this.mounted) return;
 				this.root.setInitialHighlightedNode();
-			},
+			}
 		);
 
 		this.onpointerdown = this.onpointerdown.bind(this);
@@ -1107,16 +1069,11 @@ export class SelectItemState {
 
 	handleSelect() {
 		if (this.opts.disabled.current) return;
-		const isCurrentSelectedValue =
-			this.opts.value.current === this.root.opts.value.current;
+		const isCurrentSelectedValue = this.opts.value.current === this.root.opts.value.current;
 
 		// if allowDeselect is false and the item is already selected and we're not in a
 		// multi select, do nothing and close the menu
-		if (
-			!this.root.opts.allowDeselect.current &&
-			isCurrentSelectedValue &&
-			!this.root.isMulti
-		) {
+		if (!this.root.opts.allowDeselect.current && isCurrentSelectedValue && !this.root.isMulti) {
 			this.root.handleClose();
 			return;
 		}
@@ -1161,7 +1118,7 @@ export class SelectItemState {
 					// for touch devices
 					this.root.setHighlightedNode(this.opts.ref.current);
 				},
-				{ once: true },
+				{ once: true }
 			);
 			return;
 		}
@@ -1203,16 +1160,14 @@ export class SelectItemState {
 					!this.opts.disabled.current
 						? ""
 						: undefined,
-				"data-selected": this.root.includesItem(this.opts.value.current)
-					? ""
-					: undefined,
+				"data-selected": this.root.includesItem(this.opts.value.current) ? "" : undefined,
 				"data-label": this.opts.label.current,
 				[this.root.getBitsAttr("item")]: "",
 				onpointermove: this.onpointermove,
 				onpointerdown: this.onpointerdown,
 				onpointerup: this.onpointerup,
 				...this.attachment,
-			}) as const,
+			}) as const
 	);
 }
 
@@ -1220,9 +1175,7 @@ interface SelectGroupStateOpts extends WithRefOpts {}
 
 export class SelectGroupState {
 	static create(opts: SelectGroupStateOpts) {
-		return SelectGroupContext.set(
-			new SelectGroupState(opts, SelectRootContext.get()),
-		);
+		return SelectGroupContext.set(new SelectGroupState(opts, SelectRootContext.get()));
 	}
 	readonly opts: SelectGroupStateOpts;
 	readonly root: SelectBaseRootState;
@@ -1243,7 +1196,7 @@ export class SelectGroupState {
 				[this.root.getBitsAttr("group")]: "",
 				"aria-labelledby": this.labelNode?.id ?? undefined,
 				...this.attachment,
-			}) as const,
+			}) as const
 	);
 }
 
@@ -1269,7 +1222,7 @@ export class SelectGroupHeadingState {
 				id: this.opts.id.current,
 				[this.group.root.getBitsAttr("group-label")]: "",
 				...this.attachment,
-			}) as const,
+			}) as const
 	);
 }
 
@@ -1310,7 +1263,7 @@ export class SelectHiddenInputState {
 				name: this.root.opts.name.current,
 				value: this.opts.value.current,
 				onfocus: this.onfocus,
-			}) as const,
+			}) as const
 	);
 }
 
@@ -1350,7 +1303,7 @@ export class SelectViewportState {
 					overflow: "auto",
 				},
 				...this.attachment,
-			}) as const,
+			}) as const
 	);
 }
 
@@ -1371,10 +1324,7 @@ export class SelectScrollButtonImplState {
 	onAutoScroll: () => void = noop;
 	mounted = $state(false);
 
-	constructor(
-		opts: SelectScrollButtonImplStateOpts,
-		content: SelectContentState,
-	) {
+	constructor(opts: SelectScrollButtonImplStateOpts, content: SelectContentState) {
 		this.opts = opts;
 		this.content = content;
 		this.root = content.root;
@@ -1418,12 +1368,12 @@ export class SelectScrollButtonImplState {
 			this.onAutoScroll();
 			this.autoScrollTimer = this.content.domContext.setTimeout(
 				() => autoScroll(tick + 1),
-				this.opts.delay.current(tick),
+				this.opts.delay.current(tick)
 			);
 		};
 		this.autoScrollTimer = this.content.domContext.setTimeout(
 			() => autoScroll(1),
-			this.opts.delay.current(0),
+			this.opts.delay.current(0)
 		);
 	}
 
@@ -1447,14 +1397,14 @@ export class SelectScrollButtonImplState {
 				onpointermove: this.onpointermove,
 				onpointerleave: this.onpointerleave,
 				...this.attachment,
-			}) as const,
+			}) as const
 	);
 }
 
 export class SelectScrollDownButtonState {
 	static create(opts: SelectScrollButtonImplStateOpts) {
 		return new SelectScrollDownButtonState(
-			new SelectScrollButtonImplState(opts, SelectContentContext.get()),
+			new SelectScrollButtonImplState(opts, SelectContentContext.get())
 		);
 	}
 	readonly scrollButtonState: SelectScrollButtonImplState;
@@ -1469,15 +1419,12 @@ export class SelectScrollDownButtonState {
 		this.root = scrollButtonState.root;
 		this.scrollButtonState.onAutoScroll = this.handleAutoScroll;
 
-		watch(
-			[() => this.root.viewportNode, () => this.content.isPositioned],
-			() => {
-				if (!this.root.viewportNode || !this.content.isPositioned) return;
-				this.handleScroll(true);
+		watch([() => this.root.viewportNode, () => this.content.isPositioned], () => {
+			if (!this.root.viewportNode || !this.content.isPositioned) return;
+			this.handleScroll(true);
 
-				return on(this.root.viewportNode, "scroll", () => this.handleScroll());
-			},
-		);
+			return on(this.root.viewportNode, "scroll", () => this.handleScroll());
+		});
 
 		/**
 		 * If the input value changes, this means that the filtered items may have changed,
@@ -1492,7 +1439,7 @@ export class SelectScrollDownButtonState {
 			() => {
 				if (!this.root.viewportNode || !this.content.isPositioned) return;
 				this.handleScroll(true);
-			},
+			}
 		);
 
 		watch(
@@ -1508,7 +1455,7 @@ export class SelectScrollDownButtonState {
 						block: this.root.opts.scrollAlignment.current,
 					});
 				});
-			},
+			}
 		);
 	}
 	/**
@@ -1520,15 +1467,10 @@ export class SelectScrollDownButtonState {
 			this.scrollButtonState.handleUserScroll();
 		}
 		if (!this.root.viewportNode) return;
-		const maxScroll =
-			this.root.viewportNode.scrollHeight - this.root.viewportNode.clientHeight;
-		const paddingTop = Number.parseInt(
-			getComputedStyle(this.root.viewportNode).paddingTop,
-			10,
-		);
+		const maxScroll = this.root.viewportNode.scrollHeight - this.root.viewportNode.clientHeight;
+		const paddingTop = Number.parseInt(getComputedStyle(this.root.viewportNode).paddingTop, 10);
 
-		this.canScrollDown =
-			Math.ceil(this.root.viewportNode.scrollTop) < maxScroll - paddingTop;
+		this.canScrollDown = Math.ceil(this.root.viewportNode.scrollTop) < maxScroll - paddingTop;
 	};
 
 	handleAutoScroll = () => {
@@ -1543,14 +1485,14 @@ export class SelectScrollDownButtonState {
 			({
 				...this.scrollButtonState.props,
 				[this.root.getBitsAttr("scroll-down-button")]: "",
-			}) as const,
+			}) as const
 	);
 }
 
 export class SelectScrollUpButtonState {
 	static create(opts: SelectScrollButtonImplStateOpts) {
 		return new SelectScrollUpButtonState(
-			new SelectScrollButtonImplState(opts, SelectContentContext.get()),
+			new SelectScrollButtonImplState(opts, SelectContentContext.get())
 		);
 	}
 	readonly scrollButtonState: SelectScrollButtonImplState;
@@ -1564,15 +1506,12 @@ export class SelectScrollUpButtonState {
 		this.root = scrollButtonState.root;
 		this.scrollButtonState.onAutoScroll = this.handleAutoScroll;
 
-		watch(
-			[() => this.root.viewportNode, () => this.content.isPositioned],
-			() => {
-				if (!this.root.viewportNode || !this.content.isPositioned) return;
+		watch([() => this.root.viewportNode, () => this.content.isPositioned], () => {
+			if (!this.root.viewportNode || !this.content.isPositioned) return;
 
-				this.handleScroll(true);
-				return on(this.root.viewportNode, "scroll", () => this.handleScroll());
-			},
-		);
+			this.handleScroll(true);
+			return on(this.root.viewportNode, "scroll", () => this.handleScroll());
+		});
 	}
 
 	/**
@@ -1584,10 +1523,7 @@ export class SelectScrollUpButtonState {
 			this.scrollButtonState.handleUserScroll();
 		}
 		if (!this.root.viewportNode) return;
-		const paddingTop = Number.parseInt(
-			getComputedStyle(this.root.viewportNode).paddingTop,
-			10,
-		);
+		const paddingTop = Number.parseInt(getComputedStyle(this.root.viewportNode).paddingTop, 10);
 		this.canScrollUp = this.root.viewportNode.scrollTop - paddingTop > 0.1;
 	};
 
@@ -1602,6 +1538,6 @@ export class SelectScrollUpButtonState {
 			({
 				...this.scrollButtonState.props,
 				[this.root.getBitsAttr("scroll-up-button")]: "",
-			}) as const,
+			}) as const
 	);
 }

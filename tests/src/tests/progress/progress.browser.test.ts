@@ -1,8 +1,8 @@
+import { page } from "@vitest/browser/context";
+import type { Progress } from "bits-ui";
 import { expect, it } from "vitest";
 import { render } from "vitest-browser-svelte";
-import type { Progress } from "bits-ui";
 import ProgressTest from "./progress-test.svelte";
-import { page } from "@vitest/browser/context";
 
 function setup(props: Progress.RootProps = {}) {
 	render(ProgressTest, { ...props });

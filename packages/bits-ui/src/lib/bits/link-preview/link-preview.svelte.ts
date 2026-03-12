@@ -1,20 +1,19 @@
-import {
-	afterSleep,
-	onDestroyEffect,
-	attachRef,
-	DOMContext,
-	type ReadableBoxedValues,
-	type WritableBoxedValues,
-	boxWith,
-} from "svelte-toolbelt";
 import { Context, watch } from "runed";
 import { on } from "svelte/events";
 import {
-	createBitsAttrs,
-	boolToStr,
-	getDataOpenClosed,
-} from "$lib/internal/attrs.js";
+	afterSleep,
+	attachRef,
+	boxWith,
+	DOMContext,
+	onDestroyEffect,
+	type ReadableBoxedValues,
+	type WritableBoxedValues,
+} from "svelte-toolbelt";
+import { boolToStr, createBitsAttrs, getDataOpenClosed } from "$lib/internal/attrs.js";
+import { getTabbableCandidates } from "$lib/internal/focus.js";
 import { isElement, isFocusVisible, isTouch } from "$lib/internal/is.js";
+import { PresenceManager } from "$lib/internal/presence-manager.svelte.js";
+import { SafePolygon } from "$lib/internal/safe-polygon.svelte.js";
 import type {
 	BitsFocusEvent,
 	BitsPointerEvent,
@@ -22,18 +21,13 @@ import type {
 	RefAttachment,
 	WithRefOpts,
 } from "$lib/internal/types.js";
-import { getTabbableCandidates } from "$lib/internal/focus.js";
-import { SafePolygon } from "$lib/internal/safe-polygon.svelte.js";
-import { PresenceManager } from "$lib/internal/presence-manager.svelte.js";
 
 const linkPreviewAttrs = createBitsAttrs({
 	component: "link-preview",
 	parts: ["content", "trigger"],
 });
 
-const LinkPreviewRootContext = new Context<LinkPreviewRootState>(
-	"LinkPreview.Root",
-);
+const LinkPreviewRootContext = new Context<LinkPreviewRootState>("LinkPreview.Root");
 
 interface LinkPreviewRootStateOpts
 	extends WritableBoxedValues<{
@@ -103,7 +97,7 @@ export class LinkPreviewRootState {
 				const unsubListener = on(
 					this.domContext.getDocument(),
 					"pointerup",
-					handlePointerUp,
+					handlePointerUp
 				);
 
 				if (!this.contentNode) return;
@@ -118,7 +112,7 @@ export class LinkPreviewRootState {
 					this.hasSelection = false;
 					this.isPointerDownOnContent = false;
 				};
-			},
+			}
 		);
 	}
 
@@ -173,10 +167,7 @@ export class LinkPreviewTriggerState {
 	constructor(opts: LinkPreviewTriggerStateOpts, root: LinkPreviewRootState) {
 		this.opts = opts;
 		this.root = root;
-		this.attachment = attachRef(
-			this.opts.ref,
-			(v) => (this.root.triggerNode = v),
-		);
+		this.attachment = attachRef(this.opts.ref, (v) => (this.root.triggerNode = v));
 		this.root.domContext = new DOMContext(opts.ref);
 		this.onpointerenter = this.onpointerenter.bind(this);
 		this.onpointerleave = this.onpointerleave.bind(this);
@@ -220,7 +211,7 @@ export class LinkPreviewTriggerState {
 				onblur: this.onblur,
 				onpointerleave: this.onpointerleave,
 				...this.attachment,
-			}) as const,
+			}) as const
 	);
 }
 
@@ -243,10 +234,7 @@ export class LinkPreviewContentState {
 	constructor(opts: LinkPreviewContentStateOpts, root: LinkPreviewRootState) {
 		this.opts = opts;
 		this.root = root;
-		this.attachment = attachRef(
-			this.opts.ref,
-			(v) => (this.root.contentNode = v),
-		);
+		this.attachment = attachRef(this.opts.ref, (v) => (this.root.contentNode = v));
 		this.root.domContext = new DOMContext(opts.ref);
 		this.onpointerdown = this.onpointerdown.bind(this);
 		this.onpointerenter = this.onpointerenter.bind(this);
@@ -325,7 +313,7 @@ export class LinkPreviewContentState {
 				onpointerenter: this.onpointerenter,
 				onfocusout: this.onfocusout,
 				...this.attachment,
-			}) as const,
+			}) as const
 	);
 
 	readonly popperProps = {

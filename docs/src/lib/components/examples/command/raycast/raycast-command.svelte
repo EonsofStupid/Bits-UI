@@ -2,21 +2,10 @@
 import { mode } from "mode-watcher";
 import "./raycast.css";
 import { Command } from "bits-ui";
-import {
-	FigmaIcon,
-	LinearIcon,
-	RaycastIcon,
-	SlackIcon,
-	YouTubeIcon,
-} from "../icons/index.js";
+import { FigmaIcon, LinearIcon, RaycastIcon, SlackIcon, YouTubeIcon } from "../icons/index.js";
 import Logo from "../logo.svelte";
+import { ClipboardIcon, HammerIcon, RaycastDarkIcon, RaycastLightIcon } from "./icons/index.js";
 import Item from "./item.svelte";
-import {
-	ClipboardIcon,
-	HammerIcon,
-	RaycastDarkIcon,
-	RaycastLightIcon,
-} from "./icons/index.js";
 import SubCommand from "./sub-command.svelte";
 
 let value = $state("linear");

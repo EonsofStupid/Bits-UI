@@ -1,13 +1,13 @@
 <script lang="ts">
 import { Tooltip } from "bits-ui";
-import TextB from "phosphor-svelte/lib/TextB";
-import TextItalic from "phosphor-svelte/lib/TextItalic";
-import TextUnderline from "phosphor-svelte/lib/TextUnderline";
-import TextStrikethrough from "phosphor-svelte/lib/TextStrikethrough";
+import Code from "phosphor-svelte/lib/Code";
 import Link from "phosphor-svelte/lib/Link";
 import ListBullets from "phosphor-svelte/lib/ListBullets";
 import ListNumbers from "phosphor-svelte/lib/ListNumbers";
-import Code from "phosphor-svelte/lib/Code";
+import TextB from "phosphor-svelte/lib/TextB";
+import TextItalic from "phosphor-svelte/lib/TextItalic";
+import TextStrikethrough from "phosphor-svelte/lib/TextStrikethrough";
+import TextUnderline from "phosphor-svelte/lib/TextUnderline";
 
 const tools = [
 	{ icon: TextB, label: "Bold", shortcut: "⌘B" },

@@ -1,10 +1,10 @@
 <script lang="ts">
 import { boxWith, mergeProps } from "svelte-toolbelt";
-import type { MenubarContentStaticProps } from "../types.js";
-import { MenubarContentState } from "../menubar.svelte.js";
-import { createId } from "$lib/internal/create-id.js";
 import MenuContentStatic from "$lib/bits/menu/components/menu-content-static.svelte";
+import { createId } from "$lib/internal/create-id.js";
 import { noop } from "$lib/internal/noop.js";
+import { MenubarContentState } from "../menubar.svelte.js";
+import type { MenubarContentStaticProps } from "../types.js";
 
 const uid = $props.id();
 
@@ -24,7 +24,7 @@ const contentState = MenubarContentState.create({
 	interactOutsideBehavior: boxWith(() => interactOutsideBehavior),
 	ref: boxWith(
 		() => ref,
-		(v) => (ref = v),
+		(v) => (ref = v)
 	),
 	onInteractOutside: boxWith(() => onInteractOutside),
 	onFocusOutside: boxWith(() => onFocusOutside),

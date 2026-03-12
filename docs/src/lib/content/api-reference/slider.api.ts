@@ -7,17 +7,6 @@ import type {
 	SliderTickPropsWithoutHTML,
 } from "bits-ui";
 import {
-	SliderRootChildrenSnippetProps,
-	SliderRootChildSnippetProps,
-	SliderRootOnValueChangeProp,
-	SliderTickLabelPositionProp,
-} from "./extended-types/slider/index.js";
-import {
-	NumberOrArrayNumberProp,
-	OrientationProp,
-	SliderThumbPositioningProp,
-} from "./extended-types/shared/index.js";
-import {
 	dirProp,
 	typeSingleOrMultipleProp,
 	withChildProps,
@@ -32,6 +21,17 @@ import {
 	defineSimpleDataAttr,
 	defineUnionProp,
 } from "../utils.js";
+import {
+	NumberOrArrayNumberProp,
+	OrientationProp,
+	SliderThumbPositioningProp,
+} from "./extended-types/shared/index.js";
+import {
+	SliderRootChildrenSnippetProps,
+	SliderRootChildSnippetProps,
+	SliderRootOnValueChangeProp,
+	SliderTickLabelPositionProp,
+} from "./extended-types/slider/index.js";
 
 const orientationDataAttr = defineEnumDataAttr({
 	name: "orientation",
@@ -50,8 +50,7 @@ const sharedDataAttrs = [
 
 const root = defineComponentApiSchema<SliderRootPropsWithoutHTML>({
 	title: "Root",
-	description:
-		"The root slider component which contains the remaining slider components.",
+	description: "The root slider component which contains the remaining slider components.",
 	props: {
 		type: {
 			...typeSingleOrMultipleProp,
@@ -66,8 +65,7 @@ const root = defineComponentApiSchema<SliderRootPropsWithoutHTML>({
 		}),
 		onValueChange: defineFunctionProp({
 			definition: SliderRootOnValueChangeProp,
-			description:
-				"A callback function called when the value state of the slider changes.",
+			description: "A callback function called when the value state of the slider changes.",
 			stringDefinition: "(value: number) => void | (value: number[]) => void",
 		}),
 		onValueCommit: defineFunctionProp({
@@ -233,8 +231,7 @@ const tick = defineComponentApiSchema<SliderTickPropsWithoutHTML>({
 		}),
 		defineSimpleDataAttr({
 			name: "selected",
-			description:
-				"Present when the tick is the same value as one of the thumbs.",
+			description: "Present when the tick is the same value as one of the thumbs.",
 		}),
 		defineSimpleDataAttr({
 			name: "slider-tick",
@@ -300,8 +297,7 @@ const thumbLabel = defineComponentApiSchema<SliderThumbLabelPropsWithoutHTML>({
 			options: ["top", "bottom", "left", "right"],
 			description: "The position of the label relative to the thumb.",
 			definition: SliderTickLabelPositionProp,
-			default:
-				"`'top'` for horizontal sliders and `'left'` for vertical sliders",
+			default: "`'top'` for horizontal sliders and `'left'` for vertical sliders",
 		}),
 		...withChildProps({ elType: "HTMLSpanElement" }),
 	},

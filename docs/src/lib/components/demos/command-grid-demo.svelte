@@ -1,10 +1,10 @@
 <script lang="ts">
 import { Command } from "bits-ui";
-import Sticker from "phosphor-svelte/lib/Sticker";
-import Smiley from "phosphor-svelte/lib/Smiley";
 import ArrowLeft from "phosphor-svelte/lib/ArrowLeft";
-import { Button } from "../ui/button/index.js";
+import Smiley from "phosphor-svelte/lib/Smiley";
+import type Sticker from "phosphor-svelte/lib/Sticker";
 import { cn } from "$lib/utils/index.js";
+import { Button } from "../ui/button/index.js";
 
 type Item = {
 	icon?: typeof Sticker;

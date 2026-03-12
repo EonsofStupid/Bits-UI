@@ -1,9 +1,9 @@
 <script lang="ts">
 import { dev } from "$app/environment";
 import Metadata from "$lib/components/metadata.svelte";
+import SidebarNav from "$lib/components/navigation/sidebar-nav.svelte";
 import SiteHeader from "$lib/components/site-header.svelte";
 import TailwindIndicator from "$lib/components/tailwind-indicator.svelte";
-import SidebarNav from "$lib/components/navigation/sidebar-nav.svelte";
 import { navigation } from "$lib/config/index.js";
 import "$lib/styles/app.css";
 import { onMount } from "svelte";

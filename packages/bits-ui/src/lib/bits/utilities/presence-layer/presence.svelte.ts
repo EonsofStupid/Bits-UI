@@ -1,10 +1,6 @@
-import {
-	type ReadableBox,
-	type ReadableBoxedValues,
-	executeCallbacks,
-} from "svelte-toolbelt";
 import { Previous, watch } from "runed";
 import { on } from "svelte/events";
+import { executeCallbacks, type ReadableBox, type ReadableBoxedValues } from "svelte-toolbelt";
 import { StateMachine } from "$lib/internal/state-machine.js";
 
 export interface PresenceOptions
@@ -28,10 +24,7 @@ interface CachedStyles {
  * Cache for animation names with TTL to reduce getComputedStyle calls.
  * Uses WeakMap to avoid memory leaks when elements are removed.
  */
-const animationNameCache = new WeakMap<
-	HTMLElement,
-	{ value: string; timestamp: number }
->();
+const animationNameCache = new WeakMap<HTMLElement, { value: string; timestamp: number }>();
 const ANIMATION_NAME_CACHE_TTL_MS = 16; // One frame at 60fps
 
 const presenceMachine = {
@@ -86,8 +79,7 @@ export class Presence {
 		const currAnimationName =
 			this.styles.animationName || getAnimationName(this.opts.ref.current);
 		const isCurrentAnimation =
-			currAnimationName.includes(event.animationName) ||
-			currAnimationName === "none";
+			currAnimationName.includes(event.animationName) || currAnimationName === "none";
 
 		if (event.target === this.opts.ref.current && isCurrentAnimation) {
 			this.machine.dispatch("ANIMATION_END");
@@ -115,8 +107,7 @@ function watchPresenceChange(state: Presence) {
 		() => state.present.current,
 		() => {
 			if (!state.opts.ref.current) return;
-			const hasPresentChanged =
-				state.present.current !== state.previousPresent.current;
+			const hasPresentChanged = state.present.current !== state.previousPresent.current;
 			if (!hasPresentChanged) return;
 
 			const prevAnimationName = state.prevAnimationNameState;
@@ -127,10 +118,7 @@ function watchPresenceChange(state: Presence) {
 
 			if (state.present.current) {
 				state.machine.dispatch("MOUNT");
-			} else if (
-				currAnimationName === "none" ||
-				state.styles.display === "none"
-			) {
+			} else if (currAnimationName === "none" || state.styles.display === "none") {
 				// If there is no exit animation or the element is hidden, animations won't run
 				// so we unmount instantly
 				state.machine.dispatch("UNMOUNT");
@@ -149,7 +137,7 @@ function watchPresenceChange(state: Presence) {
 					state.machine.dispatch("UNMOUNT");
 				}
 			}
-		},
+		}
 	);
 }
 
@@ -166,7 +154,7 @@ function watchStatusChange(state: Presence) {
 			state.prevAnimationNameState = currAnimationName;
 			// Update styles cache
 			state.styles.animationName = currAnimationName;
-		},
+		}
 	);
 }
 
@@ -184,15 +172,11 @@ function watchRefChange(state: Presence) {
 			};
 
 			return executeCallbacks(
-				on(
-					state.opts.ref.current,
-					"animationstart",
-					state.handleAnimationStart,
-				),
+				on(state.opts.ref.current, "animationstart", state.handleAnimationStart),
 				on(state.opts.ref.current, "animationcancel", state.handleAnimationEnd),
-				on(state.opts.ref.current, "animationend", state.handleAnimationEnd),
+				on(state.opts.ref.current, "animationend", state.handleAnimationEnd)
 			);
-		},
+		}
 	);
 }
 
@@ -210,11 +194,7 @@ function getAnimationName(node?: HTMLElement, forceRefresh = false): string {
 	const cached = animationNameCache.get(node);
 
 	// Return cached value if still valid and not forced to refresh
-	if (
-		!forceRefresh &&
-		cached &&
-		now - cached.timestamp < ANIMATION_NAME_CACHE_TTL_MS
-	) {
+	if (!forceRefresh && cached && now - cached.timestamp < ANIMATION_NAME_CACHE_TTL_MS) {
 		return cached.value;
 	}
 

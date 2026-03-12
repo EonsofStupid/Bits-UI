@@ -1,17 +1,17 @@
 <script lang="ts">
+import type { DateValue } from "@internationalized/date";
 import { watch } from "runed";
 import { boxWith, mergeProps } from "svelte-toolbelt";
-import type { DateValue } from "@internationalized/date";
-import { DateRangePickerRootState } from "../date-range-picker.svelte.js";
-import type { DateRangePickerRootProps } from "../types.js";
-import { noop } from "$lib/internal/noop.js";
-import { PopoverRootState } from "$lib/bits/popover/popover.svelte.js";
 import { DateRangeFieldRootState } from "$lib/bits/date-range-field/date-range-field.svelte.js";
+import { PopoverRootState } from "$lib/bits/popover/popover.svelte.js";
+import { resolveLocaleProp } from "$lib/bits/utilities/config/prop-resolvers.js";
 import FloatingLayer from "$lib/bits/utilities/floating-layer/components/floating-layer.svelte";
+import { getDefaultDate } from "$lib/internal/date-time/utils.js";
+import { noop } from "$lib/internal/noop.js";
 import { useId } from "$lib/internal/use-id.js";
 import type { DateRange } from "$lib/shared/index.js";
-import { getDefaultDate } from "$lib/internal/date-time/utils.js";
-import { resolveLocaleProp } from "$lib/bits/utilities/config/prop-resolvers.js";
+import { DateRangePickerRootState } from "../date-range-picker.svelte.js";
+import type { DateRangePickerRootProps } from "../types.js";
 
 let {
 	open = $bindable(false),
@@ -79,7 +79,7 @@ watch.pre(
 	() => value,
 	() => {
 		handleDefaultValue();
-	},
+	}
 );
 
 const defaultPlaceholder = getDefaultDate({
@@ -106,7 +106,7 @@ watch.pre(
 	() => placeholder,
 	() => {
 		handleDefaultPlaceholder();
-	},
+	}
 );
 
 function onRangeSelect() {
@@ -121,21 +121,21 @@ const pickerRootState = DateRangePickerRootState.create({
 		(v) => {
 			open = v;
 			onOpenChange(v);
-		},
+		}
 	),
 	value: boxWith(
 		() => value as DateRange,
 		(v) => {
 			value = v;
 			onValueChange(v);
-		},
+		}
 	),
 	placeholder: boxWith(
 		() => placeholder as DateValue,
 		(v) => {
 			placeholder = v;
 			onPlaceholderChange(v as DateValue);
-		},
+		}
 	),
 	isDateUnavailable: boxWith(() => isDateUnavailable),
 	minValue: boxWith(() => minValue),
@@ -166,14 +166,14 @@ const pickerRootState = DateRangePickerRootState.create({
 		(v) => {
 			startValue = v;
 			onStartValueChange(v);
-		},
+		}
 	),
 	endValue: boxWith(
 		() => endValue,
 		(v) => {
 			endValue = v;
 			onEndValueChange(v);
-		},
+		}
 	),
 	monthFormat: boxWith(() => monthFormat),
 	yearFormat: boxWith(() => yearFormat),
@@ -202,7 +202,7 @@ const fieldRootState = DateRangeFieldRootState.create({
 	id: boxWith(() => id),
 	ref: boxWith(
 		() => ref,
-		(v) => (ref = v),
+		(v) => (ref = v)
 	),
 	startValue: pickerRootState.opts.startValue,
 	endValue: pickerRootState.opts.endValue,

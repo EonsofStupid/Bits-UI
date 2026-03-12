@@ -1,10 +1,8 @@
 <script lang="ts">
-import { Collapsible } from "bits-ui";
+import type { Collapsible } from "bits-ui";
 
-let {
-	open = false,
-	...restProps
-}: Omit<Collapsible.RootProps, "asChild" | "child" | "children"> = $props();
+let { open = false, ...restProps }: Omit<Collapsible.RootProps, "asChild" | "child" | "children"> =
+	$props();
 </script>
 
 <main>

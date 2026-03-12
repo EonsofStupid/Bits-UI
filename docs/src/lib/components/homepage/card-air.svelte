@@ -1,6 +1,6 @@
 <script lang="ts">
-import Fan from "phosphor-svelte/lib/Fan";
 import { Tabs } from "bits-ui";
+import Fan from "phosphor-svelte/lib/Fan";
 import HomeSlider from "$lib/components/homepage/home-slider.svelte";
 
 let fanSpeed = $state(50);

@@ -1,9 +1,9 @@
+import { page, userEvent } from "@vitest/browser/context";
+import { expect, it, vi } from "vitest";
 import { render } from "vitest-browser-svelte";
-import { it, vi, expect } from "vitest";
+import { expectExists, expectNotExists } from "../browser-utils";
 import { getTestKbd } from "../utils.js";
 import MenubarTest, { type MenubarTestProps } from "./menubar-test.svelte";
-import { page, userEvent } from "@vitest/browser/context";
-import { expectExists, expectNotExists } from "../browser-utils";
 
 const kbd = getTestKbd();
 

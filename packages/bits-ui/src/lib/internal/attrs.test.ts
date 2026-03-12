@@ -1,5 +1,5 @@
-import { describe, it, expect } from "vitest";
-import { createBitsAttrs, type BitsAttrsConfig } from "./attrs.js";
+import { describe, expect, it } from "vitest";
+import { type BitsAttrsConfig, createBitsAttrs } from "./attrs.js";
 
 // describe("Boolean to string attribute functions", () => {
 // 	describe("getDataOpenClosed", () => {

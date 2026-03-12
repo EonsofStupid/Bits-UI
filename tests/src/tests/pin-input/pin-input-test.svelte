@@ -1,5 +1,5 @@
 <script lang="ts">
-import { PinInput, type PinInputRootSnippetProps } from "bits-ui";
+import type { PinInput, PinInputRootSnippetProps } from "bits-ui";
 
 let {
 	onComplete = () => {},

@@ -1,18 +1,11 @@
-import { build } from "vite";
+import { existsSync, mkdirSync, readFileSync, rmSync, writeFileSync } from "node:fs";
+import { dirname, join, resolve } from "node:path";
+import { fileURLToPath } from "node:url";
+import { gzipSync } from "node:zlib";
 import { svelte } from "@sveltejs/vite-plugin-svelte";
 import { visualizer } from "rollup-plugin-visualizer";
-import { resolve, join } from "node:path";
-import {
-	writeFileSync,
-	readFileSync,
-	existsSync,
-	mkdirSync,
-	rmSync,
-} from "node:fs";
-import { fileURLToPath } from "node:url";
-import { dirname } from "node:path";
-import { gzipSync } from "node:zlib";
-import { extractComponents, type ComponentInfo } from "./extract-components.js";
+import { build } from "vite";
+import { type ComponentInfo, extractComponents } from "./extract-components.js";
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
@@ -122,10 +115,7 @@ class BundleAnalyzer {
 		const testComponentPath = this.createTestComponent(component);
 
 		// build with vite
-		const buildResult = await this.buildComponent(
-			testComponentPath,
-			component.name,
-		);
+		const buildResult = await this.buildComponent(testComponentPath, component.name);
 
 		return {
 			component: component.name,
@@ -158,10 +148,7 @@ const refs = [
 		return filePath;
 	}
 
-	async buildComponent(
-		entryPath: string,
-		componentName: string,
-	): Promise<SizeResult> {
+	async buildComponent(entryPath: string, componentName: string): Promise<SizeResult> {
 		const outputPath = join(this.tempDir, `dist-${componentName}`);
 		const statsPath = join(outputPath, "stats.json");
 
@@ -250,10 +237,7 @@ const refs = [
 			});
 
 			// analyze bundle composition using visualizer data
-			const { size, gzipSize } = this.analyzeBundleComposition(
-				statsPath,
-				componentName,
-			);
+			const { size, gzipSize } = this.analyzeBundleComposition(statsPath, componentName);
 
 			return { size, gzipSize };
 		} catch (error) {
@@ -262,33 +246,20 @@ const refs = [
 		}
 	}
 
-	analyzeBundleComposition(
-		statsPath: string,
-		componentName: string,
-	): SizeResult {
+	analyzeBundleComposition(statsPath: string, componentName: string): SizeResult {
 		if (!existsSync(statsPath)) {
-			console.warn(
-				`Stats file not found for ${componentName}, falling back to bundle file`,
-			);
+			console.warn(`Stats file not found for ${componentName}, falling back to bundle file`);
 			return this.fallbackBundleSize(componentName);
 		}
 
 		try {
-			const stats: VisualizerStats = JSON.parse(
-				readFileSync(statsPath, "utf-8"),
-			);
+			const stats: VisualizerStats = JSON.parse(readFileSync(statsPath, "utf-8"));
 
 			const allModules = this.extractModulesFromTree(stats.tree);
 
-			const enrichedModules = this.enrichModulesWithSizes(
-				allModules,
-				stats.nodeParts,
-			);
+			const enrichedModules = this.enrichModulesWithSizes(allModules, stats.nodeParts);
 
-			const componentModules = this.filterComponentModules(
-				enrichedModules,
-				componentName,
-			);
+			const componentModules = this.filterComponentModules(enrichedModules, componentName);
 
 			let totalSize = 0;
 			let totalGzipSize = 0;
@@ -299,18 +270,15 @@ const refs = [
 			}
 
 			console.log(
-				`📊 ${componentName} - Component code: ${totalSize} bytes (${totalGzipSize} gzipped)`,
+				`📊 ${componentName} - Component code: ${totalSize} bytes (${totalGzipSize} gzipped)`
 			);
 			console.log(
-				`   Filtered out ${enrichedModules.length - componentModules.length} Svelte runtime modules`,
+				`   Filtered out ${enrichedModules.length - componentModules.length} Svelte runtime modules`
 			);
 
 			return { size: totalSize, gzipSize: totalGzipSize };
 		} catch (error) {
-			console.error(
-				`Failed to analyze bundle composition for ${componentName}:`,
-				error,
-			);
+			console.error(`Failed to analyze bundle composition for ${componentName}:`, error);
 			return this.fallbackBundleSize(componentName);
 		}
 	}
@@ -348,7 +316,7 @@ const refs = [
 
 	enrichModulesWithSizes(
 		modules: EnrichedModule[],
-		nodeParts: Record<string, VisualizerNodePart>,
+		nodeParts: Record<string, VisualizerNodePart>
 	): EnrichedModule[] {
 		return modules.map((module) => {
 			const sizeInfo = nodeParts[module.uid];
@@ -362,10 +330,7 @@ const refs = [
 		});
 	}
 
-	filterComponentModules(
-		modules: EnrichedModule[],
-		_componentName: string,
-	): EnrichedModule[] {
+	filterComponentModules(modules: EnrichedModule[], _componentName: string): EnrichedModule[] {
 		return modules.filter((module) => {
 			const path = module.path ?? module.id ?? "";
 			const name = module.name ?? "";
@@ -414,7 +379,7 @@ const refs = [
 		console.log(`Generated: ${new Date(report.timestamp).toLocaleString()}\n`);
 
 		const sortedResults = [...report.results].sort((a, b) =>
-			a.component.localeCompare(b.component),
+			a.component.localeCompare(b.component)
 		);
 
 		console.log("Component Sizes:");
@@ -423,18 +388,14 @@ const refs = [
 			const sizeKB = (result.size / 1024).toFixed(2);
 			const gzipKB = (result.gzipSize / 1024).toFixed(2);
 			console.log(
-				`${result.component.padEnd(15)} ${sizeKB.padStart(8)} KB (${gzipKB} KB gzipped)`,
+				`${result.component.padEnd(15)} ${sizeKB.padStart(8)} KB (${gzipKB} KB gzipped)`
 			);
 		}
 	}
 
 	static compare(currentPath: string, previousPath: string): void {
-		const current: BundleReport = JSON.parse(
-			readFileSync(currentPath, "utf-8"),
-		);
-		const previous: BundleReport = JSON.parse(
-			readFileSync(previousPath, "utf-8"),
-		);
+		const current: BundleReport = JSON.parse(readFileSync(currentPath, "utf-8"));
+		const previous: BundleReport = JSON.parse(readFileSync(previousPath, "utf-8"));
 
 		console.log("\n📈 Bundle Size Comparison");
 		console.log("=========================");
@@ -442,10 +403,7 @@ const refs = [
 		const currentMap = new Map(current.results.map((r) => [r.component, r]));
 		const previousMap = new Map(previous.results.map((r) => [r.component, r]));
 
-		const allComponents = new Set([
-			...currentMap.keys(),
-			...previousMap.keys(),
-		]);
+		const allComponents = new Set([...currentMap.keys(), ...previousMap.keys()]);
 
 		for (const component of Array.from(allComponents).sort()) {
 			const curr = currentMap.get(component);
@@ -457,9 +415,7 @@ const refs = [
 			}
 
 			if (!prev) {
-				console.log(
-					`✨ ${component}: NEW (+${(curr.size / 1024).toFixed(2)} KB)`,
-				);
+				console.log(`✨ ${component}: NEW (+${(curr.size / 1024).toFixed(2)} KB)`);
 				continue;
 			}
 
@@ -470,9 +426,7 @@ const refs = [
 			const icon = sizeDiff > 0 ? "📈" : sizeDiff < 0 ? "📉" : "➡️";
 			const sign = sizeDiff > 0 ? "+" : "";
 
-			console.log(
-				`${icon} ${component}: ${sign}${diffKB} KB (${sign}${percentChange}%)`,
-			);
+			console.log(`${icon} ${component}: ${sign}${diffKB} KB (${sign}${percentChange}%)`);
 		}
 	}
 }
@@ -488,9 +442,7 @@ async function main() {
 		if (args[currentIndex] && args[previousIndex]) {
 			BundleAnalyzer.compare(args[currentIndex], args[previousIndex]);
 		} else {
-			console.error(
-				"Usage: --compare <current-report.json> <previous-report.json>",
-			);
+			console.error("Usage: --compare <current-report.json> <previous-report.json>");
 			process.exit(1);
 		}
 		return;

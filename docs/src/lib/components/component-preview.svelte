@@ -1,8 +1,8 @@
 <script lang="ts">
 import type { Snippet } from "svelte";
-import DemoContainer from "./demo-container.svelte";
-import DemoCodeContainer from "./demo-code-container.svelte";
 import { setCopyToClipboard } from "$lib/utils/copy-to-clipboard.svelte.js";
+import DemoCodeContainer from "./demo-code-container.svelte";
+import DemoContainer from "./demo-container.svelte";
 
 let {
 	preview,

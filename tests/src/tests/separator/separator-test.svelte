@@ -1,5 +1,5 @@
 <script lang="ts">
-import { Separator } from "bits-ui";
+import type { Separator } from "bits-ui";
 
 let { ...restProps }: Separator.RootProps = $props();
 </script>

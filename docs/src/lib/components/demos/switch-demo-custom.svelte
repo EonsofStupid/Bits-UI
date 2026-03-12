@@ -1,5 +1,5 @@
 <script lang="ts">
-import { Label, Switch, type WithoutChildrenOrChild, useId } from "bits-ui";
+import { Label, type Switch, useId, type WithoutChildrenOrChild } from "bits-ui";
 import DemoContainer from "../demo-container.svelte";
 
 let {

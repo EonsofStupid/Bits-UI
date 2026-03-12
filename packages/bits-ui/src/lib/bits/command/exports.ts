@@ -7,21 +7,21 @@ export { default as Input } from "./components/command-input.svelte";
 export { default as Item } from "./components/command-item.svelte";
 export { default as LinkItem } from "./components/command-link-item.svelte";
 export { default as List } from "./components/command-list.svelte";
-export { default as Viewport } from "./components/command-viewport.svelte";
 export { default as Loading } from "./components/command-loading.svelte";
 export { default as Separator } from "./components/command-separator.svelte";
+export { default as Viewport } from "./components/command-viewport.svelte";
 
 export type {
-	CommandRootProps as RootProps,
 	CommandEmptyProps as EmptyProps,
-	CommandGroupProps as GroupProps,
 	CommandGroupHeadingProps as GroupHeadingProps,
 	CommandGroupItemsProps as GroupItemsProps,
+	CommandGroupProps as GroupProps,
+	CommandInputProps as InputProps,
 	CommandItemProps as ItemProps,
 	CommandLinkItemProps as LinkItemProps,
-	CommandInputProps as InputProps,
-	CommandSeparatorProps as SeparatorProps,
 	CommandListProps as ListProps,
 	CommandLoadingProps as LoadingProps,
+	CommandRootProps as RootProps,
+	CommandSeparatorProps as SeparatorProps,
 	CommandViewportProps as ViewportProps,
 } from "./types.js";

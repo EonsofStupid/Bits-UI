@@ -1,7 +1,7 @@
 <script lang="ts">
-import Badge from "$lib/components/ui/badge.svelte";
-import { cn } from "$lib/utils/styles.js";
 import type { ComponentProps } from "svelte";
+import type Badge from "$lib/components/ui/badge.svelte";
+import { cn } from "$lib/utils/styles.js";
 
 let { class: className, ...restProps }: ComponentProps<typeof Badge> = $props();
 </script>

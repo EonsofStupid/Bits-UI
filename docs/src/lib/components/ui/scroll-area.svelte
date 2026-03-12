@@ -1,7 +1,7 @@
 <script lang="ts">
-import { cn } from "$lib/utils/styles.js";
-import { ScrollArea } from "bits-ui";
+import type { ScrollArea } from "bits-ui";
 import type { ComponentProps } from "svelte";
+import { cn } from "$lib/utils/styles.js";
 
 let {
 	class: className,

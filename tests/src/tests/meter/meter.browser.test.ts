@@ -1,8 +1,8 @@
+import { page } from "@vitest/browser/context";
+import type { Meter } from "bits-ui";
 import { expect, it } from "vitest";
 import { render } from "vitest-browser-svelte";
-import type { Meter } from "bits-ui";
 import MeterTest from "./meter-test.svelte";
-import { page } from "@vitest/browser/context";
 
 function setup(props: Meter.RootProps = {}) {
 	render(MeterTest, { ...props });

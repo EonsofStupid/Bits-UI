@@ -1,3 +1,40 @@
+import * as C from "$lib/content/constants.js";
+import type { PropSchema, PropTypeComplex } from "$lib/content/types.js";
+import {
+	defineBooleanProp,
+	defineComponentPropSchema,
+	defineCSSVarSchema,
+	defineEnumDataAttr,
+	defineEnumProp,
+	defineFunctionProp,
+	defineNumberProp,
+	defineSimpleDataAttr,
+	defineSimplePropSchema,
+	defineUnionProp,
+} from "../utils.js";
+import {
+	CheckboxRootChildrenSnippetProps,
+	CheckboxRootChildSnippetProps,
+	CheckboxRootOnCheckedChangeProp,
+	CheckboxRootOnIndeterminateChangeProp,
+} from "./extended-types/checkbox/index.js";
+import {
+	FloatingAlignProp,
+	FloatingCollisionBoundaryProp,
+	FloatingCollisionPaddingProp,
+	FloatingContentChildSnippetProps,
+	FloatingCustomAnchorProp,
+	FloatingSideProp,
+	FloatingStickyProp,
+	FloatingStrategyProp,
+	FloatingUpdatePositionStrategyProp,
+} from "./extended-types/floating/index.js";
+import { PaginationPageItemProp } from "./extended-types/pagination/index.js";
+import { PortalToProp } from "./extended-types/portal/index.js";
+import {
+	RadioGroupItemChildrenSnippetProps,
+	RadioGroupItemChildSnippetProps,
+} from "./extended-types/radio-group/index.js";
 import {
 	ChildDefaultSnippetProps,
 	DateOnInvalidProp,
@@ -20,44 +57,6 @@ import {
 	SingleOrMultipleProp,
 	TimeValueProp,
 } from "./extended-types/shared/index.js";
-import {
-	FloatingAlignProp,
-	FloatingCollisionBoundaryProp,
-	FloatingCollisionPaddingProp,
-	FloatingContentChildSnippetProps,
-	FloatingCustomAnchorProp,
-	FloatingSideProp,
-	FloatingStickyProp,
-	FloatingStrategyProp,
-	FloatingUpdatePositionStrategyProp,
-} from "./extended-types/floating/index.js";
-import { PortalToProp } from "./extended-types/portal/index.js";
-
-import type { PropSchema, PropTypeComplex } from "$lib/content/types.js";
-import * as C from "$lib/content/constants.js";
-import {
-	defineBooleanProp,
-	defineComponentPropSchema,
-	defineEnumDataAttr,
-	defineEnumProp,
-	defineFunctionProp,
-	defineNumberProp,
-	defineSimpleDataAttr,
-	defineSimplePropSchema,
-	defineUnionProp,
-	defineCSSVarSchema,
-} from "../utils.js";
-import { PaginationPageItemProp } from "./extended-types/pagination/index.js";
-import {
-	CheckboxRootChildrenSnippetProps,
-	CheckboxRootChildSnippetProps,
-	CheckboxRootOnCheckedChangeProp,
-	CheckboxRootOnIndeterminateChangeProp,
-} from "./extended-types/checkbox/index.js";
-import {
-	RadioGroupItemChildrenSnippetProps,
-	RadioGroupItemChildSnippetProps,
-} from "./extended-types/radio-group/index.js";
 
 type ElementKind =
 	| "HTMLDivElement"
@@ -93,8 +92,7 @@ export const arrowProps = {
 export const portalToProp = defineUnionProp({
 	definition: PortalToProp,
 	options: ["Element", "string"],
-	description:
-		"Where to render the content when it is open. Defaults to the body.",
+	description: "Where to render the content when it is open. Defaults to the body.",
 	default: "document.body",
 });
 
@@ -138,11 +136,7 @@ export function childrenSnippet(opts?: PropTypeComplex): PropSchema {
 	});
 }
 
-export function refProp({
-	elType = "HTMLElement",
-}: {
-	elType?: ElementKind;
-}): PropSchema {
+export function refProp({ elType = "HTMLElement" }: { elType?: ElementKind }): PropSchema {
 	return defineSimplePropSchema({
 		type: elType,
 		description:
@@ -158,11 +152,7 @@ type WithChildPropOpts = {
 	child?: Pick<PropTypeComplex, "definition" | "stringDefinition">;
 };
 
-export function withChildProps({
-	elType = "HTMLElement",
-	children,
-	child,
-}: WithChildPropOpts) {
+export function withChildProps({ elType = "HTMLElement", children, child }: WithChildPropOpts) {
 	const childDefinition = child ?? {
 		definition: ChildDefaultSnippetProps,
 		stringDefinition: `type SnippetProps = {
@@ -172,14 +162,10 @@ export function withChildProps({
 	return {
 		ref: refProp({ elType }),
 		children: childrenSnippet(
-			children
-				? { ...children, variant: "complex", type: "Snippet" }
-				: undefined,
+			children ? { ...children, variant: "complex", type: "Snippet" } : undefined
 		),
 		child: childSnippet(
-			child
-				? { ...childDefinition, variant: "complex", type: "Snippet" }
-				: undefined,
+			child ? { ...childDefinition, variant: "complex", type: "Snippet" } : undefined
 		),
 	} as const;
 }
@@ -195,8 +181,7 @@ export function floatingSideProp(defaultSide = "bottom"): PropSchema {
 }
 
 export const floatingSideOffsetProp = defineNumberProp({
-	description:
-		"The distance in pixels from the anchor to the floating element.",
+	description: "The distance in pixels from the anchor to the floating element.",
 	default: 0,
 });
 
@@ -211,8 +196,7 @@ export function floatingAlignProp(defaultAlign = "start"): PropSchema {
 }
 
 export const floatingAlignOffsetProp = defineNumberProp({
-	description:
-		"The distance in pixels from the anchor to the floating element.",
+	description: "The distance in pixels from the anchor to the floating element.",
 	default: 0,
 });
 
@@ -230,8 +214,7 @@ export const floatingAvoidCollisionsProp = defineBooleanProp({
 
 export const floatingCollisionBoundaryProp = defineUnionProp({
 	options: ["Element", "null"],
-	description:
-		"A boundary element or array of elements to check for collisions against.",
+	description: "A boundary element or array of elements to check for collisions against.",
 	definition: FloatingCollisionBoundaryProp,
 });
 
@@ -331,12 +314,7 @@ export const dismissibleOnFocusOutsideProp = defineFunctionProp({
 
 export const dismissibleInteractOutsideBehaviorProp = defineEnumProp({
 	definition: InteractOutsideBehaviorProp,
-	options: [
-		"close",
-		"ignore",
-		"defer-otherwise-close",
-		"defer-otherwise-ignore",
-	],
+	options: ["close", "ignore", "defer-otherwise-close", "defer-otherwise-ignore"],
 	default: "close",
 	description:
 		"The behavior to use when an interaction occurs outside of the floating content. `'close'` will close the content immediately. `'ignore'` will prevent the content from closing. `'defer-otherwise-close'` will defer to the parent element if it exists, otherwise it will close the content. `'defer-otherwise-ignore'` will defer to the parent element if it exists, otherwise it will ignore the interaction.",
@@ -350,12 +328,7 @@ export const dismissibleLayerProps = {
 
 export const escapeEscapeKeydownBehaviorProp = defineEnumProp({
 	definition: EscapeKeydownBehaviorProp,
-	options: [
-		"close",
-		"ignore",
-		"defer-otherwise-close",
-		"defer-otherwise-ignore",
-	],
+	options: ["close", "ignore", "defer-otherwise-close", "defer-otherwise-ignore"],
 	default: "close",
 	description:
 		"The behavior to use when an escape keydown event occurs in the floating content. `'close'` will close the content immediately. `'ignore'` will prevent the content from closing. `'defer-otherwise-close'` will defer to the parent element if it exists, otherwise it will close the content. `'defer-otherwise-ignore'` will defer to the parent element if it exists, otherwise it will ignore the interaction.",
@@ -446,8 +419,7 @@ type DateRange = {
 
 export const valueDateRangeChangeFn = defineFunctionProp({
 	definition: DateOnRangeChangeProp,
-	description:
-		"A function that is called when the selected date range changes.",
+	description: "A function that is called when the selected date range changes.",
 	stringDefinition: `(range: DateRange) => void`,
 });
 
@@ -535,8 +507,7 @@ export const dateValidateProp = defineFunctionProp({
 export const dateOnInvalidProp = defineFunctionProp({
 	definition: DateOnInvalidProp,
 	description: "A callback fired when the value is invalid.",
-	stringDefinition:
-		"(reason: 'min' | 'max' | 'custom', msg?: string | string[]) => void",
+	stringDefinition: "(reason: 'min' | 'max' | 'custom', msg?: string | string[]) => void",
 });
 
 export const onCheckedChangeProp = defineFunctionProp({

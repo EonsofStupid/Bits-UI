@@ -25,9 +25,7 @@ describe("Rendering Behavior", () => {
 	it("should render the image with the correct src", async () => {
 		setup({ src });
 		const avatar = page.getByAltText("huntabyte");
-		await expect
-			.element(avatar)
-			.toHaveAttribute("src", "https://github.com/huntabyte.png");
+		await expect.element(avatar).toHaveAttribute("src", "https://github.com/huntabyte.png");
 	});
 
 	it("should render the fallback when an invalid image src is provided", async () => {
@@ -41,9 +39,7 @@ describe("Rendering Behavior", () => {
 	it("should remove the avatar when the src is removed", async () => {
 		setup({ src });
 		const avatar = page.getByAltText("huntabyte");
-		await expect
-			.element(avatar)
-			.toHaveAttribute("src", "https://github.com/huntabyte.png");
+		await expect.element(avatar).toHaveAttribute("src", "https://github.com/huntabyte.png");
 		const clearButton = page.getByTestId("clear-button");
 		await clearButton.click();
 		await expect.element(avatar).not.toBeVisible();

@@ -1,9 +1,9 @@
 <script lang="ts">
 import { boxWith } from "svelte-toolbelt";
-import type { LinkPreviewRootProps } from "../types.js";
-import { LinkPreviewRootState } from "../link-preview.svelte.js";
-import { noop } from "$lib/internal/noop.js";
 import { FloatingLayer } from "$lib/bits/utilities/floating-layer/index.js";
+import { noop } from "$lib/internal/noop.js";
+import { LinkPreviewRootState } from "../link-preview.svelte.js";
+import type { LinkPreviewRootProps } from "../types.js";
 
 let {
 	disabled = false,
@@ -22,7 +22,7 @@ LinkPreviewRootState.create({
 		(v) => {
 			open = v;
 			onOpenChange(v);
-		},
+		}
 	),
 	openDelay: boxWith(() => openDelay),
 	closeDelay: boxWith(() => closeDelay),

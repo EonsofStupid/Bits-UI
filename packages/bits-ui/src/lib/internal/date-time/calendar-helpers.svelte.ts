@@ -5,14 +5,21 @@ import {
 	isSameMonth,
 	startOfMonth,
 } from "@internationalized/date";
+import { watch } from "runed";
+import { untrack } from "svelte";
 import {
-	type ReadableBox,
-	type WritableBox,
 	afterTick,
 	getDocument,
+	type ReadableBox,
 	styleToString,
+	type WritableBox,
 } from "svelte-toolbelt";
-import { untrack } from "svelte";
+import { chunk, isValidIndex } from "$lib/internal/arrays.js";
+import { boolToEmptyStrOrUndef, createBitsAttrs } from "$lib/internal/attrs.js";
+import { isBrowser, isHTMLElement } from "$lib/internal/is.js";
+import { kbd } from "$lib/internal/kbd.js";
+import type { DateMatcher, Month } from "$lib/shared/index.js";
+import type { Formatter } from "./formatter.js";
 import {
 	getDaysInMonth,
 	getLastFirstDayOfWeek,
@@ -24,13 +31,6 @@ import {
 	parseStringToDateValue,
 	toDate,
 } from "./utils.js";
-import type { Formatter } from "./formatter.js";
-import { createBitsAttrs, boolToEmptyStrOrUndef } from "$lib/internal/attrs.js";
-import { chunk, isValidIndex } from "$lib/internal/arrays.js";
-import { isBrowser, isHTMLElement } from "$lib/internal/is.js";
-import { kbd } from "$lib/internal/kbd.js";
-import type { DateMatcher, Month } from "$lib/shared/index.js";
-import { watch } from "runed";
 
 /**
  * Checks if a given node is a calendar cell element.
@@ -98,9 +98,7 @@ function createMonth(props: CreateMonthProps): Month<DateValue> {
 	const { dateObj, weekStartsOn, fixedWeeks, locale } = props;
 	const daysInMonth = getDaysInMonth(dateObj);
 
-	const datesArray = Array.from({ length: daysInMonth }, (_, i) =>
-		dateObj.set({ day: i + 1 }),
-	);
+	const datesArray = Array.from({ length: daysInMonth }, (_, i) => dateObj.set({ day: i + 1 }));
 
 	const firstDayOfMonth = startOfMonth(dateObj);
 	const lastDayOfMonth = endOfMonth(dateObj);
@@ -114,17 +112,10 @@ function createMonth(props: CreateMonthProps): Month<DateValue> {
 			? getNextLastDayOfWeek(lastDayOfMonth, weekStartsOn, "en-US")
 			: getNextLastDayOfWeek(lastDayOfMonth, 0, locale);
 
-	const lastMonthDays = getDaysBetween(
-		lastSunday.subtract({ days: 1 }),
-		firstDayOfMonth,
-	);
-	const nextMonthDays = getDaysBetween(
-		lastDayOfMonth,
-		nextSaturday.add({ days: 1 }),
-	);
+	const lastMonthDays = getDaysBetween(lastSunday.subtract({ days: 1 }), firstDayOfMonth);
+	const nextMonthDays = getDaysBetween(lastDayOfMonth, nextSaturday.add({ days: 1 }));
 
-	const totalDays =
-		lastMonthDays.length + datesArray.length + nextMonthDays.length;
+	const totalDays = lastMonthDays.length + datesArray.length + nextMonthDays.length;
 
 	if (fixedWeeks && totalDays < 42) {
 		const extraDays = 42 - totalDays;
@@ -174,7 +165,7 @@ export function createMonths(props: SetMonthProps) {
 			createMonth({
 				...monthProps,
 				dateObj,
-			}),
+			})
 		);
 		return months;
 	}
@@ -183,7 +174,7 @@ export function createMonths(props: SetMonthProps) {
 		createMonth({
 			...monthProps,
 			dateObj,
-		}),
+		})
 	);
 
 	// Create all the months, starting with the current month
@@ -193,7 +184,7 @@ export function createMonths(props: SetMonthProps) {
 			createMonth({
 				...monthProps,
 				dateObj: nextMonth,
-			}),
+			})
 		);
 	}
 
@@ -205,7 +196,7 @@ export function getSelectableCells(calendarNode: HTMLElement | null) {
 	const selectableSelector = `[data-bits-day]:not([data-disabled]):not([data-outside-visible-months])`;
 
 	return Array.from(calendarNode.querySelectorAll(selectableSelector)).filter(
-		(el): el is HTMLElement => isHTMLElement(el),
+		(el): el is HTMLElement => isHTMLElement(el)
 	);
 }
 
@@ -218,10 +209,7 @@ export function getSelectableCells(calendarNode: HTMLElement | null) {
  * @param node - The node to extract the date from.
  * @param placeholder - The placeholder value store which will be set to the extracted date.
  */
-export function setPlaceholderToNodeValue(
-	node: HTMLElement,
-	placeholder: WritableBox<DateValue>,
-) {
+export function setPlaceholderToNodeValue(node: HTMLElement, placeholder: WritableBox<DateValue>) {
 	const cellValue = node.getAttribute("data-value");
 	if (!cellValue) return;
 	placeholder.current = parseStringToDateValue(cellValue, placeholder.current);
@@ -380,12 +368,7 @@ type HandleCalendarKeydownProps = {
 	shiftFocus: (node: HTMLElement, add: number) => void;
 	placeholderValue: DateValue;
 };
-const ARROW_KEYS = [
-	kbd.ARROW_DOWN,
-	kbd.ARROW_UP,
-	kbd.ARROW_LEFT,
-	kbd.ARROW_RIGHT,
-] as const;
+const ARROW_KEYS = [kbd.ARROW_DOWN, kbd.ARROW_UP, kbd.ARROW_LEFT, kbd.ARROW_RIGHT] as const;
 const SELECT_KEYS = [kbd.ENTER, kbd.SPACE];
 
 /**
@@ -400,11 +383,7 @@ export function handleCalendarKeydown({
 	const currentCell = event.target;
 	if (!isCalendarDayNode(currentCell)) return;
 	// oxlint-disable-next-line no-explicit-any
-	if (
-		!ARROW_KEYS.includes(event.key as any) &&
-		!SELECT_KEYS.includes(event.key)
-	)
-		return;
+	if (!ARROW_KEYS.includes(event.key as any) && !SELECT_KEYS.includes(event.key)) return;
 
 	event.preventDefault();
 
@@ -511,18 +490,12 @@ type GetWeekdaysProps = {
 	formatter: Formatter;
 };
 
-export function getWeekdays({
-	months,
-	formatter,
-	weekdayFormat,
-}: GetWeekdaysProps) {
+export function getWeekdays({ months, formatter, weekdayFormat }: GetWeekdaysProps) {
 	if (!months.length) return [];
 	const firstMonth = months[0]!;
 	const firstWeek = firstMonth.weeks[0];
 	if (!firstWeek) return [];
-	return firstWeek.map((date) =>
-		formatter.dayOfWeek(toDate(date), weekdayFormat),
-	);
+	return firstWeek.map((date) => formatter.dayOfWeek(toDate(date), weekdayFormat));
 }
 
 type UseMonthViewSyncProps = {
@@ -555,9 +528,7 @@ export function useMonthViewOptionsSync(props: UseMonthViewSyncProps) {
 				numberOfMonths,
 			};
 
-			props.setMonths(
-				createMonths({ ...defaultMonthProps, dateObj: placeholder }),
-			);
+			props.setMonths(createMonths({ ...defaultMonthProps, dateObj: placeholder }));
 		});
 	});
 }
@@ -633,11 +604,7 @@ export function useMonthViewPlaceholderSync({
 			 * If the placeholder's month is already in this visible months,
 			 * we don't need to do anything.
 			 */
-			if (
-				getVisibleMonths().some((month) =>
-					isSameMonth(month, placeholder.current),
-				)
-			) {
+			if (getVisibleMonths().some((month) => isSameMonth(month, placeholder.current))) {
 				return;
 			}
 
@@ -648,9 +615,7 @@ export function useMonthViewPlaceholderSync({
 				numberOfMonths: numberOfMonths.current,
 			};
 
-			setMonths(
-				createMonths({ ...defaultMonthProps, dateObj: placeholder.current }),
-			);
+			setMonths(createMonths({ ...defaultMonthProps, dateObj: placeholder.current }));
 		});
 	});
 }
@@ -781,23 +746,17 @@ export type CalendarParts =
 
 export function pickerOpenFocus(e: Event) {
 	const doc = getDocument(e.target as HTMLElement);
-	const nodeToFocus = doc.querySelector<HTMLElement>(
-		"[data-bits-day][data-focused]",
-	);
+	const nodeToFocus = doc.querySelector<HTMLElement>("[data-bits-day][data-focused]");
 	if (nodeToFocus) {
 		e.preventDefault();
 		nodeToFocus?.focus();
 	}
 }
 
-export function getFirstNonDisabledDateInView(
-	calendarRef: HTMLElement,
-): DateValue | undefined {
+export function getFirstNonDisabledDateInView(calendarRef: HTMLElement): DateValue | undefined {
 	if (!isBrowser) return;
 	const daysInView = Array.from(
-		calendarRef.querySelectorAll<HTMLElement>(
-			"[data-bits-day]:not([aria-disabled=true])",
-		),
+		calendarRef.querySelectorAll<HTMLElement>("[data-bits-day]:not([aria-disabled=true])")
 	);
 	if (daysInView.length === 0) return;
 	const element = daysInView[0];
@@ -858,14 +817,11 @@ export function useEnsureNonDisabledPlaceholder({
 				placeholder.current =
 					getFirstNonDisabledDateInView(ref.current) ?? defaultPlaceholder;
 			}
-		},
+		}
 	);
 }
 
-export function getDateWithPreviousTime(
-	date: DateValue | undefined,
-	prev: DateValue | undefined,
-) {
+export function getDateWithPreviousTime(date: DateValue | undefined, prev: DateValue | undefined) {
 	if (!date || !prev) return date;
 
 	if (hasTime(date) && hasTime(prev)) {
@@ -920,9 +876,7 @@ export function getDefaultYears(opts: GetDefaultYearsProps) {
 		// (111 years: latestYear - 100 to latestYear + 10)
 		const initialMinYear = latestYear - 100;
 		minYear =
-			opts.placeholderYear < initialMinYear
-				? opts.placeholderYear - 10
-				: initialMinYear;
+			opts.placeholderYear < initialMinYear ? opts.placeholderYear - 10 : initialMinYear;
 	}
 
 	if (opts.maxValue) {

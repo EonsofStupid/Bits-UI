@@ -1,7 +1,7 @@
 <script lang="ts">
-import { ScrollArea, type WithoutChild } from "bits-ui";
-import DemoContainer from "../demo-container.svelte";
+import type { ScrollArea, WithoutChild } from "bits-ui";
 import { cn } from "$lib/utils/styles.js";
+import DemoContainer from "../demo-container.svelte";
 
 type Props = WithoutChild<ScrollArea.RootProps> & {
 	orientation: "vertical" | "horizontal" | "both";

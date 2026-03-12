@@ -1,6 +1,6 @@
+import type { BitsConfigProps } from "bits-ui";
 import { defineStringProp, defineUtilityApiSchema } from "../utils.js";
 import { childrenSnippet, portalToProp } from "./shared.js";
-import type { BitsConfigProps } from "bits-ui";
 
 export const bitsConfig = defineUtilityApiSchema<BitsConfigProps>({
 	title: "BitsConfig",

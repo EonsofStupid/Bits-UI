@@ -15,8 +15,7 @@ const plans = [
 		label: "Starter",
 		payload: {
 			name: "Starter plan",
-			description:
-				"Great for small teams shipping one project with basic analytics.",
+			description: "Great for small teams shipping one project with basic analytics.",
 		},
 	},
 	{
@@ -24,8 +23,7 @@ const plans = [
 		label: "Growth",
 		payload: {
 			name: "Growth plan",
-			description:
-				"Adds feature flags, role permissions, and alert integrations.",
+			description: "Adds feature flags, role permissions, and alert integrations.",
 		},
 	},
 	{
@@ -33,8 +31,7 @@ const plans = [
 		label: "Enterprise",
 		payload: {
 			name: "Enterprise plan",
-			description:
-				"Includes SSO, audit trails, and dedicated support response SLAs.",
+			description: "Includes SSO, audit trails, and dedicated support response SLAs.",
 		},
 	},
 ];

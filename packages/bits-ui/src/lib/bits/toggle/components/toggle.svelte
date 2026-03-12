@@ -1,9 +1,9 @@
 <script lang="ts">
 import { boxWith, mergeProps } from "svelte-toolbelt";
-import type { ToggleRootProps } from "../types.js";
-import { ToggleRootState } from "../toggle.svelte.js";
 import { createId } from "$lib/internal/create-id.js";
 import { noop } from "$lib/internal/noop.js";
+import { ToggleRootState } from "../toggle.svelte.js";
+import type { ToggleRootProps } from "../types.js";
 
 const uid = $props.id();
 
@@ -25,19 +25,17 @@ const toggleState = ToggleRootState.create({
 		(v) => {
 			pressed = v;
 			onPressedChange(v);
-		},
+		}
 	),
 	disabled: boxWith(() => disabled ?? false),
 	id: boxWith(() => id),
 	ref: boxWith(
 		() => ref,
-		(v) => (ref = v),
+		(v) => (ref = v)
 	),
 });
 
-const mergedProps = $derived(
-	mergeProps(restProps, toggleState.props, { type }),
-);
+const mergedProps = $derived(mergeProps(restProps, toggleState.props, { type }));
 </script>
 
 {#if child}

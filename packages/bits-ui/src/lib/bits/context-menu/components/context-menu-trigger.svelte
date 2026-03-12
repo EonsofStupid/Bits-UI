@@ -1,9 +1,9 @@
 <script lang="ts">
 import { boxWith, mergeProps } from "svelte-toolbelt";
-import type { ContextMenuTriggerProps } from "../types.js";
 import { ContextMenuTriggerState } from "$lib/bits/menu/menu.svelte.js";
-import { useId } from "$lib/internal/use-id.js";
 import { FloatingLayer } from "$lib/bits/utilities/floating-layer/index.js";
+import { useId } from "$lib/internal/use-id.js";
+import type { ContextMenuTriggerProps } from "../types.js";
 
 let {
 	id = useId(),
@@ -19,7 +19,7 @@ const triggerState = ContextMenuTriggerState.create({
 	disabled: boxWith(() => disabled),
 	ref: boxWith(
 		() => ref,
-		(v) => (ref = v),
+		(v) => (ref = v)
 	),
 });
 
@@ -31,8 +31,8 @@ const mergedProps = $derived(
 		{
 			style: restProps.style,
 			tabindex: restProps.tabindex,
-		},
-	),
+		}
+	)
 );
 </script>
 

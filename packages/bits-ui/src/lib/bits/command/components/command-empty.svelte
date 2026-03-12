@@ -1,8 +1,8 @@
 <script lang="ts">
 import { boxWith, mergeProps } from "svelte-toolbelt";
-import type { CommandEmptyProps } from "../types.js";
-import { CommandEmptyState } from "../command.svelte.js";
 import { createId } from "$lib/internal/create-id.js";
+import { CommandEmptyState } from "../command.svelte.js";
+import type { CommandEmptyProps } from "../types.js";
 
 const uid = $props.id();
 
@@ -19,7 +19,7 @@ const emptyState = CommandEmptyState.create({
 	id: boxWith(() => id),
 	ref: boxWith(
 		() => ref,
-		(v) => (ref = v),
+		(v) => (ref = v)
 	),
 	forceMount: boxWith(() => forceMount),
 });

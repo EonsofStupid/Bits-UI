@@ -1,8 +1,8 @@
 <script lang="ts">
 import { boxWith, mergeProps } from "svelte-toolbelt";
-import type { TabsListProps } from "../types.js";
-import { TabsListState } from "../tabs.svelte.js";
 import { createId } from "$lib/internal/create-id.js";
+import { TabsListState } from "../tabs.svelte.js";
+import type { TabsListProps } from "../types.js";
 
 const uid = $props.id();
 
@@ -18,7 +18,7 @@ const listState = TabsListState.create({
 	id: boxWith(() => id),
 	ref: boxWith(
 		() => ref,
-		(v) => (ref = v),
+		(v) => (ref = v)
 	),
 });
 

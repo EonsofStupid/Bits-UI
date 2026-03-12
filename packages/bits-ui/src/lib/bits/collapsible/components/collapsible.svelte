@@ -1,9 +1,9 @@
 <script lang="ts">
 import { boxWith, mergeProps } from "svelte-toolbelt";
-import type { CollapsibleRootProps } from "../types.js";
-import { CollapsibleRootState } from "../collapsible.svelte.js";
 import { createId } from "$lib/internal/create-id.js";
 import { noop } from "$lib/internal/noop.js";
+import { CollapsibleRootState } from "../collapsible.svelte.js";
+import type { CollapsibleRootProps } from "../types.js";
 
 const uid = $props.id();
 
@@ -25,13 +25,13 @@ const rootState = CollapsibleRootState.create({
 		(v) => {
 			open = v;
 			onOpenChange(v);
-		},
+		}
 	),
 	disabled: boxWith(() => disabled),
 	id: boxWith(() => id),
 	ref: boxWith(
 		() => ref,
-		(v) => (ref = v),
+		(v) => (ref = v)
 	),
 	onOpenChangeComplete: boxWith(() => onOpenChangeComplete),
 });

@@ -1,10 +1,7 @@
 <script lang="ts" module>
-import { AlertDialog, type WithoutChildrenOrChild } from "bits-ui";
+import type { AlertDialog, WithoutChildrenOrChild } from "bits-ui";
 export type AlertDialogTestProps = AlertDialog.RootProps & {
-	contentProps?: Omit<
-		AlertDialog.ContentProps,
-		"asChild" | "child" | "children"
-	>;
+	contentProps?: Omit<AlertDialog.ContentProps, "asChild" | "child" | "children">;
 	portalProps?: AlertDialog.PortalProps;
 	titleProps?: WithoutChildrenOrChild<AlertDialog.TitleProps>;
 	descriptionProps?: WithoutChildrenOrChild<AlertDialog.DescriptionProps>;

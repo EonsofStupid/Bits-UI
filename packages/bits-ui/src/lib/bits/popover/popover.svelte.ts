@@ -1,17 +1,18 @@
+import { Context, watch } from "runed";
 import {
-	type ReadableBoxedValues,
-	type WritableBoxedValues,
 	attachRef,
 	boxWith,
 	DOMContext,
+	type ReadableBoxedValues,
+	type WritableBoxedValues,
 } from "svelte-toolbelt";
-import { Context, watch } from "runed";
+import { isTabbable } from "tabbable";
+import { boolToStr, createBitsAttrs, getDataOpenClosed } from "$lib/internal/attrs.js";
+import type { Measurable } from "$lib/internal/floating-svelte/types.js";
+import { isElement, isTouch } from "$lib/internal/is.js";
 import { kbd } from "$lib/internal/kbd.js";
-import {
-	createBitsAttrs,
-	boolToStr,
-	getDataOpenClosed,
-} from "$lib/internal/attrs.js";
+import { PresenceManager } from "$lib/internal/presence-manager.svelte.js";
+import { SafePolygon } from "$lib/internal/safe-polygon.svelte.js";
 import type {
 	BitsFocusEvent,
 	BitsKeyboardEvent,
@@ -21,11 +22,6 @@ import type {
 	RefAttachment,
 	WithRefOpts,
 } from "$lib/internal/types.js";
-import { isElement, isTouch } from "$lib/internal/is.js";
-import type { Measurable } from "$lib/internal/floating-svelte/types.js";
-import { PresenceManager } from "$lib/internal/presence-manager.svelte.js";
-import { SafePolygon } from "$lib/internal/safe-polygon.svelte.js";
-import { isTabbable } from "tabbable";
 
 const popoverAttrs = createBitsAttrs({
 	component: "popover",
@@ -86,7 +82,7 @@ export class PopoverRootState {
 					this.hasInteractedWithContent = false;
 					this.#clearCloseTimeout();
 				}
-			},
+			}
 		);
 	}
 
@@ -181,10 +177,7 @@ export class PopoverTriggerState {
 	constructor(opts: PopoverTriggerStateOpts, root: PopoverRootState) {
 		this.opts = opts;
 		this.root = root;
-		this.attachment = attachRef(
-			this.opts.ref,
-			(v) => (this.root.triggerNode = v),
-		);
+		this.attachment = attachRef(this.opts.ref, (v) => (this.root.triggerNode = v));
 		this.domContext = new DOMContext(opts.ref);
 		this.root.setDomContext(this.domContext);
 
@@ -197,7 +190,7 @@ export class PopoverTriggerState {
 			() => this.opts.closeDelay.current,
 			(delay) => {
 				this.root.closeDelay = delay;
-			},
+			}
 		);
 	}
 
@@ -262,11 +255,7 @@ export class PopoverTriggerState {
 		this.#clearAllTimeouts();
 
 		// if clicked while hovering and popover is open, convert to click-based open
-		if (
-			this.#isHovering &&
-			this.root.opts.open.current &&
-			this.root.openedViaHover
-		) {
+		if (this.#isHovering && this.root.opts.open.current && this.root.openedViaHover) {
 			this.root.openedViaHover = false;
 			this.root.hasInteractedWithContent = true;
 			return;
@@ -274,11 +263,7 @@ export class PopoverTriggerState {
 
 		// if closing while hovering with openOnHover enabled, set cooldown to prevent
 		// immediate re-open via hover
-		if (
-			this.#isHovering &&
-			this.opts.openOnHover.current &&
-			this.root.opts.open.current
-		) {
+		if (this.#isHovering && this.opts.openOnHover.current && this.root.opts.open.current) {
 			this.root.hoverCooldown = true;
 		}
 
@@ -320,7 +305,7 @@ export class PopoverTriggerState {
 				onpointerenter: this.onpointerenter,
 				onpointerleave: this.onpointerleave,
 				...this.attachment,
-			}) as const,
+			}) as const
 	);
 }
 
@@ -344,10 +329,7 @@ export class PopoverContentState {
 	constructor(opts: PopoverContentStateOpts, root: PopoverRootState) {
 		this.opts = opts;
 		this.root = root;
-		this.attachment = attachRef(
-			this.opts.ref,
-			(v) => (this.root.contentNode = v),
-		);
+		this.attachment = attachRef(this.opts.ref, (v) => (this.root.contentNode = v));
 
 		this.onpointerdown = this.onpointerdown.bind(this);
 		this.onfocusin = this.onfocusin.bind(this);
@@ -417,8 +399,7 @@ export class PopoverContentState {
 	}
 
 	get shouldTrapFocus(): boolean {
-		if (this.root.openedViaHover && !this.root.hasInteractedWithContent)
-			return false;
+		if (this.root.openedViaHover && !this.root.hasInteractedWithContent) return false;
 		return true;
 	}
 
@@ -443,7 +424,7 @@ export class PopoverContentState {
 				onpointerenter: this.onpointerenter,
 				onpointerleave: this.onpointerleave,
 				...this.attachment,
-			}) as const,
+			}) as const
 	);
 
 	readonly popperProps = {
@@ -490,7 +471,7 @@ export class PopoverCloseState {
 				type: "button",
 				[popoverAttrs.close]: "",
 				...this.attachment,
-			}) as const,
+			}) as const
 	);
 }
 
@@ -508,10 +489,7 @@ export class PopoverOverlayState {
 	constructor(opts: PopoverOverlayStateOpts, root: PopoverRootState) {
 		this.opts = opts;
 		this.root = root;
-		this.attachment = attachRef(
-			this.opts.ref,
-			(v) => (this.root.overlayNode = v),
-		);
+		this.attachment = attachRef(this.opts.ref, (v) => (this.root.overlayNode = v));
 	}
 
 	get shouldRender() {
@@ -532,6 +510,6 @@ export class PopoverOverlayState {
 				},
 				"data-state": getDataOpenClosed(this.root.opts.open.current),
 				...this.attachment,
-			}) as const,
+			}) as const
 	);
 }

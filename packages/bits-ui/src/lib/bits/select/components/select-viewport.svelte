@@ -1,8 +1,8 @@
 <script lang="ts">
 import { boxWith, mergeProps } from "svelte-toolbelt";
-import type { SelectViewportProps } from "../types.js";
-import { SelectViewportState } from "../select.svelte.js";
 import { createId } from "$lib/internal/create-id.js";
+import { SelectViewportState } from "../select.svelte.js";
+import type { SelectViewportProps } from "../types.js";
 
 const uid = $props.id();
 
@@ -18,7 +18,7 @@ const viewportState = SelectViewportState.create({
 	id: boxWith(() => id),
 	ref: boxWith(
 		() => ref,
-		(v) => (ref = v),
+		(v) => (ref = v)
 	),
 });
 

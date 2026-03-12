@@ -1,9 +1,9 @@
 <script lang="ts">
 import { boxWith, mergeProps } from "svelte-toolbelt";
-import type { NavigationMenuLinkProps } from "../types.js";
-import { NavigationMenuLinkState } from "../navigation-menu.svelte.js";
 import { createId } from "$lib/internal/create-id.js";
 import { noop } from "$lib/internal/noop.js";
+import { NavigationMenuLinkState } from "../navigation-menu.svelte.js";
+import type { NavigationMenuLinkProps } from "../types.js";
 
 const uid = $props.id();
 
@@ -22,15 +22,13 @@ const linkState = NavigationMenuLinkState.create({
 	id: boxWith(() => id),
 	ref: boxWith(
 		() => ref,
-		(v) => (ref = v),
+		(v) => (ref = v)
 	),
 	active: boxWith(() => active),
 	onSelect: boxWith(() => onSelect),
 });
 
-const mergedProps = $derived(
-	mergeProps(restProps, linkState.props, { tabindex }),
-);
+const mergedProps = $derived(mergeProps(restProps, linkState.props, { tabindex }));
 </script>
 
 {#if child}

@@ -1,5 +1,4 @@
 import type { ButtonRootPropsWithoutHTML } from "bits-ui";
-import { childrenSnippet, refProp } from "./shared.js";
 import type { HTMLButtonAttributes } from "svelte/elements";
 import {
 	defineBooleanProp,
@@ -7,6 +6,7 @@ import {
 	defineSimpleDataAttr,
 	defineStringProp,
 } from "../utils.js";
+import { childrenSnippet, refProp } from "./shared.js";
 
 export const root = defineComponentApiSchema<
 	ButtonRootPropsWithoutHTML & {

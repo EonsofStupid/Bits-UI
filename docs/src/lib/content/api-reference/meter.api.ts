@@ -1,10 +1,6 @@
 import type { MeterRootPropsWithoutHTML } from "bits-ui";
+import { defineComponentApiSchema, defineNumberProp, defineSimpleDataAttr } from "../utils.js";
 import { withChildProps } from "./shared.js";
-import {
-	defineComponentApiSchema,
-	defineNumberProp,
-	defineSimpleDataAttr,
-} from "../utils.js";
 
 export const root = defineComponentApiSchema<MeterRootPropsWithoutHTML>({
 	title: "Root",

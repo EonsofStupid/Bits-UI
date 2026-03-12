@@ -1,8 +1,8 @@
 <script lang="ts">
 import { boxWith } from "svelte-toolbelt";
-import type { AlertDialogRootProps } from "../types.js";
-import { noop } from "$lib/internal/noop.js";
 import { DialogRootState } from "$lib/bits/dialog/dialog.svelte.js";
+import { noop } from "$lib/internal/noop.js";
+import type { AlertDialogRootProps } from "../types.js";
 
 let {
 	open = $bindable(false),
@@ -18,7 +18,7 @@ DialogRootState.create({
 		(v) => {
 			open = v;
 			onOpenChange(v);
-		},
+		}
 	),
 	onOpenChangeComplete: boxWith(() => onOpenChangeComplete),
 });

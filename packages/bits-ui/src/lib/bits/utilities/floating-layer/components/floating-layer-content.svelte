@@ -1,8 +1,8 @@
 <script lang="ts">
 import { boxWith, mergeProps } from "svelte-toolbelt";
+import { useId } from "$lib/internal/use-id.js";
 import { FloatingContentState } from "../use-floating-layer.svelte.js";
 import type { ContentImplProps } from "./index.js";
-import { useId } from "$lib/internal/use-id.js";
 
 let {
 	content,
@@ -50,7 +50,7 @@ const contentState = FloatingContentState.create(
 		wrapperId: boxWith(() => wrapperId),
 		customAnchor: boxWith(() => customAnchor),
 	},
-	tooltip,
+	tooltip
 );
 
 const mergedProps = $derived(
@@ -58,7 +58,7 @@ const mergedProps = $derived(
 		style: {
 			pointerEvents: "auto",
 		},
-	}),
+	})
 );
 </script>
 

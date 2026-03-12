@@ -1,5 +1,5 @@
 import { computeCommandScore } from "bits-ui";
-import { expect, it, describe } from "vitest";
+import { describe, expect, it } from "vitest";
 
 describe("computeCommandScore", () => {
 	it("returns 1 for exact matches", () => {
@@ -30,11 +30,7 @@ describe("computeCommandScore", () => {
 	});
 
 	it("considers keywords in scoring", () => {
-		const score = computeCommandScore("Calculator", "add", [
-			"math",
-			"add",
-			"subtract",
-		]);
+		const score = computeCommandScore("Calculator", "add", ["math", "add", "subtract"]);
 		expect(score).toBeGreaterThan(0);
 	});
 

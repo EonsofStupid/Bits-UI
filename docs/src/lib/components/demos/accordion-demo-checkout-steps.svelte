@@ -1,8 +1,8 @@
 <script lang="ts">
-import { cn } from "$lib/utils/styles.js";
-import { Accordion, useId, Button } from "bits-ui";
+import { Accordion, Button, useId } from "bits-ui";
 import CaretDown from "phosphor-svelte/lib/CaretDown";
 import { SvelteSet } from "svelte/reactivity";
+import { cn } from "$lib/utils/styles.js";
 
 let activeStep = $state("");
 let completedSteps = new SvelteSet<string>();

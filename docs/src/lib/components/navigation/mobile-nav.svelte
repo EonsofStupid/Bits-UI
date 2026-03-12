@@ -1,10 +1,10 @@
 <script lang="ts">
-import MobileLink from "./mobile-link.svelte";
-import { Button } from "$lib/components/ui/button/index.js";
-import { navigation } from "$lib/config/index.js";
 import { Popover } from "bits-ui";
-import ScrollArea from "$lib/components/ui/scroll-area.svelte";
 import { page } from "$app/state";
+import { Button } from "$lib/components/ui/button/index.js";
+import ScrollArea from "$lib/components/ui/scroll-area.svelte";
+import { navigation } from "$lib/config/index.js";
+import MobileLink from "./mobile-link.svelte";
 import MobileMenuIcon from "./mobile-menu-icon.svelte";
 
 let open = $state(false);

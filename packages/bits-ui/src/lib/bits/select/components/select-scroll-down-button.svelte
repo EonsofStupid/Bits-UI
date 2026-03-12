@@ -1,9 +1,9 @@
 <script lang="ts">
 import { boxWith, mergeProps } from "svelte-toolbelt";
-import type { SelectScrollDownButtonProps } from "../types.js";
-import { SelectScrollDownButtonState } from "../select.svelte.js";
-import { createId } from "$lib/internal/create-id.js";
 import { Mounted } from "$lib/bits/utilities/index.js";
+import { createId } from "$lib/internal/create-id.js";
+import { SelectScrollDownButtonState } from "../select.svelte.js";
+import type { SelectScrollDownButtonProps } from "../types.js";
 
 const uid = $props.id();
 
@@ -20,7 +20,7 @@ const scrollButtonState = SelectScrollDownButtonState.create({
 	id: boxWith(() => id),
 	ref: boxWith(
 		() => ref,
-		(v) => (ref = v),
+		(v) => (ref = v)
 	),
 	delay: boxWith(() => delay),
 });

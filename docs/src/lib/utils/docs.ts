@@ -1,28 +1,16 @@
 import { error, redirect } from "@sveltejs/kit";
 import type { Component } from "svelte";
 import type { Doc } from "$content/index.js";
+import { componentDocs, docs, policyDocs, typeHelperDocs, utilityDocs } from "$content/index.js";
 import {
 	getAPISchemas,
 	getUtilityAPISchemas,
 	isBit,
 	isUtility,
 } from "$lib/content/api-reference/index.js";
-import {
-	utilityDocs,
-	componentDocs,
-	docs,
-	typeHelperDocs,
-	policyDocs,
-} from "$content/index.js";
 import type { APISchema } from "$lib/content/types.js";
 
-const allDocs = [
-	...docs,
-	...componentDocs,
-	...utilityDocs,
-	...typeHelperDocs,
-	...policyDocs,
-];
+const allDocs = [...docs, ...componentDocs, ...utilityDocs, ...typeHelperDocs, ...policyDocs];
 
 export type DocResolver = () => Promise<{ default: Component; metadata: Doc }>;
 export type DocMetadata = (typeof allDocs)[number];
@@ -36,7 +24,7 @@ function getDocMetadata(slug: string): DocMetadata | undefined {
 }
 
 export async function getDoc(
-	slug: string,
+	slug: string
 ): Promise<{ component: Component; metadata: DocMetadata }> {
 	if (slug === "components") {
 		redirect(303, "/docs/components/accordion");
@@ -66,9 +54,7 @@ export async function getDoc(
 	};
 }
 
-export async function getComponentDoc(
-	slug: string,
-): Promise<{
+export async function getComponentDoc(slug: string): Promise<{
 	component: Component;
 	metadata: DocMetadata;
 	schemas: APISchema[];
@@ -105,9 +91,7 @@ export async function getComponentDoc(
 	};
 }
 
-export async function getUtilityDoc(
-	slug: string,
-): Promise<{
+export async function getUtilityDoc(slug: string): Promise<{
 	component: Component;
 	metadata: DocMetadata;
 	schemas: APISchema[];

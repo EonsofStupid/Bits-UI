@@ -1,8 +1,8 @@
 <script lang="ts">
 import { boxWith, mergeProps } from "svelte-toolbelt";
-import type { ProgressRootProps } from "../types.js";
-import { ProgressRootState } from "../progress.svelte.js";
 import { createId } from "$lib/internal/create-id.js";
+import { ProgressRootState } from "../progress.svelte.js";
+import type { ProgressRootProps } from "../types.js";
 
 const uid = $props.id();
 
@@ -24,7 +24,7 @@ const rootState = ProgressRootState.create({
 	id: boxWith(() => id),
 	ref: boxWith(
 		() => ref,
-		(v) => (ref = v),
+		(v) => (ref = v)
 	),
 });
 

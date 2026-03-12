@@ -1,10 +1,10 @@
 <script lang="ts">
+import { watch } from "runed";
 import { boxWith, mergeProps, type WritableBox } from "svelte-toolbelt";
-import type { SliderRootProps } from "../types.js";
-import { SliderRootState } from "../slider.svelte.js";
 import { createId } from "$lib/internal/create-id.js";
 import { noop } from "$lib/internal/noop.js";
-import { watch } from "runed";
+import { SliderRootState } from "../slider.svelte.js";
+import type { SliderRootProps } from "../types.js";
 
 const uid = $props.id();
 
@@ -56,14 +56,14 @@ watch.pre(
 	() => value,
 	() => {
 		handleDefaultValue();
-	},
+	}
 );
 
 const rootState = SliderRootState.create({
 	id: boxWith(() => id),
 	ref: boxWith(
 		() => ref,
-		(v) => (ref = v),
+		(v) => (ref = v)
 	),
 	value: boxWith(
 		() => value,
@@ -71,7 +71,7 @@ const rootState = SliderRootState.create({
 			value = v;
 			// @ts-expect-error - we know
 			onValueChange(v);
-		},
+		}
 	) as WritableBox<number> | WritableBox<number[]>,
 	// @ts-expect-error - we know
 	onValueCommit: boxWith(() => onValueCommit),

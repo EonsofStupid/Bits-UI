@@ -1,5 +1,5 @@
 <script lang="ts" module>
-import { Menubar } from "bits-ui";
+import type { Menubar } from "bits-ui";
 export type MenubarMenuProps = Menubar.MenuProps & {
 	id: string;
 	checked?: boolean;
@@ -7,10 +7,7 @@ export type MenubarMenuProps = Menubar.MenuProps & {
 	radio?: string;
 	subRadio?: string;
 	open?: boolean;
-	subTriggerProps?: Omit<
-		Menubar.SubTriggerProps,
-		"children" | "child" | "asChild"
-	>;
+	subTriggerProps?: Omit<Menubar.SubTriggerProps, "children" | "child" | "asChild">;
 };
 </script>
 

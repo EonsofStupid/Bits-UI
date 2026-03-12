@@ -1,10 +1,7 @@
 <script lang="ts" module>
-import { RatingGroup } from "bits-ui";
+import type { RatingGroup } from "bits-ui";
 
-export type RatingGroupTestProps = Omit<
-	RatingGroup.RootProps,
-	"child" | "children"
->;
+export type RatingGroupTestProps = Omit<RatingGroup.RootProps, "child" | "children">;
 </script>
 
 <script lang="ts">

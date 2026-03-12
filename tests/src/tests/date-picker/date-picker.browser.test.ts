@@ -1,20 +1,10 @@
-import {
-	CalendarDate,
-	CalendarDateTime,
-	toZoned,
-} from "@internationalized/date";
-import { getTestKbd } from "../utils";
-import { expect, it, describe } from "vitest";
+import { CalendarDate, CalendarDateTime, toZoned } from "@internationalized/date";
+import { type Locator, page, userEvent } from "@vitest/browser/context";
+import { describe, expect, it } from "vitest";
 import { render } from "vitest-browser-svelte";
-import DatePickerTest, {
-	type DatePickerTestProps,
-} from "./date-picker-test.svelte";
-import {
-	expectExists,
-	expectNotClickableLoc,
-	expectNotExists,
-} from "../browser-utils";
-import { page, userEvent, type Locator } from "@vitest/browser/context";
+import { expectExists, expectNotClickableLoc, expectNotExists } from "../browser-utils";
+import { getTestKbd } from "../utils";
+import DatePickerTest, { type DatePickerTestProps } from "./date-picker-test.svelte";
 
 const kbd = getTestKbd();
 
@@ -28,15 +18,7 @@ const testZonedDateTime = toZoned(testDateTime, "America/New_York");
 
 const narrowWeekdays = ["S", "M", "T", "W", "T", "F", "S"];
 const shortWeekdays = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
-const longWeekdays = [
-	"Sunday",
-	"Monday",
-	"Tuesday",
-	"Wednesday",
-	"Thursday",
-	"Friday",
-	"Saturday",
-];
+const longWeekdays = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
 // prettier-ignore
 const months = [
 	"January",
@@ -83,10 +65,7 @@ function getTimeSegments(getByTestId: (...args: any[]) => Locator) {
 	};
 }
 
-async function open(
-	props: DatePickerTestProps = {},
-	openWith: "click" | (string & {}) = "click",
-) {
+async function open(props: DatePickerTestProps = {}, openWith: "click" | (string & {}) = "click") {
 	const t = setup(props);
 	await expectNotExists(t.getContent());
 	if (openWith === "click") {
@@ -136,14 +115,10 @@ it("should populate segment with value - `CalendarDateTime`", async () => {
 		granularity: "second",
 	});
 
-	await expect
-		.element(t.month)
-		.toHaveTextContent(String(calendarDateTime.month));
+	await expect.element(t.month).toHaveTextContent(String(calendarDateTime.month));
 	await expect.element(t.day).toHaveTextContent(String(calendarDateTime.day));
 	await expect.element(t.year).toHaveTextContent(String(calendarDateTime.year));
-	await expect
-		.element(page.getByTestId("hour"))
-		.toHaveTextContent(String(calendarDateTime.hour));
+	await expect.element(page.getByTestId("hour")).toHaveTextContent(String(calendarDateTime.hour));
 	await expect
 		.element(page.getByTestId("minute"))
 		.toHaveTextContent(String(calendarDateTime.minute));
@@ -159,14 +134,10 @@ it("should populate segment with value - `ZonedDateTime`", async () => {
 		granularity: "second",
 	});
 
-	await expect
-		.element(t.month)
-		.toHaveTextContent(String(calendarDateTime.month));
+	await expect.element(t.month).toHaveTextContent(String(calendarDateTime.month));
 	await expect.element(t.day).toHaveTextContent(String(calendarDateTime.day));
 	await expect.element(t.year).toHaveTextContent(String(calendarDateTime.year));
-	await expect
-		.element(page.getByTestId("hour"))
-		.toHaveTextContent(String(calendarDateTime.hour));
+	await expect.element(page.getByTestId("hour")).toHaveTextContent(String(calendarDateTime.hour));
 	await expect
 		.element(page.getByTestId("minute"))
 		.toHaveTextContent(String(calendarDateTime.minute));
@@ -517,9 +488,7 @@ it("should handle unavailable dates appropriately", async () => {
 	const thirdDayInMonth = page.getByTestId("date-1-3");
 	await expect.element(thirdDayInMonth).toHaveTextContent("3");
 	await expect.element(thirdDayInMonth).toHaveAttribute("data-unavailable");
-	await expect
-		.element(thirdDayInMonth)
-		.toHaveAttribute("aria-disabled", "true");
+	await expect.element(thirdDayInMonth).toHaveAttribute("aria-disabled", "true");
 	await expectNotClickableLoc(thirdDayInMonth);
 	await expect.element(thirdDayInMonth).not.toHaveAttribute(SELECTED_ATTR);
 });
@@ -582,9 +551,7 @@ it("should respect the `weekStartsOn` prop regardless of locale", async () => {
 		weekdayFormat: "short",
 		locale: "fr",
 	});
-	await expect
-		.element(page.getByTestId("weekday-1-0"))
-		.toHaveTextContent("mar.");
+	await expect.element(page.getByTestId("weekday-1-0")).toHaveTextContent("mar.");
 });
 
 it("should default the first day of the week to the locale's first day of the week if `weekStartsOn` is not provided", async () => {
@@ -593,9 +560,7 @@ it("should default the first day of the week to the locale's first day of the we
 		weekdayFormat: "short",
 		locale: "fr",
 	});
-	await expect
-		.element(page.getByTestId("weekday-1-0"))
-		.toHaveTextContent("lun.");
+	await expect.element(page.getByTestId("weekday-1-0")).toHaveTextContent("lun.");
 });
 
 it("should handle disabled dates correctly", async () => {
@@ -607,9 +572,7 @@ it("should handle disabled dates correctly", async () => {
 	const fifthDayInMonth = page.getByTestId("date-1-5");
 	await expect.element(fifthDayInMonth).toHaveTextContent("5");
 	await expect.element(fifthDayInMonth).toHaveAttribute("data-disabled");
-	await expect
-		.element(fifthDayInMonth)
-		.toHaveAttribute("aria-disabled", "true");
+	await expect.element(fifthDayInMonth).toHaveAttribute("aria-disabled", "true");
 	await expectNotClickableLoc(fifthDayInMonth);
 });
 

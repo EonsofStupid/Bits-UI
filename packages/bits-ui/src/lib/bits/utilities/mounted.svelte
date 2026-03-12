@@ -5,8 +5,7 @@ import { noop } from "$lib/internal/noop.js";
 let {
 	mounted = $bindable(false),
 	onMountedChange = noop,
-}: { mounted?: boolean; onMountedChange?: (mounted: boolean) => void } =
-	$props();
+}: { mounted?: boolean; onMountedChange?: (mounted: boolean) => void } = $props();
 
 onMountEffect(() => {
 	mounted = true;

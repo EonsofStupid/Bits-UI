@@ -1,8 +1,8 @@
-import { render } from "vitest-browser-svelte";
-import { describe, expect, it } from "vitest";
-import type { Separator } from "bits-ui";
-import SeparatorTest from "./separator-test.svelte";
 import { page } from "@vitest/browser/context";
+import type { Separator } from "bits-ui";
+import { describe, expect, it } from "vitest";
+import { render } from "vitest-browser-svelte";
+import SeparatorTest from "./separator-test.svelte";
 
 function setup(props: Separator.RootProps = {}) {
 	render(SeparatorTest, { ...props });

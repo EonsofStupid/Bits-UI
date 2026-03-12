@@ -1,8 +1,8 @@
 <script lang="ts">
-import type { ComponentProps } from "svelte";
-import { Switch } from "bits-ui";
-import Play from "phosphor-svelte/lib/Play";
+import type { Switch } from "bits-ui";
 import Pause from "phosphor-svelte/lib/Pause";
+import Play from "phosphor-svelte/lib/Play";
+import type { ComponentProps } from "svelte";
 
 let {
 	checked = $bindable(true),

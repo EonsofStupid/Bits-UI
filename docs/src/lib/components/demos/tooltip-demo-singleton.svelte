@@ -14,8 +14,7 @@ const columns = [
 		label: "Backlog",
 		payload: {
 			name: "Backlog",
-			description:
-				"Unstarted ideas and tasks waiting to be scoped and prioritized.",
+			description: "Unstarted ideas and tasks waiting to be scoped and prioritized.",
 		},
 	},
 	{
@@ -31,8 +30,7 @@ const columns = [
 		label: "Blocked",
 		payload: {
 			name: "Blocked",
-			description:
-				"Work that cannot move until an external dependency is resolved.",
+			description: "Work that cannot move until an external dependency is resolved.",
 		},
 	},
 	{

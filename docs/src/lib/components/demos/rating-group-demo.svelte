@@ -1,6 +1,7 @@
 <script lang="ts">
 import { RatingGroup } from "bits-ui";
 import Star from "phosphor-svelte/lib/Star";
+
 let value = $state(3);
 </script>
 

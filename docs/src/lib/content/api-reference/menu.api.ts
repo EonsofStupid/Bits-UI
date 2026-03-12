@@ -16,6 +16,25 @@ import type {
 	DropdownMenuSubTriggerPropsWithoutHTML,
 	DropdownMenuTriggerPropsWithoutHTML,
 } from "bits-ui";
+import type { ComponentAPISchema, PropObj } from "$lib/types/index.js";
+import { omit } from "$lib/utils/omit.js";
+import {
+	defineBooleanProp,
+	defineEnumDataAttr,
+	defineFunctionProp,
+	defineNumberProp,
+	defineSimpleDataAttr,
+	defineSimplePropSchema,
+	defineStringProp,
+} from "../utils.js";
+import { CheckboxGroupOnValueChangeProp } from "./extended-types/checkbox/index.js";
+import { MenuCheckedStateAttr } from "./extended-types/menu/index.js";
+import { RadioGroupStateAttr } from "./extended-types/radio-group/index.js";
+import {
+	NoopProp,
+	OnStringValueChangeProp,
+	OpenClosedProp,
+} from "./extended-types/shared/index.js";
 import {
 	arrowProps,
 	checkboxChildDefinition,
@@ -42,30 +61,10 @@ import {
 	radioGroupItemChildrenDefinition,
 	withChildProps,
 } from "./shared.js";
-import {
-	NoopProp,
-	OnStringValueChangeProp,
-	OpenClosedProp,
-} from "./extended-types/shared/index.js";
-import { MenuCheckedStateAttr } from "./extended-types/menu/index.js";
-import { RadioGroupStateAttr } from "./extended-types/radio-group/index.js";
-import { CheckboxGroupOnValueChangeProp } from "./extended-types/checkbox/index.js";
-import type { ComponentAPISchema, PropObj } from "$lib/types/index.js";
-import { omit } from "$lib/utils/omit.js";
-import {
-	defineBooleanProp,
-	defineEnumDataAttr,
-	defineFunctionProp,
-	defineSimpleDataAttr,
-	defineStringProp,
-	defineSimplePropSchema,
-	defineNumberProp,
-} from "../utils.js";
 
 const sharedItemProps = {
 	textValue: defineStringProp({
-		description:
-			"The text value of the checkbox menu item. This is used for typeahead.",
+		description: "The text value of the checkbox menu item. This is used for typeahead.",
 	}),
 	onSelect: defineFunctionProp({
 		definition: NoopProp,
@@ -173,8 +172,7 @@ const checkboxItemProps = {
 	indeterminate: indeterminateProp,
 	onIndeterminateChange: onIndeterminateChangeProp,
 	value: defineStringProp({
-		description:
-			"The value of the checkbox item when used in a `*Menu.CheckboxGroup`.",
+		description: "The value of the checkbox item when used in a `*Menu.CheckboxGroup`.",
 	}),
 	...omit(sharedItemProps, "child", "children"),
 	...withChildProps({
@@ -194,8 +192,7 @@ const checkboxGroupProps = {
 	}),
 	onValueChange: defineFunctionProp({
 		definition: CheckboxGroupOnValueChangeProp,
-		description:
-			"A callback that is fired when the checkbox group's value state changes.",
+		description: "A callback that is fired when the checkbox group's value state changes.",
 		stringDefinition: "(value: string[]) => void",
 	}),
 	...withChildProps({ elType: "HTMLDivElement" }),
@@ -208,8 +205,7 @@ const radioGroupProps = {
 	}),
 	onValueChange: defineFunctionProp({
 		definition: OnStringValueChangeProp,
-		description:
-			"A callback that is fired when the radio group's value changes.",
+		description: "A callback that is fired when the radio group's value changes.",
 		stringDefinition: "(value: string) => void",
 	}),
 	...withChildProps({ elType: "HTMLDivElement" }),
@@ -279,8 +275,7 @@ const STATE = defineEnumDataAttr({
 	name: "state",
 	value: OpenClosedProp,
 	options: ["open", "closed"],
-	description:
-		"The open state of the menu or submenu the element controls or belongs to.",
+	description: "The open state of the menu or submenu the element controls or belongs to.",
 });
 
 type DataAttrs = ComponentAPISchema["dataAttributes"];

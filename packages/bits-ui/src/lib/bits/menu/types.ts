@@ -1,12 +1,5 @@
 import type { Expand } from "svelte-toolbelt";
-import type {
-	PopperLayerProps,
-	PopperLayerStaticProps,
-} from "../utilities/popper-layer/types.js";
-import type {
-	ArrowProps,
-	ArrowPropsWithoutHTML,
-} from "../utilities/arrow/types.js";
+import type { PortalProps } from "$lib/bits/utilities/portal/types.js";
 import type {
 	OnChangeFn,
 	WithChild,
@@ -19,11 +12,9 @@ import type {
 	BitsPrimitiveDivAttributes,
 } from "$lib/shared/attributes.js";
 import type { Direction } from "$lib/shared/index.js";
-import type { PortalProps } from "$lib/bits/utilities/portal/types.js";
-import type {
-	FloatingContentSnippetProps,
-	StaticContentSnippetProps,
-} from "$lib/shared/types.js";
+import type { FloatingContentSnippetProps, StaticContentSnippetProps } from "$lib/shared/types.js";
+import type { ArrowProps, ArrowPropsWithoutHTML } from "../utilities/arrow/types.js";
+import type { PopperLayerProps, PopperLayerStaticProps } from "../utilities/popper-layer/types.js";
 
 export type MenuRootPropsWithoutHTML = WithChildren<{
 	/**
@@ -80,41 +71,40 @@ export type MenuContentStaticPropsWithoutHTML = Expand<
 export type MenuContentStaticProps = MenuContentStaticPropsWithoutHTML &
 	Without<BitsPrimitiveDivAttributes, MenuContentStaticPropsWithoutHTML>;
 
-export type MenuItemPropsWithoutHTML<
-	U extends Record<PropertyKey, unknown> = { _default: never },
-> = WithChild<
-	{
-		/**
-		 * When `true`, the user will not be able to interact with the menu item.
-		 *
-		 * @defaultValue false
-		 */
-		disabled?: boolean;
+export type MenuItemPropsWithoutHTML<U extends Record<PropertyKey, unknown> = { _default: never }> =
+	WithChild<
+		{
+			/**
+			 * When `true`, the user will not be able to interact with the menu item.
+			 *
+			 * @defaultValue false
+			 */
+			disabled?: boolean;
 
-		/**
-		 * Optional text to use for typeahead filtering. By default, typeahead will use
-		 * the `.textContent` of the menu item. When the content is more complex, you
-		 * can provide a string here instead.
-		 *
-		 * @defaultValue undefined
-		 */
-		textValue?: string;
+			/**
+			 * Optional text to use for typeahead filtering. By default, typeahead will use
+			 * the `.textContent` of the menu item. When the content is more complex, you
+			 * can provide a string here instead.
+			 *
+			 * @defaultValue undefined
+			 */
+			textValue?: string;
 
-		/**
-		 * A callback fired when the menu item is selected.
-		 *
-		 * Prevent default behavior of selection with `event.preventDefault()`.
-		 */
-		onSelect?: (event: Event) => void;
+			/**
+			 * A callback fired when the menu item is selected.
+			 *
+			 * Prevent default behavior of selection with `event.preventDefault()`.
+			 */
+			onSelect?: (event: Event) => void;
 
-		/**
-		 * Whether or not the menu item should close when selected.
-		 * @defaultValue true
-		 */
-		closeOnSelect?: boolean;
-	},
-	U
->;
+			/**
+			 * Whether or not the menu item should close when selected.
+			 * @defaultValue true
+			 */
+			closeOnSelect?: boolean;
+		},
+		U
+	>;
 
 export type MenuItemProps = MenuItemPropsWithoutHTML &
 	Without<BitsPrimitiveDivAttributes, MenuItemPropsWithoutHTML>;
@@ -218,8 +208,7 @@ export type MenuSubProps = MenuSubPropsWithoutHTML;
 
 export type MenuSubContentPropsWithoutHTML = Expand<
 	WithChildNoChildrenSnippetProps<
-		Omit<PopperLayerProps, "content" | "preventScroll"> &
-			_SharedMenuContentProps,
+		Omit<PopperLayerProps, "content" | "preventScroll"> & _SharedMenuContentProps,
 		FloatingContentSnippetProps
 	>
 >;
@@ -229,8 +218,7 @@ export type MenuSubContentProps = MenuSubContentPropsWithoutHTML &
 
 export type MenuSubContentStaticPropsWithoutHTML = Expand<
 	WithChildNoChildrenSnippetProps<
-		Omit<PopperLayerStaticProps, "content" | "preventScroll"> &
-			_SharedMenuContentProps,
+		Omit<PopperLayerStaticProps, "content" | "preventScroll"> & _SharedMenuContentProps,
 		StaticContentSnippetProps
 	>
 >;
@@ -238,10 +226,7 @@ export type MenuSubContentStaticPropsWithoutHTML = Expand<
 export type MenuSubContentStaticProps = MenuSubContentStaticPropsWithoutHTML &
 	Without<BitsPrimitiveDivAttributes, MenuSubContentStaticPropsWithoutHTML>;
 
-export type MenuSubTriggerPropsWithoutHTML = Omit<
-	MenuItemPropsWithoutHTML,
-	"closeOnSelect"
-> & {
+export type MenuSubTriggerPropsWithoutHTML = Omit<MenuItemPropsWithoutHTML, "closeOnSelect"> & {
 	/**
 	 * The amount of time in ms from when the mouse enters the subtrigger until
 	 * the submenu opens. This is useful for preventing the submenu from opening
@@ -292,19 +277,18 @@ export type MenuRadioGroupProps = MenuRadioGroupPropsWithoutHTML &
 
 export type MenuRadioItemSnippetProps = { checked: boolean };
 
-export type MenuRadioItemPropsWithoutHTML =
-	MenuItemPropsWithoutHTML<MenuRadioItemSnippetProps> & {
-		/**
-		 * The value of the radio item.
-		 */
-		value: string;
+export type MenuRadioItemPropsWithoutHTML = MenuItemPropsWithoutHTML<MenuRadioItemSnippetProps> & {
+	/**
+	 * The value of the radio item.
+	 */
+	value: string;
 
-		/**
-		 * Whether or not the menu item should close when selected.
-		 * @defaultValue true
-		 */
-		closeOnSelect?: boolean;
-	};
+	/**
+	 * Whether or not the menu item should close when selected.
+	 * @defaultValue true
+	 */
+	closeOnSelect?: boolean;
+};
 
 export type MenuRadioItemProps = MenuRadioItemPropsWithoutHTML &
 	Without<BitsPrimitiveDivAttributes, MenuRadioItemPropsWithoutHTML>;

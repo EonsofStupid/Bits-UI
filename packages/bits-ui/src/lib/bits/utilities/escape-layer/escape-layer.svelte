@@ -1,8 +1,8 @@
 <script lang="ts">
 import { boxWith } from "svelte-toolbelt";
+import { noop } from "$lib/internal/noop.js";
 import type { EscapeLayerImplProps } from "./types.js";
 import { EscapeLayerState } from "./use-escape-layer.svelte.js";
-import { noop } from "$lib/internal/noop.js";
 
 let {
 	escapeKeydownBehavior = "close",

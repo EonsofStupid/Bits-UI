@@ -1,18 +1,18 @@
+import { BROWSER } from "esm-env";
+import { watch } from "runed";
+import { on } from "svelte/events";
 import { SvelteMap } from "svelte/reactivity";
 import {
-	type Getter,
-	type ReadableBox,
 	afterTick,
 	boxWith,
+	type Getter,
 	onDestroyEffect,
+	type ReadableBox,
 } from "svelte-toolbelt";
-import type { Fn } from "./types.js";
 import { isIOS } from "./is.js";
-import { useId } from "./use-id.js";
-import { watch } from "runed";
 import { SharedState } from "./shared-state.svelte.js";
-import { BROWSER } from "esm-env";
-import { on } from "svelte/events";
+import type { Fn } from "./types.js";
+import { useId } from "./use-id.js";
 
 export interface ScrollBodyOption {
 	padding?: boolean | number;
@@ -58,10 +58,7 @@ const bodyLockStackCount = new SharedState(() => {
 		cleanupTimeoutId = null;
 	}
 
-	function scheduleCleanupIfNoNewLocks(
-		delay: number | null,
-		callback: () => void,
-	) {
+	function scheduleCleanupIfNoNewLocks(delay: number | null, callback: () => void) {
 		cancelPendingCleanup();
 		isInCleanupTransition = true;
 
@@ -99,11 +96,7 @@ const bodyLockStackCount = new SharedState(() => {
 
 	function ensureInitialStyleCaptured() {
 		// only capture initial style once, when no locks exist and no cleanup is in progress
-		if (
-			initialBodyStyle === null &&
-			lockMap.size === 0 &&
-			!isInCleanupTransition
-		) {
+		if (initialBodyStyle === null && lockMap.size === 0 && !isInCleanupTransition) {
 			initialBodyStyle = document.body.getAttribute("style");
 		}
 	}
@@ -128,8 +121,7 @@ const bodyLockStackCount = new SharedState(() => {
 				bodyStyle.scrollbarGutter?.includes("stable");
 
 			// TODO: account for RTL direction, etc.
-			const verticalScrollbarWidth =
-				window.innerWidth - document.documentElement.clientWidth;
+			const verticalScrollbarWidth = window.innerWidth - document.documentElement.clientWidth;
 			const paddingRight = Number.parseInt(bodyStyle.paddingRight ?? "0", 10);
 
 			const config = {
@@ -141,10 +133,7 @@ const bodyLockStackCount = new SharedState(() => {
 			if (verticalScrollbarWidth > 0 && !hasStableGutter) {
 				document.body.style.paddingRight = `${config.padding}px`;
 				document.body.style.marginRight = `${config.margin}px`;
-				document.body.style.setProperty(
-					"--scrollbar-width",
-					`${verticalScrollbarWidth}px`,
-				);
+				document.body.style.setProperty("--scrollbar-width", `${verticalScrollbarWidth}px`);
 			}
 			document.body.style.overflow = "hidden";
 
@@ -159,7 +148,7 @@ const bodyLockStackCount = new SharedState(() => {
 						if (e.touches.length > 1) return;
 						e.preventDefault();
 					},
-					{ passive: false },
+					{ passive: false }
 				);
 			}
 
@@ -175,7 +164,7 @@ const bodyLockStackCount = new SharedState(() => {
 				document.body.style.pointerEvents = "none";
 				document.body.style.overflow = "hidden";
 			});
-		},
+		}
 	);
 
 	onDestroyEffect(() => {
@@ -204,7 +193,7 @@ export class BodyScrollLock {
 
 	constructor(
 		initialState?: boolean | undefined,
-		restoreScrollDelay: Getter<number | null> = () => null,
+		restoreScrollDelay: Getter<number | null> = () => null
 	) {
 		this.#initialState = initialState;
 		this.#restoreScrollDelay = restoreScrollDelay;
@@ -228,7 +217,7 @@ export class BodyScrollLock {
 
 		this.locked = boxWith(
 			() => this.#countState.lockMap.get(this.#id) ?? false,
-			(v) => this.#countState.lockMap.set(this.#id, v),
+			(v) => this.#countState.lockMap.set(this.#id, v)
 		);
 
 		onDestroyEffect(() => {

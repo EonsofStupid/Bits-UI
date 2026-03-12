@@ -1,15 +1,12 @@
 <script lang="ts">
 import { boxWith, mergeProps } from "svelte-toolbelt";
-import type { ContextMenuContentStaticProps } from "../types.js";
-import {
-	CONTEXT_MENU_TRIGGER_ATTR,
-	MenuContentState,
-} from "$lib/bits/menu/menu.svelte.js";
-import { useId } from "$lib/internal/use-id.js";
-import { noop } from "$lib/internal/noop.js";
+import { CONTEXT_MENU_TRIGGER_ATTR, MenuContentState } from "$lib/bits/menu/menu.svelte.js";
 import PopperLayer from "$lib/bits/utilities/popper-layer/popper-layer.svelte";
-import { getFloatingContentCSSVars } from "$lib/internal/floating-svelte/floating-utils.svelte.js";
 import PopperLayerForceMount from "$lib/bits/utilities/popper-layer/popper-layer-force-mount.svelte";
+import { getFloatingContentCSSVars } from "$lib/internal/floating-svelte/floating-utils.svelte.js";
+import { noop } from "$lib/internal/noop.js";
+import { useId } from "$lib/internal/use-id.js";
+import type { ContextMenuContentStaticProps } from "../types.js";
 
 let {
 	id = useId(),
@@ -33,7 +30,7 @@ const contentState = MenuContentState.create({
 	loop: boxWith(() => loop),
 	ref: boxWith(
 		() => ref,
-		(v) => (ref = v),
+		(v) => (ref = v)
 	),
 	onCloseAutoFocus: boxWith(() => onCloseAutoFocus),
 });

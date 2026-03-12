@@ -1,5 +1,5 @@
 <script lang="ts">
-import { Tooltip, Dialog } from "bits-ui";
+import { Dialog, Tooltip } from "bits-ui";
 
 let open = $state(false);
 </script>

@@ -1,10 +1,10 @@
 <script lang="ts">
-import type { PropObj, PropSchema } from "$lib/types/index.js";
-import * as Table from "$lib/components/ui/table/index.js";
 import Code from "$lib/components/markdown/code.svelte";
-import PropsRequiredBadge from "./props-required-badge.svelte";
-import PropsBindableBadge from "./props-bindable-badge.svelte";
+import * as Table from "$lib/components/ui/table/index.js";
+import type { PropObj, PropSchema } from "$lib/types/index.js";
 import { parseMarkdown } from "$lib/utils/markdown.js";
+import PropsBindableBadge from "./props-bindable-badge.svelte";
+import PropsRequiredBadge from "./props-required-badge.svelte";
 import PropsTypeContent from "./props-type-content.svelte";
 import PropsTypeContentMobile from "./props-type-content-mobile.svelte";
 

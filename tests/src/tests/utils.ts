@@ -55,7 +55,7 @@ export function getTestKbd() {
 			acc[key as KbdKeys] = `{${value}}`;
 			return acc;
 		},
-		{} as Record<KbdKeys, string>,
+		{} as Record<KbdKeys, string>
 	);
 
 	return {

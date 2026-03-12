@@ -1,10 +1,10 @@
 <script lang="ts">
-import { onMount, type Snippet } from "svelte";
 import { Button } from "bits-ui";
-import { scale } from "svelte/transition";
-import { cubicOut } from "svelte/easing";
 import Moon from "phosphor-svelte/lib/Moon";
 import Sun from "phosphor-svelte/lib/Sun";
+import { onMount, type Snippet } from "svelte";
+import { cubicOut } from "svelte/easing";
+import { scale } from "svelte/transition";
 
 let { children }: { children: Snippet } = $props();
 

@@ -4,14 +4,6 @@ import type {
 	TabsRootPropsWithoutHTML,
 	TabsTriggerPropsWithoutHTML,
 } from "bits-ui";
-import {
-	OnStringValueChangeProp,
-	OrientationProp,
-} from "./extended-types/shared/index.js";
-import {
-	TabsRootActivationModeProp,
-	TabsTriggerStateProp,
-} from "./extended-types/tabs/index.js";
 import { withChildProps } from "$lib/content/api-reference/shared.js";
 import {
 	defineBooleanProp,
@@ -22,11 +14,12 @@ import {
 	defineSimpleDataAttr,
 	defineStringProp,
 } from "../utils.js";
+import { OnStringValueChangeProp, OrientationProp } from "./extended-types/shared/index.js";
+import { TabsRootActivationModeProp, TabsTriggerStateProp } from "./extended-types/tabs/index.js";
 
 const root = defineComponentApiSchema<TabsRootPropsWithoutHTML>({
 	title: "Root",
-	description:
-		"The root tabs component which contains the other tab components.",
+	description: "The root tabs component which contains the other tab components.",
 	props: {
 		value: defineStringProp({
 			description: "The active tab value.",
@@ -34,8 +27,7 @@ const root = defineComponentApiSchema<TabsRootPropsWithoutHTML>({
 		}),
 		onValueChange: defineFunctionProp({
 			definition: OnStringValueChangeProp,
-			description:
-				"A callback function called when the active tab value changes.",
+			description: "A callback function called when the active tab value changes.",
 			stringDefinition: "(value: string) => void",
 		}),
 		activationMode: defineEnumProp({
@@ -51,8 +43,7 @@ const root = defineComponentApiSchema<TabsRootPropsWithoutHTML>({
 		}),
 		loop: defineBooleanProp({
 			default: true,
-			description:
-				"Whether or not the tabs should loop when navigating with the keyboard.",
+			description: "Whether or not the tabs should loop when navigating with the keyboard.",
 		}),
 		orientation: defineEnumProp({
 			options: ["horizontal", "vertical"],

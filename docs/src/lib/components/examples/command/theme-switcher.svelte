@@ -1,13 +1,8 @@
 <script lang="ts">
 import type { Component } from "svelte";
-import { crossfade } from "svelte/transition";
 import { cubicInOut } from "svelte/easing";
-import {
-	FramerIcon,
-	LinearIcon,
-	RaycastIcon,
-	VercelIcon,
-} from "./icons/index.js";
+import { crossfade } from "svelte/transition";
+import { FramerIcon, LinearIcon, RaycastIcon, VercelIcon } from "./icons/index.js";
 
 type Themes = "raycast" | "linear" | "vercel" | "framer";
 
@@ -16,10 +11,7 @@ let { theme = $bindable("raycast") }: { theme: Themes } = $props();
 let showArrowKeyHint = $state(false);
 
 function isTheme(value: unknown): value is Themes {
-	return (
-		typeof value === "string" &&
-		["raycast", "linear", "vercel", "framer"].includes(value)
-	);
+	return typeof value === "string" && ["raycast", "linear", "vercel", "framer"].includes(value);
 }
 
 type ThemeObj = {

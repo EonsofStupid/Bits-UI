@@ -1,18 +1,12 @@
 <script lang="ts">
+import { Button, Command, Dialog } from "bits-ui";
 import MagnifyingGlass from "phosphor-svelte/lib/MagnifyingGlass";
 import { onMount } from "svelte";
-import { Button, Command, Dialog } from "bits-ui";
-import {
-	type SearchResult,
-	createContentIndex,
-	searchContentIndex,
-} from "$lib/utils/search.js";
+import { createContentIndex, type SearchResult, searchContentIndex } from "$lib/utils/search.js";
 import ScrollArea from "./ui/scroll-area.svelte";
 
-let {
-	showTrigger = true,
-	open = $bindable(false),
-}: { showTrigger?: boolean; open?: boolean } = $props();
+let { showTrigger = true, open = $bindable(false) }: { showTrigger?: boolean; open?: boolean } =
+	$props();
 
 let searchState = $state<"loading" | "ready">("loading");
 let searchQuery = $state("");

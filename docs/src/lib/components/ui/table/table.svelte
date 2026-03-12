@@ -2,11 +2,7 @@
 import type { HTMLTableAttributes } from "svelte/elements";
 import { cn } from "$lib/utils/styles.js";
 
-let {
-	class: className,
-	children,
-	...restProps
-}: HTMLTableAttributes = $props();
+let { class: className, children, ...restProps }: HTMLTableAttributes = $props();
 </script>
 
 <div class="w-full overflow-auto rounded-md">

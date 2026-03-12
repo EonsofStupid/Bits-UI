@@ -1,3 +1,5 @@
+import { Context, watch } from "runed";
+import { on } from "svelte/events";
 import {
 	afterTick,
 	attachRef,
@@ -5,14 +7,14 @@ import {
 	type ReadableBoxedValues,
 	type WritableBoxedValues,
 } from "svelte-toolbelt";
-import { Context, watch } from "runed";
 import {
-	createBitsAttrs,
-	boolToStr,
 	boolToEmptyStrOrUndef,
+	boolToStr,
+	createBitsAttrs,
 	getDataOpenClosed,
 } from "$lib/internal/attrs.js";
 import { kbd } from "$lib/internal/kbd.js";
+import { PresenceManager } from "$lib/internal/presence-manager.svelte.js";
 import type {
 	BitsKeyboardEvent,
 	BitsMouseEvent,
@@ -20,8 +22,6 @@ import type {
 	RefAttachment,
 	WithRefOpts,
 } from "$lib/internal/types.js";
-import { on } from "svelte/events";
-import { PresenceManager } from "$lib/internal/presence-manager.svelte.js";
 
 const collapsibleAttrs = createBitsAttrs({
 	component: "collapsible",
@@ -38,9 +38,7 @@ interface CollapsibleRootStateOpts
 			onOpenChangeComplete: OnChangeFn<boolean>;
 		}> {}
 
-const CollapsibleRootContext = new Context<CollapsibleRootState>(
-	"Collapsible.Root",
-);
+const CollapsibleRootContext = new Context<CollapsibleRootState>("Collapsible.Root");
 
 export class CollapsibleRootState {
 	static create(opts: CollapsibleRootStateOpts) {
@@ -79,7 +77,7 @@ export class CollapsibleRootState {
 				"data-disabled": boolToEmptyStrOrUndef(this.opts.disabled.current),
 				[collapsibleAttrs.root]: "",
 				...this.attachment,
-			}) as const,
+			}) as const
 	);
 }
 
@@ -103,9 +101,7 @@ export class CollapsibleContentState {
 		return this.opts.forceMount.current || this.root.opts.open.current;
 	});
 
-	#originalStyles:
-		| { transitionDuration: string; animationName: string }
-		| undefined;
+	#originalStyles: { transitionDuration: string; animationName: string } | undefined;
 	#isMountAnimationPrevented = $state(false);
 	#width = $state(0);
 	#height = $state(0);
@@ -115,16 +111,13 @@ export class CollapsibleContentState {
 		this.root = root;
 		this.#isMountAnimationPrevented = root.opts.open.current;
 		this.root.contentId = this.opts.id.current;
-		this.attachment = attachRef(
-			this.opts.ref,
-			(v) => (this.root.contentNode = v),
-		);
+		this.attachment = attachRef(this.opts.ref, (v) => (this.root.contentNode = v));
 
 		watch.pre(
 			() => this.opts.id.current,
 			(id) => {
 				this.root.contentId = id;
-			},
+			}
 		);
 
 		$effect.pre(() => {
@@ -153,7 +146,7 @@ export class CollapsibleContentState {
 				};
 
 				return on(node, "beforematch", handleBeforeMatch);
-			},
+			}
 		);
 
 		watch([() => this.opts.ref.current, () => this.present], ([node]) => {
@@ -221,7 +214,7 @@ export class CollapsibleContentState {
 									: !this.shouldRender,
 						}),
 				...this.attachment,
-			}) as const,
+			}) as const
 	);
 }
 
@@ -239,9 +232,7 @@ export class CollapsibleTriggerState {
 	readonly opts: CollapsibleTriggerStateOpts;
 	readonly root: CollapsibleRootState;
 	readonly attachment: RefAttachment;
-	#isDisabled = $derived.by(
-		() => this.opts.disabled.current || this.root.opts.disabled.current,
-	);
+	#isDisabled = $derived.by(() => this.opts.disabled.current || this.root.opts.disabled.current);
 
 	constructor(opts: CollapsibleTriggerStateOpts, root: CollapsibleRootState) {
 		this.opts = opts;
@@ -281,6 +272,6 @@ export class CollapsibleTriggerState {
 				onclick: this.onclick,
 				onkeydown: this.onkeydown,
 				...this.attachment,
-			}) as const,
+			}) as const
 	);
 }

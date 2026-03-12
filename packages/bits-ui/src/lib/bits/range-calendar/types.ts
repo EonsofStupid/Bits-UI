@@ -1,7 +1,7 @@
 import type { DateValue } from "@internationalized/date";
 import type { OnChangeFn, WithChild, Without } from "$lib/internal/types.js";
-import type { DateMatcher, DateRange, Month } from "$lib/shared/index.js";
 import type { BitsPrimitiveDivAttributes } from "$lib/shared/attributes.js";
+import type { DateMatcher, DateRange, Month } from "$lib/shared/index.js";
 
 export type RangeCalendarRootSnippetProps = {
 	months: Month<DateValue>[];
@@ -227,18 +227,14 @@ export type RangeCalendarRootPropsWithoutHTML = WithChild<
 		 *
 		 * @default "long"
 		 */
-		monthFormat?:
-			| Intl.DateTimeFormatOptions["month"]
-			| ((month: number) => string);
+		monthFormat?: Intl.DateTimeFormatOptions["month"] | ((month: number) => string);
 
 		/**
 		 * The format of the year names in the calendar.
 		 *
 		 * @default "numeric"
 		 */
-		yearFormat?:
-			| Intl.DateTimeFormatOptions["year"]
-			| ((year: number) => string);
+		yearFormat?: Intl.DateTimeFormatOptions["year"] | ((year: number) => string);
 	},
 	RangeCalendarRootSnippetProps
 >;
@@ -247,14 +243,6 @@ export type RangeCalendarRootProps = RangeCalendarRootPropsWithoutHTML &
 	Without<BitsPrimitiveDivAttributes, RangeCalendarRootPropsWithoutHTML>;
 
 export type {
-	CalendarPrevButtonProps as RangeCalendarPrevButtonProps,
-	CalendarPrevButtonPropsWithoutHTML as RangeCalendarPrevButtonPropsWithoutHTML,
-	CalendarNextButtonProps as RangeCalendarNextButtonProps,
-	CalendarNextButtonPropsWithoutHTML as RangeCalendarNextButtonPropsWithoutHTML,
-	CalendarHeadingProps as RangeCalendarHeadingProps,
-	CalendarHeadingPropsWithoutHTML as RangeCalendarHeadingPropsWithoutHTML,
-	CalendarGridProps as RangeCalendarGridProps,
-	CalendarGridPropsWithoutHTML as RangeCalendarGridPropsWithoutHTML,
 	CalendarCellProps as RangeCalendarCellProps,
 	CalendarCellPropsWithoutHTML as RangeCalendarCellPropsWithoutHTML,
 	CalendarDayProps as RangeCalendarDayProps,
@@ -263,14 +251,22 @@ export type {
 	CalendarGridBodyPropsWithoutHTML as RangeCalendarGridBodyPropsWithoutHTML,
 	CalendarGridHeadProps as RangeCalendarGridHeadProps,
 	CalendarGridHeadPropsWithoutHTML as RangeCalendarGridHeadPropsWithoutHTML,
+	CalendarGridProps as RangeCalendarGridProps,
+	CalendarGridPropsWithoutHTML as RangeCalendarGridPropsWithoutHTML,
 	CalendarGridRowProps as RangeCalendarGridRowProps,
 	CalendarGridRowPropsWithoutHTML as RangeCalendarGridRowPropsWithoutHTML,
 	CalendarHeadCellProps as RangeCalendarHeadCellProps,
 	CalendarHeadCellPropsWithoutHTML as RangeCalendarHeadCellPropsWithoutHTML,
 	CalendarHeaderProps as RangeCalendarHeaderProps,
 	CalendarHeaderPropsWithoutHTML as RangeCalendarHeaderPropsWithoutHTML,
+	CalendarHeadingProps as RangeCalendarHeadingProps,
+	CalendarHeadingPropsWithoutHTML as RangeCalendarHeadingPropsWithoutHTML,
 	CalendarMonthSelectProps as RangeCalendarMonthSelectProps,
 	CalendarMonthSelectPropsWithoutHTML as RangeCalendarMonthSelectPropsWithoutHTML,
+	CalendarNextButtonProps as RangeCalendarNextButtonProps,
+	CalendarNextButtonPropsWithoutHTML as RangeCalendarNextButtonPropsWithoutHTML,
+	CalendarPrevButtonProps as RangeCalendarPrevButtonProps,
+	CalendarPrevButtonPropsWithoutHTML as RangeCalendarPrevButtonPropsWithoutHTML,
 	CalendarYearSelectProps as RangeCalendarYearSelectProps,
 	CalendarYearSelectPropsWithoutHTML as RangeCalendarYearSelectPropsWithoutHTML,
 } from "../calendar/types.js";

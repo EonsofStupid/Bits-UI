@@ -16,12 +16,7 @@ type Props = {
 	onValueChange?: (v: string[]) => void;
 } & Omit<BitsPrimitiveDivAttributes, "value">;
 
-let {
-	disabled = false,
-	items = [],
-	value = [],
-	...restProps
-}: Props = $props();
+let { disabled = false, items = [], value = [], ...restProps }: Props = $props();
 </script>
 
 <Accordion.Root type="multiple" {value} {disabled} {...restProps} data-testid="root">

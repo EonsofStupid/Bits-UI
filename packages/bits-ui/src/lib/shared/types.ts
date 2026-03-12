@@ -12,7 +12,4 @@ export type FloatingContentSnippetProps = {
 	wrapperProps: Record<string, unknown>;
 };
 
-export type StaticContentSnippetProps = Omit<
-	FloatingContentSnippetProps,
-	"wrapperProps"
->;
+export type StaticContentSnippetProps = Omit<FloatingContentSnippetProps, "wrapperProps">;

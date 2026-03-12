@@ -3,6 +3,7 @@ import type {
 	DatePickerInputPropsWithoutHTML,
 	DatePickerRootPropsWithoutHTML,
 } from "bits-ui";
+import { defineBooleanProp, defineComponentApiSchema, defineSimpleDataAttr } from "../utils.js";
 import {
 	root as calendarRoot,
 	cell,
@@ -14,9 +15,9 @@ import {
 	headCell,
 	header,
 	heading,
+	monthSelect,
 	nextButton,
 	prevButton,
-	monthSelect,
 	yearSelect,
 } from "./calendar.api.js";
 import {
@@ -25,18 +26,13 @@ import {
 	label,
 	segment,
 } from "./date-field.api.js";
+import { content, portal, trigger } from "./popover.api.js";
 import {
 	childrenSnippet,
 	onOpenChangeCompleteProp,
 	onOpenChangeProp,
 	withChildProps,
 } from "./shared.js";
-import { content, portal, trigger } from "./popover.api.js";
-import {
-	defineBooleanProp,
-	defineComponentApiSchema,
-	defineSimpleDataAttr,
-} from "../utils.js";
 
 export const root = defineComponentApiSchema<DatePickerRootPropsWithoutHTML>({
 	title: "Root",
@@ -63,8 +59,7 @@ export const root = defineComponentApiSchema<DatePickerRootPropsWithoutHTML>({
 		disableDaysOutsideMonth: calendarRoot.props!.disableDaysOutsideMonth,
 		closeOnDateSelect: defineBooleanProp({
 			default: true,
-			description:
-				"Whether or not to close the popover when a date is selected.",
+			description: "Whether or not to close the popover when a date is selected.",
 		}),
 		pagedNavigation: calendarRoot.props!.pagedNavigation,
 		preventDeselect: calendarRoot.props!.preventDeselect,
@@ -101,18 +96,15 @@ const calendar = defineComponentApiSchema<DatePickerCalendarPropsWithoutHTML>({
 	dataAttributes: [
 		defineSimpleDataAttr({
 			name: "invalid",
-			description:
-				"Present on the calendar element when the calendar is invalid.",
+			description: "Present on the calendar element when the calendar is invalid.",
 		}),
 		defineSimpleDataAttr({
 			name: "disabled",
-			description:
-				"Present on the calendar element when the calendar is disabled.",
+			description: "Present on the calendar element when the calendar is disabled.",
 		}),
 		defineSimpleDataAttr({
 			name: "readonly",
-			description:
-				"Present on the calendar element when the calendar is readonly.",
+			description: "Present on the calendar element when the calendar is readonly.",
 		}),
 		defineSimpleDataAttr({
 			name: "calendar-root",
@@ -123,8 +115,7 @@ const calendar = defineComponentApiSchema<DatePickerCalendarPropsWithoutHTML>({
 
 const input = defineComponentApiSchema<DatePickerInputPropsWithoutHTML>({
 	title: "Input",
-	description:
-		"The field input component which contains the segments of the date field.",
+	description: "The field input component which contains the segments of the date field.",
 	props: {
 		...withChildProps({ elType: "HTMLDivElement" }),
 		name: dateFieldInput.props!.name,

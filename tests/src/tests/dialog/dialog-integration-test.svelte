@@ -1,7 +1,5 @@
 <script lang="ts">
-import { Dialog } from "bits-ui";
-import { DropdownMenu } from "bits-ui";
-import { Popover } from "bits-ui";
+import { Dialog, DropdownMenu, Popover } from "bits-ui";
 </script>
 
 <main>

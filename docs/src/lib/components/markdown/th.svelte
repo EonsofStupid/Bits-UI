@@ -2,11 +2,7 @@
 import type { HTMLAttributes } from "svelte/elements";
 import { cn } from "$lib/utils/styles.js";
 
-let {
-	class: className,
-	children,
-	...restProps
-}: HTMLAttributes<HTMLTableCellElement> = $props();
+let { class: className, children, ...restProps }: HTMLAttributes<HTMLTableCellElement> = $props();
 </script>
 
 <th

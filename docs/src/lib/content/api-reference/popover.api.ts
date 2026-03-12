@@ -8,12 +8,6 @@ import type {
 	PopoverRootPropsWithoutHTML,
 	PopoverTriggerPropsWithoutHTML,
 } from "bits-ui";
-import { OpenClosedProp } from "./extended-types/shared/index.js";
-import {
-	floatingContentChildDefinition,
-	floatingContentCSSVars,
-	onOpenChangeCompleteProp,
-} from "./shared.js";
 import {
 	arrowProps,
 	childrenSnippet,
@@ -38,6 +32,12 @@ import {
 	definePropSchema,
 	defineSimpleDataAttr,
 } from "../utils.js";
+import { OpenClosedProp } from "./extended-types/shared/index.js";
+import {
+	floatingContentChildDefinition,
+	floatingContentCSSVars,
+	onOpenChangeCompleteProp,
+} from "./shared.js";
 
 const openClosedDataAttr = defineEnumDataAttr({
 	name: "state",
@@ -48,8 +48,7 @@ const openClosedDataAttr = defineEnumDataAttr({
 
 export const root = defineComponentApiSchema<PopoverRootPropsWithoutHTML>({
 	title: "Root",
-	description:
-		"The root component used to manage the state of the state of the popover.",
+	description: "The root component used to manage the state of the state of the popover.",
 	props: {
 		open: openProp,
 		onOpenChange: onOpenChangeProp,
@@ -58,104 +57,96 @@ export const root = defineComponentApiSchema<PopoverRootPropsWithoutHTML>({
 	},
 });
 
-export const trigger = defineComponentApiSchema<PopoverTriggerPropsWithoutHTML>(
-	{
-		title: "Trigger",
-		description:
-			"A component which toggles the opening and closing of the popover on press.",
-		props: {
-			openOnHover: defineBooleanProp({
-				description:
-					"Whether the popover should open when the trigger is hovered.",
-				default: false,
-			}),
-			openDelay: defineNumberProp({
-				description:
-					"The delay in milliseconds before the popover opens after hovering the trigger. Only applies when `openOnHover` is `true`.",
-				default: 700,
-			}),
-			closeDelay: defineNumberProp({
-				description:
-					"The delay in milliseconds before the popover closes after the mouse leaves the trigger or content. Only applies when `openOnHover` is `true`.",
-				default: 300,
-			}),
-			...withChildProps({ elType: "HTMLButtonElement" }),
-		},
-		dataAttributes: [
-			openClosedDataAttr,
-			defineSimpleDataAttr({
-				name: "popover-trigger",
-				description: "Present on the trigger element.",
-			}),
-		],
+export const trigger = defineComponentApiSchema<PopoverTriggerPropsWithoutHTML>({
+	title: "Trigger",
+	description: "A component which toggles the opening and closing of the popover on press.",
+	props: {
+		openOnHover: defineBooleanProp({
+			description: "Whether the popover should open when the trigger is hovered.",
+			default: false,
+		}),
+		openDelay: defineNumberProp({
+			description:
+				"The delay in milliseconds before the popover opens after hovering the trigger. Only applies when `openOnHover` is `true`.",
+			default: 700,
+		}),
+		closeDelay: defineNumberProp({
+			description:
+				"The delay in milliseconds before the popover closes after the mouse leaves the trigger or content. Only applies when `openOnHover` is `true`.",
+			default: 300,
+		}),
+		...withChildProps({ elType: "HTMLButtonElement" }),
 	},
-);
+	dataAttributes: [
+		openClosedDataAttr,
+		defineSimpleDataAttr({
+			name: "popover-trigger",
+			description: "Present on the trigger element.",
+		}),
+	],
+});
 
-export const content = defineComponentApiSchema<PopoverContentPropsWithoutHTML>(
-	{
-		title: "Content",
-		description:
-			"The contents of the popover which are displayed when the popover is open.",
-		props: {
-			...floatingProps(),
-			...dismissibleLayerProps,
-			...escapeLayerProps,
-			...focusScopeProps,
-			preventOverflowTextSelection: preventOverflowTextSelectionProp,
-			preventScroll: definePropSchema({
-				...preventScrollProp,
-				default: {
-					variant: "simple",
-					value: "false",
-				},
-			}),
-			forceMount: forceMountProp,
-			dir: dirProp,
-			...withChildProps({
-				elType: "HTMLDivElement",
-				child: floatingContentChildDefinition,
-			}),
-		},
-		dataAttributes: [
-			openClosedDataAttr,
-			defineSimpleDataAttr({
-				name: "popover-content",
-				description: "Present on the content element.",
-			}),
-		],
-		cssVars: floatingContentCSSVars("popover"),
-	},
-);
-
-export const contentStatic =
-	defineComponentApiSchema<PopoverContentStaticPropsWithoutHTML>({
-		title: "ContentStatic",
-		description:
-			"The contents of the popover which are displayed when the popover is open. (Static/No Floating UI)",
-		props: {
-			...dismissibleLayerProps,
-			...escapeLayerProps,
-			...focusScopeProps,
-			preventOverflowTextSelection: preventOverflowTextSelectionProp,
-			preventScroll: {
-				...preventScrollProp,
-				default: {
-					variant: "simple",
-					value: "false",
-				},
+export const content = defineComponentApiSchema<PopoverContentPropsWithoutHTML>({
+	title: "Content",
+	description: "The contents of the popover which are displayed when the popover is open.",
+	props: {
+		...floatingProps(),
+		...dismissibleLayerProps,
+		...escapeLayerProps,
+		...focusScopeProps,
+		preventOverflowTextSelection: preventOverflowTextSelectionProp,
+		preventScroll: definePropSchema({
+			...preventScrollProp,
+			default: {
+				variant: "simple",
+				value: "false",
 			},
-			forceMount: forceMountProp,
-			dir: dirProp,
-			...withChildProps({ elType: "HTMLDivElement" }),
+		}),
+		forceMount: forceMountProp,
+		dir: dirProp,
+		...withChildProps({
+			elType: "HTMLDivElement",
+			child: floatingContentChildDefinition,
+		}),
+	},
+	dataAttributes: [
+		openClosedDataAttr,
+		defineSimpleDataAttr({
+			name: "popover-content",
+			description: "Present on the content element.",
+		}),
+	],
+	cssVars: floatingContentCSSVars("popover"),
+});
+
+export const contentStatic = defineComponentApiSchema<PopoverContentStaticPropsWithoutHTML>({
+	title: "ContentStatic",
+	description:
+		"The contents of the popover which are displayed when the popover is open. (Static/No Floating UI)",
+	props: {
+		...dismissibleLayerProps,
+		...escapeLayerProps,
+		...focusScopeProps,
+		preventOverflowTextSelection: preventOverflowTextSelectionProp,
+		preventScroll: {
+			...preventScrollProp,
+			default: {
+				variant: "simple",
+				value: "false",
+			},
 		},
-		dataAttributes: [
-			openClosedDataAttr,
-			defineSimpleDataAttr({
-				name: "popover-content",
-				description: "Present on the content element.",
-			}),
-		],
-	});
+		forceMount: forceMountProp,
+		dir: dirProp,
+		...withChildProps({ elType: "HTMLDivElement" }),
+	},
+	dataAttributes: [
+		openClosedDataAttr,
+		defineSimpleDataAttr({
+			name: "popover-content",
+			description: "Present on the content element.",
+		}),
+	],
+});
 
 export const close = defineComponentApiSchema<PopoverClosePropsWithoutHTML>({
 	title: "Close",
@@ -172,8 +163,7 @@ export const close = defineComponentApiSchema<PopoverClosePropsWithoutHTML>({
 
 export const arrow = defineComponentApiSchema<PopoverArrowPropsWithoutHTML>({
 	title: "Arrow",
-	description:
-		"An optional arrow element which points to the trigger when the popover is open.",
+	description: "An optional arrow element which points to the trigger when the popover is open.",
 	props: arrowProps,
 	dataAttributes: [
 		defineSimpleDataAttr({
@@ -194,32 +184,21 @@ export const portal = defineComponentApiSchema<PopoverPortalPropsWithoutHTML>({
 	props: portalProps,
 });
 
-export const overlay = defineComponentApiSchema<PopoverOverlayPropsWithoutHTML>(
-	{
-		title: "Overlay",
-		description:
-			"An overlay that can be used to create a semi-transparent overlay behind the popover when open.",
-		props: {
-			forceMount: forceMountProp,
-			...withChildProps({ elType: "HTMLDivElement" }),
-		},
-		dataAttributes: [
-			defineSimpleDataAttr({
-				name: "popover-overlay",
-				description: "Present on the overlay element.",
-			}),
-			openClosedDataAttr,
-		],
+export const overlay = defineComponentApiSchema<PopoverOverlayPropsWithoutHTML>({
+	title: "Overlay",
+	description:
+		"An overlay that can be used to create a semi-transparent overlay behind the popover when open.",
+	props: {
+		forceMount: forceMountProp,
+		...withChildProps({ elType: "HTMLDivElement" }),
 	},
-);
+	dataAttributes: [
+		defineSimpleDataAttr({
+			name: "popover-overlay",
+			description: "Present on the overlay element.",
+		}),
+		openClosedDataAttr,
+	],
+});
 
-export const popover = [
-	root,
-	trigger,
-	content,
-	contentStatic,
-	overlay,
-	close,
-	arrow,
-	portal,
-];
+export const popover = [root, trigger, content, contentStatic, overlay, close, arrow, portal];

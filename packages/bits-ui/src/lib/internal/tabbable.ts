@@ -1,5 +1,5 @@
-import { focusable, isFocusable, isTabbable, tabbable } from "tabbable";
 import { getDocument } from "svelte-toolbelt";
+import { focusable, isFocusable, isTabbable, tabbable } from "tabbable";
 
 function getTabbableOptions() {
 	return {
@@ -20,10 +20,7 @@ function getTabbableOptions() {
  * from the `currentNode` based on the `direction` provided.
  * @param currentNode - the node we want to get the next/previous tabbable from
  */
-export function getTabbableFrom(
-	currentNode: HTMLElement,
-	direction: "next" | "prev",
-) {
+export function getTabbableFrom(currentNode: HTMLElement, direction: "next" | "prev") {
 	if (!isTabbable(currentNode, getTabbableOptions())) {
 		return getTabbableFromFocusable(currentNode, direction);
 	}
@@ -36,10 +33,7 @@ export function getTabbableFrom(
 	return nextTabbableElements[0];
 }
 
-export function getTabbableFromFocusable(
-	currentNode: HTMLElement,
-	direction: "next" | "prev",
-) {
+export function getTabbableFromFocusable(currentNode: HTMLElement, direction: "next" | "prev") {
 	const doc = getDocument(currentNode);
 	if (!isFocusable(currentNode, getTabbableOptions())) return doc.body;
 
@@ -55,9 +49,5 @@ export function getTabbableFromFocusable(
 	const nextFocusableElements = allFocusable.slice(activeIndex + 1);
 
 	// find the next focusable node that is also tabbable
-	return (
-		nextFocusableElements.find((node) =>
-			isTabbable(node, getTabbableOptions()),
-		) ?? doc.body
-	);
+	return nextFocusableElements.find((node) => isTabbable(node, getTabbableOptions())) ?? doc.body;
 }

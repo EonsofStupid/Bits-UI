@@ -24,7 +24,7 @@ export function getDataChecked(condition: boolean): "checked" | "unchecked" {
 
 export function getAriaChecked(
 	checked: boolean,
-	indeterminate: boolean,
+	indeterminate: boolean
 ): "true" | "false" | "mixed" {
 	if (indeterminate) {
 		return "mixed";
@@ -52,15 +52,13 @@ export class BitsAttrs<T extends readonly string[]> {
 
 	constructor(config: BitsAttrsConfig<T>) {
 		this.#variant = config.getVariant ? config.getVariant() : null;
-		this.#prefix = this.#variant
-			? `data-${this.#variant}-`
-			: `data-${config.component}-`;
+		this.#prefix = this.#variant ? `data-${this.#variant}-` : `data-${config.component}-`;
 
 		this.getAttr = this.getAttr.bind(this);
 		this.selector = this.selector.bind(this);
 
 		this.attrs = Object.fromEntries(
-			config.parts.map((part) => [part, this.getAttr(part)]),
+			config.parts.map((part) => [part, this.getAttr(part)])
 		) as Record<T[number], string>;
 	}
 
@@ -75,7 +73,7 @@ export class BitsAttrs<T extends readonly string[]> {
 }
 
 export function createBitsAttrs<const T extends readonly string[]>(
-	config: Omit<BitsAttrsConfig<T>, "parts"> & { parts: T },
+	config: Omit<BitsAttrsConfig<T>, "parts"> & { parts: T }
 ): CreateBitsAttrsReturn<T> {
 	const bitsAttrs = new BitsAttrs(config);
 

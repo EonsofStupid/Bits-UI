@@ -1,9 +1,9 @@
+import { page } from "@vitest/browser/context";
+import { tick } from "svelte";
 import { expect, it } from "vitest";
 import { render } from "vitest-browser-svelte";
-import { tick } from "svelte";
-import PortalTest from "./portal-test.svelte";
-import { page } from "@vitest/browser/context";
 import { expectExists, expectNotExists } from "../browser-utils";
+import PortalTest from "./portal-test.svelte";
 
 it("should portal content to document.body by default", async () => {
 	render(PortalTest);
@@ -133,12 +133,8 @@ it("should handle multiple portals to different targets", async () => {
 	const stringTarget = page.getByTestId("string-target").element();
 	const classTarget = page.getByTestId("class-target").element();
 
-	const firstContent = contents.find(
-		(el) => el.element().textContent === "First portal",
-	);
-	const secondContent = contents.find(
-		(el) => el.element().textContent === "Second portal",
-	);
+	const firstContent = contents.find((el) => el.element().textContent === "First portal");
+	const secondContent = contents.find((el) => el.element().textContent === "Second portal");
 
 	if (!firstContent || !secondContent) {
 		throw new Error("Could not find portal contents");

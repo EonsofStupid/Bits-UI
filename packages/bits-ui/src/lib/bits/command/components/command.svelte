@@ -1,11 +1,11 @@
 <script lang="ts">
 import { boxWith, mergeProps } from "svelte-toolbelt";
+import { createId } from "$lib/internal/create-id.js";
+import { noop } from "$lib/internal/noop.js";
 import { CommandRootState } from "../command.svelte.js";
+import { computeCommandScore } from "../index.js";
 import type { CommandRootProps } from "../types.js";
 import CommandLabel from "./_command-label.svelte";
-import { noop } from "$lib/internal/noop.js";
-import { createId } from "$lib/internal/create-id.js";
-import { computeCommandScore } from "../index.js";
 
 const uid = $props.id();
 
@@ -32,7 +32,7 @@ const rootState = CommandRootState.create({
 	id: boxWith(() => id),
 	ref: boxWith(
 		() => ref,
-		(v) => (ref = v),
+		(v) => (ref = v)
 	),
 	filter: boxWith(() => filter),
 	shouldFilter: boxWith(() => shouldFilter),
@@ -44,7 +44,7 @@ const rootState = CommandRootState.create({
 				value = v;
 				onValueChange(v);
 			}
-		},
+		}
 	),
 	vimBindings: boxWith(() => vimBindings),
 	disablePointerSelection: boxWith(() => disablePointerSelection),
@@ -71,8 +71,8 @@ const rootState = CommandRootState.create({
  *   updateSelectedToIndex(index)
  * }
  */
-export const updateSelectedToIndex: (typeof rootState)["updateSelectedToIndex"] =
-	(i) => rootState.updateSelectedToIndex(i);
+export const updateSelectedToIndex: (typeof rootState)["updateSelectedToIndex"] = (i) =>
+	rootState.updateSelectedToIndex(i);
 /**
  * Moves selection to the first valid item in the next/previous group.
  * If no group is found, falls back to selecting the next/previous item globally.
@@ -85,8 +85,8 @@ export const updateSelectedToIndex: (typeof rootState)["updateSelectedToIndex"] 
  * // move to first item in previous group
  * updateSelectedByGroup(-1)
  */
-export const updateSelectedByGroup: (typeof rootState)["updateSelectedByGroup"] =
-	(c) => rootState.updateSelectedByGroup(c);
+export const updateSelectedByGroup: (typeof rootState)["updateSelectedByGroup"] = (c) =>
+	rootState.updateSelectedByGroup(c);
 /**
  * Updates selected item by moving up/down relative to current selection.
  * Handles wrapping when loop option is enabled.
@@ -107,8 +107,8 @@ export const updateSelectedByGroup: (typeof rootState)["updateSelectedByGroup"] 
  * // get all valid items
  * const items = getValidItems()
  */
-export const updateSelectedByItem: (typeof rootState)["updateSelectedByItem"] =
-	(c) => rootState.updateSelectedByItem(c);
+export const updateSelectedByItem: (typeof rootState)["updateSelectedByItem"] = (c) =>
+	rootState.updateSelectedByItem(c);
 /**
  * Gets all non-disabled, visible command items.
  *

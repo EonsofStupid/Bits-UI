@@ -1,8 +1,8 @@
 <script lang="ts">
 import { boxWith, mergeProps } from "svelte-toolbelt";
-import type { AvatarRootProps } from "../types.js";
-import { AvatarRootState } from "../avatar.svelte.js";
 import { createId } from "$lib/internal/create-id.js";
+import { AvatarRootState } from "../avatar.svelte.js";
+import type { AvatarRootProps } from "../types.js";
 
 const uid = $props.id();
 
@@ -26,12 +26,12 @@ const rootState = AvatarRootState.create({
 				loadingStatus = v;
 				onLoadingStatusChange?.(v);
 			}
-		},
+		}
 	),
 	id: boxWith(() => id),
 	ref: boxWith(
 		() => ref,
-		(v) => (ref = v),
+		(v) => (ref = v)
 	),
 });
 

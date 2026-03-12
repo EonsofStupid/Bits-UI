@@ -1,9 +1,9 @@
 <script lang="ts">
 import { boxWith, mergeProps } from "svelte-toolbelt";
-import type { NavigationMenuRootProps } from "../types.js";
-import { NavigationMenuRootState } from "../navigation-menu.svelte.js";
 import { createId } from "$lib/internal/create-id.js";
 import { noop } from "$lib/internal/noop.js";
+import { NavigationMenuRootState } from "../navigation-menu.svelte.js";
+import type { NavigationMenuRootProps } from "../types.js";
 
 const uid = $props.id();
 
@@ -28,7 +28,7 @@ const rootState = NavigationMenuRootState.create({
 		(v) => {
 			value = v;
 			onValueChange(v);
-		},
+		}
 	),
 	delayDuration: boxWith(() => delayDuration),
 	skipDelayDuration: boxWith(() => skipDelayDuration),
@@ -36,13 +36,11 @@ const rootState = NavigationMenuRootState.create({
 	orientation: boxWith(() => orientation),
 	ref: boxWith(
 		() => ref,
-		(v) => (ref = v),
+		(v) => (ref = v)
 	),
 });
 
-const mergedProps = $derived(
-	mergeProps({ "aria-label": "main" }, restProps, rootState.props),
-);
+const mergedProps = $derived(mergeProps({ "aria-label": "main" }, restProps, rootState.props));
 </script>
 
 {#if child}

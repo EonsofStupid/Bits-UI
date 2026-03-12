@@ -1,11 +1,10 @@
 <script lang="ts">
-import { type WritableBox, boxWith } from "svelte-toolbelt";
-import { mergeProps } from "svelte-toolbelt";
-import type { ToggleGroupRootProps } from "../types.js";
-import { ToggleGroupRootState } from "../toggle-group.svelte.js";
+import { watch } from "runed";
+import { boxWith, mergeProps, type WritableBox } from "svelte-toolbelt";
 import { createId } from "$lib/internal/create-id.js";
 import { noop } from "$lib/internal/noop.js";
-import { watch } from "runed";
+import { ToggleGroupRootState } from "../toggle-group.svelte.js";
+import type { ToggleGroupRootProps } from "../types.js";
 
 const uid = $props.id();
 
@@ -36,7 +35,7 @@ watch.pre(
 	() => value,
 	() => {
 		handleDefaultValue();
-	},
+	}
 );
 
 const rootState = ToggleGroupRootState.create({
@@ -47,7 +46,7 @@ const rootState = ToggleGroupRootState.create({
 			value = v;
 			// @ts-expect-error - we know
 			onValueChange(v);
-		},
+		}
 	) as WritableBox<string> | WritableBox<string[]>,
 	disabled: boxWith(() => disabled),
 	loop: boxWith(() => loop),
@@ -56,7 +55,7 @@ const rootState = ToggleGroupRootState.create({
 	type,
 	ref: boxWith(
 		() => ref,
-		(v) => (ref = v),
+		(v) => (ref = v)
 	),
 });
 

@@ -1,6 +1,6 @@
 <script lang="ts">
-import { Calendar } from "bits-ui";
 import type { CalendarDate } from "@internationalized/date";
+import { Calendar } from "bits-ui";
 
 let {
 	placeholder,

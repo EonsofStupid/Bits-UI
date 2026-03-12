@@ -1,9 +1,9 @@
 <script lang="ts" module>
-import {
+import type {
 	Select,
-	type SelectMultipleRootProps,
-	type WithoutChildren,
-	type WithoutChildrenOrChild,
+	SelectMultipleRootProps,
+	WithoutChildren,
+	WithoutChildrenOrChild,
 } from "bits-ui";
 import { generateTestId } from "../helpers/select";
 
@@ -13,15 +13,14 @@ export type Item = {
 	disabled?: boolean;
 };
 
-export type SelectMultipleTestProps =
-	WithoutChildren<SelectMultipleRootProps> & {
-		contentProps?: WithoutChildrenOrChild<Select.ContentProps>;
-		portalProps?: WithoutChildrenOrChild<Select.PortalProps>;
-		items: Item[];
-		searchValue?: string;
-		onSelectedLabelChange?: (value: string) => void;
-		onFormSubmit?: (fd: FormData) => void;
-	};
+export type SelectMultipleTestProps = WithoutChildren<SelectMultipleRootProps> & {
+	contentProps?: WithoutChildrenOrChild<Select.ContentProps>;
+	portalProps?: WithoutChildrenOrChild<Select.PortalProps>;
+	items: Item[];
+	searchValue?: string;
+	onSelectedLabelChange?: (value: string) => void;
+	onFormSubmit?: (fd: FormData) => void;
+};
 </script>
 
 <script lang="ts">

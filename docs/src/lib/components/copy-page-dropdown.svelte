@@ -1,14 +1,14 @@
 <script lang="ts">
 import { DropdownMenu } from "bits-ui";
 import CaretDown from "phosphor-svelte/lib/CaretDown";
-import OpenAiLogo from "phosphor-svelte/lib/OpenAiLogo";
 import FileMd from "phosphor-svelte/lib/FileMd";
-import { page } from "$app/state";
+import OpenAiLogo from "phosphor-svelte/lib/OpenAiLogo";
 import type { Component } from "svelte";
+import { page } from "$app/state";
 import Claude from "$icons/claude.svelte";
 
 const q = $derived(
-	`The following is a documentation page from Bits UI (a headless component library for Svelte 5): https://bits-ui.com${page.url.pathname}. Be ready to help answer questions about this page.`,
+	`The following is a documentation page from Bits UI (a headless component library for Svelte 5): https://bits-ui.com${page.url.pathname}. Be ready to help answer questions about this page.`
 );
 
 const path = $derived(page.url.pathname.split("#")[0]);

@@ -1,8 +1,8 @@
 <script lang="ts">
 import { boxWith, mergeProps } from "svelte-toolbelt";
+import { createId } from "$lib/internal/create-id.js";
 import { DialogDescriptionState } from "../dialog.svelte.js";
 import type { DialogDescriptionProps } from "../types.js";
-import { createId } from "$lib/internal/create-id.js";
 
 const uid = $props.id();
 
@@ -18,7 +18,7 @@ const descriptionState = DialogDescriptionState.create({
 	id: boxWith(() => id),
 	ref: boxWith(
 		() => ref,
-		(v) => (ref = v),
+		(v) => (ref = v)
 	),
 });
 

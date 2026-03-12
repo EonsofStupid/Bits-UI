@@ -1,5 +1,5 @@
 <script lang="ts">
-import { Checkbox, Label, type WithoutChildrenOrChild, useId } from "bits-ui";
+import { type Checkbox, Label, useId, type WithoutChildrenOrChild } from "bits-ui";
 import Check from "phosphor-svelte/lib/Check";
 import Minus from "phosphor-svelte/lib/Minus";
 import DemoContainer from "../demo-container.svelte";

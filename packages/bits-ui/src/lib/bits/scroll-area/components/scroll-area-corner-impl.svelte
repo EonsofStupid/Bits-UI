@@ -1,7 +1,7 @@
 <script lang="ts">
 import { boxWith, mergeProps } from "svelte-toolbelt";
-import type { ScrollAreaCornerProps } from "../types.js";
 import { ScrollAreaCornerImplState } from "../scroll-area.svelte.js";
+import type { ScrollAreaCornerProps } from "../types.js";
 
 let {
 	ref = $bindable(null),
@@ -17,7 +17,7 @@ const cornerState = ScrollAreaCornerImplState.create({
 	id: boxWith(() => id),
 	ref: boxWith(
 		() => ref,
-		(v) => (ref = v),
+		(v) => (ref = v)
 	),
 });
 

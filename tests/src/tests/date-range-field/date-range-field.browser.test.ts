@@ -1,15 +1,9 @@
+import { CalendarDate, CalendarDateTime, toZoned } from "@internationalized/date";
+import { page, userEvent } from "@vitest/browser/context";
 import { expect, it } from "vitest";
 import { render } from "vitest-browser-svelte";
-import {
-	CalendarDate,
-	CalendarDateTime,
-	toZoned,
-} from "@internationalized/date";
 import { getTestKbd } from "../utils.js";
-import DateRangeFieldTest, {
-	type DateRangeFieldTestProps,
-} from "./date-range-field-test.svelte";
-import { page, userEvent } from "@vitest/browser/context";
+import DateRangeFieldTest, { type DateRangeFieldTestProps } from "./date-range-field-test.svelte";
 
 const kbd = getTestKbd();
 
@@ -56,31 +50,15 @@ function setup(props: DateRangeFieldTestProps = {}) {
 it("should populate segment with value - `CalendarDate`", async () => {
 	const t = setup({ value: calendarDate });
 
-	await expect
-		.element(t.start.month)
-		.toHaveTextContent(String(calendarDate.start.month));
-	await expect
-		.element(t.start.day)
-		.toHaveTextContent(String(calendarDate.start.day));
-	await expect
-		.element(t.start.year)
-		.toHaveTextContent(String(calendarDate.start.year));
-	await expect
-		.element(t.start.value)
-		.toHaveTextContent(calendarDate.start.toString());
+	await expect.element(t.start.month).toHaveTextContent(String(calendarDate.start.month));
+	await expect.element(t.start.day).toHaveTextContent(String(calendarDate.start.day));
+	await expect.element(t.start.year).toHaveTextContent(String(calendarDate.start.year));
+	await expect.element(t.start.value).toHaveTextContent(calendarDate.start.toString());
 
-	await expect
-		.element(t.end.month)
-		.toHaveTextContent(String(calendarDate.end.month));
-	await expect
-		.element(t.end.day)
-		.toHaveTextContent(String(calendarDate.end.day));
-	await expect
-		.element(t.end.year)
-		.toHaveTextContent(String(calendarDate.end.year));
-	await expect
-		.element(t.end.value)
-		.toHaveTextContent(calendarDate.end.toString());
+	await expect.element(t.end.month).toHaveTextContent(String(calendarDate.end.month));
+	await expect.element(t.end.day).toHaveTextContent(String(calendarDate.end.day));
+	await expect.element(t.end.year).toHaveTextContent(String(calendarDate.end.year));
+	await expect.element(t.end.value).toHaveTextContent(calendarDate.end.toString());
 });
 
 it("should populate segment with value - `CalendarDateTime`", async () => {
@@ -89,15 +67,9 @@ it("should populate segment with value - `CalendarDateTime`", async () => {
 		granularity: "second",
 	});
 
-	await expect
-		.element(t.start.month)
-		.toHaveTextContent(String(calendarDateTime.start.month));
-	await expect
-		.element(t.start.day)
-		.toHaveTextContent(String(calendarDateTime.start.day));
-	await expect
-		.element(t.start.year)
-		.toHaveTextContent(String(calendarDateTime.start.year));
+	await expect.element(t.start.month).toHaveTextContent(String(calendarDateTime.start.month));
+	await expect.element(t.start.day).toHaveTextContent(String(calendarDateTime.start.day));
+	await expect.element(t.start.year).toHaveTextContent(String(calendarDateTime.start.year));
 	await expect
 		.element(page.getByTestId("start-hour"))
 		.toHaveTextContent(String(calendarDateTime.start.hour));
@@ -107,19 +79,11 @@ it("should populate segment with value - `CalendarDateTime`", async () => {
 	await expect
 		.element(page.getByTestId("start-second"))
 		.toHaveTextContent(String(calendarDateTime.start.second));
-	await expect
-		.element(t.start.value)
-		.toHaveTextContent(calendarDateTime.start.toString());
+	await expect.element(t.start.value).toHaveTextContent(calendarDateTime.start.toString());
 
-	await expect
-		.element(t.end.month)
-		.toHaveTextContent(String(calendarDateTime.end.month));
-	await expect
-		.element(t.end.day)
-		.toHaveTextContent(String(calendarDateTime.end.day));
-	await expect
-		.element(t.end.year)
-		.toHaveTextContent(String(calendarDateTime.end.year));
+	await expect.element(t.end.month).toHaveTextContent(String(calendarDateTime.end.month));
+	await expect.element(t.end.day).toHaveTextContent(String(calendarDateTime.end.day));
+	await expect.element(t.end.year).toHaveTextContent(String(calendarDateTime.end.year));
 	await expect
 		.element(page.getByTestId("end-hour"))
 		.toHaveTextContent(String(calendarDateTime.end.hour));
@@ -129,9 +93,7 @@ it("should populate segment with value - `CalendarDateTime`", async () => {
 	await expect
 		.element(page.getByTestId("end-second"))
 		.toHaveTextContent(String(calendarDateTime.end.second));
-	await expect
-		.element(t.end.value)
-		.toHaveTextContent(calendarDateTime.end.toString());
+	await expect.element(t.end.value).toHaveTextContent(calendarDateTime.end.toString());
 });
 
 it("should populate segment with value - `ZonedDateTime`", async () => {
@@ -140,15 +102,9 @@ it("should populate segment with value - `ZonedDateTime`", async () => {
 		granularity: "second",
 	});
 
-	await expect
-		.element(t.start.month)
-		.toHaveTextContent(String(calendarDateTime.start.month));
-	await expect
-		.element(t.start.day)
-		.toHaveTextContent(String(calendarDateTime.start.day));
-	await expect
-		.element(t.start.year)
-		.toHaveTextContent(String(calendarDateTime.start.year));
+	await expect.element(t.start.month).toHaveTextContent(String(calendarDateTime.start.month));
+	await expect.element(t.start.day).toHaveTextContent(String(calendarDateTime.start.day));
+	await expect.element(t.start.year).toHaveTextContent(String(calendarDateTime.start.year));
 	await expect
 		.element(page.getByTestId("start-hour"))
 		.toHaveTextContent(String(calendarDateTime.start.hour));
@@ -158,19 +114,11 @@ it("should populate segment with value - `ZonedDateTime`", async () => {
 	await expect
 		.element(page.getByTestId("start-second"))
 		.toHaveTextContent(String(calendarDateTime.start.second));
-	await expect
-		.element(t.start.value)
-		.toHaveTextContent(calendarDateTime.start.toString());
+	await expect.element(t.start.value).toHaveTextContent(calendarDateTime.start.toString());
 
-	await expect
-		.element(t.end.month)
-		.toHaveTextContent(String(calendarDateTime.end.month));
-	await expect
-		.element(t.end.day)
-		.toHaveTextContent(String(calendarDateTime.end.day));
-	await expect
-		.element(t.end.year)
-		.toHaveTextContent(String(calendarDateTime.end.year));
+	await expect.element(t.end.month).toHaveTextContent(String(calendarDateTime.end.month));
+	await expect.element(t.end.day).toHaveTextContent(String(calendarDateTime.end.day));
+	await expect.element(t.end.year).toHaveTextContent(String(calendarDateTime.end.year));
 	await expect
 		.element(page.getByTestId("end-hour"))
 		.toHaveTextContent(String(calendarDateTime.end.hour));
@@ -180,9 +128,7 @@ it("should populate segment with value - `ZonedDateTime`", async () => {
 	await expect
 		.element(page.getByTestId("end-second"))
 		.toHaveTextContent(String(calendarDateTime.end.second));
-	await expect
-		.element(t.end.value)
-		.toHaveTextContent(calendarDateTime.end.toString());
+	await expect.element(t.end.value).toHaveTextContent(calendarDateTime.end.toString());
 });
 
 it("should navigate between the fields", async () => {
@@ -246,19 +192,13 @@ it("should navigate between the fields - right to left", async () => {
 
 it("should respect `bind:value` to the value", async () => {
 	const t = setup({ value: calendarDate });
-	await expect
-		.element(t.start.value)
-		.toHaveTextContent(calendarDate.start.toString());
-	await expect
-		.element(t.end.value)
-		.toHaveTextContent(calendarDate.end.toString());
+	await expect.element(t.start.value).toHaveTextContent(calendarDate.start.toString());
+	await expect.element(t.end.value).toHaveTextContent(calendarDate.end.toString());
 
 	await t.start.month.click();
 	await userEvent.keyboard("2");
 	await expect.element(t.start.value).toHaveTextContent("2022-02-01");
-	await expect
-		.element(t.end.value)
-		.toHaveTextContent(calendarDate.end.toString());
+	await expect.element(t.end.value).toHaveTextContent(calendarDate.end.toString());
 });
 
 it("should render an input for the start and end", async () => {

@@ -1,9 +1,4 @@
-import type { EscapeLayerProps } from "../utilities/escape-layer/types.js";
-import type { DismissibleLayerProps } from "../utilities/dismissible-layer/types.js";
-import type { PresenceLayerProps } from "../utilities/presence-layer/types.js";
-import type { FocusScopeProps } from "../utilities/focus-scope/types.js";
-import type { TextSelectionLayerProps } from "../utilities/text-selection-layer/types.js";
-import type { ScrollLockProps } from "../utilities/scroll-lock/index.js";
+import type { PortalProps } from "$lib/bits/utilities/portal/index.js";
 import type {
 	OnChangeFn,
 	WithChild,
@@ -15,7 +10,12 @@ import type {
 	BitsPrimitiveButtonAttributes,
 	BitsPrimitiveDivAttributes,
 } from "$lib/shared/attributes.js";
-import type { PortalProps } from "$lib/bits/utilities/portal/index.js";
+import type { DismissibleLayerProps } from "../utilities/dismissible-layer/types.js";
+import type { EscapeLayerProps } from "../utilities/escape-layer/types.js";
+import type { FocusScopeProps } from "../utilities/focus-scope/types.js";
+import type { PresenceLayerProps } from "../utilities/presence-layer/types.js";
+import type { ScrollLockProps } from "../utilities/scroll-lock/index.js";
+import type { TextSelectionLayerProps } from "../utilities/text-selection-layer/types.js";
 
 export type DialogRootPropsWithoutHTML = WithChildren<{
 	/**

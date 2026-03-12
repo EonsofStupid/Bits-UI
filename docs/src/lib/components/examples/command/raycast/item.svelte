@@ -1,6 +1,6 @@
 <script lang="ts">
+import type { Command } from "bits-ui";
 import type { Snippet } from "svelte";
-import { Command } from "bits-ui";
 
 let {
 	value,

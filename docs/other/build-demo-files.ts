@@ -1,15 +1,14 @@
 // this is gonna be real ugly until I am satisfied with the output and ready to clean it up
-import { promises as fs, readFileSync } from "fs";
-import { dirname, join, relative } from "path";
-import { fileURLToPath } from "url";
-import docsPackageJson from "../package.json" with { type: "json" };
-import bitsPackageJson from "../../packages/bits-ui/package.json" with {
-	type: "json",
-};
-import { tmpdir } from "os";
-import { promisify } from "util";
+
 import { exec } from "child_process";
 import consola from "consola";
+import { promises as fs, readFileSync } from "fs";
+import { tmpdir } from "os";
+import { dirname, join, relative } from "path";
+import { fileURLToPath } from "url";
+import { promisify } from "util";
+import bitsPackageJson from "../../packages/bits-ui/package.json" with { type: "json" };
+import docsPackageJson from "../package.json" with { type: "json" };
 
 consola.wrapConsole();
 
@@ -45,9 +44,7 @@ type FileMap = Record<string, string>;
 function getCssContent(): string {
 	return readFileSync(resolvePath(config.paths.appCss), "utf-8")
 		.split("\n")
-		.filter(
-			(line) => !line.startsWith("@import") && !line.startsWith("@plugin"),
-		)
+		.filter((line) => !line.startsWith("@import") && !line.startsWith("@plugin"))
 		.join("\n");
 }
 
@@ -86,10 +83,7 @@ const APP_HTML_TEMPLATE = `<!doctype html>
   </html>
   `;
 
-async function collectFiles(
-	currentDir: string,
-	baseDir: string,
-): Promise<FileMap> {
+async function collectFiles(currentDir: string, baseDir: string): Promise<FileMap> {
 	try {
 		const entries = await fs.readdir(currentDir, { withFileTypes: true });
 		const files: FileMap = {};
@@ -98,10 +92,7 @@ async function collectFiles(
 			const fullPath = join(currentDir, entry.name);
 			const relPath = relative(baseDir, fullPath);
 
-			if (
-				config.ignoreList.includes(entry.name) ||
-				config.ignoreList.includes(relPath)
-			) {
+			if (config.ignoreList.includes(entry.name) || config.ignoreList.includes(relPath)) {
 				continue;
 			}
 
@@ -122,7 +113,7 @@ async function collectFiles(
 		return files;
 	} catch (error) {
 		throw new Error(
-			`Failed to collect files from ${currentDir}: ${error instanceof Error ? error.message : String(error)}`,
+			`Failed to collect files from ${currentDir}: ${error instanceof Error ? error.message : String(error)}`
 		);
 	}
 }
@@ -134,7 +125,7 @@ async function writeJsonFile(path: string, data: unknown): Promise<void> {
 		console.info(`Successfully wrote to ${path}`);
 	} catch (error) {
 		throw new Error(
-			`Failed to write to ${path}: ${error instanceof Error ? error.message : String(error)}`,
+			`Failed to write to ${path}: ${error instanceof Error ? error.message : String(error)}`
 		);
 	}
 }
@@ -166,14 +157,14 @@ async function buildDemoRegistry(): Promise<void> {
 			const content = await fs.readFile(join(inputDemosDir, file), "utf-8");
 			components[name] = content.replaceAll(
 				/src="\/([^"]*)"/g,
-				'src="https://bits-ui.com/$1"',
+				'src="https://bits-ui.com/$1"'
 			);
 		}
 
 		await writeJsonFile(outputPath, components);
 	} catch (error) {
 		throw new Error(
-			`Failed to build demo registry: ${error instanceof Error ? error.message : String(error)}`,
+			`Failed to build demo registry: ${error instanceof Error ? error.message : String(error)}`
 		);
 	}
 }
@@ -190,21 +181,15 @@ async function createSvelteProject(): Promise<string> {
 		return projectDir;
 	} catch (error) {
 		throw new Error(
-			`Failed to create Svelte project: ${error instanceof Error ? error.message : String(error)}`,
+			`Failed to create Svelte project: ${error instanceof Error ? error.message : String(error)}`
 		);
 	}
 }
 
 async function getLibFiles(): Promise<FileMap> {
 	return {
-		"src/lib/utils/styles.ts": readFileSync(
-			resolvePath(config.paths.utilsStyles),
-			"utf8",
-		),
-		"src/routes/+layout.svelte": readFileSync(
-			resolvePath(config.paths.demoLayout),
-			"utf8",
-		),
+		"src/lib/utils/styles.ts": readFileSync(resolvePath(config.paths.utilsStyles), "utf8"),
+		"src/routes/+layout.svelte": readFileSync(resolvePath(config.paths.demoLayout), "utf8"),
 	};
 }
 
@@ -236,7 +221,7 @@ async function buildBaseStackBlitzFiles(files: FileMap): Promise<void> {
 		await writeJsonFile(outputPath, outputFiles);
 	} catch (error) {
 		throw new Error(
-			`Failed to build StackBlitz files: ${error instanceof Error ? error.message : String(error)}`,
+			`Failed to build StackBlitz files: ${error instanceof Error ? error.message : String(error)}`
 		);
 	}
 }

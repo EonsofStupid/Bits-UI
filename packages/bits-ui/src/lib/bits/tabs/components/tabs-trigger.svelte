@@ -1,8 +1,8 @@
 <script lang="ts">
 import { boxWith, mergeProps } from "svelte-toolbelt";
-import type { TabsTriggerProps } from "../types.js";
-import { TabsTriggerState } from "../tabs.svelte.js";
 import { createId } from "$lib/internal/create-id.js";
+import { TabsTriggerState } from "../tabs.svelte.js";
+import type { TabsTriggerProps } from "../types.js";
 
 const uid = $props.id();
 
@@ -23,13 +23,11 @@ const triggerState = TabsTriggerState.create({
 	value: boxWith(() => value),
 	ref: boxWith(
 		() => ref,
-		(v) => (ref = v),
+		(v) => (ref = v)
 	),
 });
 
-const mergedProps = $derived(
-	mergeProps(restProps, triggerState.props, { type }),
-);
+const mergedProps = $derived(mergeProps(restProps, triggerState.props, { type }));
 </script>
 
 {#if child}

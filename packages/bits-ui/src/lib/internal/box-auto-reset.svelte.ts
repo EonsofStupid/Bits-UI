@@ -1,4 +1,4 @@
-import { type WritableBox, boxWith } from "svelte-toolbelt";
+import { boxWith, type WritableBox } from "svelte-toolbelt";
 import { noop } from "./noop.js";
 
 type BoxAutoResetOptions<T> = {
@@ -18,10 +18,7 @@ const defaultOptions: Partial<BoxAutoResetOptions<unknown>> = {
  * @param defaultValue The value which will be set.
  * @param afterMs      A zero-or-greater delay in milliseconds.
  */
-export function boxAutoReset<T>(
-	defaultValue: T,
-	options: BoxAutoResetOptions<T>,
-): WritableBox<T> {
+export function boxAutoReset<T>(defaultValue: T, options: BoxAutoResetOptions<T>): WritableBox<T> {
 	const { afterMs, onChange, getWindow } = { ...defaultOptions, ...options };
 
 	let timeout: number | null = null;
@@ -47,6 +44,6 @@ export function boxAutoReset<T>(
 			onChange?.(v);
 			if (timeout) getWindow().clearTimeout(timeout);
 			timeout = resetAfter();
-		},
+		}
 	);
 }

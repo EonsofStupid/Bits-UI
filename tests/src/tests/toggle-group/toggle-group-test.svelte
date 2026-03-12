@@ -1,18 +1,14 @@
 <script lang="ts" module>
-import type {
-	SingleToggleGroupRootProps,
-	WithoutChildrenOrChild,
-} from "bits-ui";
+import type { SingleToggleGroupRootProps, WithoutChildrenOrChild } from "bits-ui";
 import { ToggleGroup } from "bits-ui";
 export type Item = {
 	value: string;
 	disabled?: boolean;
 };
 
-export type SingleToggleGroupTestProps =
-	WithoutChildrenOrChild<SingleToggleGroupRootProps> & {
-		items: Item[];
-	};
+export type SingleToggleGroupTestProps = WithoutChildrenOrChild<SingleToggleGroupRootProps> & {
+	items: Item[];
+};
 </script>
 
 <script lang="ts">

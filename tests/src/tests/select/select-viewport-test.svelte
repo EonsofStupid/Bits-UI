@@ -1,9 +1,5 @@
 <script lang="ts" module>
-import {
-	Select,
-	type SelectSingleRootProps,
-	type WithoutChildren,
-} from "bits-ui";
+import { Select, type SelectSingleRootProps, type WithoutChildren } from "bits-ui";
 import { generateTestId } from "../helpers/select";
 
 export type Item = {
@@ -12,10 +8,9 @@ export type Item = {
 	disabled?: boolean;
 };
 
-export type SelectViewportHighlightTestProps =
-	WithoutChildren<SelectSingleRootProps> & {
-		items: Item[];
-	};
+export type SelectViewportHighlightTestProps = WithoutChildren<SelectSingleRootProps> & {
+	items: Item[];
+};
 </script>
 
 <script lang="ts">

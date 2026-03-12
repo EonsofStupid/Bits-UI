@@ -369,13 +369,7 @@
 	margin: 64px auto;
 	background-image: url("/line.svg");
 	filter: invert(1);
-	mask-image: linear-gradient(
-		90deg,
-		transparent,
-		#fff 4rem,
-		#fff calc(100% - 4rem),
-		transparent
-	);
+	mask-image: linear-gradient(90deg, transparent, #fff 4rem, #fff calc(100% - 4rem), transparent);
 
 	@media (prefers-color-scheme: dark) {
 		filter: unset;
@@ -388,13 +382,7 @@
 	background: var(--gray7);
 	position: absolute;
 	top: 0;
-	mask-image: linear-gradient(
-		90deg,
-		transparent,
-		#fff 4rem,
-		#fff calc(100% - 4rem),
-		transparent
-	);
+	mask-image: linear-gradient(90deg, transparent, #fff 4rem, #fff calc(100% - 4rem), transparent);
 }
 
 .line3 {

@@ -1,9 +1,9 @@
+import type { Orientation } from "$lib/index.js";
 import type { OnChangeFn, WithChild, Without } from "$lib/internal/types.js";
 import type {
 	BitsPrimitiveButtonAttributes,
 	BitsPrimitiveDivAttributes,
 } from "$lib/shared/attributes.js";
-import type { Orientation } from "$lib/index.js";
 
 export type BaseToggleGroupRootProps = {
 	/**
@@ -48,19 +48,14 @@ export type SingleToggleGroupRootPropsWithoutHTML = WithChild<
 export type SingleToggleGroupRootProps = SingleToggleGroupRootPropsWithoutHTML &
 	Without<BitsPrimitiveDivAttributes, SingleToggleGroupRootPropsWithoutHTML>;
 
-export type MultipleToggleGroupRootPropsWithoutHTML =
-	WithChild<BaseToggleGroupRootProps> & {
-		type: "multiple";
-		value?: string[];
-		onValueChange?: OnChangeFn<string[]>;
-	};
+export type MultipleToggleGroupRootPropsWithoutHTML = WithChild<BaseToggleGroupRootProps> & {
+	type: "multiple";
+	value?: string[];
+	onValueChange?: OnChangeFn<string[]>;
+};
 
-export type MultipleToggleGroupRootProps =
-	MultipleToggleGroupRootPropsWithoutHTML &
-		Without<
-			BitsPrimitiveDivAttributes,
-			MultipleToggleGroupRootPropsWithoutHTML
-		>;
+export type MultipleToggleGroupRootProps = MultipleToggleGroupRootPropsWithoutHTML &
+	Without<BitsPrimitiveDivAttributes, MultipleToggleGroupRootPropsWithoutHTML>;
 
 export type ToggleGroupRootPropsWithoutHTML =
 	| SingleToggleGroupRootPropsWithoutHTML

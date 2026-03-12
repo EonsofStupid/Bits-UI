@@ -1,11 +1,10 @@
 <script lang="ts">
-import { type WritableBox, boxWith } from "svelte-toolbelt";
-import { mergeProps } from "svelte-toolbelt";
-import type { ToolbarGroupProps } from "../types.js";
-import { ToolbarGroupState } from "../toolbar.svelte.js";
+import { watch } from "runed";
+import { boxWith, mergeProps, type WritableBox } from "svelte-toolbelt";
 import { createId } from "$lib/internal/create-id.js";
 import { noop } from "$lib/internal/noop.js";
-import { watch } from "runed";
+import { ToolbarGroupState } from "../toolbar.svelte.js";
+import type { ToolbarGroupProps } from "../types.js";
 
 const uid = $props.id();
 
@@ -33,7 +32,7 @@ watch.pre(
 	() => value,
 	() => {
 		handleDefaultValue();
-	},
+	}
 );
 
 const groupState = ToolbarGroupState.create({
@@ -46,11 +45,11 @@ const groupState = ToolbarGroupState.create({
 			value = v;
 			// @ts-expect-error - we know
 			onValueChange(v);
-		},
+		}
 	) as WritableBox<string> | WritableBox<string[]>,
 	ref: boxWith(
 		() => ref,
-		(v) => (ref = v),
+		(v) => (ref = v)
 	),
 });
 

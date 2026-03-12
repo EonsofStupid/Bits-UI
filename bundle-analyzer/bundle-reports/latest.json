@@ -261,14 +261,7 @@
 			"component": "LinkPreview",
 			"size": 112909,
 			"gzipSize": 36248,
-			"exports": [
-				"Arrow",
-				"Root",
-				"Content",
-				"Trigger",
-				"Portal",
-				"ContentStatic"
-			]
+			"exports": ["Arrow", "Root", "Content", "Trigger", "Portal", "ContentStatic"]
 		},
 		{
 			"component": "Menubar",
@@ -334,15 +327,7 @@
 			"component": "Popover",
 			"size": 102234,
 			"gzipSize": 32811,
-			"exports": [
-				"Root",
-				"Arrow",
-				"Content",
-				"ContentStatic",
-				"Trigger",
-				"Close",
-				"Portal"
-			]
+			"exports": ["Root", "Arrow", "Content", "ContentStatic", "Trigger", "Close", "Portal"]
 		},
 		{
 			"component": "Progress",

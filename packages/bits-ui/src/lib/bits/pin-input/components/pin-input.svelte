@@ -1,9 +1,9 @@
 <script lang="ts">
 import { boxWith, mergeProps } from "svelte-toolbelt";
-import type { PinInputRootProps } from "../types.js";
-import { PinInputRootState } from "../pin-input.svelte.js";
 import { createId } from "$lib/internal/create-id.js";
 import { noop } from "$lib/internal/noop.js";
+import { PinInputRootState } from "../pin-input.svelte.js";
+import type { PinInputRootProps } from "../types.js";
 
 const uid = $props.id();
 
@@ -31,7 +31,7 @@ const rootState = PinInputRootState.create({
 	id: boxWith(() => id),
 	ref: boxWith(
 		() => ref,
-		(v) => (ref = v),
+		(v) => (ref = v)
 	),
 	inputId: boxWith(() => inputId),
 	autocomplete: boxWith(() => autocomplete),
@@ -46,19 +46,15 @@ const rootState = PinInputRootState.create({
 		(v) => {
 			value = v;
 			onValueChange(v);
-		},
+		}
 	),
 	pushPasswordManagerStrategy: boxWith(() => pushPasswordManagerStrategy),
 	pasteTransformer: boxWith(() => pasteTransformer),
 });
 
 const mergedInputProps = $derived(mergeProps(restProps, rootState.inputProps));
-const mergedRootProps = $derived(
-	mergeProps(rootState.rootProps, { class: containerClass }),
-);
-const mergedInputWrapperProps = $derived(
-	mergeProps(rootState.inputWrapperProps, {}),
-);
+const mergedRootProps = $derived(mergeProps(rootState.rootProps, { class: containerClass }));
+const mergedInputWrapperProps = $derived(mergeProps(rootState.inputWrapperProps, {}));
 </script>
 
 <div {...mergedRootProps}>

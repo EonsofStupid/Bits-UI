@@ -1,7 +1,7 @@
 <script lang="ts">
 import { Command, Popover } from "bits-ui";
-import SubItem from "./sub-item.svelte";
 import { FinderIcon, StarIcon, WindowIcon } from "./icons/index.js";
+import SubItem from "./sub-item.svelte";
 
 type Props = {
 	listEl: HTMLElement | null;

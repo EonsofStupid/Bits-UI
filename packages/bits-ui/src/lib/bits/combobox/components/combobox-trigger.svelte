@@ -1,8 +1,8 @@
 <script lang="ts">
 import { boxWith, mergeProps } from "svelte-toolbelt";
-import type { ComboboxTriggerProps } from "../types.js";
-import { useId } from "$lib/internal/use-id.js";
 import { SelectComboTriggerState } from "$lib/bits/select/select.svelte.js";
+import { useId } from "$lib/internal/use-id.js";
+import type { ComboboxTriggerProps } from "../types.js";
 
 let {
 	id = useId(),
@@ -17,13 +17,11 @@ const triggerState = SelectComboTriggerState.create({
 	id: boxWith(() => id),
 	ref: boxWith(
 		() => ref,
-		(v) => (ref = v),
+		(v) => (ref = v)
 	),
 });
 
-const mergedProps = $derived(
-	mergeProps(restProps, triggerState.props, { type }),
-);
+const mergedProps = $derived(mergeProps(restProps, triggerState.props, { type }));
 </script>
 
 {#if child}

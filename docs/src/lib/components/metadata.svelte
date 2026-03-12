@@ -1,9 +1,6 @@
 <script lang="ts">
 import { page } from "$app/state";
-import {
-	useSiteConfig,
-	type SiteConfig,
-} from "$lib/utils/use-site-config.svelte.js";
+import { type SiteConfig, useSiteConfig } from "$lib/utils/use-site-config.svelte.js";
 
 const siteConfig = useSiteConfig();
 
@@ -22,7 +19,7 @@ let {
 const trueTitle = $derived(
 	title === siteConfig.current.name
 		? siteConfig.current.name
-		: `${title} - ${siteConfig.current.name}`,
+		: `${title} - ${siteConfig.current.name}`
 );
 </script>
 

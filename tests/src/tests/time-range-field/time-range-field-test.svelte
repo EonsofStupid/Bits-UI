@@ -2,17 +2,18 @@
 import type { Time } from "@internationalized/date";
 import {
 	TimeRangeField,
-	type TimeValue,
 	type TimeRangeFieldInputProps,
 	type TimeRangeFieldRootProps,
+	type TimeValue,
 	type WithoutChildrenOrChild,
 } from "bits-ui";
 
-export type TimeRangeFieldTestProps<T extends TimeValue = Time> =
-	WithoutChildrenOrChild<TimeRangeFieldRootProps<T>> & {
-		startProps?: Omit<TimeRangeFieldInputProps, "type">;
-		endProps?: Omit<TimeRangeFieldInputProps, "type">;
-	};
+export type TimeRangeFieldTestProps<T extends TimeValue = Time> = WithoutChildrenOrChild<
+	TimeRangeFieldRootProps<T>
+> & {
+	startProps?: Omit<TimeRangeFieldInputProps, "type">;
+	endProps?: Omit<TimeRangeFieldInputProps, "type">;
+};
 
 type T = unknown;
 </script>

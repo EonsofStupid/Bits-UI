@@ -1,7 +1,7 @@
 <script lang="ts">
-import { RangeCalendar } from "bits-ui";
 import type { CalendarDate } from "@internationalized/date";
 import type { DateRange } from "bits-ui";
+import { RangeCalendar } from "bits-ui";
 
 let {
 	placeholder,
