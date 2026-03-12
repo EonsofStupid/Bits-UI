@@ -1,0 +1,135 @@
+#9 - ColdLight Style Dictionary v5 Foundation
+What & Why
+Build the ColdLight token pipeline as a two-layer system: a human/DevTool-facing config (coldlight/config.mjs) that declares what ColdLight is attuned to (framework + DS adapter), and a Style Dictionary v5 runner (styledictionary/sd.config.mjs) that consumes that config and produces per-boundary .css and .d.ts files. This is the engine — nothing else. Source tokens are authored in hex (colors) and px (sizes); SD v5's built-in transform pipeline (using bundled culori for OKLCH, built-in size/rem for rem conversion) handles all output format conversion. No manual color math. No hand-rolled unit conversion.
+
+Done looks like
+scripts/dev/build/design/coldlight/coldlight/config.mjs exports a typed default config that a DevTool can read, mutate, and drive at runtime — analogous to Panda CSS's config: declares adapter, framework, namespace, boundaries, colorFormat, sizeUnit, tokens.source, and output paths with sensible defaults
+scripts/dev/build/design/coldlight/styledictionary/sd.config.mjs imports coldlight/config.mjs, constructs a full SD v5 StyleDictionary instance from it, and calls buildAllPlatforms()
+Running node scripts/dev/build/design/coldlight/styledictionary/sd.config.mjs produces zero errors and writes all output files
+src/lib/design/tokens/ contains one .css and one .d.ts per token boundary, named coldlight.{boundary}.css / coldlight.{boundary}.d.ts
+src/lib/design/tokens/coldlight.tw.js exports a valid Tailwind v4 theme.extend object wiring every token to its var(--coldlight-*) reference
+CSS custom properties use oklch(...) values (via culori, bundled with SD v5) — not hex
+Size custom properties use rem values — not px
+.d.ts files declare a ColdLight.{Boundary} namespace with one typed const per token
+The 4-segment naming law (boundary.context.property.variant) is enforced as a registered SD v5 transform that throws a build error on violation — nothing slips through silently
+package.json scripts gains "tokens": "node scripts/dev/build/design/coldlight/styledictionary/sd.config.mjs" — the old style-dictionary build --config style-dictionary/config.json entry is replaced
+Out of scope
+Semantic / alias tokens (phase 2)
+Dark-mode / theme switching (phase 2)
+Any /ui styled components (separate task)
+Component-level or component-scoped tokens
+npm publishing or workspace setup
+Any Svelte, SvelteKit, or melt-ui wiring (adapter key exists in config but has no runtime effect yet — that is the DevTool's domain)
+Exact file tree to produce
+scripts/
+  dev/
+    build/
+      design/
+        coldlight/
+          coldlight/
+            config.mjs          ← ColdLight driver config (user/DevTool-facing)
+          styledictionary/
+            sd.config.mjs       ← SD v5 runner (imports coldlight config)
+            transforms/
+              color.oklch.mjs   ← registers custom 'color/oklch' transform via culori
+              naming.law.mjs    ← registers 'name/coldlight' transform enforcing 4-segment law
+            formatters/
+              css.boundary.mjs  ← registers 'coldlight/css' formatter (per-boundary :root block)
+              dts.boundary.mjs  ← registers 'coldlight/dts' formatter (per-boundary d.ts)
+              tw.preset.mjs     ← registers 'coldlight/tw' formatter (tailwind preset)
+style-dictionary/
+  tokens/
+    color/
+      brand.json                ← hex palette, DTCG $value/$type/$description
+      neutral.json              ← hex neutrals
+    surface/
+      base.json                 ← hex surface layers (page, overlay, sunken, raised)
+    border/
+      radius.json               ← px radius scale
+      width.json                ← px border-width scale
+    spacing/
+      scale.json                ← px t-shirt scale (2xs → 6xl)
+    typography/
+      family.json               ← font family strings
+      scale.json                ← px font-size, px line-height, letter-spacing (unitless ratio)
+    shadow/
+      base.json                 ← raw box-shadow values (elevation-1 → elevation-5)
+    motion/
+      duration.json             ← ms duration scale
+      easing.json               ← cubic-bezier easing curve strings
+src/
+  lib/
+    design/
+      tokens/
+        coldlight.color.css
+        coldlight.color.d.ts
+        coldlight.surface.css
+        coldlight.surface.d.ts
+        coldlight.border.css
+        coldlight.border.d.ts
+        coldlight.spacing.css
+        coldlight.spacing.d.ts
+        coldlight.typography.css
+        coldlight.typography.d.ts
+        coldlight.shadow.css
+        coldlight.shadow.d.ts
+        coldlight.motion.css
+        coldlight.motion.d.ts
+        coldlight.tw.js
+Tasks
+1. Delete legacy SD artifacts
+Remove style-dictionary/config.json and style-dictionary/tokens/base.json. They are non-DTCG and structurally incompatible with what is being built.
+
+2. Author ColdLight driver config (coldlight/config.mjs)
+Write the user/DevTool-facing config. Model it after Panda CSS's config shape:
+
+adapter field: 'react-spectrum' | 'melt-ui' — declares which DS primitive layer supplies accessible components (keyboard/aria). No runtime effect in this task; surfaced so DevTool can read it and the executor agent cannot drift on it.
+framework field: 'react' | 'svelte'
+namespace field: 'coldlight' (the only scope; controls all CSS custom property prefixes and d.ts namespace names)
+boundaries array: ['color', 'surface', 'border', 'spacing', 'typography', 'shadow', 'motion']
+colorFormat field: 'oklch' — instructs the runner to register the culori-based transform
+sizeUnit field: 'rem' — instructs the runner to use SD v5's built-in size/rem transform
+tokens.source array: glob patterns pointing at style-dictionary/tokens/**/*.json
+output.css: 'src/lib/design/tokens'
+output.types: 'src/lib/design/tokens'
+output.tailwind: 'src/lib/design/tokens/coldlight.tw.js'
+meta.name, meta.version fields for DevTool identification Export as export default { ... } — no type imports in the file itself (plain JS, JSDoc for IDE support). A companion config.d.mts declares the ColdLightConfig interface.
+3. Author DTCG token files by boundary
+Create every token file listed in the file tree above. Rules:
+
+Format: DTCG v4 — every leaf token has $value, $type, and $description
+Colors: $type: "color", $value is hex (e.g. "#1a1a2e") — SD transforms to OKLCH on build
+Sizes: $type: "dimension", $value is px string (e.g. "16px") — SD transforms to rem on build
+Duration: $type: "duration", $value is ms string (e.g. "200ms")
+Font family: $type: "fontFamily", $value is array of strings
+Token path must be exactly 4 segments: {boundary}.{context}.{property}.{variant}. Examples: color.brand.blue.500, spacing.layout.gap.md, typography.body.size.sm. The naming law transform (step 5) enforces this at build time.
+Do not use nested JSON objects deeper than 4 levels.
+4. Register the color/oklch transform (transforms/color.oklch.mjs)
+Use culori (imported as import { formatCss, oklch, parse } from 'culori' — bundled with SD v5, do not install separately). Register via StyleDictionary.registerTransform({ name: 'color/oklch', type: 'value', filter: token => token.$type === 'color', transform: token => formatCss(oklch(parse(token.$value))) }). This is what converts hex source values to oklch(...) in CSS output. Do not use any other color library.
+
+5. Register the naming law transform (transforms/naming.law.mjs)
+Register via StyleDictionary.registerTransform({ name: 'name/coldlight', type: 'name', transform: (token, options) => { const path = token.path; if (path.length !== 4) throw new Error(\ColdLight naming law: token "${path.join('.')}" must have exactly 4 path segments (boundary.context.property.variant), got ${path.length}`); return [options.prefix, ...path].filter(Boolean).join('-'); } }). This fires on every token and produces CSS custom property names like--coldlight-color-brand-blue-500`.
+
+6. Register the CSS formatter (formatters/css.boundary.mjs)
+coldlight/css formatter: iterates dictionary.allTokens, emits a :root { } block. Each line: --${token.name}: ${token.$value};. File header comment names the boundary and the namespace. No other content.
+
+7. Register the TypeScript declaration formatter (formatters/dts.boundary.mjs)
+coldlight/dts formatter: emits a declare namespace ColdLight { namespace {Boundary} { const {TOKEN_NAME}: '{value}'; ... } } block. Token name is the last two path segments joined by _ (e.g. color.brand.blue.500 → blue_500 inside ColdLight.Color.Brand). Generates a nested namespace per context group within each boundary.
+
+8. Register the Tailwind preset formatter (formatters/tw.preset.mjs)
+coldlight/tw formatter: emits a module.exports = { theme: { extend: { colors: { ... }, spacing: { ... }, ... } } } preset object. Each token maps to its CSS variable reference: { 'brand-blue-500': 'var(--coldlight-color-brand-blue-500)' }. Groups by boundary into the appropriate Tailwind theme.extend key.
+
+9. Wire SD v5 runner (styledictionary/sd.config.mjs)
+Import all registered transforms and formatters (side effects only — registration happens on import). Import coldlightConfig from ../coldlight/config.mjs. For each boundary in coldlightConfig.boundaries, create a separate SD platform config with:
+
+source: coldlightConfig.tokens.source
+filter: token => token.path[0] === boundary
+transforms: ['name/coldlight', 'color/oklch', 'size/rem'] (SD v5 built-in size/rem handles px→rem; the other two are registered above)
+Two files: one using coldlight/css formatter → coldlight.{boundary}.css, one using coldlight/dts formatter → coldlight.{boundary}.d.ts A final platform (no filter) uses coldlight/tw formatter → coldlight.tw.js. Instantiate once: const sd = new StyleDictionary(config); await sd.buildAllPlatforms();
+10. Update package.json scripts
+Replace "tokens": "style-dictionary build --config style-dictionary/config.json" with "tokens": "node scripts/dev/build/design/coldlight/styledictionary/sd.config.mjs".
+
+Relevant files
+style-dictionary/config.json
+style-dictionary/tokens/base.json
+package.json
