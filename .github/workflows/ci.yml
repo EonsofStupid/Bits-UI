@@ -12,6 +12,10 @@ on:
             - ".vscode/**"
             - CHANGELOG.md
     pull_request:
+        branches:
+            - main
+            - next
+            - coldlight
         paths-ignore:
             - ".changeset/**"
             - README.md
@@ -72,7 +76,7 @@ jobs:
               run: pnpm install --frozen-lockfile
 
             - name: Install Playwright browsers
-              run: pnpm exec playwright install --with-deps chromium
+              run: pnpm exec playwright install --with-deps chromium webkit
 
             - name: Build bits-ui
               run: pnpm --filter bits-ui build

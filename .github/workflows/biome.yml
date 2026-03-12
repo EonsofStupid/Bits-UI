@@ -12,6 +12,10 @@ on:
             - ".vscode/**"
             - "CHANGELOG.md"
     pull_request:
+        branches:
+            - main
+            - next
+            - coldlight
         paths-ignore:
             - ".changeset/**"
             - "README.md"
