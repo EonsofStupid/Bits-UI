@@ -37,6 +37,10 @@ externalPort = 80
 localPort = 5001
 externalPort = 3000
 
+[[ports]]
+localPort = 63315
+externalPort = 3002
+
 [deployment]
 deploymentTarget = "autoscale"
 run = ["bash", "-c", "cd docs && node .svelte-kit/cloudflare/index.js"]
