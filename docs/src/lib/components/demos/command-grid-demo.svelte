@@ -1,144 +1,144 @@
 <script lang="ts">
-	import { Command } from "bits-ui";
-	import Sticker from "phosphor-svelte/lib/Sticker";
-	import Smiley from "phosphor-svelte/lib/Smiley";
-	import ArrowLeft from "phosphor-svelte/lib/ArrowLeft";
-	import { Button } from "../ui/button/index.js";
-	import { cn } from "$lib/utils/index.js";
+import { Command } from "bits-ui";
+import Sticker from "phosphor-svelte/lib/Sticker";
+import Smiley from "phosphor-svelte/lib/Smiley";
+import ArrowLeft from "phosphor-svelte/lib/ArrowLeft";
+import { Button } from "../ui/button/index.js";
+import { cn } from "$lib/utils/index.js";
 
-	type Item = {
-		icon?: typeof Sticker;
-		content: string;
-		keywords: string[];
-		disabled?: boolean;
-		action?: () => void;
-	};
+type Item = {
+	icon?: typeof Sticker;
+	content: string;
+	keywords: string[];
+	disabled?: boolean;
+	action?: () => void;
+};
 
-	type Group = {
-		name: string;
-		items: Item[];
-	};
+type Group = {
+	name: string;
+	items: Item[];
+};
 
-	type View = {
-		columns: number | undefined;
-		empty: string;
-		placeholder: string;
-		groups: Group[];
-	};
+type View = {
+	columns: number | undefined;
+	empty: string;
+	placeholder: string;
+	groups: Group[];
+};
 
-	const defaultView: View = {
-		columns: undefined,
-		placeholder: "Search for something...",
-		empty: "No results found.",
-		groups: [
-			{
-				name: "Suggestions",
-				items: [
-					{
-						content: "Search Emojis and Symbols",
-						keywords: ["emoji", "symbols"],
-						icon: Smiley,
-						action: () => {
-							search = "";
-							views.push(emojiView);
-						},
+const defaultView: View = {
+	columns: undefined,
+	placeholder: "Search for something...",
+	empty: "No results found.",
+	groups: [
+		{
+			name: "Suggestions",
+			items: [
+				{
+					content: "Search Emojis and Symbols",
+					keywords: ["emoji", "symbols"],
+					icon: Smiley,
+					action: () => {
+						search = "";
+						views.push(emojiView);
 					},
-				],
-			},
-		],
-	};
+				},
+			],
+		},
+	],
+};
 
-	const emojiView: View = {
-		columns: 8,
-		placeholder: "Search Emoji and Symbols...",
-		empty: "No emojis or symbols found.",
-		groups: [
-			{
-				name: "Pinned",
-				items: [
-					{ content: "🤷‍♂️", keywords: ["shrug"] },
-					{ content: "✅", keywords: ["check", "mark"] },
-					{ content: "🎉", keywords: ["party"] },
-				],
-			},
-			{
-				name: "Frequently Used",
-				items: [
-					{ content: "¢", keywords: ["cent", "currency"] },
-					{ content: "📦", keywords: ["box", "cardboard", "shipping"] },
-					{ content: "🛜", keywords: ["wifi"] },
-					{ content: "🔥", keywords: ["fire", "hot"] },
-					{ content: "⭐", keywords: ["star", "favorite"] },
-					{ content: "👍", keywords: ["thumbs up", "like", "approve"] },
-					{ content: "🚀", keywords: ["rocket", "launch"] },
-					{ content: "👏", keywords: ["clap", "applause"] },
-				],
-			},
-			{
-				name: "All Emojis",
-				items: [
-					{ content: "😊", keywords: ["smile", "happy", "face"] },
-					{ content: "❤️", keywords: ["heart", "love"] },
-					{ content: "👀", keywords: ["eyes", "look", "see"] },
-					{ content: "💡", keywords: ["lightbulb", "idea"] },
-					{ content: "☕", keywords: ["coffee", "drink", "break"] },
-					{ content: "💻", keywords: ["computer", "laptop", "work"] },
-					{ content: "✏️", keywords: ["pencil", "edit", "write"] },
-					{ content: "📅", keywords: ["calendar", "date", "schedule"] },
-					{ content: "📱", keywords: ["phone", "call", "mobile"] },
-					{ content: "🎵", keywords: ["music", "note", "song"] },
-					{ content: "📷", keywords: ["camera", "photo", "picture"] },
-					{ content: "🎁", keywords: ["gift", "present", "surprise"] },
-					{ content: "🌙", keywords: ["moon", "night", "sleep"] },
-					{ content: "☀️", keywords: ["sun", "day", "weather"] },
-					{ content: "🌈", keywords: ["rainbow", "color", "pride"] },
-					{ content: "🌍", keywords: ["earth", "world", "globe"] },
-					{ content: "🌳", keywords: ["tree", "nature", "plant"] },
-					{ content: "🌸", keywords: ["flower", "nature", "spring"] },
-					{ content: "🎆", keywords: ["fireworks", "celebration", "festival"] },
-					{ content: "🎈", keywords: ["balloon", "party", "birthday"] },
-					{ content: "🍪", keywords: ["cookie", "snack", "dessert"] },
-					{ content: "🍕", keywords: ["pizza", "food", "slice"] },
-					{ content: "🍦", keywords: ["ice cream", "dessert", "sweet"] },
-					{ content: "🍎", keywords: ["apple", "fruit", "food"] },
-					{ content: "🍌", keywords: ["banana", "fruit", "yellow"] },
-					{ content: "🚗", keywords: ["car", "vehicle", "drive"] },
-					{ content: "🚲", keywords: ["bicycle", "bike", "ride"] },
-					{ content: "🚆", keywords: ["train", "travel", "transport"] },
-					{ content: "✈️", keywords: ["airplane", "flight", "travel"] },
-					{ content: "⚓", keywords: ["anchor", "boat", "sea"] },
-					{ content: "🏅", keywords: ["medal", "award", "winner"] },
-					{ content: "⚽", keywords: ["soccer", "football", "sport"] },
-					{ content: "🏀", keywords: ["basketball", "sport", "game"] },
-					{ content: "🏆", keywords: ["trophy", "award", "win"] },
-					{ content: "📚", keywords: ["book", "read", "study"] },
-					{ content: "✉️", keywords: ["mail", "envelope", "letter"] },
-					{ content: "🤩", keywords: ["star eyes", "excited", "wow"] },
-					{ content: "🤔", keywords: ["thinking", "hmm", "question"] },
-					{ content: "😴", keywords: ["sleepy", "tired", "zzz"] },
-					{ content: "😢", keywords: ["cry", "sad", "tears"] },
-					{ content: "😂", keywords: ["laugh", "joy", "funny"] },
-					{ content: "😉", keywords: ["wink", "flirt", "smile"] },
-					{ content: "🤓", keywords: ["nerd", "geek", "glasses"] },
-					{ content: "🤖", keywords: ["robot", "ai", "machine"] },
-					{ content: "👻", keywords: ["ghost", "spooky", "halloween"] },
-					{ content: "👽", keywords: ["alien", "space", "ufo"] },
-				],
-			},
-		],
-	};
+const emojiView: View = {
+	columns: 8,
+	placeholder: "Search Emoji and Symbols...",
+	empty: "No emojis or symbols found.",
+	groups: [
+		{
+			name: "Pinned",
+			items: [
+				{ content: "🤷‍♂️", keywords: ["shrug"] },
+				{ content: "✅", keywords: ["check", "mark"] },
+				{ content: "🎉", keywords: ["party"] },
+			],
+		},
+		{
+			name: "Frequently Used",
+			items: [
+				{ content: "¢", keywords: ["cent", "currency"] },
+				{ content: "📦", keywords: ["box", "cardboard", "shipping"] },
+				{ content: "🛜", keywords: ["wifi"] },
+				{ content: "🔥", keywords: ["fire", "hot"] },
+				{ content: "⭐", keywords: ["star", "favorite"] },
+				{ content: "👍", keywords: ["thumbs up", "like", "approve"] },
+				{ content: "🚀", keywords: ["rocket", "launch"] },
+				{ content: "👏", keywords: ["clap", "applause"] },
+			],
+		},
+		{
+			name: "All Emojis",
+			items: [
+				{ content: "😊", keywords: ["smile", "happy", "face"] },
+				{ content: "❤️", keywords: ["heart", "love"] },
+				{ content: "👀", keywords: ["eyes", "look", "see"] },
+				{ content: "💡", keywords: ["lightbulb", "idea"] },
+				{ content: "☕", keywords: ["coffee", "drink", "break"] },
+				{ content: "💻", keywords: ["computer", "laptop", "work"] },
+				{ content: "✏️", keywords: ["pencil", "edit", "write"] },
+				{ content: "📅", keywords: ["calendar", "date", "schedule"] },
+				{ content: "📱", keywords: ["phone", "call", "mobile"] },
+				{ content: "🎵", keywords: ["music", "note", "song"] },
+				{ content: "📷", keywords: ["camera", "photo", "picture"] },
+				{ content: "🎁", keywords: ["gift", "present", "surprise"] },
+				{ content: "🌙", keywords: ["moon", "night", "sleep"] },
+				{ content: "☀️", keywords: ["sun", "day", "weather"] },
+				{ content: "🌈", keywords: ["rainbow", "color", "pride"] },
+				{ content: "🌍", keywords: ["earth", "world", "globe"] },
+				{ content: "🌳", keywords: ["tree", "nature", "plant"] },
+				{ content: "🌸", keywords: ["flower", "nature", "spring"] },
+				{ content: "🎆", keywords: ["fireworks", "celebration", "festival"] },
+				{ content: "🎈", keywords: ["balloon", "party", "birthday"] },
+				{ content: "🍪", keywords: ["cookie", "snack", "dessert"] },
+				{ content: "🍕", keywords: ["pizza", "food", "slice"] },
+				{ content: "🍦", keywords: ["ice cream", "dessert", "sweet"] },
+				{ content: "🍎", keywords: ["apple", "fruit", "food"] },
+				{ content: "🍌", keywords: ["banana", "fruit", "yellow"] },
+				{ content: "🚗", keywords: ["car", "vehicle", "drive"] },
+				{ content: "🚲", keywords: ["bicycle", "bike", "ride"] },
+				{ content: "🚆", keywords: ["train", "travel", "transport"] },
+				{ content: "✈️", keywords: ["airplane", "flight", "travel"] },
+				{ content: "⚓", keywords: ["anchor", "boat", "sea"] },
+				{ content: "🏅", keywords: ["medal", "award", "winner"] },
+				{ content: "⚽", keywords: ["soccer", "football", "sport"] },
+				{ content: "🏀", keywords: ["basketball", "sport", "game"] },
+				{ content: "🏆", keywords: ["trophy", "award", "win"] },
+				{ content: "📚", keywords: ["book", "read", "study"] },
+				{ content: "✉️", keywords: ["mail", "envelope", "letter"] },
+				{ content: "🤩", keywords: ["star eyes", "excited", "wow"] },
+				{ content: "🤔", keywords: ["thinking", "hmm", "question"] },
+				{ content: "😴", keywords: ["sleepy", "tired", "zzz"] },
+				{ content: "😢", keywords: ["cry", "sad", "tears"] },
+				{ content: "😂", keywords: ["laugh", "joy", "funny"] },
+				{ content: "😉", keywords: ["wink", "flirt", "smile"] },
+				{ content: "🤓", keywords: ["nerd", "geek", "glasses"] },
+				{ content: "🤖", keywords: ["robot", "ai", "machine"] },
+				{ content: "👻", keywords: ["ghost", "spooky", "halloween"] },
+				{ content: "👽", keywords: ["alien", "space", "ufo"] },
+			],
+		},
+	],
+};
 
-	const views: View[] = $state([defaultView, emojiView]);
+const views: View[] = $state([defaultView, emojiView]);
 
-	const currentView = $derived(views[views.length - 1]);
+const currentView = $derived(views[views.length - 1]);
 
-	let search = $state("");
+let search = $state("");
 
-	function popView() {
-		if (views.length > 1) {
-			views.pop();
-		}
+function popView() {
+	if (views.length > 1) {
+		views.pop();
 	}
+}
 </script>
 
 <Command.Root

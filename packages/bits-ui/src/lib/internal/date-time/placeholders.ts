@@ -1,19 +1,90 @@
 // prettier-ignore
 const supportedLocales = [
-	'ach','af','am','an','ar','ast','az','be','bg','bn','br','bs',
-	'ca','cak','ckb','cs','cy','da','de','dsb','el','en','eo','es',
-	'et','eu','fa','ff','fi','fr','fy','ga','gd','gl','he','hr',
-	'hsb','hu','ia','id','it','ja','ka','kk','kn','ko','lb','lo',
-	'lt','lv','meh','ml','ms','nl','nn','no','oc','pl','pt','rm',
-	'ro','ru','sc','scn','sk','sl','sr','sv','szl','tg','th','tr',
-	'uk','zh-CN','zh-TW',
+	"ach",
+	"af",
+	"am",
+	"an",
+	"ar",
+	"ast",
+	"az",
+	"be",
+	"bg",
+	"bn",
+	"br",
+	"bs",
+	"ca",
+	"cak",
+	"ckb",
+	"cs",
+	"cy",
+	"da",
+	"de",
+	"dsb",
+	"el",
+	"en",
+	"eo",
+	"es",
+	"et",
+	"eu",
+	"fa",
+	"ff",
+	"fi",
+	"fr",
+	"fy",
+	"ga",
+	"gd",
+	"gl",
+	"he",
+	"hr",
+	"hsb",
+	"hu",
+	"ia",
+	"id",
+	"it",
+	"ja",
+	"ka",
+	"kk",
+	"kn",
+	"ko",
+	"lb",
+	"lo",
+	"lt",
+	"lv",
+	"meh",
+	"ml",
+	"ms",
+	"nl",
+	"nn",
+	"no",
+	"oc",
+	"pl",
+	"pt",
+	"rm",
+	"ro",
+	"ru",
+	"sc",
+	"scn",
+	"sk",
+	"sl",
+	"sr",
+	"sv",
+	"szl",
+	"tg",
+	"th",
+	"tr",
+	"uk",
+	"zh-CN",
+	"zh-TW",
 ] as const;
 
 const placeholderFields = ["year", "month", "day"] as const;
 
 type SupportedLocale = (typeof supportedLocales)[number];
 type PlaceholderField = (typeof placeholderFields)[number];
-export type PlaceholderMap = Record<SupportedLocale, Record<PlaceholderField, string>>;
+export type PlaceholderMap = Record<
+	SupportedLocale,
+	Record<PlaceholderField, string>
+>;
 
 const placeholders: PlaceholderMap = {
 	ach: { year: "mwaka", month: "dwe", day: "nino" },
@@ -106,12 +177,20 @@ function getPlaceholderObj(locale: SupportedLocale | (string & {})) {
 	}
 }
 
-type Field = "era" | "year" | "month" | "day" | "hour" | "minute" | "second" | "dayPeriod";
+type Field =
+	| "era"
+	| "year"
+	| "month"
+	| "day"
+	| "hour"
+	| "minute"
+	| "second"
+	| "dayPeriod";
 
 export function getPlaceholder(
 	field: Field,
 	value: string,
-	locale: SupportedLocale | (string & {})
+	locale: SupportedLocale | (string & {}),
 ) {
 	if (isPlaceholderField(field)) return getPlaceholderObj(locale)[field];
 	if (isDefaultField(field)) return value;

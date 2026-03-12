@@ -1,14 +1,24 @@
-import { DOMContext, type Box, type ReadableBox, type ReadableBoxedValues } from "svelte-toolbelt";
+import {
+	DOMContext,
+	type Box,
+	type ReadableBox,
+	type ReadableBoxedValues,
+} from "svelte-toolbelt";
 import { watch } from "runed";
 import { on } from "svelte/events";
 import type { EscapeBehaviorType, EscapeLayerImplProps } from "./types.js";
 import { kbd } from "$lib/internal/kbd.js";
 import { noop } from "$lib/internal/noop.js";
 
-globalThis.bitsEscapeLayers ??= new Map<EscapeLayerState, ReadableBox<EscapeBehaviorType>>();
+globalThis.bitsEscapeLayers ??= new Map<
+	EscapeLayerState,
+	ReadableBox<EscapeBehaviorType>
+>();
 
 interface EscapeLayerStateOpts
-	extends ReadableBoxedValues<Required<Omit<EscapeLayerImplProps, "children" | "ref">>> {
+	extends ReadableBoxedValues<
+		Required<Omit<EscapeLayerImplProps, "children" | "ref">>
+	> {
 	ref: Box<HTMLElement | null>;
 }
 
@@ -36,12 +46,14 @@ export class EscapeLayerState {
 					unsubEvents();
 					globalThis.bitsEscapeLayers.delete(this);
 				};
-			}
+			},
 		);
 	}
 
 	#addEventListener = () => {
-		return on(this.domContext.getDocument(), "keydown", this.#onkeydown, { passive: false });
+		return on(this.domContext.getDocument(), "keydown", this.#onkeydown, {
+			passive: false,
+		});
 	};
 
 	#onkeydown = (e: KeyboardEvent) => {
@@ -49,7 +61,8 @@ export class EscapeLayerState {
 		const clonedEvent = new KeyboardEvent(e.type, e);
 		e.preventDefault();
 		const behaviorType = this.opts.escapeKeydownBehavior.current;
-		if (behaviorType !== "close" && behaviorType !== "defer-otherwise-close") return;
+		if (behaviorType !== "close" && behaviorType !== "defer-otherwise-close")
+			return;
 		this.opts.onEscapeKeydown.current(clonedEvent);
 	};
 }
@@ -63,7 +76,8 @@ function isResponsibleEscapeLayer(instance: EscapeLayerState) {
 	 * the first layer is the responsible one.
 	 */
 	const topMostLayer = layersArr.findLast(
-		([_, { current: behaviorType }]) => behaviorType === "close" || behaviorType === "ignore"
+		([_, { current: behaviorType }]) =>
+			behaviorType === "close" || behaviorType === "ignore",
 	);
 	if (topMostLayer) return topMostLayer[0] === instance;
 	const [firstLayerNode] = layersArr[0]!;

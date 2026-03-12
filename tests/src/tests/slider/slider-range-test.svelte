@@ -1,7 +1,7 @@
 <script lang="ts" module>
-	import { Slider, type SliderMultipleRootProps } from "bits-ui";
+import { Slider, type SliderMultipleRootProps } from "bits-ui";
 
-	export type SliderMultiRangeTestProps = Omit<SliderMultipleRootProps, "type">;
+export type SliderMultiRangeTestProps = Omit<SliderMultipleRootProps, "type">;
 </script>
 
 <script lang="ts">

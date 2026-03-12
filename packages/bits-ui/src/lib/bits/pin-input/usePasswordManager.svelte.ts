@@ -1,4 +1,9 @@
-import { getWindow, type DOMContext, type ReadableBox, type WritableBox } from "svelte-toolbelt";
+import {
+	getWindow,
+	type DOMContext,
+	type ReadableBox,
+	type WritableBox,
+} from "svelte-toolbelt";
 import type { PinInputRootPropsWithoutHTML } from "./types.js";
 
 const PWM_BADGE_MARGIN_RIGHT = 18;
@@ -37,7 +42,8 @@ export function usePasswordManagerBadge({
 		const strategy = pushPasswordManagerStrategy.current;
 		if (strategy === "none") return false;
 
-		const increaseWidthCase = strategy === "increase-width" && hasPwmBadge && hasPwmBadgeSpace;
+		const increaseWidthCase =
+			strategy === "increase-width" && hasPwmBadge && hasPwmBadgeSpace;
 
 		return increaseWidthCase;
 	}
@@ -45,21 +51,31 @@ export function usePasswordManagerBadge({
 	function trackPwmBadge() {
 		const container = containerRef.current;
 		const input = inputRef.current;
-		if (!container || !input || done || pushPasswordManagerStrategy.current === "none") return;
+		if (
+			!container ||
+			!input ||
+			done ||
+			pushPasswordManagerStrategy.current === "none"
+		)
+			return;
 
 		const elementToCompare = container;
 
 		// get the top right-center point of the container
 		// that is usually where most password managers place their badge
 		const rightCornerX =
-			elementToCompare.getBoundingClientRect().left + elementToCompare.offsetWidth;
+			elementToCompare.getBoundingClientRect().left +
+			elementToCompare.offsetWidth;
 		const centeredY =
-			elementToCompare.getBoundingClientRect().top + elementToCompare.offsetHeight / 2;
+			elementToCompare.getBoundingClientRect().top +
+			elementToCompare.offsetHeight / 2;
 		const x = rightCornerX - PWM_BADGE_MARGIN_RIGHT;
 		const y = centeredY;
 
 		// do an extra search to check for all the password manager badges
-		const passwordManagerStrategy = domContext.querySelectorAll(PASSWORD_MANAGER_SELECTORS);
+		const passwordManagerStrategy = domContext.querySelectorAll(
+			PASSWORD_MANAGER_SELECTORS,
+		);
 
 		// if no password manager is detected, dispatch document.elementFromPoint to
 		// identify the badges
@@ -82,7 +98,8 @@ export function usePasswordManagerBadge({
 		// check if the pwm area is fully visible
 		function checkHasSpace() {
 			const viewportWidth = getWindow(container).innerWidth;
-			const distanceToRightEdge = viewportWidth - container!.getBoundingClientRect().right;
+			const distanceToRightEdge =
+				viewportWidth - container!.getBoundingClientRect().right;
 			hasPwmBadgeSpace = distanceToRightEdge >= PWM_BADGE_SPACE_WIDTH_PX;
 		}
 
@@ -95,7 +112,8 @@ export function usePasswordManagerBadge({
 	});
 
 	$effect(() => {
-		const focused = isFocused.current || domContext.getActiveElement() === inputRef.current;
+		const focused =
+			isFocused.current || domContext.getActiveElement() === inputRef.current;
 
 		if (pushPasswordManagerStrategy.current === "none" || !focused) return;
 

@@ -153,7 +153,10 @@ function createContentObj(props: CreateContentObjProps) {
 				if (value === "0") {
 					return "0";
 				} else if (!isNull(value)) {
-					const formatted = formatter.part(dateRef.set({ [part]: value }), part);
+					const formatted = formatter.part(
+						dateRef.set({ [part]: value }),
+						part,
+					);
 					if (part === "year") {
 						return `${value}`;
 					}
@@ -173,8 +176,18 @@ function createContentObj(props: CreateContentObjProps) {
 }
 
 function createContentArr(props: CreateContentArrProps) {
-	const { granularity, dateRef, formatter, contentObj, hideTimeZone, hourCycle } = props;
-	const parts = formatter.toParts(dateRef, getOptsByGranularity(granularity, hourCycle));
+	const {
+		granularity,
+		dateRef,
+		formatter,
+		contentObj,
+		hideTimeZone,
+		hourCycle,
+	} = props;
+	const parts = formatter.toParts(
+		dateRef,
+		getOptsByGranularity(granularity, hourCycle),
+	);
 	const segmentContentArr = parts
 		.map((part) => {
 			const defaultParts = ["literal", "dayPeriod", "timeZoneName", null];
@@ -192,7 +205,10 @@ function createContentArr(props: CreateContentArrProps) {
 		})
 		.filter((segment): segment is { part: SegmentPart; value: string } => {
 			if (isNull(segment.part) || isNull(segment.value)) return false;
-			if (segment.part === "timeZoneName" && (!isZonedDateTime(dateRef) || hideTimeZone)) {
+			if (
+				segment.part === "timeZoneName" &&
+				(!isZonedDateTime(dateRef) || hideTimeZone)
+			) {
 				return false;
 			}
 			return true;
@@ -214,7 +230,10 @@ export function createContent(props: CreateContentProps) {
 	};
 }
 
-function getOptsByGranularity(granularity: Granularity, hourCycle: HourCycle | undefined) {
+function getOptsByGranularity(
+	granularity: Granularity,
+	hourCycle: HourCycle | undefined,
+) {
 	const opts: Intl.DateTimeFormatOptions = {
 		year: "numeric",
 		month: "2-digit",
@@ -258,7 +277,7 @@ export function initSegmentIds() {
 	return Object.fromEntries(
 		ALL_SEGMENT_PARTS.map((part) => {
 			return [part, useId()];
-		}).filter(([key]) => key !== "literal")
+		}).filter(([key]) => key !== "literal"),
 	);
 }
 
@@ -326,7 +345,7 @@ export function getValueFromSegments(props: GetValueFromSegments) {
  */
 export function areAllSegmentsFilled(
 	segmentValues: SegmentValueObj,
-	fieldNode: HTMLElement | null
+	fieldNode: HTMLElement | null,
 ) {
 	const usedSegments = getUsedSegments(fieldNode);
 	for (const part of usedSegments) {
@@ -347,7 +366,9 @@ export function areAllSegmentsFilled(
  * Determines if the provided object is a valid `DateAndTimeSegmentObj`
  * by checking if it has the correct keys and values for each key.
  */
-export function isDateAndTimeSegmentObj(obj: unknown): obj is DateAndTimeSegmentObj {
+export function isDateAndTimeSegmentObj(
+	obj: unknown,
+): obj is DateAndTimeSegmentObj {
 	if (typeof obj !== "object" || obj === null) {
 		return false;
 	}
@@ -359,7 +380,9 @@ export function isDateAndTimeSegmentObj(obj: unknown): obj is DateAndTimeSegment
 		const validValue =
 			key === "dayPeriod"
 				? value === "AM" || value === "PM" || value === null
-				: typeof value === "string" || typeof value === "number" || value === null;
+				: typeof value === "string" ||
+					typeof value === "number" ||
+					value === null;
 
 		return validKey && validValue;
 	});
@@ -371,7 +394,7 @@ export function isDateAndTimeSegmentObj(obj: unknown): obj is DateAndTimeSegment
  */
 export function inferGranularity(
 	value: DateValue,
-	granularity: Granularity | undefined
+	granularity: Granularity | undefined,
 ): Granularity {
 	if (granularity) return granularity;
 	if (hasTime(value)) return "minute";

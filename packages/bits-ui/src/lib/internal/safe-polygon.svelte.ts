@@ -13,7 +13,8 @@ function isPointInPolygon(point: Point, polygon: Point[]): boolean {
 	for (let i = 0, j = length - 1; i < length; j = i++) {
 		const [xi, yi] = polygon[i] ?? [0, 0];
 		const [xj, yj] = polygon[j] ?? [0, 0];
-		const intersect = yi >= y !== yj >= y && x <= ((xj - xi) * (y - yi)) / (yj - yi) + xi;
+		const intersect =
+			yi >= y !== yj >= y && x <= ((xj - xi) * (y - yi)) / (yj - yi) + xi;
 		if (intersect) {
 			isInside = !isInside;
 		}
@@ -127,7 +128,10 @@ export class SafePolygon {
 					this.#clearTracking();
 					return;
 				}
-				if (this.#trackedTriggerNode && this.#trackedTriggerNode !== triggerNode) {
+				if (
+					this.#trackedTriggerNode &&
+					this.#trackedTriggerNode !== triggerNode
+				) {
 					this.#clearTracking();
 				}
 				this.#trackedTriggerNode = triggerNode;
@@ -200,13 +204,17 @@ export class SafePolygon {
 						acc();
 						cleanup();
 					},
-					() => {}
+					() => {},
 				);
-			}
+			},
 		);
 	}
 
-	#onPointerMove(clientPoint: Point, triggerNode: HTMLElement, contentNode: HTMLElement): void {
+	#onPointerMove(
+		clientPoint: Point,
+		triggerNode: HTMLElement,
+		contentNode: HTMLElement,
+	): void {
 		// if no exit point recorded, nothing to check
 		if (!this.#exitPoint || !this.#exitTarget) return;
 		this.#cancelLeaveFallback();
@@ -216,11 +224,17 @@ export class SafePolygon {
 		const contentRect = contentNode.getBoundingClientRect();
 
 		// check if pointer reached the target
-		if (this.#exitTarget === "content" && isInsideRect(clientPoint, contentRect)) {
+		if (
+			this.#exitTarget === "content" &&
+			isInsideRect(clientPoint, contentRect)
+		) {
 			this.#clearTracking();
 			return;
 		}
-		if (this.#exitTarget === "trigger" && isInsideRect(clientPoint, triggerRect)) {
+		if (
+			this.#exitTarget === "trigger" &&
+			isInsideRect(clientPoint, triggerRect)
+		) {
 			this.#clearTracking();
 			return;
 		}
@@ -233,22 +247,33 @@ export class SafePolygon {
 				const transitCorridor = this.#getCorridorPolygon(
 					triggerRect,
 					transitRect,
-					transitSide
+					transitSide,
 				);
-				if (transitCorridor && isPointInPolygon(clientPoint, transitCorridor)) return;
+				if (transitCorridor && isPointInPolygon(clientPoint, transitCorridor))
+					return;
 			}
 		}
 
 		// check if pointer is in the rectangular corridor between trigger and content
 		const side = getSide(triggerRect, contentRect);
-		const corridorPoly = this.#getCorridorPolygon(triggerRect, contentRect, side);
+		const corridorPoly = this.#getCorridorPolygon(
+			triggerRect,
+			contentRect,
+			side,
+		);
 		if (corridorPoly && isPointInPolygon(clientPoint, corridorPoly)) {
 			return;
 		}
 
 		// check if pointer is within the safe polygon from exit point to target
-		const targetRect = this.#exitTarget === "content" ? contentRect : triggerRect;
-		const safePoly = this.#getSafePolygon(this.#exitPoint, targetRect, side, this.#exitTarget);
+		const targetRect =
+			this.#exitTarget === "content" ? contentRect : triggerRect;
+		const safePoly = this.#getSafePolygon(
+			this.#exitPoint,
+			targetRect,
+			side,
+			this.#exitTarget,
+		);
 		if (isPointInPolygon(clientPoint, safePoly)) {
 			return;
 		}
@@ -270,37 +295,89 @@ export class SafePolygon {
 	 * Creates a rectangular corridor between trigger and content
 	 * This prevents closing when cursor is in the gap between them
 	 */
-	#getCorridorPolygon(triggerRect: DOMRect, contentRect: DOMRect, side: Side): Point[] | null {
+	#getCorridorPolygon(
+		triggerRect: DOMRect,
+		contentRect: DOMRect,
+		side: Side,
+	): Point[] | null {
 		const buffer = this.#buffer;
 
 		switch (side) {
 			case "top":
 				return [
-					[Math.min(triggerRect.left, contentRect.left) - buffer, triggerRect.top],
-					[Math.min(triggerRect.left, contentRect.left) - buffer, contentRect.bottom],
-					[Math.max(triggerRect.right, contentRect.right) + buffer, contentRect.bottom],
-					[Math.max(triggerRect.right, contentRect.right) + buffer, triggerRect.top],
+					[
+						Math.min(triggerRect.left, contentRect.left) - buffer,
+						triggerRect.top,
+					],
+					[
+						Math.min(triggerRect.left, contentRect.left) - buffer,
+						contentRect.bottom,
+					],
+					[
+						Math.max(triggerRect.right, contentRect.right) + buffer,
+						contentRect.bottom,
+					],
+					[
+						Math.max(triggerRect.right, contentRect.right) + buffer,
+						triggerRect.top,
+					],
 				];
 			case "bottom":
 				return [
-					[Math.min(triggerRect.left, contentRect.left) - buffer, triggerRect.bottom],
-					[Math.min(triggerRect.left, contentRect.left) - buffer, contentRect.top],
-					[Math.max(triggerRect.right, contentRect.right) + buffer, contentRect.top],
-					[Math.max(triggerRect.right, contentRect.right) + buffer, triggerRect.bottom],
+					[
+						Math.min(triggerRect.left, contentRect.left) - buffer,
+						triggerRect.bottom,
+					],
+					[
+						Math.min(triggerRect.left, contentRect.left) - buffer,
+						contentRect.top,
+					],
+					[
+						Math.max(triggerRect.right, contentRect.right) + buffer,
+						contentRect.top,
+					],
+					[
+						Math.max(triggerRect.right, contentRect.right) + buffer,
+						triggerRect.bottom,
+					],
 				];
 			case "left":
 				return [
-					[triggerRect.left, Math.min(triggerRect.top, contentRect.top) - buffer],
-					[contentRect.right, Math.min(triggerRect.top, contentRect.top) - buffer],
-					[contentRect.right, Math.max(triggerRect.bottom, contentRect.bottom) + buffer],
-					[triggerRect.left, Math.max(triggerRect.bottom, contentRect.bottom) + buffer],
+					[
+						triggerRect.left,
+						Math.min(triggerRect.top, contentRect.top) - buffer,
+					],
+					[
+						contentRect.right,
+						Math.min(triggerRect.top, contentRect.top) - buffer,
+					],
+					[
+						contentRect.right,
+						Math.max(triggerRect.bottom, contentRect.bottom) + buffer,
+					],
+					[
+						triggerRect.left,
+						Math.max(triggerRect.bottom, contentRect.bottom) + buffer,
+					],
 				];
 			case "right":
 				return [
-					[triggerRect.right, Math.min(triggerRect.top, contentRect.top) - buffer],
-					[contentRect.left, Math.min(triggerRect.top, contentRect.top) - buffer],
-					[contentRect.left, Math.max(triggerRect.bottom, contentRect.bottom) + buffer],
-					[triggerRect.right, Math.max(triggerRect.bottom, contentRect.bottom) + buffer],
+					[
+						triggerRect.right,
+						Math.min(triggerRect.top, contentRect.top) - buffer,
+					],
+					[
+						contentRect.left,
+						Math.min(triggerRect.top, contentRect.top) - buffer,
+					],
+					[
+						contentRect.left,
+						Math.max(triggerRect.bottom, contentRect.bottom) + buffer,
+					],
+					[
+						triggerRect.right,
+						Math.max(triggerRect.bottom, contentRect.bottom) + buffer,
+					],
 				];
 		}
 	}
@@ -312,13 +389,14 @@ export class SafePolygon {
 		exitPoint: Point,
 		targetRect: DOMRect,
 		side: Side,
-		exitTarget: "trigger" | "content"
+		exitTarget: "trigger" | "content",
 	): Point[] {
 		const buffer = this.#buffer * 4;
 		const [x, y] = exitPoint;
 
 		// when going back to trigger, we need to flip the side
-		const effectiveSide = exitTarget === "trigger" ? this.#flipSide(side) : side;
+		const effectiveSide =
+			exitTarget === "trigger" ? this.#flipSide(side) : side;
 
 		// create polygon points from cursor to target edges
 		switch (effectiveSide) {

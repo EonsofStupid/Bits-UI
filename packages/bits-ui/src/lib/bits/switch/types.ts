@@ -60,7 +60,10 @@ export type SwitchRootProps = SwitchRootPropsWithoutHTML &
 
 export type SwitchThumbSnippetProps = SwitchRootSnippetProps;
 
-export type SwitchThumbPropsWithoutHTML = WithChild<{}, SwitchThumbSnippetProps>;
+export type SwitchThumbPropsWithoutHTML = WithChild<
+	{},
+	SwitchThumbSnippetProps
+>;
 
 export type SwitchThumbProps = SwitchThumbPropsWithoutHTML &
 	Without<BitsPrimitiveSpanAttributes, SwitchThumbPropsWithoutHTML>;

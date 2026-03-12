@@ -223,8 +223,12 @@ describe("Tabs", () => {
 
 			await expect.element(content).toHaveAttribute("role", "tabpanel");
 			await expect.element(trigger).toHaveAttribute("role", "tab");
-			await expect.element(trigger).toHaveAttribute("aria-controls", content.element().id);
-			await expect.element(content).toHaveAttribute("aria-labelledby", trigger.element().id);
+			await expect
+				.element(trigger)
+				.toHaveAttribute("aria-controls", content.element().id);
+			await expect
+				.element(content)
+				.toHaveAttribute("aria-labelledby", trigger.element().id);
 		}
 	});
 

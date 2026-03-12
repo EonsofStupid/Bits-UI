@@ -139,7 +139,13 @@ export const apiSchemas: Record<Bit, APISchema[]> = {
 	tooltip,
 };
 
-export const utilities = ["bits-config", "is-using-keyboard", "merge-props", "portal", "use-id"];
+export const utilities = [
+	"bits-config",
+	"is-using-keyboard",
+	"merge-props",
+	"portal",
+	"use-id",
+];
 
 export const utilitiesSet = new Set(utilities);
 

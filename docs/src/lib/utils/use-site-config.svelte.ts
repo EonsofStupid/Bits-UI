@@ -43,7 +43,7 @@ export function useSiteConfig(getProps?: () => SiteConfig): SiteConfigState {
 		return getContext(SITE_CONFIG_KEY);
 	} else {
 		throw new Error(
-			"useSiteConfig must be called with a function that returns a SiteConfigProps object"
+			"useSiteConfig must be called with a function that returns a SiteConfigProps object",
 		);
 	}
 }

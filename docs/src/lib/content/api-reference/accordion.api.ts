@@ -5,7 +5,12 @@ import type {
 	AccordionRootPropsWithoutHTML,
 	AccordionTriggerPropsWithoutHTML,
 } from "bits-ui";
-import { disabledDataAttr, forceMountProp, orientationDataAttr, withChildProps } from "./shared.js";
+import {
+	disabledDataAttr,
+	forceMountProp,
+	orientationDataAttr,
+	withChildProps,
+} from "./shared.js";
 import {
 	HeaderLevelProp,
 	OnChangeStringOrArrayProp,
@@ -36,7 +41,8 @@ const stateDataAttr = defineEnumDataAttr({
 
 const root = defineComponentApiSchema<AccordionRootPropsWithoutHTML>({
 	title: "Root",
-	description: "The root accordion component used to set and manage the state of the accordion.",
+	description:
+		"The root accordion component used to set and manage the state of the accordion.",
 	props: {
 		type: defineEnumProp({
 			options: ["single", "multiple"],
@@ -128,7 +134,8 @@ const trigger = defineComponentApiSchema<AccordionTriggerPropsWithoutHTML>({
 
 const content = defineComponentApiSchema<AccordionContentPropsWithoutHTML>({
 	title: "Content",
-	description: "The accordion item content, which is displayed when the item is open.",
+	description:
+		"The accordion item content, which is displayed when the item is open.",
 	props: {
 		forceMount: forceMountProp,
 		hiddenUntilFound: defineBooleanProp({

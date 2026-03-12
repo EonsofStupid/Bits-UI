@@ -1,24 +1,24 @@
 <script lang="ts">
-	import { Tooltip } from "bits-ui";
-	import TextB from "phosphor-svelte/lib/TextB";
-	import TextItalic from "phosphor-svelte/lib/TextItalic";
-	import TextUnderline from "phosphor-svelte/lib/TextUnderline";
-	import TextStrikethrough from "phosphor-svelte/lib/TextStrikethrough";
-	import Link from "phosphor-svelte/lib/Link";
-	import ListBullets from "phosphor-svelte/lib/ListBullets";
-	import ListNumbers from "phosphor-svelte/lib/ListNumbers";
-	import Code from "phosphor-svelte/lib/Code";
+import { Tooltip } from "bits-ui";
+import TextB from "phosphor-svelte/lib/TextB";
+import TextItalic from "phosphor-svelte/lib/TextItalic";
+import TextUnderline from "phosphor-svelte/lib/TextUnderline";
+import TextStrikethrough from "phosphor-svelte/lib/TextStrikethrough";
+import Link from "phosphor-svelte/lib/Link";
+import ListBullets from "phosphor-svelte/lib/ListBullets";
+import ListNumbers from "phosphor-svelte/lib/ListNumbers";
+import Code from "phosphor-svelte/lib/Code";
 
-	const tools = [
-		{ icon: TextB, label: "Bold", shortcut: "⌘B" },
-		{ icon: TextItalic, label: "Italic", shortcut: "⌘I" },
-		{ icon: TextUnderline, label: "Underline", shortcut: "⌘U" },
-		{ icon: TextStrikethrough, label: "Strikethrough", shortcut: "⌘⇧X" },
-		{ icon: Link, label: "Link", shortcut: "⌘K" },
-		{ icon: ListBullets, label: "Bullet list", shortcut: "⌘⇧8" },
-		{ icon: ListNumbers, label: "Numbered list", shortcut: "⌘⇧7" },
-		{ icon: Code, label: "Code", shortcut: "⌘E" },
-	];
+const tools = [
+	{ icon: TextB, label: "Bold", shortcut: "⌘B" },
+	{ icon: TextItalic, label: "Italic", shortcut: "⌘I" },
+	{ icon: TextUnderline, label: "Underline", shortcut: "⌘U" },
+	{ icon: TextStrikethrough, label: "Strikethrough", shortcut: "⌘⇧X" },
+	{ icon: Link, label: "Link", shortcut: "⌘K" },
+	{ icon: ListBullets, label: "Bullet list", shortcut: "⌘⇧8" },
+	{ icon: ListNumbers, label: "Numbered list", shortcut: "⌘⇧7" },
+	{ icon: Code, label: "Code", shortcut: "⌘E" },
+];
 </script>
 
 <Tooltip.Provider delayDuration={600} skipDelayDuration={200}>

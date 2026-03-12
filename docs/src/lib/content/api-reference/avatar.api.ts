@@ -4,7 +4,10 @@ import type {
 	AvatarRootPropsWithoutHTML,
 } from "bits-ui";
 import { withChildProps } from "./shared.js";
-import { LoadingStatusProp, OnLoadingStatusChangeProp } from "./extended-types/avatar/index.js";
+import {
+	LoadingStatusProp,
+	OnLoadingStatusChangeProp,
+} from "./extended-types/avatar/index.js";
 import {
 	defineComponentApiSchema,
 	defineEnumDataAttr,
@@ -23,7 +26,8 @@ const statusDataAttr = defineEnumDataAttr({
 
 export const root = defineComponentApiSchema<AvatarRootPropsWithoutHTML>({
 	title: "Root",
-	description: "The root component used to set and manage the state of the avatar.",
+	description:
+		"The root component used to set and manage the state of the avatar.",
 	props: {
 		loadingStatus: defineEnumProp({
 			options: ["loading", "loaded", "error"],
@@ -34,7 +38,8 @@ export const root = defineComponentApiSchema<AvatarRootPropsWithoutHTML>({
 		}),
 		onLoadingStatusChange: defineFunctionProp({
 			definition: OnLoadingStatusChangeProp,
-			description: "A callback function called when the loading status of the image changes.",
+			description:
+				"A callback function called when the loading status of the image changes.",
 			stringDefinition: "(status: LoadingStatus) => void",
 		}),
 		delayMs: defineNumberProp({
@@ -66,17 +71,19 @@ export const image = defineComponentApiSchema<AvatarImagePropsWithoutHTML>({
 	],
 });
 
-export const fallback = defineComponentApiSchema<AvatarFallbackPropsWithoutHTML>({
-	title: "Fallback",
-	description: "The fallback displayed while the avatar image is loading or if it fails to load",
-	props: withChildProps({ elType: "HTMLSpanElement" }),
-	dataAttributes: [
-		statusDataAttr,
-		defineSimpleDataAttr({
-			name: "avatar-fallback",
-			description: "Present on the fallback element.",
-		}),
-	],
-});
+export const fallback =
+	defineComponentApiSchema<AvatarFallbackPropsWithoutHTML>({
+		title: "Fallback",
+		description:
+			"The fallback displayed while the avatar image is loading or if it fails to load",
+		props: withChildProps({ elType: "HTMLSpanElement" }),
+		dataAttributes: [
+			statusDataAttr,
+			defineSimpleDataAttr({
+				name: "avatar-fallback",
+				description: "Present on the fallback element.",
+			}),
+		],
+	});
 
 export const avatar = [root, image, fallback];

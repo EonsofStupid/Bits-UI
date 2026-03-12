@@ -1,7 +1,7 @@
 <script lang="ts">
-	import { Tooltip } from "bits-ui";
-	import MagicWand from "phosphor-svelte/lib/MagicWand";
-	import { fly } from "svelte/transition";
+import { Tooltip } from "bits-ui";
+import MagicWand from "phosphor-svelte/lib/MagicWand";
+import { fly } from "svelte/transition";
 </script>
 
 <Tooltip.Provider>

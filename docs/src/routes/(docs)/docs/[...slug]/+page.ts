@@ -1,4 +1,9 @@
-import { docs, policyDocs, typeHelperDocs, utilityDocs } from "$content/index.js";
+import {
+	docs,
+	policyDocs,
+	typeHelperDocs,
+	utilityDocs,
+} from "$content/index.js";
 import { getDoc } from "$lib/utils/docs.js";
 import type { EntryGenerator } from "./$types.js";
 

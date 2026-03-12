@@ -1,23 +1,23 @@
 <script lang="ts">
-	import { Accordion, type AccordionRootSingleProps } from "bits-ui";
+import { Accordion, type AccordionRootSingleProps } from "bits-ui";
 
-	type Item = {
-		value: string;
-		title: string;
-		disabled: boolean;
-		content: string;
-		level: 1 | 2 | 3 | 4 | 5 | 6;
-	};
+type Item = {
+	value: string;
+	title: string;
+	disabled: boolean;
+	content: string;
+	level: 1 | 2 | 3 | 4 | 5 | 6;
+};
 
-	let {
-		disabled = false,
-		items = [],
-		value: valueProp = "",
-	}: Omit<AccordionRootSingleProps, "type"> & {
-		items: Item[];
-	} = $props();
+let {
+	disabled = false,
+	items = [],
+	value: valueProp = "",
+}: Omit<AccordionRootSingleProps, "type"> & {
+	items: Item[];
+} = $props();
 
-	let value = $state(valueProp);
+let value = $state(valueProp);
 </script>
 
 <div data-testid="value">

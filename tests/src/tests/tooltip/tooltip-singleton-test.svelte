@@ -1,8 +1,8 @@
 <script lang="ts" module>
-	export type TooltipSingletonTestProps = {
-		delayDuration?: number;
-		skipDelayDuration?: number;
-	};
+export type TooltipSingletonTestProps = {
+	delayDuration?: number;
+	skipDelayDuration?: number;
+};
 </script>
 
 <script lang="ts">

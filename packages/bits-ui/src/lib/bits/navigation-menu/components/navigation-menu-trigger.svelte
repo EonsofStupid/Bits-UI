@@ -1,33 +1,35 @@
 <script lang="ts">
-	import { boxWith, mergeProps } from "svelte-toolbelt";
-	import type { NavigationMenuTriggerProps } from "../types.js";
-	import { NavigationMenuTriggerState } from "../navigation-menu.svelte.js";
-	import { createId } from "$lib/internal/create-id.js";
-	import VisuallyHidden from "$lib/bits/utilities/visually-hidden/visually-hidden.svelte";
-	import Mounted from "$lib/bits/utilities/mounted.svelte";
+import { boxWith, mergeProps } from "svelte-toolbelt";
+import type { NavigationMenuTriggerProps } from "../types.js";
+import { NavigationMenuTriggerState } from "../navigation-menu.svelte.js";
+import { createId } from "$lib/internal/create-id.js";
+import VisuallyHidden from "$lib/bits/utilities/visually-hidden/visually-hidden.svelte";
+import Mounted from "$lib/bits/utilities/mounted.svelte";
 
-	const uid = $props.id();
+const uid = $props.id();
 
-	let {
-		id = createId(uid),
-		disabled = false,
-		children,
-		child,
-		ref = $bindable(null),
-		tabindex = 0,
-		...restProps
-	}: NavigationMenuTriggerProps = $props();
+let {
+	id = createId(uid),
+	disabled = false,
+	children,
+	child,
+	ref = $bindable(null),
+	tabindex = 0,
+	...restProps
+}: NavigationMenuTriggerProps = $props();
 
-	const triggerState = NavigationMenuTriggerState.create({
-		id: boxWith(() => id),
-		disabled: boxWith(() => disabled ?? false),
-		ref: boxWith(
-			() => ref,
-			(v) => (ref = v)
-		),
-	});
+const triggerState = NavigationMenuTriggerState.create({
+	id: boxWith(() => id),
+	disabled: boxWith(() => disabled ?? false),
+	ref: boxWith(
+		() => ref,
+		(v) => (ref = v),
+	),
+});
 
-	const mergedProps = $derived(mergeProps(restProps, triggerState.props, { tabindex }));
+const mergedProps = $derived(
+	mergeProps(restProps, triggerState.props, { tabindex }),
+);
 </script>
 
 {#if child}

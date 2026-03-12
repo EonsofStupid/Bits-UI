@@ -65,5 +65,5 @@ export default tseslint.config(
 		],
 	},
 	...oxlint.configs["flat/recommended"],
-	...oxlint.buildFromOxlintConfigFile("./.oxlintrc.json")
+	...oxlint.buildFromOxlintConfigFile("./.oxlintrc.json"),
 );

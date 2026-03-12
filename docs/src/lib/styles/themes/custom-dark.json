@@ -206,7 +206,12 @@
 			}
 		},
 		{
-			"scope": ["entity", "entity.name", "entity.name.constant", "entity.name.namespace"],
+			"scope": [
+				"entity",
+				"entity.name",
+				"entity.name.constant",
+				"entity.name.namespace"
+			],
 			"settings": {
 				"foreground": "#b392f0"
 			}
@@ -248,7 +253,11 @@
 			}
 		},
 		{
-			"scope": ["storage.modifier.package", "storage.modifier.import", "storage.type.java"],
+			"scope": [
+				"storage.modifier.package",
+				"storage.modifier.import",
+				"storage.type.java"
+			],
 			"settings": {
 				"foreground": "#e1e4e8"
 			}

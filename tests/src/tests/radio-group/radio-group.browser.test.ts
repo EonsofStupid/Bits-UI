@@ -20,7 +20,10 @@ const ITEM_IDS = TEST_ITEMS.map((item) => `${item.value}-item`);
 const LABEL_IDS = TEST_ITEMS.map((item) => `${item.value}-label`);
 const INDICATOR_IDS = TEST_ITEMS.map((item) => `${item.value}-indicator`);
 
-function setup(props: Partial<RadioGroupTestProps> = {}, items: Item[] = TEST_ITEMS) {
+function setup(
+	props: Partial<RadioGroupTestProps> = {},
+	items: Item[] = TEST_ITEMS,
+) {
 	render(RadioGroupTest, { ...props, items });
 	const input = document.querySelector("input") as HTMLInputElement;
 	return { input };
@@ -49,7 +52,9 @@ describe("Value Changes", () => {
 		setup();
 
 		for (const indicator of INDICATOR_IDS) {
-			await expect.element(page.getByTestId(indicator)).toHaveTextContent("false");
+			await expect
+				.element(page.getByTestId(indicator))
+				.toHaveTextContent("false");
 		}
 		const itemIdx = getRandomItemIndex();
 		const item = page.getByTestId(ITEM_IDS[itemIdx] as string);
@@ -64,14 +69,18 @@ describe("Value Changes", () => {
 
 		const item = page.getByTestId("e-item");
 		await item.click({ force: true });
-		await expect.element(page.getByTestId("e-indicator")).toHaveTextContent("false");
+		await expect
+			.element(page.getByTestId("e-indicator"))
+			.toHaveTextContent("false");
 	});
 
 	it("should change the value when a label associated with an item is clicked", async () => {
 		setup();
 
 		for (const indicator of INDICATOR_IDS) {
-			await expect.element(page.getByTestId(indicator)).toHaveTextContent("false");
+			await expect
+				.element(page.getByTestId(indicator))
+				.toHaveTextContent("false");
 		}
 		const itemIdx = getRandomItemIndex();
 		const label = page.getByTestId(LABEL_IDS[itemIdx] as string);
@@ -90,7 +99,9 @@ describe("Value Changes", () => {
 		expect(bindingIndic).toHaveTextContent("true");
 		await binding.click();
 		await expect.element(binding).toHaveTextContent("a");
-		await expect.element(page.getByTestId("b-indicator")).toHaveTextContent("false");
+		await expect
+			.element(page.getByTestId("b-indicator"))
+			.toHaveTextContent("false");
 		const bindingIndic2 = page.getByTestId("a-indicator");
 		expect(bindingIndic2).toHaveTextContent("true");
 	});
@@ -99,7 +110,9 @@ describe("Value Changes", () => {
 describe("Keyboard Navigation", () => {
 	it("should navigate through the items using the keyboard (up and down)", async () => {
 		setup();
-		const [item0, item1, item2, item3] = ITEM_IDS.map((id) => page.getByTestId(id as string));
+		const [item0, item1, item2, item3] = ITEM_IDS.map((id) =>
+			page.getByTestId(id as string),
+		);
 
 		(item0.element() as HTMLElement).focus();
 		await expect.element(item0).toHaveFocus();
@@ -119,7 +132,9 @@ describe("Keyboard Navigation", () => {
 
 	it("should navigate through the items using the keyboard (left and right)", async () => {
 		setup();
-		const [item0, item1, item2, item3] = ITEM_IDS.map((id) => page.getByTestId(id as string));
+		const [item0, item1, item2, item3] = ITEM_IDS.map((id) =>
+			page.getByTestId(id as string),
+		);
 
 		(item0.element() as HTMLElement).focus();
 		await expect.element(item0).toHaveFocus();
@@ -139,7 +154,9 @@ describe("Keyboard Navigation", () => {
 
 	it("should respect the loop prop using arrow up and down keys", async () => {
 		setup({ loop: false });
-		const [item0, _, __, item3] = ITEM_IDS.map((id) => page.getByTestId(id as string));
+		const [item0, _, __, item3] = ITEM_IDS.map((id) =>
+			page.getByTestId(id as string),
+		);
 
 		(item0.element() as HTMLElement).focus();
 		await expect.element(item0).toHaveFocus();
@@ -154,7 +171,9 @@ describe("Keyboard Navigation", () => {
 
 	it("should respect the loop prop using arrow left and right keys", async () => {
 		setup({ loop: false });
-		const [item0, _, __, item3] = ITEM_IDS.map((id) => page.getByTestId(id as string));
+		const [item0, _, __, item3] = ITEM_IDS.map((id) =>
+			page.getByTestId(id as string),
+		);
 
 		(item0.element() as HTMLElement).focus();
 		await expect.element(item0).toHaveFocus();
@@ -245,23 +264,35 @@ describe("Readonly Behavior", () => {
 		setup({ readonly: true, value: "b" });
 
 		// verify initial state
-		await expect.element(page.getByTestId("b-indicator")).toHaveTextContent("true");
-		await expect.element(page.getByTestId("a-indicator")).toHaveTextContent("false");
+		await expect
+			.element(page.getByTestId("b-indicator"))
+			.toHaveTextContent("true");
+		await expect
+			.element(page.getByTestId("a-indicator"))
+			.toHaveTextContent("false");
 
 		// click on different item
 		await page.getByTestId("a-item").click();
 
 		// value should not change
-		await expect.element(page.getByTestId("b-indicator")).toHaveTextContent("true");
-		await expect.element(page.getByTestId("a-indicator")).toHaveTextContent("false");
+		await expect
+			.element(page.getByTestId("b-indicator"))
+			.toHaveTextContent("true");
+		await expect
+			.element(page.getByTestId("a-indicator"))
+			.toHaveTextContent("false");
 	});
 
 	it("should not change value when readonly and space key is pressed", async () => {
 		setup({ readonly: true, value: "b" });
 
 		// verify initial state
-		await expect.element(page.getByTestId("b-indicator")).toHaveTextContent("true");
-		await expect.element(page.getByTestId("a-indicator")).toHaveTextContent("false");
+		await expect
+			.element(page.getByTestId("b-indicator"))
+			.toHaveTextContent("true");
+		await expect
+			.element(page.getByTestId("a-indicator"))
+			.toHaveTextContent("false");
 
 		// focus and press space on different item
 		const aItem = page.getByTestId("a-item");
@@ -269,29 +300,43 @@ describe("Readonly Behavior", () => {
 		await userEvent.keyboard(kbd.SPACE);
 
 		// value should not change
-		await expect.element(page.getByTestId("b-indicator")).toHaveTextContent("true");
-		await expect.element(page.getByTestId("a-indicator")).toHaveTextContent("false");
+		await expect
+			.element(page.getByTestId("b-indicator"))
+			.toHaveTextContent("true");
+		await expect
+			.element(page.getByTestId("a-indicator"))
+			.toHaveTextContent("false");
 	});
 
 	it("should not change value when readonly and focus moves to different item", async () => {
 		setup({ readonly: true, value: "b" });
 
 		// verify initial state
-		await expect.element(page.getByTestId("b-indicator")).toHaveTextContent("true");
-		await expect.element(page.getByTestId("a-indicator")).toHaveTextContent("false");
+		await expect
+			.element(page.getByTestId("b-indicator"))
+			.toHaveTextContent("true");
+		await expect
+			.element(page.getByTestId("a-indicator"))
+			.toHaveTextContent("false");
 
 		// focus on different item
 		const aItem = page.getByTestId("a-item");
 		(aItem.element() as HTMLElement).focus();
 
 		// value should not change
-		await expect.element(page.getByTestId("b-indicator")).toHaveTextContent("true");
-		await expect.element(page.getByTestId("a-indicator")).toHaveTextContent("false");
+		await expect
+			.element(page.getByTestId("b-indicator"))
+			.toHaveTextContent("true");
+		await expect
+			.element(page.getByTestId("a-indicator"))
+			.toHaveTextContent("false");
 	});
 
 	it("should allow keyboard navigation when readonly", async () => {
 		setup({ readonly: true, value: "b" });
-		const [item0, item1, item2] = ITEM_IDS.map((id) => page.getByTestId(id as string));
+		const [item0, item1, item2] = ITEM_IDS.map((id) =>
+			page.getByTestId(id as string),
+		);
 
 		(item0.element() as HTMLElement).focus();
 		await expect.element(item0).toHaveFocus();
@@ -314,15 +359,23 @@ describe("Readonly Behavior", () => {
 		setup({ readonly: true, value: "b" });
 
 		// verify initial state
-		await expect.element(page.getByTestId("b-indicator")).toHaveTextContent("true");
-		await expect.element(page.getByTestId("a-indicator")).toHaveTextContent("false");
+		await expect
+			.element(page.getByTestId("b-indicator"))
+			.toHaveTextContent("true");
+		await expect
+			.element(page.getByTestId("a-indicator"))
+			.toHaveTextContent("false");
 
 		// click on label of different item
 		await page.getByTestId("a-label").click();
 
 		// value should not change
-		await expect.element(page.getByTestId("b-indicator")).toHaveTextContent("true");
-		await expect.element(page.getByTestId("a-indicator")).toHaveTextContent("false");
+		await expect
+			.element(page.getByTestId("b-indicator"))
+			.toHaveTextContent("true");
+		await expect
+			.element(page.getByTestId("a-indicator"))
+			.toHaveTextContent("false");
 	});
 });
 

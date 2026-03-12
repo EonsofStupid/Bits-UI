@@ -11,8 +11,16 @@ import { on } from "svelte/events";
 import { Context, watch } from "runed";
 import { isElement, isFocusVisible } from "$lib/internal/is.js";
 import { createBitsAttrs, boolToEmptyStrOrUndef } from "$lib/internal/attrs.js";
-import type { OnChangeFn, RefAttachment, WithRefOpts } from "$lib/internal/types.js";
-import type { FocusEventHandler, MouseEventHandler, PointerEventHandler } from "svelte/elements";
+import type {
+	OnChangeFn,
+	RefAttachment,
+	WithRefOpts,
+} from "$lib/internal/types.js";
+import type {
+	FocusEventHandler,
+	MouseEventHandler,
+	PointerEventHandler,
+} from "svelte/elements";
 import { TimeoutFn } from "$lib/internal/timeout-fn.js";
 import { SafePolygon } from "$lib/internal/safe-polygon.svelte.js";
 import { PresenceManager } from "$lib/internal/presence-manager.svelte.js";
@@ -21,7 +29,9 @@ export const tooltipAttrs = createBitsAttrs({
 	component: "tooltip",
 	parts: ["content", "trigger"],
 });
-const TooltipProviderContext = new Context<TooltipProviderState>("Tooltip.Provider");
+const TooltipProviderContext = new Context<TooltipProviderState>(
+	"Tooltip.Provider",
+);
 const TooltipRootContext = new Context<TooltipRootState>("Tooltip.Root");
 
 type TooltipTriggerRecord = {
@@ -178,7 +188,7 @@ export class TooltipProviderState {
 				if (target.contains(triggerNode)) {
 					activeTooltip.handleClose();
 				}
-			})
+			}),
 		);
 	}
 
@@ -237,30 +247,34 @@ interface TooltipRootStateOpts
 
 export class TooltipRootState {
 	static create(opts: TooltipRootStateOpts) {
-		return TooltipRootContext.set(new TooltipRootState(opts, TooltipProviderContext.get()));
+		return TooltipRootContext.set(
+			new TooltipRootState(opts, TooltipProviderContext.get()),
+		);
 	}
 	readonly opts: TooltipRootStateOpts;
 	readonly provider: TooltipProviderState;
 	readonly delayDuration = $derived.by(
-		() => this.opts.delayDuration.current ?? this.provider.opts.delayDuration.current
+		() =>
+			this.opts.delayDuration.current ??
+			this.provider.opts.delayDuration.current,
 	);
 	readonly disableHoverableContent = $derived.by(
 		() =>
 			this.opts.disableHoverableContent.current ??
-			this.provider.opts.disableHoverableContent.current
+			this.provider.opts.disableHoverableContent.current,
 	);
 	readonly disableCloseOnTriggerClick = $derived.by(
 		() =>
 			this.opts.disableCloseOnTriggerClick.current ??
-			this.provider.opts.disableCloseOnTriggerClick.current
+			this.provider.opts.disableCloseOnTriggerClick.current,
 	);
 	readonly disabled = $derived.by(
-		() => this.opts.disabled.current ?? this.provider.opts.disabled.current
+		() => this.opts.disabled.current ?? this.provider.opts.disabled.current,
 	);
 	readonly ignoreNonKeyboardFocus = $derived.by(
 		() =>
 			this.opts.ignoreNonKeyboardFocus.current ??
-			this.provider.opts.ignoreNonKeyboardFocus.current
+			this.provider.opts.ignoreNonKeyboardFocus.current,
 	);
 	readonly registry: TooltipTriggerRegistryState;
 	readonly tether: TooltipTetherState | null;
@@ -310,7 +324,7 @@ export class TooltipRootState {
 					this.#wasOpenDelayed = true;
 					this.opts.open.current = true;
 				}, this.delayDuration);
-			}
+			},
 		);
 
 		watch(
@@ -323,7 +337,7 @@ export class TooltipRootState {
 					this.provider.onClose(this);
 				}
 			},
-			{ lazy: true }
+			{ lazy: true },
 		);
 
 		watch(
@@ -331,7 +345,7 @@ export class TooltipRootState {
 			(triggerId) => {
 				if (triggerId === this.registry.activeTriggerId) return;
 				this.registry.setActiveTrigger(triggerId);
-			}
+			},
 		);
 
 		watch(
@@ -339,7 +353,7 @@ export class TooltipRootState {
 			(activeTriggerId) => {
 				if (this.opts.triggerId.current === activeTriggerId) return;
 				this.opts.triggerId.current = activeTriggerId;
-			}
+			},
 		);
 	}
 
@@ -488,7 +502,7 @@ export class TooltipTriggerState {
 	constructor(
 		opts: TooltipTriggerStateOpts,
 		root: TooltipRootState | null,
-		tether: TooltipTetherState | null
+		tether: TooltipTetherState | null,
 	) {
 		this.opts = opts;
 		this.root = root;
@@ -500,19 +514,19 @@ export class TooltipTriggerState {
 			() => this.opts.id.current,
 			() => {
 				this.#register(this.opts.ref.current);
-			}
+			},
 		);
 		watch(
 			() => this.opts.payload.current,
 			() => {
 				this.#register(this.opts.ref.current);
-			}
+			},
 		);
 		watch(
 			() => this.opts.disabled.current,
 			() => {
 				this.#register(this.opts.ref.current);
-			}
+			},
 		);
 
 		onMountEffect(() => {
@@ -617,7 +631,7 @@ export class TooltipTriggerState {
 			() => {
 				this.handlePointerUp();
 			},
-			{ once: true }
+			{ once: true },
 		);
 	};
 
@@ -733,7 +747,7 @@ export class TooltipTriggerState {
 	readonly props = $derived.by(() => {
 		const root = this.#getRoot();
 		const isOpenForTrigger = Boolean(
-			root?.opts.open.current && root.isActiveTrigger(this.opts.id.current)
+			root?.opts.open.current && root.isActiveTrigger(this.opts.id.current),
 		);
 		const isDisabled = this.#isDisabled();
 
@@ -776,12 +790,16 @@ export class TooltipContentState {
 	constructor(opts: TooltipContentStateOpts, root: TooltipRootState) {
 		this.opts = opts;
 		this.root = root;
-		this.attachment = attachRef(this.opts.ref, (v) => (this.root.contentNode = v));
+		this.attachment = attachRef(
+			this.opts.ref,
+			(v) => (this.root.contentNode = v),
+		);
 
 		new SafePolygon({
 			triggerNode: () => this.root.triggerNode,
 			contentNode: () => this.root.contentNode,
-			enabled: () => this.root.opts.open.current && !this.root.disableHoverableContent,
+			enabled: () =>
+				this.root.opts.open.current && !this.root.disableHoverableContent,
 			transitIntentTimeout: 180,
 			ignoredTargets: () => {
 				// only skip closing for sibling triggers when there's a skip-delay grace period;
@@ -836,7 +854,9 @@ export class TooltipContentState {
 		return this.root.contentPresence.shouldRender;
 	}
 
-	readonly snippetProps = $derived.by(() => ({ open: this.root.opts.open.current }));
+	readonly snippetProps = $derived.by(() => ({
+		open: this.root.opts.open.current,
+	}));
 
 	readonly props = $derived.by(
 		() =>
@@ -849,7 +869,7 @@ export class TooltipContentState {
 				},
 				[tooltipAttrs.content]: "",
 				...this.attachment,
-			}) as const
+			}) as const,
 	);
 
 	readonly popperProps = {

@@ -5,7 +5,10 @@ import type {
 	BitsPrimitiveSpanAttributes,
 } from "$lib/shared/attributes.js";
 
-export type CheckboxRootSnippetProps = { checked: boolean; indeterminate: boolean };
+export type CheckboxRootSnippetProps = {
+	checked: boolean;
+	indeterminate: boolean;
+};
 
 export type CheckboxRootPropsWithoutHTML = WithChild<
 	{

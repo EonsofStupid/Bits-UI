@@ -1,7 +1,13 @@
 import type { Expand } from "svelte-toolbelt";
 import type { PortalProps } from "../utilities/portal/types.js";
-import type { PopperLayerProps, PopperLayerStaticProps } from "../utilities/popper-layer/types.js";
-import type { ArrowProps, ArrowPropsWithoutHTML } from "../utilities/arrow/types.js";
+import type {
+	PopperLayerProps,
+	PopperLayerStaticProps,
+} from "../utilities/popper-layer/types.js";
+import type {
+	ArrowProps,
+	ArrowPropsWithoutHTML,
+} from "../utilities/arrow/types.js";
 import type {
 	BitsPrimitiveButtonAttributes,
 	BitsPrimitiveDivAttributes,
@@ -13,7 +19,10 @@ import type {
 	WithChildren,
 	Without,
 } from "$lib/internal/types.js";
-import type { FloatingContentSnippetProps, StaticContentSnippetProps } from "$lib/shared/types.js";
+import type {
+	FloatingContentSnippetProps,
+	StaticContentSnippetProps,
+} from "$lib/shared/types.js";
 import type { HTMLInputAttributes } from "svelte/elements";
 
 export type SelectBaseRootPropsWithoutHTML = WithChildren<{
@@ -173,7 +182,10 @@ export type _SharedSelectContentProps = {
 
 export type SelectContentPropsWithoutHTML = Expand<
 	WithChildNoChildrenSnippetProps<
-		Omit<PopperLayerProps, "content" | "onOpenAutoFocus" | "trapFocus" | "onCloseAutoFocus"> &
+		Omit<
+			PopperLayerProps,
+			"content" | "onOpenAutoFocus" | "trapFocus" | "onCloseAutoFocus"
+		> &
 			_SharedSelectContentProps,
 		FloatingContentSnippetProps
 	>
@@ -201,7 +213,10 @@ export type SelectTriggerPropsWithoutHTML = WithChild;
 export type SelectTriggerProps = SelectTriggerPropsWithoutHTML &
 	Without<BitsPrimitiveButtonAttributes, SelectTriggerPropsWithoutHTML>;
 
-export type SelectItemSnippetProps = { selected: boolean; highlighted: boolean };
+export type SelectItemSnippetProps = {
+	selected: boolean;
+	highlighted: boolean;
+};
 
 export type SelectItemPropsWithoutHTML = WithChild<
 	{
@@ -283,12 +298,15 @@ export type SelectScrollButtonPropsWithoutHTML = WithChild<{
 	delay?: (tick: number) => number;
 }>;
 
-export type SelectScrollUpButtonPropsWithoutHTML = SelectScrollButtonPropsWithoutHTML;
+export type SelectScrollUpButtonPropsWithoutHTML =
+	SelectScrollButtonPropsWithoutHTML;
 
 export type SelectScrollUpButtonProps = SelectScrollUpButtonPropsWithoutHTML &
 	Without<BitsPrimitiveDivAttributes, SelectScrollUpButtonPropsWithoutHTML>;
 
-export type SelectScrollDownButtonPropsWithoutHTML = SelectScrollButtonPropsWithoutHTML;
+export type SelectScrollDownButtonPropsWithoutHTML =
+	SelectScrollButtonPropsWithoutHTML;
 
-export type SelectScrollDownButtonProps = SelectScrollDownButtonPropsWithoutHTML &
-	Without<BitsPrimitiveDivAttributes, SelectScrollDownButtonPropsWithoutHTML>;
+export type SelectScrollDownButtonProps =
+	SelectScrollDownButtonPropsWithoutHTML &
+		Without<BitsPrimitiveDivAttributes, SelectScrollDownButtonPropsWithoutHTML>;

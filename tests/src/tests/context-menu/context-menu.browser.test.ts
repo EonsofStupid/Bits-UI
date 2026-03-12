@@ -13,7 +13,10 @@ import ContextMenuTooltipTest from "./context-menu-tooltip-test.svelte";
 
 const kbd = getTestKbd();
 
-type ContextMenuSetupProps = (ContextMenuTestProps | ContextMenuForceMountTestProps) & {
+type ContextMenuSetupProps = (
+	| ContextMenuTestProps
+	| ContextMenuForceMountTestProps
+) & {
 	component?: typeof ContextMenuTest | typeof ContextMenuForceMountTest;
 };
 
@@ -140,7 +143,9 @@ it("should toggle the checkbox item when clicked & respects binding", async () =
 	await expect.element(checkedBinding).toHaveTextContent("true");
 	await t.trigger.click({ button: "right" });
 	await expectExists(page.getByTestId("content"));
-	await expect.element(page.getByTestId("checkbox-indicator")).toHaveTextContent("true");
+	await expect
+		.element(page.getByTestId("checkbox-indicator"))
+		.toHaveTextContent("true");
 });
 
 it("should toggle checkbox items within submenus when clicked & respects binding", async () => {
@@ -155,7 +160,9 @@ it("should toggle checkbox items within submenus when clicked & respects binding
 	await expect.element(subCheckedBinding).toHaveTextContent("true");
 	await t.trigger.click({ button: "right" });
 	await openSubmenu(t);
-	await expect.element(page.getByTestId("sub-checkbox-indicator")).toHaveTextContent("true");
+	await expect
+		.element(page.getByTestId("sub-checkbox-indicator"))
+		.toHaveTextContent("true");
 	await page.getByTestId("sub-checkbox-item").click();
 	await expect.element(subCheckedBinding).toHaveTextContent("false");
 
@@ -163,7 +170,9 @@ it("should toggle checkbox items within submenus when clicked & respects binding
 	await expect.element(subCheckedBinding).toHaveTextContent("true");
 	await t.trigger.click({ button: "right" });
 	await openSubmenu(t);
-	await expect.element(page.getByTestId("sub-checkbox-indicator")).toHaveTextContent("true");
+	await expect
+		.element(page.getByTestId("sub-checkbox-indicator"))
+		.toHaveTextContent("true");
 });
 
 it("should check the radio item when clicked & respects binding", async () => {
@@ -262,7 +271,9 @@ it("should respect the `interactOutsideBehavior: 'ignore'` prop", async () => {
 			interactOutsideBehavior: "ignore",
 		},
 	});
-	document.body.dispatchEvent(new PointerEvent("pointerdown", { bubbles: true }));
+	document.body.dispatchEvent(
+		new PointerEvent("pointerdown", { bubbles: true }),
+	);
 
 	await expectExists(t.getContent());
 });
@@ -316,34 +327,34 @@ it("should forceMount the content when `forceMount` is true and the `open` snipp
 	await expectExists(page.getByTestId("content"));
 });
 
-it.each([ContextMenuTest, ContextMenuForceMountTest])(
-	"should close the menu and focus the next tabbable element when `TAB` is pressed while the menu is open",
-	async (component) => {
-		const t = await open({
-			component,
-			withOpenCheck: true,
-		});
-		const nextButton = page.getByTestId("next-button");
-		await userEvent.tab();
+it.each([
+	ContextMenuTest,
+	ContextMenuForceMountTest,
+])("should close the menu and focus the next tabbable element when `TAB` is pressed while the menu is open", async (component) => {
+	const t = await open({
+		component,
+		withOpenCheck: true,
+	});
+	const nextButton = page.getByTestId("next-button");
+	await userEvent.tab();
 
-		await expectNotExists(t.getContent());
-		await expect.element(nextButton).toHaveFocus();
-	}
-);
+	await expectNotExists(t.getContent());
+	await expect.element(nextButton).toHaveFocus();
+});
 
-it.each([ContextMenuTest, ContextMenuForceMountTest])(
-	"should close the menu and focus the previous tabbable element when `SHIFT+TAB` is pressed while the menu is open",
-	async (component) => {
-		const t = await open({
-			component,
-			withOpenCheck: true,
-		});
-		const previousButton = page.getByTestId("previous-button");
-		await userEvent.keyboard(kbd.SHIFT_TAB);
-		await expect.element(previousButton).toHaveFocus();
-		await expectNotExists(t.getContent());
-	}
-);
+it.each([
+	ContextMenuTest,
+	ContextMenuForceMountTest,
+])("should close the menu and focus the previous tabbable element when `SHIFT+TAB` is pressed while the menu is open", async (component) => {
+	const t = await open({
+		component,
+		withOpenCheck: true,
+	});
+	const previousButton = page.getByTestId("previous-button");
+	await userEvent.keyboard(kbd.SHIFT_TAB);
+	await expect.element(previousButton).toHaveFocus();
+	await expectNotExists(t.getContent());
+});
 
 it("should respect the `onOpenAutoFocus` prop", async () => {
 	const t = await open({
@@ -357,7 +368,9 @@ it("should respect the `onOpenAutoFocus` prop", async () => {
 	});
 
 	await expect.element(t.getContent()).not.toHaveFocus();
-	await expect.element(page.getByTestId("on-open-focus-override")).toHaveFocus();
+	await expect
+		.element(page.getByTestId("on-open-focus-override"))
+		.toHaveFocus();
 });
 
 it("should respect the `onCloseAutoFocus` prop", async () => {
@@ -371,7 +384,9 @@ it("should respect the `onCloseAutoFocus` prop", async () => {
 	});
 
 	await userEvent.keyboard(kbd.ESCAPE);
-	await expect.element(page.getByTestId("on-close-focus-override")).toHaveFocus();
+	await expect
+		.element(page.getByTestId("on-close-focus-override"))
+		.toHaveFocus();
 });
 
 it("should respect the `onSelect` prop on SubTrigger", async () => {
@@ -399,17 +414,27 @@ it("should respect the `value` prop on CheckboxGroup", async () => {
 	});
 
 	const checkboxGroupItem1 = page.getByTestId("checkbox-group-item-1");
-	await expect.element(checkboxGroupItem1).toHaveAttribute("aria-checked", "true");
+	await expect
+		.element(checkboxGroupItem1)
+		.toHaveAttribute("aria-checked", "true");
 
-	await expect.element(page.getByTestId("checkbox-indicator-1")).toHaveTextContent("true");
-	await expect.element(page.getByTestId("checkbox-indicator-2")).toHaveTextContent("false");
+	await expect
+		.element(page.getByTestId("checkbox-indicator-1"))
+		.toHaveTextContent("true");
+	await expect
+		.element(page.getByTestId("checkbox-indicator-2"))
+		.toHaveTextContent("false");
 
 	await checkboxGroupItem1.click();
 
 	await t.open();
 
-	await expect.element(page.getByTestId("checkbox-indicator-1")).toHaveTextContent("false");
-	await expect.element(page.getByTestId("checkbox-indicator-2")).toHaveTextContent("false");
+	await expect
+		.element(page.getByTestId("checkbox-indicator-1"))
+		.toHaveTextContent("false");
+	await expect
+		.element(page.getByTestId("checkbox-indicator-2"))
+		.toHaveTextContent("false");
 });
 
 it("calls `onValueChange` when the value of the checkbox group changes", async () => {

@@ -1,13 +1,16 @@
 <script lang="ts" module>
-	import { Slider, type SliderMultipleRootProps } from "bits-ui";
+import { Slider, type SliderMultipleRootProps } from "bits-ui";
 
-	export type SliderWithLabelsTestProps = Omit<SliderMultipleRootProps, "type"> & {
-		tickLabelPosition?: "top" | "bottom" | "left" | "right";
-		thumbLabelPosition?: "top" | "bottom" | "left" | "right";
-		showTickLabels?: boolean;
-		showThumbLabels?: boolean;
-		orientation?: "horizontal" | "vertical";
-	};
+export type SliderWithLabelsTestProps = Omit<
+	SliderMultipleRootProps,
+	"type"
+> & {
+	tickLabelPosition?: "top" | "bottom" | "left" | "right";
+	thumbLabelPosition?: "top" | "bottom" | "left" | "right";
+	showTickLabels?: boolean;
+	showThumbLabels?: boolean;
+	orientation?: "horizontal" | "vertical";
+};
 </script>
 
 <script lang="ts">

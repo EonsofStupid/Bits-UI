@@ -1,13 +1,13 @@
 <script lang="ts" module>
-	import { Tabs, type WithoutChildrenOrChild } from "bits-ui";
-	export type Item = {
-		value: string;
-		disabled: boolean;
-	};
+import { Tabs, type WithoutChildrenOrChild } from "bits-ui";
+export type Item = {
+	value: string;
+	disabled: boolean;
+};
 
-	export type TabsTestProps = WithoutChildrenOrChild<Tabs.RootProps> & {
-		items: Item[];
-	};
+export type TabsTestProps = WithoutChildrenOrChild<Tabs.RootProps> & {
+	items: Item[];
+};
 </script>
 
 <script lang="ts">

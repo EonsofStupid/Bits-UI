@@ -39,11 +39,14 @@ export class DOMTypeahead {
 		const currentItem = this.#getCurrentItem();
 
 		const currentMatch =
-			candidates.find((item) => item === currentItem)?.textContent?.trim() ?? "";
+			candidates.find((item) => item === currentItem)?.textContent?.trim() ??
+			"";
 
 		const values = candidates.map((item) => item.textContent?.trim() ?? "");
 		const nextMatch = getNextMatch(values, this.#search.current, currentMatch);
-		const newItem = candidates.find((item) => item.textContent?.trim() === nextMatch);
+		const newItem = candidates.find(
+			(item) => item.textContent?.trim() === nextMatch,
+		);
 		if (newItem) this.#onMatch(newItem);
 		return newItem;
 	}

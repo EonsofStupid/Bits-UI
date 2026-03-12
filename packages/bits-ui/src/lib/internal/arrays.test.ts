@@ -426,7 +426,12 @@ describe("getNextMatch", () => {
 	});
 
 	it("should handle search with spaces", () => {
-		const spaceValues = ["apple pie", "banana split", "banana bread", "cherry tart"];
+		const spaceValues = [
+			"apple pie",
+			"banana split",
+			"banana bread",
+			"cherry tart",
+		];
 		expect(getNextMatch(spaceValues, "b")).toBe("banana split");
 		expect(getNextMatch(spaceValues, "banana ")).toBe("banana split");
 		expect(getNextMatch(spaceValues, "banana b")).toBe("banana bread");

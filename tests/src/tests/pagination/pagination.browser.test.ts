@@ -1,6 +1,8 @@
 import { expect, it } from "vitest";
 import { render } from "vitest-browser-svelte";
-import PaginationTest, { type PaginationTestProps } from "./pagination-test.svelte";
+import PaginationTest, {
+	type PaginationTestProps,
+} from "./pagination-test.svelte";
 import { page } from "@vitest/browser/context";
 
 function setup(props: PaginationTestProps = { count: 100 }) {
@@ -42,7 +44,9 @@ it("should change on clicked button", async () => {
 
 	const page10 = page.getByTestId("page-10");
 	await page10.click();
-	await expect.element(page.getByTestId("current-page")).toHaveTextContent("10");
+	await expect
+		.element(page.getByTestId("current-page"))
+		.toHaveTextContent("10");
 });
 
 it("should display the correct range of items being displayed", async () => {

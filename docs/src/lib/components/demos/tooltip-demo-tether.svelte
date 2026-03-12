@@ -1,13 +1,13 @@
 <script lang="ts">
-	import { Tooltip } from "bits-ui";
+import { Tooltip } from "bits-ui";
 
-	type ActionTooltipPayload = {
-		label: string;
-		description: string;
-		shortcut: string;
-	};
+type ActionTooltipPayload = {
+	label: string;
+	description: string;
+	shortcut: string;
+};
 
-	const actionsTether = Tooltip.createTether<ActionTooltipPayload>();
+const actionsTether = Tooltip.createTether<ActionTooltipPayload>();
 </script>
 
 <Tooltip.Provider delayDuration={200}>

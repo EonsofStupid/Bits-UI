@@ -23,8 +23,12 @@ describe("Accessibility", () => {
 		await expect.element(t.root).toHaveAttribute("aria-valuenow", "3");
 		await expect.element(t.root).toHaveAttribute("aria-valuemin", "0");
 		await expect.element(t.root).toHaveAttribute("aria-valuemax", "5");
-		await expect.element(t.root).toHaveAttribute("aria-valuetext", "3 out of 5");
-		await expect.element(t.root).toHaveAttribute("aria-orientation", "horizontal");
+		await expect
+			.element(t.root)
+			.toHaveAttribute("aria-valuetext", "3 out of 5");
+		await expect
+			.element(t.root)
+			.toHaveAttribute("aria-orientation", "horizontal");
 		await expect.element(t.root).toHaveAttribute("aria-label", "Rating");
 		await expect.element(t.root).toHaveAttribute("tabindex", "0");
 	});
@@ -76,7 +80,9 @@ describe("Data Attributes", () => {
 		await expect.element(t.root).toHaveAttribute("aria-valuemax", "5");
 		await expect.element(t.root).toHaveAttribute("data-disabled", "");
 		await expect.element(t.root).toHaveAttribute("data-readonly", "");
-		await expect.element(t.root).toHaveAttribute("data-orientation", "vertical");
+		await expect
+			.element(t.root)
+			.toHaveAttribute("data-orientation", "vertical");
 	});
 
 	it("should have correct data attributes on items", async () => {
@@ -120,11 +126,21 @@ describe("Value Changes", () => {
 		await expect.element(valueDisplay).toHaveTextContent("2.5");
 
 		// check that item states are correct
-		await expect.element(page.getByTestId("state-0")).toHaveTextContent("active");
-		await expect.element(page.getByTestId("state-1")).toHaveTextContent("active");
-		await expect.element(page.getByTestId("state-2")).toHaveTextContent("partial");
-		await expect.element(page.getByTestId("state-3")).toHaveTextContent("inactive");
-		await expect.element(page.getByTestId("state-4")).toHaveTextContent("inactive");
+		await expect
+			.element(page.getByTestId("state-0"))
+			.toHaveTextContent("active");
+		await expect
+			.element(page.getByTestId("state-1"))
+			.toHaveTextContent("active");
+		await expect
+			.element(page.getByTestId("state-2"))
+			.toHaveTextContent("partial");
+		await expect
+			.element(page.getByTestId("state-3"))
+			.toHaveTextContent("inactive");
+		await expect
+			.element(page.getByTestId("state-4"))
+			.toHaveTextContent("inactive");
 	});
 
 	it("should handle typing a number to set a value", async () => {
@@ -363,15 +379,23 @@ describe("Orientation", () => {
 	it("should have correct aria-orientation for vertical", async () => {
 		const t = setup({ orientation: "vertical" });
 
-		await expect.element(t.root).toHaveAttribute("aria-orientation", "vertical");
-		await expect.element(t.root).toHaveAttribute("data-orientation", "vertical");
+		await expect
+			.element(t.root)
+			.toHaveAttribute("aria-orientation", "vertical");
+		await expect
+			.element(t.root)
+			.toHaveAttribute("data-orientation", "vertical");
 	});
 
 	it("should have correct aria-orientation for horizontal (default)", async () => {
 		const t = setup();
 
-		await expect.element(t.root).toHaveAttribute("aria-orientation", "horizontal");
-		await expect.element(t.root).toHaveAttribute("data-orientation", "horizontal");
+		await expect
+			.element(t.root)
+			.toHaveAttribute("aria-orientation", "horizontal");
+		await expect
+			.element(t.root)
+			.toHaveAttribute("data-orientation", "horizontal");
 	});
 });
 
@@ -400,13 +424,17 @@ describe("Value Display", () => {
 		const t = setup({ max: 5 });
 
 		await expect.element(t.root).toHaveAttribute("aria-valuenow", "0");
-		await expect.element(t.root).toHaveAttribute("aria-valuetext", "0 out of 5");
+		await expect
+			.element(t.root)
+			.toHaveAttribute("aria-valuetext", "0 out of 5");
 
 		const item2 = page.getByTestId("item-2");
 		await item2.click();
 
 		await expect.element(t.root).toHaveAttribute("aria-valuenow", "3");
-		await expect.element(t.root).toHaveAttribute("aria-valuetext", "3 out of 5");
+		await expect
+			.element(t.root)
+			.toHaveAttribute("aria-valuetext", "3 out of 5");
 	});
 
 	it("should handle decimal values in aria attributes", async () => {
@@ -416,7 +444,9 @@ describe("Value Display", () => {
 		await setHalfButton.click();
 
 		await expect.element(t.root).toHaveAttribute("aria-valuenow", "2.5");
-		await expect.element(t.root).toHaveAttribute("aria-valuetext", "2.5 out of 5");
+		await expect
+			.element(t.root)
+			.toHaveAttribute("aria-valuetext", "2.5 out of 5");
 	});
 
 	it("should provide correct state in item snippets", async () => {
@@ -426,11 +456,21 @@ describe("Value Display", () => {
 		const setHalfButton = page.getByTestId("set-half-button");
 		await setHalfButton.click();
 
-		await expect.element(page.getByTestId("state-0")).toHaveTextContent("active");
-		await expect.element(page.getByTestId("state-1")).toHaveTextContent("active");
-		await expect.element(page.getByTestId("state-2")).toHaveTextContent("partial");
-		await expect.element(page.getByTestId("state-3")).toHaveTextContent("inactive");
-		await expect.element(page.getByTestId("state-4")).toHaveTextContent("inactive");
+		await expect
+			.element(page.getByTestId("state-0"))
+			.toHaveTextContent("active");
+		await expect
+			.element(page.getByTestId("state-1"))
+			.toHaveTextContent("active");
+		await expect
+			.element(page.getByTestId("state-2"))
+			.toHaveTextContent("partial");
+		await expect
+			.element(page.getByTestId("state-3"))
+			.toHaveTextContent("inactive");
+		await expect
+			.element(page.getByTestId("state-4"))
+			.toHaveTextContent("inactive");
 	});
 });
 
@@ -500,9 +540,15 @@ describe("Hover Preview", () => {
 
 		// initial state - only first item should be active
 		await expect.element(valueDisplay).toHaveTextContent("1");
-		await expect.element(page.getByTestId("state-0")).toHaveTextContent("active");
-		await expect.element(page.getByTestId("state-1")).toHaveTextContent("inactive");
-		await expect.element(page.getByTestId("state-2")).toHaveTextContent("inactive");
+		await expect
+			.element(page.getByTestId("state-0"))
+			.toHaveTextContent("active");
+		await expect
+			.element(page.getByTestId("state-1"))
+			.toHaveTextContent("inactive");
+		await expect
+			.element(page.getByTestId("state-2"))
+			.toHaveTextContent("inactive");
 
 		// hover over third item
 		const item3 = page.getByTestId("item-2");
@@ -510,10 +556,18 @@ describe("Hover Preview", () => {
 
 		// value should remain the same, but states should show preview
 		await expect.element(valueDisplay).toHaveTextContent("1");
-		await expect.element(page.getByTestId("state-0")).toHaveTextContent("active");
-		await expect.element(page.getByTestId("state-1")).toHaveTextContent("active");
-		await expect.element(page.getByTestId("state-2")).toHaveTextContent("active");
-		await expect.element(page.getByTestId("state-3")).toHaveTextContent("inactive");
+		await expect
+			.element(page.getByTestId("state-0"))
+			.toHaveTextContent("active");
+		await expect
+			.element(page.getByTestId("state-1"))
+			.toHaveTextContent("active");
+		await expect
+			.element(page.getByTestId("state-2"))
+			.toHaveTextContent("active");
+		await expect
+			.element(page.getByTestId("state-3"))
+			.toHaveTextContent("inactive");
 	});
 
 	it("should reset preview on pointer leave", async () => {
@@ -524,32 +578,50 @@ describe("Hover Preview", () => {
 		await item3.hover();
 
 		// preview should be active
-		await expect.element(page.getByTestId("state-2")).toHaveTextContent("active");
+		await expect
+			.element(page.getByTestId("state-2"))
+			.toHaveTextContent("active");
 
 		// leave the root element
 		await t.root.unhover();
 
 		// should return to original state
-		await expect.element(page.getByTestId("state-0")).toHaveTextContent("active");
-		await expect.element(page.getByTestId("state-1")).toHaveTextContent("inactive");
-		await expect.element(page.getByTestId("state-2")).toHaveTextContent("inactive");
+		await expect
+			.element(page.getByTestId("state-0"))
+			.toHaveTextContent("active");
+		await expect
+			.element(page.getByTestId("state-1"))
+			.toHaveTextContent("inactive");
+		await expect
+			.element(page.getByTestId("state-2"))
+			.toHaveTextContent("inactive");
 	});
 
 	it("should not show preview when hoverPreview is disabled", async () => {
 		setup({ value: 1, max: 5, hoverPreview: false });
 
 		// initial state
-		await expect.element(page.getByTestId("state-0")).toHaveTextContent("active");
-		await expect.element(page.getByTestId("state-1")).toHaveTextContent("inactive");
+		await expect
+			.element(page.getByTestId("state-0"))
+			.toHaveTextContent("active");
+		await expect
+			.element(page.getByTestId("state-1"))
+			.toHaveTextContent("inactive");
 
 		// hover over third item
 		const item3 = page.getByTestId("item-2");
 		await item3.hover();
 
 		// states should remain unchanged
-		await expect.element(page.getByTestId("state-0")).toHaveTextContent("active");
-		await expect.element(page.getByTestId("state-1")).toHaveTextContent("inactive");
-		await expect.element(page.getByTestId("state-2")).toHaveTextContent("inactive");
+		await expect
+			.element(page.getByTestId("state-0"))
+			.toHaveTextContent("active");
+		await expect
+			.element(page.getByTestId("state-1"))
+			.toHaveTextContent("inactive");
+		await expect
+			.element(page.getByTestId("state-2"))
+			.toHaveTextContent("inactive");
 	});
 
 	it("should not show preview when disabled", async () => {
@@ -560,9 +632,15 @@ describe("Hover Preview", () => {
 		await item3.hover();
 
 		// states should remain unchanged due to disabled state
-		await expect.element(page.getByTestId("state-0")).toHaveTextContent("active");
-		await expect.element(page.getByTestId("state-1")).toHaveTextContent("inactive");
-		await expect.element(page.getByTestId("state-2")).toHaveTextContent("inactive");
+		await expect
+			.element(page.getByTestId("state-0"))
+			.toHaveTextContent("active");
+		await expect
+			.element(page.getByTestId("state-1"))
+			.toHaveTextContent("inactive");
+		await expect
+			.element(page.getByTestId("state-2"))
+			.toHaveTextContent("inactive");
 	});
 
 	it("should not show preview when readonly", async () => {
@@ -573,9 +651,15 @@ describe("Hover Preview", () => {
 		await item3.hover();
 
 		// states should remain unchanged due to readonly state
-		await expect.element(page.getByTestId("state-0")).toHaveTextContent("active");
-		await expect.element(page.getByTestId("state-1")).toHaveTextContent("inactive");
-		await expect.element(page.getByTestId("state-2")).toHaveTextContent("inactive");
+		await expect
+			.element(page.getByTestId("state-0"))
+			.toHaveTextContent("active");
+		await expect
+			.element(page.getByTestId("state-1"))
+			.toHaveTextContent("inactive");
+		await expect
+			.element(page.getByTestId("state-2"))
+			.toHaveTextContent("inactive");
 	});
 
 	it("should show preview with half ratings when allowHalf is enabled", async () => {
@@ -586,10 +670,18 @@ describe("Hover Preview", () => {
 		await item3.hover({ position: { x: 5, y: 5 } });
 
 		// should show preview up to at least the hovered item (exact half behavior depends on pointer position)
-		await expect.element(page.getByTestId("state-0")).toHaveTextContent("active");
-		await expect.element(page.getByTestId("state-1")).toHaveTextContent("active");
-		await expect.element(page.getByTestId("state-2")).toHaveTextContent("partial");
-		await expect.element(page.getByTestId("state-3")).toHaveTextContent("inactive");
+		await expect
+			.element(page.getByTestId("state-0"))
+			.toHaveTextContent("active");
+		await expect
+			.element(page.getByTestId("state-1"))
+			.toHaveTextContent("active");
+		await expect
+			.element(page.getByTestId("state-2"))
+			.toHaveTextContent("partial");
+		await expect
+			.element(page.getByTestId("state-3"))
+			.toHaveTextContent("inactive");
 	});
 
 	it("should ignore touch events for hover preview", async () => {
@@ -610,9 +702,15 @@ describe("Hover Preview", () => {
 		item3.element().dispatchEvent(touchEvent);
 
 		// states should remain unchanged for touch events
-		await expect.element(page.getByTestId("state-0")).toHaveTextContent("active");
-		await expect.element(page.getByTestId("state-1")).toHaveTextContent("inactive");
-		await expect.element(page.getByTestId("state-2")).toHaveTextContent("inactive");
+		await expect
+			.element(page.getByTestId("state-0"))
+			.toHaveTextContent("active");
+		await expect
+			.element(page.getByTestId("state-1"))
+			.toHaveTextContent("inactive");
+		await expect
+			.element(page.getByTestId("state-2"))
+			.toHaveTextContent("inactive");
 	});
 
 	it("should work with mouse pointer events for hover preview", async () => {
@@ -623,27 +721,51 @@ describe("Hover Preview", () => {
 		await item3.hover();
 
 		// should show preview for mouse events
-		await expect.element(page.getByTestId("state-0")).toHaveTextContent("active");
-		await expect.element(page.getByTestId("state-1")).toHaveTextContent("active");
-		await expect.element(page.getByTestId("state-2")).toHaveTextContent("active");
-		await expect.element(page.getByTestId("state-3")).toHaveTextContent("inactive");
+		await expect
+			.element(page.getByTestId("state-0"))
+			.toHaveTextContent("active");
+		await expect
+			.element(page.getByTestId("state-1"))
+			.toHaveTextContent("active");
+		await expect
+			.element(page.getByTestId("state-2"))
+			.toHaveTextContent("active");
+		await expect
+			.element(page.getByTestId("state-3"))
+			.toHaveTextContent("inactive");
 	});
 
 	it("should not show preview below min value", async () => {
 		setup({ value: 3, min: 2, max: 5, hoverPreview: true });
 
-		await expect.element(page.getByTestId("state-0")).toHaveTextContent("active");
-		await expect.element(page.getByTestId("state-1")).toHaveTextContent("active");
-		await expect.element(page.getByTestId("state-2")).toHaveTextContent("active");
-		await expect.element(page.getByTestId("state-3")).toHaveTextContent("inactive");
+		await expect
+			.element(page.getByTestId("state-0"))
+			.toHaveTextContent("active");
+		await expect
+			.element(page.getByTestId("state-1"))
+			.toHaveTextContent("active");
+		await expect
+			.element(page.getByTestId("state-2"))
+			.toHaveTextContent("active");
+		await expect
+			.element(page.getByTestId("state-3"))
+			.toHaveTextContent("inactive");
 
 		const item1 = page.getByTestId("item-0");
 		await item1.hover();
 
-		await expect.element(page.getByTestId("state-0")).toHaveTextContent("active");
-		await expect.element(page.getByTestId("state-1")).toHaveTextContent("active");
-		await expect.element(page.getByTestId("state-2")).toHaveTextContent("inactive");
-		await expect.element(page.getByTestId("state-3")).toHaveTextContent("inactive");
+		await expect
+			.element(page.getByTestId("state-0"))
+			.toHaveTextContent("active");
+		await expect
+			.element(page.getByTestId("state-1"))
+			.toHaveTextContent("active");
+		await expect
+			.element(page.getByTestId("state-2"))
+			.toHaveTextContent("inactive");
+		await expect
+			.element(page.getByTestId("state-3"))
+			.toHaveTextContent("inactive");
 	});
 });
 
@@ -728,17 +850,29 @@ describe("RTL Behavior", () => {
 		await item3.hover();
 
 		// should show preview regardless of RTL
-		await expect.element(page.getByTestId("state-0")).toHaveTextContent("active");
-		await expect.element(page.getByTestId("state-1")).toHaveTextContent("active");
-		await expect.element(page.getByTestId("state-2")).toHaveTextContent("active");
-		await expect.element(page.getByTestId("state-3")).toHaveTextContent("inactive");
+		await expect
+			.element(page.getByTestId("state-0"))
+			.toHaveTextContent("active");
+		await expect
+			.element(page.getByTestId("state-1"))
+			.toHaveTextContent("active");
+		await expect
+			.element(page.getByTestId("state-2"))
+			.toHaveTextContent("active");
+		await expect
+			.element(page.getByTestId("state-3"))
+			.toHaveTextContent("inactive");
 	});
 
 	it("should handle vertical orientation in RTL mode", async () => {
 		const t = setupRTL({ orientation: "vertical", max: 5 });
 
-		await expect.element(t.root).toHaveAttribute("data-orientation", "vertical");
-		await expect.element(t.root).toHaveAttribute("aria-orientation", "vertical");
+		await expect
+			.element(t.root)
+			.toHaveAttribute("data-orientation", "vertical");
+		await expect
+			.element(t.root)
+			.toHaveAttribute("aria-orientation", "vertical");
 
 		// clicking should still work in vertical RTL
 		const item3 = page.getByTestId("item-2");
@@ -756,7 +890,9 @@ describe("RTL Behavior", () => {
 		await expect.element(t.root).toHaveAttribute("aria-valuemax", "5");
 		await expect.element(t.root).toHaveAttribute("data-disabled", "");
 		await expect.element(t.root).toHaveAttribute("data-readonly", "");
-		await expect.element(t.root).toHaveAttribute("data-orientation", "horizontal");
+		await expect
+			.element(t.root)
+			.toHaveAttribute("data-orientation", "horizontal");
 	});
 
 	it("should handle allowHalf functionality in RTL mode", async () => {
@@ -770,11 +906,21 @@ describe("RTL Behavior", () => {
 		await expect.element(valueDisplay).toHaveTextContent("2.5");
 
 		// check that item states are correct regardless of RTL
-		await expect.element(page.getByTestId("state-0")).toHaveTextContent("active");
-		await expect.element(page.getByTestId("state-1")).toHaveTextContent("active");
-		await expect.element(page.getByTestId("state-2")).toHaveTextContent("partial");
-		await expect.element(page.getByTestId("state-3")).toHaveTextContent("inactive");
-		await expect.element(page.getByTestId("state-4")).toHaveTextContent("inactive");
+		await expect
+			.element(page.getByTestId("state-0"))
+			.toHaveTextContent("active");
+		await expect
+			.element(page.getByTestId("state-1"))
+			.toHaveTextContent("active");
+		await expect
+			.element(page.getByTestId("state-2"))
+			.toHaveTextContent("partial");
+		await expect
+			.element(page.getByTestId("state-3"))
+			.toHaveTextContent("inactive");
+		await expect
+			.element(page.getByTestId("state-4"))
+			.toHaveTextContent("inactive");
 	});
 
 	it("should handle disabled state in RTL mode", async () => {
@@ -972,7 +1118,9 @@ describe("Clear Functionality", () => {
 	it("should work in RTL mode", async () => {
 		function setupClearRTL(props: Partial<RatingGroupTestProps> = {}) {
 			const returned = render(RatingGroupTest, { ...props });
-			const input = returned.container.querySelector("input") as HTMLInputElement;
+			const input = returned.container.querySelector(
+				"input",
+			) as HTMLInputElement;
 			const root = page.getByTestId("root").element() as HTMLElement;
 
 			// set RTL direction

@@ -1,10 +1,10 @@
 <script lang="ts" module>
-	export type MenubarTestProps = Menubar.RootProps & {
-		one?: Partial<MenubarMenuProps>;
-		two?: Partial<MenubarMenuProps>;
-		three?: Partial<MenubarMenuProps>;
-		four?: Partial<MenubarMenuProps>;
-	};
+export type MenubarTestProps = Menubar.RootProps & {
+	one?: Partial<MenubarMenuProps>;
+	two?: Partial<MenubarMenuProps>;
+	three?: Partial<MenubarMenuProps>;
+	four?: Partial<MenubarMenuProps>;
+};
 </script>
 
 <script lang="ts">

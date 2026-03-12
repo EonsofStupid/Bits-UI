@@ -9,7 +9,11 @@ import {
 } from "svelte-toolbelt";
 import { Context, watch } from "runed";
 import { on } from "svelte/events";
-import { createBitsAttrs, boolToStr, getDataOpenClosed } from "$lib/internal/attrs.js";
+import {
+	createBitsAttrs,
+	boolToStr,
+	getDataOpenClosed,
+} from "$lib/internal/attrs.js";
 import { isElement, isFocusVisible, isTouch } from "$lib/internal/is.js";
 import type {
 	BitsFocusEvent,
@@ -27,7 +31,9 @@ const linkPreviewAttrs = createBitsAttrs({
 	parts: ["content", "trigger"],
 });
 
-const LinkPreviewRootContext = new Context<LinkPreviewRootState>("LinkPreview.Root");
+const LinkPreviewRootContext = new Context<LinkPreviewRootState>(
+	"LinkPreview.Root",
+);
 
 interface LinkPreviewRootStateOpts
 	extends WritableBoxedValues<{
@@ -97,7 +103,7 @@ export class LinkPreviewRootState {
 				const unsubListener = on(
 					this.domContext.getDocument(),
 					"pointerup",
-					handlePointerUp
+					handlePointerUp,
 				);
 
 				if (!this.contentNode) return;
@@ -112,7 +118,7 @@ export class LinkPreviewRootState {
 					this.hasSelection = false;
 					this.isPointerDownOnContent = false;
 				};
-			}
+			},
 		);
 	}
 
@@ -167,7 +173,10 @@ export class LinkPreviewTriggerState {
 	constructor(opts: LinkPreviewTriggerStateOpts, root: LinkPreviewRootState) {
 		this.opts = opts;
 		this.root = root;
-		this.attachment = attachRef(this.opts.ref, (v) => (this.root.triggerNode = v));
+		this.attachment = attachRef(
+			this.opts.ref,
+			(v) => (this.root.triggerNode = v),
+		);
 		this.root.domContext = new DOMContext(opts.ref);
 		this.onpointerenter = this.onpointerenter.bind(this);
 		this.onpointerleave = this.onpointerleave.bind(this);
@@ -211,7 +220,7 @@ export class LinkPreviewTriggerState {
 				onblur: this.onblur,
 				onpointerleave: this.onpointerleave,
 				...this.attachment,
-			}) as const
+			}) as const,
 	);
 }
 
@@ -234,7 +243,10 @@ export class LinkPreviewContentState {
 	constructor(opts: LinkPreviewContentStateOpts, root: LinkPreviewRootState) {
 		this.opts = opts;
 		this.root = root;
-		this.attachment = attachRef(this.opts.ref, (v) => (this.root.contentNode = v));
+		this.attachment = attachRef(
+			this.opts.ref,
+			(v) => (this.root.contentNode = v),
+		);
 		this.root.domContext = new DOMContext(opts.ref);
 		this.onpointerdown = this.onpointerdown.bind(this);
 		this.onpointerenter = this.onpointerenter.bind(this);
@@ -298,7 +310,9 @@ export class LinkPreviewContentState {
 		return this.root.contentPresence.shouldRender;
 	}
 
-	readonly snippetProps = $derived.by(() => ({ open: this.root.opts.open.current }));
+	readonly snippetProps = $derived.by(() => ({
+		open: this.root.opts.open.current,
+	}));
 
 	readonly props = $derived.by(
 		() =>
@@ -311,7 +325,7 @@ export class LinkPreviewContentState {
 				onpointerenter: this.onpointerenter,
 				onfocusout: this.onfocusout,
 				...this.attachment,
-			}) as const
+			}) as const,
 	);
 
 	readonly popperProps = {

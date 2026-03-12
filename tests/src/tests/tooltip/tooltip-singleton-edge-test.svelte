@@ -1,13 +1,13 @@
 <script lang="ts">
-	import { Tooltip } from "bits-ui";
+import { Tooltip } from "bits-ui";
 
-	const tether = Tooltip.createTether<{ label: string }>();
-	let open = $state(false);
-	let triggerId = $state<string | null>(null);
-	let showTriggerOne = $state(true);
-	let disableTriggerTwo = $state(false);
-	let useCustomAnchor = $state(false);
-	let customAnchor = $state<HTMLElement | null>(null);
+const tether = Tooltip.createTether<{ label: string }>();
+let open = $state(false);
+let triggerId = $state<string | null>(null);
+let showTriggerOne = $state(true);
+let disableTriggerTwo = $state(false);
+let useCustomAnchor = $state(false);
+let customAnchor = $state<HTMLElement | null>(null);
 </script>
 
 <main data-testid="main">

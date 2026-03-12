@@ -1,23 +1,23 @@
 <script lang="ts" module>
-	import {
-		Select,
-		type SelectSingleRootProps,
-		type WithoutChildren,
-		type WithoutChildrenOrChild,
-	} from "bits-ui";
-	import { generateTestId } from "../helpers/select";
-	export type Item = {
-		value: string;
-		label: string;
-		disabled?: boolean;
-	};
+import {
+	Select,
+	type SelectSingleRootProps,
+	type WithoutChildren,
+	type WithoutChildrenOrChild,
+} from "bits-ui";
+import { generateTestId } from "../helpers/select";
+export type Item = {
+	value: string;
+	label: string;
+	disabled?: boolean;
+};
 
-	export type SelectSingleTestProps = WithoutChildren<SelectSingleRootProps> & {
-		contentProps?: WithoutChildrenOrChild<Select.ContentProps>;
-		portalProps?: WithoutChildrenOrChild<Select.PortalProps>;
-		items: Item[];
-		searchValue?: string;
-	};
+export type SelectSingleTestProps = WithoutChildren<SelectSingleRootProps> & {
+	contentProps?: WithoutChildrenOrChild<Select.ContentProps>;
+	portalProps?: WithoutChildrenOrChild<Select.PortalProps>;
+	items: Item[];
+	searchValue?: string;
+};
 </script>
 
 <script lang="ts">

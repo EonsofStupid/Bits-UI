@@ -1,9 +1,9 @@
 <script lang="ts">
-	import X from "phosphor-svelte/lib/X";
-	import { Dialog } from "bits-ui";
+import X from "phosphor-svelte/lib/X";
+import { Dialog } from "bits-ui";
 
-	let rootOpen = $state(false);
-	let nestedOpen = $state(false);
+let rootOpen = $state(false);
+let nestedOpen = $state(false);
 </script>
 
 <Dialog.Root bind:open={rootOpen}>

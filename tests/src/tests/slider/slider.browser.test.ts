@@ -2,8 +2,12 @@
 import { expect, it, vi, describe } from "vitest";
 import { render } from "vitest-browser-svelte";
 import { getTestKbd } from "../utils.js";
-import SliderMultiTest, { type SliderMultiTestProps } from "./slider-test-multi.svelte";
-import SliderRangeTest, { type SliderMultiRangeTestProps } from "./slider-range-test.svelte";
+import SliderMultiTest, {
+	type SliderMultiTestProps,
+} from "./slider-test-multi.svelte";
+import SliderRangeTest, {
+	type SliderMultiRangeTestProps,
+} from "./slider-range-test.svelte";
 import SliderWithLabelsTest, {
 	type SliderWithLabelsTestProps,
 } from "./slider-test-with-labels.svelte";
@@ -23,7 +27,7 @@ function renderSliderWithLabels(props: SliderWithLabelsTestProps = {}) {
 
 function setup(
 	props: SliderMultiTestProps | SliderWithLabelsTestProps = {},
-	kind: "default" | "range" | "labels" = "default"
+	kind: "default" | "range" | "labels" = "default",
 ) {
 	let t: ReturnType<typeof render>;
 	if (kind === "default") {
@@ -48,7 +52,9 @@ it("should have a thumb positioned at 30% of the container", async () => {
 	const thumb = page.getByTestId("thumb");
 	await expect.element(thumb).toBeInTheDocument();
 
-	expect(isCloseEnough(30, (thumb.element() as HTMLElement).style.left)).toBeTruthy();
+	expect(
+		isCloseEnough(30, (thumb.element() as HTMLElement).style.left),
+	).toBeTruthy();
 });
 it("should have a range that covers from 0 to 30%", async () => {
 	setup();
@@ -56,11 +62,18 @@ it("should have a range that covers from 0 to 30%", async () => {
 	const range = page.getByTestId("range");
 	await expect.element(range).toBeInTheDocument();
 
-	expect(isCloseEnough(0, (range.element() as HTMLElement).style.left)).toBeTruthy();
-	expect(isCloseEnough(70, (range.element() as HTMLElement).style.right)).toBeTruthy();
+	expect(
+		isCloseEnough(0, (range.element() as HTMLElement).style.left),
+	).toBeTruthy();
+	expect(
+		isCloseEnough(70, (range.element() as HTMLElement).style.right),
+	).toBeTruthy();
 });
 
-it.each([kbd.ARROW_RIGHT, kbd.ARROW_UP])("should change by 1% when pressing %s", async (key) => {
+it.each([
+	kbd.ARROW_RIGHT,
+	kbd.ARROW_UP,
+])("should change by 1% when pressing %s", async (key) => {
 	setup();
 
 	const thumb = page.getByTestId("thumb");
@@ -78,7 +91,10 @@ it.each([kbd.ARROW_RIGHT, kbd.ARROW_UP])("should change by 1% when pressing %s",
 	});
 });
 
-it.each([kbd.ARROW_LEFT, kbd.ARROW_DOWN])("should change by 1% when pressing %s", async (key) => {
+it.each([
+	kbd.ARROW_LEFT,
+	kbd.ARROW_DOWN,
+])("should change by 1% when pressing %s", async (key) => {
 	setup();
 
 	const thumb = page.getByTestId("thumb").element() as HTMLElement;
@@ -160,146 +176,174 @@ describe("range", () => {
 		expect(isCloseEnough(20, range.style.right)).toBeTruthy();
 	});
 
-	it.each([kbd.ARROW_RIGHT, kbd.ARROW_UP])(
-		"should change by 1% when pressing %s (pressing on the first thumb)",
-		async (key) => {
-			setup({}, "range");
+	it.each([
+		kbd.ARROW_RIGHT,
+		kbd.ARROW_UP,
+	])("should change by 1% when pressing %s (pressing on the first thumb)", async (key) => {
+		setup({}, "range");
 
-			const thumb0 = page.getByTestId("thumb-0").element() as HTMLElement;
-			const thumb1 = page.getByTestId("thumb-1").element() as HTMLElement;
-			const range = page.getByTestId("range").element() as HTMLElement;
+		const thumb0 = page.getByTestId("thumb-0").element() as HTMLElement;
+		const thumb1 = page.getByTestId("thumb-1").element() as HTMLElement;
+		const range = page.getByTestId("range").element() as HTMLElement;
 
-			thumb0.focus();
-			await userEvent.keyboard(key);
+		thumb0.focus();
+		await userEvent.keyboard(key);
 
-			expectPercentages({ percentages: [21, 80], thumbs: [thumb0, thumb1], range });
-		}
-	);
+		expectPercentages({
+			percentages: [21, 80],
+			thumbs: [thumb0, thumb1],
+			range,
+		});
+	});
 
-	it.each([kbd.ARROW_RIGHT, kbd.ARROW_UP])(
-		"should change by 1% when pressing %s (pressing on the last thumb)",
-		async (key) => {
-			setup({}, "range");
+	it.each([
+		kbd.ARROW_RIGHT,
+		kbd.ARROW_UP,
+	])("should change by 1% when pressing %s (pressing on the last thumb)", async (key) => {
+		setup({}, "range");
 
-			const thumb0 = page.getByTestId("thumb-0").element() as HTMLElement;
-			const thumb1 = page.getByTestId("thumb-1").element() as HTMLElement;
-			const range = page.getByTestId("range").element() as HTMLElement;
+		const thumb0 = page.getByTestId("thumb-0").element() as HTMLElement;
+		const thumb1 = page.getByTestId("thumb-1").element() as HTMLElement;
+		const range = page.getByTestId("range").element() as HTMLElement;
 
-			thumb1.focus();
-			await userEvent.keyboard(key);
+		thumb1.focus();
+		await userEvent.keyboard(key);
 
-			expectPercentages({ percentages: [20, 81], thumbs: [thumb0, thumb1], range });
-		}
-	);
+		expectPercentages({
+			percentages: [20, 81],
+			thumbs: [thumb0, thumb1],
+			range,
+		});
+	});
 
-	it.each([kbd.ARROW_LEFT, kbd.ARROW_DOWN])(
-		"should change by 1% when pressing %s (pressing on the first thumb)",
-		async (key) => {
-			setup({}, "range");
+	it.each([
+		kbd.ARROW_LEFT,
+		kbd.ARROW_DOWN,
+	])("should change by 1% when pressing %s (pressing on the first thumb)", async (key) => {
+		setup({}, "range");
 
-			const thumb0 = page.getByTestId("thumb-0").element() as HTMLElement;
-			const thumb1 = page.getByTestId("thumb-1").element() as HTMLElement;
-			const range = page.getByTestId("range").element() as HTMLElement;
+		const thumb0 = page.getByTestId("thumb-0").element() as HTMLElement;
+		const thumb1 = page.getByTestId("thumb-1").element() as HTMLElement;
+		const range = page.getByTestId("range").element() as HTMLElement;
 
-			thumb0.focus();
-			await userEvent.keyboard(key);
+		thumb0.focus();
+		await userEvent.keyboard(key);
 
-			expectPercentages({ percentages: [19, 80], thumbs: [thumb0, thumb1], range });
-		}
-	);
+		expectPercentages({
+			percentages: [19, 80],
+			thumbs: [thumb0, thumb1],
+			range,
+		});
+	});
 
-	it.each([kbd.ARROW_LEFT, kbd.ARROW_DOWN])(
-		"should change by 1% when pressing %s (pressing on the last thumb)",
-		async (key) => {
-			setup({}, "range");
+	it.each([
+		kbd.ARROW_LEFT,
+		kbd.ARROW_DOWN,
+	])("should change by 1% when pressing %s (pressing on the last thumb)", async (key) => {
+		setup({}, "range");
 
-			const thumb0 = page.getByTestId("thumb-0").element() as HTMLElement;
-			const thumb1 = page.getByTestId("thumb-1").element() as HTMLElement;
-			const range = page.getByTestId("range").element() as HTMLElement;
+		const thumb0 = page.getByTestId("thumb-0").element() as HTMLElement;
+		const thumb1 = page.getByTestId("thumb-1").element() as HTMLElement;
+		const range = page.getByTestId("range").element() as HTMLElement;
 
-			thumb1.focus();
-			await userEvent.keyboard(key);
+		thumb1.focus();
+		await userEvent.keyboard(key);
 
-			expectPercentages({ percentages: [20, 79], thumbs: [thumb0, thumb1], range });
-		}
-	);
+		expectPercentages({
+			percentages: [20, 79],
+			thumbs: [thumb0, thumb1],
+			range,
+		});
+	});
 
-	it.each([kbd.ARROW_RIGHT, kbd.ARROW_UP])(
-		"should swap handler places when they overlap pressing %s (going up)",
-		async (key) => {
-			setup(
-				{
-					value: [49, 51],
-				},
-				"range"
-			);
+	it.each([
+		kbd.ARROW_RIGHT,
+		kbd.ARROW_UP,
+	])("should swap handler places when they overlap pressing %s (going up)", async (key) => {
+		setup(
+			{
+				value: [49, 51],
+			},
+			"range",
+		);
 
-			const thumb0 = page.getByTestId("thumb-0").element() as HTMLElement;
-			const thumb1 = page.getByTestId("thumb-1").element() as HTMLElement;
-			const range = page.getByTestId("range").element() as HTMLElement;
+		const thumb0 = page.getByTestId("thumb-0").element() as HTMLElement;
+		const thumb1 = page.getByTestId("thumb-1").element() as HTMLElement;
+		const range = page.getByTestId("range").element() as HTMLElement;
 
-			thumb0.focus();
-			await userEvent.keyboard(key);
-			await userEvent.keyboard(key);
-			await userEvent.keyboard(key);
+		thumb0.focus();
+		await userEvent.keyboard(key);
+		await userEvent.keyboard(key);
+		await userEvent.keyboard(key);
 
-			expectPercentages({ percentages: [51, 52], thumbs: [thumb0, thumb1], range });
-			expect(thumb1).toHaveFocus();
-		}
-	);
+		expectPercentages({
+			percentages: [51, 52],
+			thumbs: [thumb0, thumb1],
+			range,
+		});
+		expect(thumb1).toHaveFocus();
+	});
 
-	it.each([kbd.ARROW_RIGHT, kbd.ARROW_UP])(
-		"should call onValueChange when handlers swap places when they overlap pressing %s (going up)",
-		async (key) => {
-			const mock = vi.fn();
-			setup(
-				{
-					value: [49, 51],
-					onValueChange: mock,
-				},
-				"range"
-			);
+	it.each([
+		kbd.ARROW_RIGHT,
+		kbd.ARROW_UP,
+	])("should call onValueChange when handlers swap places when they overlap pressing %s (going up)", async (key) => {
+		const mock = vi.fn();
+		setup(
+			{
+				value: [49, 51],
+				onValueChange: mock,
+			},
+			"range",
+		);
 
-			const thumb0 = page.getByTestId("thumb-0").element() as HTMLElement;
-			const thumb1 = page.getByTestId("thumb-1").element() as HTMLElement;
-			const range = page.getByTestId("range").element() as HTMLElement;
+		const thumb0 = page.getByTestId("thumb-0").element() as HTMLElement;
+		const thumb1 = page.getByTestId("thumb-1").element() as HTMLElement;
+		const range = page.getByTestId("range").element() as HTMLElement;
 
-			thumb0.focus();
-			await userEvent.keyboard(key);
-			expect(mock).toHaveBeenCalledWith([50, 51]);
-			await userEvent.keyboard(key);
-			expect(mock).toHaveBeenCalledWith([51, 51]);
-			await userEvent.keyboard(key);
-			expect(mock).toHaveBeenCalledWith([51, 52]);
+		thumb0.focus();
+		await userEvent.keyboard(key);
+		expect(mock).toHaveBeenCalledWith([50, 51]);
+		await userEvent.keyboard(key);
+		expect(mock).toHaveBeenCalledWith([51, 51]);
+		await userEvent.keyboard(key);
+		expect(mock).toHaveBeenCalledWith([51, 52]);
 
-			expectPercentages({ percentages: [51, 52], thumbs: [thumb0, thumb1], range });
-			expect(thumb1).toHaveFocus();
-		}
-	);
+		expectPercentages({
+			percentages: [51, 52],
+			thumbs: [thumb0, thumb1],
+			range,
+		});
+		expect(thumb1).toHaveFocus();
+	});
 
-	it.each([kbd.ARROW_LEFT, kbd.ARROW_DOWN])(
-		"should swap handler places when they overlap pressing %s (going down)",
-		async (key) => {
-			setup(
-				{
-					value: [49, 51],
-				},
-				"range"
-			);
+	it.each([
+		kbd.ARROW_LEFT,
+		kbd.ARROW_DOWN,
+	])("should swap handler places when they overlap pressing %s (going down)", async (key) => {
+		setup(
+			{
+				value: [49, 51],
+			},
+			"range",
+		);
 
-			const thumb0 = page.getByTestId("thumb-0").element() as HTMLElement;
-			const thumb1 = page.getByTestId("thumb-1").element() as HTMLElement;
-			const range = page.getByTestId("range").element() as HTMLElement;
+		const thumb0 = page.getByTestId("thumb-0").element() as HTMLElement;
+		const thumb1 = page.getByTestId("thumb-1").element() as HTMLElement;
+		const range = page.getByTestId("range").element() as HTMLElement;
 
-			thumb1.focus();
-			await userEvent.keyboard(key);
-			await userEvent.keyboard(key);
-			await userEvent.keyboard(key);
+		thumb1.focus();
+		await userEvent.keyboard(key);
+		await userEvent.keyboard(key);
+		await userEvent.keyboard(key);
 
-			expectPercentages({ percentages: [48, 49], thumbs: [thumb0, thumb1], range });
-			expect(thumb0).toHaveFocus();
-		}
-	);
+		expectPercentages({
+			percentages: [48, 49],
+			thumbs: [thumb0, thumb1],
+			range,
+		});
+		expect(thumb0).toHaveFocus();
+	});
 
 	it("should bring thumb to 0  to minimum when pressing Home", async () => {
 		setup({}, "range");
@@ -311,7 +355,11 @@ describe("range", () => {
 		thumb0.focus();
 		await userEvent.keyboard(kbd.HOME);
 
-		expectPercentages({ percentages: [0, 80], thumbs: [thumb0, thumb1], range });
+		expectPercentages({
+			percentages: [0, 80],
+			thumbs: [thumb0, thumb1],
+			range,
+		});
 	});
 
 	it("should bring thumb 1  to maximum when pressing End", async () => {
@@ -324,7 +372,11 @@ describe("range", () => {
 		thumb1.focus();
 		await userEvent.keyboard(kbd.END);
 
-		expectPercentages({ percentages: [20, 100], thumbs: [thumb0, thumb1], range });
+		expectPercentages({
+			percentages: [20, 100],
+			thumbs: [thumb0, thumb1],
+			range,
+		});
 	});
 
 	it("should bring thumb 1  to minimum when pressing Home (thumbs swap places)", async () => {
@@ -337,7 +389,11 @@ describe("range", () => {
 		thumb1.focus();
 		await userEvent.keyboard(kbd.HOME);
 
-		expectPercentages({ percentages: [0, 20], thumbs: [thumb0, thumb1], range });
+		expectPercentages({
+			percentages: [0, 20],
+			thumbs: [thumb0, thumb1],
+			range,
+		});
 		expect(thumb0).toHaveFocus();
 	});
 
@@ -351,7 +407,11 @@ describe("range", () => {
 		thumb0.focus();
 		await userEvent.keyboard(kbd.END);
 
-		expectPercentages({ percentages: [80, 100], thumbs: [thumb0, thumb1], range });
+		expectPercentages({
+			percentages: [80, 100],
+			thumbs: [thumb0, thumb1],
+			range,
+		});
 		expect(thumb1).toHaveFocus();
 	});
 });
@@ -371,45 +431,45 @@ describe("small min, max, step", () => {
 		expect(isCloseEnough(50, thumb.style.left)).toBeTruthy();
 	});
 
-	it.each([kbd.ARROW_RIGHT, kbd.ARROW_UP])(
-		"should change by 1% when pressing %s",
-		async (key) => {
-			setup({
-				value: [0.5],
-				min: 0,
-				max: 1,
-				step: 0.01,
-			});
+	it.each([
+		kbd.ARROW_RIGHT,
+		kbd.ARROW_UP,
+	])("should change by 1% when pressing %s", async (key) => {
+		setup({
+			value: [0.5],
+			min: 0,
+			max: 1,
+			step: 0.01,
+		});
 
-			const thumb = page.getByTestId("thumb").element() as HTMLElement;
-			const range = page.getByTestId("range").element() as HTMLElement;
+		const thumb = page.getByTestId("thumb").element() as HTMLElement;
+		const range = page.getByTestId("range").element() as HTMLElement;
 
-			thumb.focus();
-			await userEvent.keyboard(key);
+		thumb.focus();
+		await userEvent.keyboard(key);
 
-			expectPercentage({ percentage: 51, thumb, range });
-		}
-	);
+		expectPercentage({ percentage: 51, thumb, range });
+	});
 
-	it.each([kbd.ARROW_LEFT, kbd.ARROW_DOWN])(
-		"should change by 10% when pressing %s",
-		async (key) => {
-			setup({
-				value: [0.5],
-				min: 0,
-				max: 1,
-				step: 0.01,
-			});
+	it.each([
+		kbd.ARROW_LEFT,
+		kbd.ARROW_DOWN,
+	])("should change by 10% when pressing %s", async (key) => {
+		setup({
+			value: [0.5],
+			min: 0,
+			max: 1,
+			step: 0.01,
+		});
 
-			const thumb = page.getByTestId("thumb").element() as HTMLElement;
-			const range = page.getByTestId("range").element() as HTMLElement;
+		const thumb = page.getByTestId("thumb").element() as HTMLElement;
+		const range = page.getByTestId("range").element() as HTMLElement;
 
-			thumb.focus();
-			await userEvent.keyboard(key);
+		thumb.focus();
+		await userEvent.keyboard(key);
 
-			expectPercentage({ percentage: 49, thumb, range });
-		}
-	);
+		expectPercentage({ percentage: 49, thumb, range });
+	});
 });
 
 describe("slider (negative min)", () => {
@@ -427,45 +487,45 @@ describe("slider (negative min)", () => {
 		expect(isCloseEnough(50, thumb.style.left)).toBeTruthy();
 	});
 
-	it.each([kbd.ARROW_RIGHT, kbd.ARROW_UP])(
-		"should change by 1% when pressing %s",
-		async (key) => {
-			setup({
-				value: [0],
-				min: -50,
-				max: 50,
-				step: 1,
-			});
+	it.each([
+		kbd.ARROW_RIGHT,
+		kbd.ARROW_UP,
+	])("should change by 1% when pressing %s", async (key) => {
+		setup({
+			value: [0],
+			min: -50,
+			max: 50,
+			step: 1,
+		});
 
-			const thumb = page.getByTestId("thumb").element() as HTMLElement;
-			const range = page.getByTestId("range").element() as HTMLElement;
+		const thumb = page.getByTestId("thumb").element() as HTMLElement;
+		const range = page.getByTestId("range").element() as HTMLElement;
 
-			thumb.focus();
-			await userEvent.keyboard(key);
+		thumb.focus();
+		await userEvent.keyboard(key);
 
-			expectPercentage({ percentage: 51, thumb, range });
-		}
-	);
+		expectPercentage({ percentage: 51, thumb, range });
+	});
 
-	it.each([kbd.ARROW_LEFT, kbd.ARROW_DOWN])(
-		"should change by 10% when pressing %s",
-		async (key) => {
-			setup({
-				value: [0],
-				min: -50,
-				max: 50,
-				step: 1,
-			});
+	it.each([
+		kbd.ARROW_LEFT,
+		kbd.ARROW_DOWN,
+	])("should change by 10% when pressing %s", async (key) => {
+		setup({
+			value: [0],
+			min: -50,
+			max: 50,
+			step: 1,
+		});
 
-			const thumb = page.getByTestId("thumb").element() as HTMLElement;
-			const range = page.getByTestId("range").element() as HTMLElement;
+		const thumb = page.getByTestId("thumb").element() as HTMLElement;
+		const range = page.getByTestId("range").element() as HTMLElement;
 
-			thumb.focus();
-			await userEvent.keyboard(key);
+		thumb.focus();
+		await userEvent.keyboard(key);
 
-			expectPercentage({ percentage: 49, thumb, range });
-		}
-	);
+		expectPercentage({ percentage: 49, thumb, range });
+	});
 });
 
 describe("slider (value=[5], min=0, max=10, step=1)", () => {
@@ -762,7 +822,7 @@ describe("labels", () => {
 					step: 50,
 					tickLabelPosition: "bottom",
 				},
-				"labels"
+				"labels",
 			);
 
 			const tickLabels = t.getAllByTestId(/^tick-label-/);
@@ -781,7 +841,7 @@ describe("labels", () => {
 					step: 50,
 					disabled: true,
 				},
-				"labels"
+				"labels",
 			);
 
 			const tickLabels = t.getAllByTestId(/^tick-label-/);
@@ -799,7 +859,7 @@ describe("labels", () => {
 					step: 50,
 					orientation: "vertical",
 				},
-				"labels"
+				"labels",
 			);
 
 			const tickLabels = t.getAllByTestId(/^tick-label-/);
@@ -817,7 +877,7 @@ describe("labels", () => {
 					max: 100,
 					step: 25,
 				},
-				"labels"
+				"labels",
 			);
 
 			// initially, ticks 0 and 1 should be bounded
@@ -864,7 +924,7 @@ describe("labels", () => {
 					value: [50],
 					disabled: true,
 				},
-				"labels"
+				"labels",
 			);
 
 			const thumbLabel = page.getByTestId("thumb-label-0");
@@ -877,7 +937,7 @@ describe("labels", () => {
 					value: [50],
 					thumbLabelPosition: "bottom",
 				},
-				"labels"
+				"labels",
 			);
 
 			const thumbLabel = page.getByTestId("thumb-label-0");
@@ -891,7 +951,7 @@ describe("labels", () => {
 					value: [50],
 					orientation: "vertical",
 				},
-				"labels"
+				"labels",
 			);
 
 			const thumbLabel = page.getByTestId("thumb-label-0");
@@ -903,7 +963,9 @@ describe("labels", () => {
 			setup({ value: [50] }, "labels");
 
 			const thumb = page.getByTestId("thumb-0").element() as HTMLElement;
-			const thumbLabel = page.getByTestId("thumb-label-0").element() as HTMLElement;
+			const thumbLabel = page
+				.getByTestId("thumb-label-0")
+				.element() as HTMLElement;
 
 			thumb.focus();
 			await userEvent.keyboard(kbd.ARROW_RIGHT);
@@ -917,14 +979,18 @@ describe("labels", () => {
 				{
 					value: [20, 80],
 				},
-				"labels"
+				"labels",
 			);
 
 			const thumbLabels = t.getAllByTestId(/^thumb-label-/);
 			expect(thumbLabels).toHaveLength(2);
 
-			const thumbLabel0 = page.getByTestId("thumb-label-0").element() as HTMLElement;
-			const thumbLabel1 = page.getByTestId("thumb-label-1").element() as HTMLElement;
+			const thumbLabel0 = page
+				.getByTestId("thumb-label-0")
+				.element() as HTMLElement;
+			const thumbLabel1 = page
+				.getByTestId("thumb-label-1")
+				.element() as HTMLElement;
 
 			expect(thumbLabel0).toHaveAttribute("data-value", "20");
 			expect(thumbLabel0.textContent).toBe("20");
@@ -938,12 +1004,16 @@ describe("labels", () => {
 				{
 					value: [49, 51],
 				},
-				"labels"
+				"labels",
 			);
 
 			const thumb0 = page.getByTestId("thumb-0").element() as HTMLElement;
-			const thumbLabel0 = page.getByTestId("thumb-label-0").element() as HTMLElement;
-			const thumbLabel1 = page.getByTestId("thumb-label-1").element() as HTMLElement;
+			const thumbLabel0 = page
+				.getByTestId("thumb-label-0")
+				.element() as HTMLElement;
+			const thumbLabel1 = page
+				.getByTestId("thumb-label-1")
+				.element() as HTMLElement;
 
 			thumb0.focus();
 			await userEvent.keyboard(kbd.ARROW_RIGHT);
@@ -960,12 +1030,16 @@ describe("labels", () => {
 					value: [49, 51],
 					autoSort: false,
 				},
-				"labels"
+				"labels",
 			);
 
 			const thumb0 = page.getByTestId("thumb-0").element() as HTMLElement;
-			const thumbLabel0 = page.getByTestId("thumb-label-0").element() as HTMLElement;
-			const thumbLabel1 = page.getByTestId("thumb-label-1").element() as HTMLElement;
+			const thumbLabel0 = page
+				.getByTestId("thumb-label-0")
+				.element() as HTMLElement;
+			const thumbLabel1 = page
+				.getByTestId("thumb-label-1")
+				.element() as HTMLElement;
 
 			thumb0.focus();
 			await userEvent.keyboard(kbd.ARROW_RIGHT);
@@ -986,7 +1060,7 @@ describe("labels", () => {
 					max: 9,
 					step: 3,
 				},
-				"labels"
+				"labels",
 			);
 
 			const tickLabels = t.getAllByTestId(/^tick-label-/);
@@ -1013,7 +1087,7 @@ describe("labels", () => {
 					max: 1,
 					step: 0.25,
 				},
-				"labels"
+				"labels",
 			);
 
 			const tickLabels = t.getAllByTestId(/^tick-label-/);
@@ -1037,7 +1111,7 @@ describe("labels", () => {
 					showTickLabels: true,
 					showThumbLabels: true,
 				},
-				"labels"
+				"labels",
 			);
 
 			const tickLabels = t.getAllByTestId(/^tick-label-/);

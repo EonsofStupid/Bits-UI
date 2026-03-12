@@ -1,6 +1,6 @@
 <script lang="ts" module>
-	import { DatePicker, type WithoutChildrenOrChild } from "bits-ui";
-	export type DatePickerTestProps = WithoutChildrenOrChild<DatePicker.RootProps>;
+import { DatePicker, type WithoutChildrenOrChild } from "bits-ui";
+export type DatePickerTestProps = WithoutChildrenOrChild<DatePicker.RootProps>;
 </script>
 
 <script lang="ts">

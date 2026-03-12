@@ -30,7 +30,11 @@ describe("computeCommandScore", () => {
 	});
 
 	it("considers keywords in scoring", () => {
-		const score = computeCommandScore("Calculator", "add", ["math", "add", "subtract"]);
+		const score = computeCommandScore("Calculator", "add", [
+			"math",
+			"add",
+			"subtract",
+		]);
 		expect(score).toBeGreaterThan(0);
 	});
 

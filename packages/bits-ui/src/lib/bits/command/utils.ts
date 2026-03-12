@@ -16,8 +16,13 @@ export function findPreviousSibling(el: Element, selector: string) {
 	}
 }
 
-export function findFirstStartMarkerWithImmediateSiblingAsEnd(el: Element, type: "item" | "group") {
-	const startMarkers = el.querySelectorAll<HTMLElement>(`[data-bits-command-${type}-start]`);
+export function findFirstStartMarkerWithImmediateSiblingAsEnd(
+	el: Element,
+	type: "item" | "group",
+) {
+	const startMarkers = el.querySelectorAll<HTMLElement>(
+		`[data-bits-command-${type}-start]`,
+	);
 
 	for (const startMarker of startMarkers) {
 		const endMarker = startMarker.nextElementSibling;

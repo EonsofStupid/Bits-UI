@@ -12,7 +12,11 @@ import type {
 	BitsPrimitiveTheadAttributes,
 	BitsPrimitiveTrAttributes,
 } from "$lib/shared/attributes.js";
-import type { DateMatcher, Month, WeekStartsOn } from "$lib/shared/date/types.js";
+import type {
+	DateMatcher,
+	Month,
+	WeekStartsOn,
+} from "$lib/shared/date/types.js";
 
 export type CalendarRootSnippetProps = {
 	months: Month<DateValue>[];
@@ -203,7 +207,9 @@ type CalendarBaseRootPropsWithoutHTML = {
 	 *
 	 * @default "long"
 	 */
-	monthFormat?: Intl.DateTimeFormatOptions["month"] | ((month: number) => string);
+	monthFormat?:
+		| Intl.DateTimeFormatOptions["month"]
+		| ((month: number) => string);
 
 	/**
 	 * The format of the year names in the calendar.
@@ -251,14 +257,14 @@ export type CalendarMultipleRootPropsWithoutHTML = {
 	onValueChange?: OnChangeFn<DateValue[]>;
 };
 
-export type _CalendarSingleRootPropsWithoutHTML = CalendarBaseRootPropsWithoutHTML &
-	CalendarSingleRootPropsWithoutHTML;
+export type _CalendarSingleRootPropsWithoutHTML =
+	CalendarBaseRootPropsWithoutHTML & CalendarSingleRootPropsWithoutHTML;
 
 export type CalendarSingleRootProps = _CalendarSingleRootPropsWithoutHTML &
 	Without<BitsPrimitiveDivAttributes, _CalendarSingleRootPropsWithoutHTML>;
 
-export type _CalendarMultipleRootPropsWithoutHTML = CalendarBaseRootPropsWithoutHTML &
-	CalendarMultipleRootPropsWithoutHTML;
+export type _CalendarMultipleRootPropsWithoutHTML =
+	CalendarBaseRootPropsWithoutHTML & CalendarMultipleRootPropsWithoutHTML;
 
 export type CalendarMultipleRootProps = _CalendarMultipleRootPropsWithoutHTML &
 	Without<BitsPrimitiveDivAttributes, _CalendarMultipleRootPropsWithoutHTML>;
@@ -332,7 +338,10 @@ export type CalendarHeadingSnippetProps = {
 	headingValue: string;
 };
 
-export type CalendarHeadingPropsWithoutHTML = WithChild<{}, CalendarHeadingSnippetProps>;
+export type CalendarHeadingPropsWithoutHTML = WithChild<
+	{},
+	CalendarHeadingSnippetProps
+>;
 
 export type CalendarDaySnippetProps = {
 	disabled: boolean;
@@ -341,7 +350,10 @@ export type CalendarDaySnippetProps = {
 	day: string;
 };
 
-export type CalendarDayPropsWithoutHTML = WithChild<{}, CalendarDaySnippetProps>;
+export type CalendarDayPropsWithoutHTML = WithChild<
+	{},
+	CalendarDaySnippetProps
+>;
 
 export type CalendarDayProps = CalendarDayPropsWithoutHTML &
 	Without<BitsPrimitiveDivAttributes, CalendarDayPropsWithoutHTML>;
@@ -386,7 +398,9 @@ export type CalendarMonthSelectPropsWithoutHTML = WithChild<
 		 *
 		 * @default "long"
 		 */
-		monthFormat?: Intl.DateTimeFormatOptions["month"] | ((month: number) => string);
+		monthFormat?:
+			| Intl.DateTimeFormatOptions["month"]
+			| ((month: number) => string);
 	},
 	CalendarMonthSelectSnippetProps
 >;
@@ -418,7 +432,9 @@ export type CalendarYearSelectPropsWithoutHTML = WithChild<
 		 *
 		 * @default "numeric"
 		 */
-		yearFormat?: Intl.DateTimeFormatOptions["year"] | ((year: number) => string);
+		yearFormat?:
+			| Intl.DateTimeFormatOptions["year"]
+			| ((year: number) => string);
 	},
 	CalendarYearSelectSnippetProps
 >;

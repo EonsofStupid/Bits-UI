@@ -1,5 +1,5 @@
 <script lang="ts" module>
-	type T = unknown;
+type T = unknown;
 </script>
 
 <script lang="ts" generics="T = never">

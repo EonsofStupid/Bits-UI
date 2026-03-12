@@ -227,14 +227,18 @@ export type RangeCalendarRootPropsWithoutHTML = WithChild<
 		 *
 		 * @default "long"
 		 */
-		monthFormat?: Intl.DateTimeFormatOptions["month"] | ((month: number) => string);
+		monthFormat?:
+			| Intl.DateTimeFormatOptions["month"]
+			| ((month: number) => string);
 
 		/**
 		 * The format of the year names in the calendar.
 		 *
 		 * @default "numeric"
 		 */
-		yearFormat?: Intl.DateTimeFormatOptions["year"] | ((year: number) => string);
+		yearFormat?:
+			| Intl.DateTimeFormatOptions["year"]
+			| ((year: number) => string);
 	},
 	RangeCalendarRootSnippetProps
 >;

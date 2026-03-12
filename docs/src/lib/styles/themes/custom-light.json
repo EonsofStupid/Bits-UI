@@ -232,7 +232,11 @@
 			}
 		},
 		{
-			"scope": ["storage.modifier.package", "storage.modifier.import", "storage.type.java"],
+			"scope": [
+				"storage.modifier.package",
+				"storage.modifier.import",
+				"storage.type.java"
+			],
 			"settings": {
 				"foreground": "#24292e"
 			}

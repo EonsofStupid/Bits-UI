@@ -1,17 +1,17 @@
 <script lang="ts">
-	import { DropdownMenu } from "bits-ui";
-	import CaretDown from "phosphor-svelte/lib/CaretDown";
-	import OpenAiLogo from "phosphor-svelte/lib/OpenAiLogo";
-	import FileMd from "phosphor-svelte/lib/FileMd";
-	import { page } from "$app/state";
-	import type { Component } from "svelte";
-	import Claude from "$icons/claude.svelte";
+import { DropdownMenu } from "bits-ui";
+import CaretDown from "phosphor-svelte/lib/CaretDown";
+import OpenAiLogo from "phosphor-svelte/lib/OpenAiLogo";
+import FileMd from "phosphor-svelte/lib/FileMd";
+import { page } from "$app/state";
+import type { Component } from "svelte";
+import Claude from "$icons/claude.svelte";
 
-	const q = $derived(
-		`The following is a documentation page from Bits UI (a headless component library for Svelte 5): https://bits-ui.com${page.url.pathname}. Be ready to help answer questions about this page.`
-	);
+const q = $derived(
+	`The following is a documentation page from Bits UI (a headless component library for Svelte 5): https://bits-ui.com${page.url.pathname}. Be ready to help answer questions about this page.`,
+);
 
-	const path = $derived(page.url.pathname.split("#")[0]);
+const path = $derived(page.url.pathname.split("#")[0]);
 </script>
 
 {#snippet LinkItem({ href, icon, label }: { href: string; icon: Component; label: string })}

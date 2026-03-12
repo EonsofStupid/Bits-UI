@@ -57,7 +57,7 @@ export function defineComponentApiSchema<T>(
 	schema: Omit<ComponentAPISchema<T>, "type" | "cssVars" | "dataAttributes"> & {
 		cssVars?: CSSVarSchema[];
 		dataAttributes?: DataAttrSchema[];
-	}
+	},
 ): ComponentAPISchema<T> {
 	return defineApiSchema({
 		...schema,
@@ -67,7 +67,9 @@ export function defineComponentApiSchema<T>(
 	}) as ComponentAPISchema<T>;
 }
 
-export function defineUtilityApiSchema<T>(schema: Omit<UtilityAPISchema<T>, "type">) {
+export function defineUtilityApiSchema<T>(
+	schema: Omit<UtilityAPISchema<T>, "type">,
+) {
 	return defineApiSchema({
 		...schema,
 		type: "utility",
@@ -89,7 +91,9 @@ type SharedPropOpts = Pick<PropSchema, "description"> & {
 	bindable?: boolean;
 };
 
-function componentType(opts: Omit<PropTypeComplex, "variant">): PropTypeComplex {
+function componentType(
+	opts: Omit<PropTypeComplex, "variant">,
+): PropTypeComplex {
 	return {
 		variant: "complex",
 		type: opts.type,
@@ -104,7 +108,10 @@ type DefineUnionPropOpts = SharedPropOpts & {
 	default?: string;
 };
 
-type DefineComponentPropOpts = Omit<PropSchemaComplex, "type" | "required" | "bindable"> & {
+type DefineComponentPropOpts = Omit<
+	PropSchemaComplex,
+	"type" | "required" | "bindable"
+> & {
 	type: string;
 	definition: Component;
 	stringDefinition: string;
@@ -189,7 +196,9 @@ export function defineEnumProp(opts: DefineEnumPropOpts) {
 
 type StringOrComplexDefault = string | PropDefaultComplex;
 
-function getPropDefault(defaultProp?: StringOrComplexDefault): PropDefault | undefined {
+function getPropDefault(
+	defaultProp?: StringOrComplexDefault,
+): PropDefault | undefined {
 	if (defaultProp === undefined) return undefined;
 	if (typeof defaultProp === "string") {
 		return {
@@ -273,7 +282,10 @@ export function defineNumberProp(_opts: DefineNumberPropOpts) {
 	});
 }
 
-type DefineEnumDataAttrOpts = Omit<DataAttrEnumSchema, "variant" | "stringValue"> & {
+type DefineEnumDataAttrOpts = Omit<
+	DataAttrEnumSchema,
+	"variant" | "stringValue"
+> & {
 	options: string[];
 };
 
@@ -287,7 +299,7 @@ export function defineEnumDataAttr(opts: DefineEnumDataAttrOpts) {
 }
 
 export function defineSimpleDataAttr(
-	opts: Omit<DataAttrSimpleSchema, "variant" | "value"> & { value?: string }
+	opts: Omit<DataAttrSimpleSchema, "variant" | "value"> & { value?: string },
 ) {
 	return defineDataAttrSchema({
 		variant: "simple",

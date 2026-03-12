@@ -1,19 +1,20 @@
 <script lang="ts" module>
-	import {
-		Select,
-		type SelectMultipleRootProps,
-		type WithoutChildren,
-		type WithoutChildrenOrChild,
-	} from "bits-ui";
-	import { generateTestId } from "../helpers/select";
+import {
+	Select,
+	type SelectMultipleRootProps,
+	type WithoutChildren,
+	type WithoutChildrenOrChild,
+} from "bits-ui";
+import { generateTestId } from "../helpers/select";
 
-	export type Item = {
-		value: string;
-		label: string;
-		disabled?: boolean;
-	};
+export type Item = {
+	value: string;
+	label: string;
+	disabled?: boolean;
+};
 
-	export type SelectMultipleTestProps = WithoutChildren<SelectMultipleRootProps> & {
+export type SelectMultipleTestProps =
+	WithoutChildren<SelectMultipleRootProps> & {
 		contentProps?: WithoutChildrenOrChild<Select.ContentProps>;
 		portalProps?: WithoutChildrenOrChild<Select.PortalProps>;
 		items: Item[];

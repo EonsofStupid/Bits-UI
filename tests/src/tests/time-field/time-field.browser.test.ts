@@ -9,7 +9,9 @@ import {
 	ZonedDateTime,
 } from "@internationalized/date";
 import { getTestKbd } from "../utils.js";
-import TimeFieldTest, { type TimeFieldTestProps } from "./time-field-test.svelte";
+import TimeFieldTest, {
+	type TimeFieldTestProps,
+} from "./time-field-test.svelte";
 import type { TimeValue } from "bits-ui";
 import { tick } from "svelte";
 import { expectNotExists } from "../browser-utils";
@@ -68,8 +70,12 @@ it("should populate segment with value - `CalendarDateTime`", async () => {
 		value: calendarDateTime,
 	});
 
-	await expect.element(t.getHour()).toHaveTextContent(String(calendarDateTime.hour));
-	await expect.element(t.getMinute()).toHaveTextContent(String(calendarDateTime.minute));
+	await expect
+		.element(t.getHour())
+		.toHaveTextContent(String(calendarDateTime.hour));
+	await expect
+		.element(t.getMinute())
+		.toHaveTextContent(String(calendarDateTime.minute));
 	await expect.element(t.getDayPeriod()).toHaveTextContent("PM");
 	await expect.element(t.value).toHaveTextContent(calendarDateTime.toString());
 });
@@ -79,8 +85,12 @@ it("should populate segment with value - `ZonedDateTime`", async () => {
 		value: zonedDateTime,
 	});
 
-	await expect.element(t.getHour()).toHaveTextContent(String(zonedDateTime.hour));
-	await expect.element(t.getMinute()).toHaveTextContent(String(zonedDateTime.minute));
+	await expect
+		.element(t.getHour())
+		.toHaveTextContent(String(zonedDateTime.hour));
+	await expect
+		.element(t.getMinute())
+		.toHaveTextContent(String(zonedDateTime.minute));
 	await expect.element(t.getDayPeriod()).toHaveTextContent("PM");
 	await expect.element(t.getTimeZoneName()).toHaveTextContent("EST");
 	await expect.element(t.value).toHaveTextContent(zonedDateTime.toString());
@@ -205,7 +215,12 @@ it("should navigate the segments using tab", async () => {
 		granularity: "second",
 	});
 
-	const segments = [t.getHour(), t.getMinute(), t.getSecond(), t.getDayPeriod()];
+	const segments = [
+		t.getHour(),
+		t.getMinute(),
+		t.getSecond(),
+		t.getDayPeriod(),
+	];
 
 	await t.getHour().click();
 
@@ -260,9 +275,10 @@ it("should prevent modification when `readonly`", async () => {
 			.toHaveTextContent(
 				String(
 					zonedDateTime[
-						(segment.element() as HTMLElement).dataset.segment as keyof TimeFields
-					]
-				)
+						(segment.element() as HTMLElement).dataset
+							.segment as keyof TimeFields
+					],
+				),
 			);
 	}
 });
@@ -318,7 +334,12 @@ it("should override the default displayed segments with the `granularity` prop -
 		granularity: "second",
 	});
 
-	const displayedSegments = [t.getHour(), t.getMinute(), t.getSecond(), t.getDayPeriod()];
+	const displayedSegments = [
+		t.getHour(),
+		t.getMinute(),
+		t.getSecond(),
+		t.getDayPeriod(),
+	];
 
 	for (const seg of displayedSegments) {
 		await expect.element(seg).toBeVisible();
@@ -365,7 +386,9 @@ it("should overwrite on first click and type - `hour`", async () => {
 
 	await t.getHour().click();
 	await expect.element(t.getHour()).toHaveFocus();
-	await expect.element(t.getHour()).toHaveTextContent(String(zonedDateTime.hour));
+	await expect
+		.element(t.getHour())
+		.toHaveTextContent(String(zonedDateTime.hour));
 	await userEvent.keyboard(`{1}`);
 	await expect.element(t.getHour()).toHaveTextContent("1");
 });
@@ -378,7 +401,9 @@ it("should overwrite on first click and type - `minute`", async () => {
 
 	await t.getMinute().click();
 	await expect.element(t.getMinute()).toHaveFocus();
-	await expect.element(t.getMinute()).toHaveTextContent(String(zonedDateTime.minute));
+	await expect
+		.element(t.getMinute())
+		.toHaveTextContent(String(zonedDateTime.minute));
 	await userEvent.keyboard(`{1}`);
 	await expect.element(t.getMinute()).toHaveTextContent("1");
 });
@@ -391,7 +416,9 @@ it("should overwrite on first click and type - `second`", async () => {
 
 	await t.getSecond().click();
 	await expect.element(t.getSecond()).toHaveFocus();
-	await expect.element(t.getSecond()).toHaveTextContent(String(zonedDateTime.second));
+	await expect
+		.element(t.getSecond())
+		.toHaveTextContent(String(zonedDateTime.second));
 	await userEvent.keyboard(`{1}`);
 	await expect.element(t.getSecond()).toHaveTextContent("1");
 });
@@ -404,7 +431,9 @@ it("should move to the previous segment when backspace is pressed while empty - 
 
 	await t.getMinute().click();
 	await expect.element(t.getMinute()).toHaveFocus();
-	await expect.element(t.getMinute()).toHaveTextContent(String(zonedDateTime.minute));
+	await expect
+		.element(t.getMinute())
+		.toHaveTextContent(String(zonedDateTime.minute));
 	await userEvent.keyboard(kbd.BACKSPACE);
 	await expect.element(t.getMinute()).toHaveTextContent("3");
 	await userEvent.keyboard(kbd.BACKSPACE);
@@ -612,7 +641,9 @@ it("should not allow typing characters that are not `a` or `p` into the dayPerio
 	await expect.element(t.getDayPeriod()).toHaveTextContent("PM");
 	await t.getDayPeriod().click();
 	await userEvent.keyboard("{i}{d}{k}");
-	await expect.element(t.getDayPeriod().element() as HTMLElement).toHaveTextContent("PM");
+	await expect
+		.element(t.getDayPeriod().element() as HTMLElement)
+		.toHaveTextContent("PM");
 });
 
 it("should not allow typing non-numeric characters into the time segments", async () => {
@@ -653,8 +684,12 @@ it("should render a hidden input if the `name` prop is passed", async () => {
 		name: "time-field",
 	});
 	await expect.element(t.getHiddenInput()).not.toBeNull();
-	await expect.element(t.getHiddenInput()).toHaveAttribute("name", "time-field");
-	await expect.element(t.getHiddenInput()).toHaveAttribute("aria-hidden", "true");
+	await expect
+		.element(t.getHiddenInput())
+		.toHaveAttribute("name", "time-field");
+	await expect
+		.element(t.getHiddenInput())
+		.toHaveAttribute("aria-hidden", "true");
 });
 
 it("should not render a hidden input if the name prop isn't passed", async () => {
@@ -677,7 +712,9 @@ it("should keep the value of the hidden input in sync with the fields value", as
 
 	await t.getHour().click();
 	await userEvent.keyboard(kbd.ARROW_UP);
-	await expect.element(t.getHiddenInput()).toHaveValue(extractTime(value.add({ hours: 1 })));
+	await expect
+		.element(t.getHiddenInput())
+		.toHaveValue(extractTime(value.add({ hours: 1 })));
 });
 
 it("should handle 24 hour time appropriately", async () => {

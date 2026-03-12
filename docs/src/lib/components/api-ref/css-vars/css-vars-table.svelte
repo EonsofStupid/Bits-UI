@@ -1,11 +1,11 @@
 <script lang="ts">
-	import Code from "$lib/components/markdown/code.svelte";
-	import * as Table from "$lib/components/ui/table/index.js";
-	import type { CSSVarSchema } from "$lib/types/index.js";
-	import { parseMarkdown } from "$lib/utils/index.js";
-	import CssVarsDetailsMobile from "./css-vars-details-mobile.svelte";
+import Code from "$lib/components/markdown/code.svelte";
+import * as Table from "$lib/components/ui/table/index.js";
+import type { CSSVarSchema } from "$lib/types/index.js";
+import { parseMarkdown } from "$lib/utils/index.js";
+import CssVarsDetailsMobile from "./css-vars-details-mobile.svelte";
 
-	let { cssVars = [] }: { cssVars: CSSVarSchema[] } = $props();
+let { cssVars = [] }: { cssVars: CSSVarSchema[] } = $props();
 </script>
 
 {#if cssVars.length}

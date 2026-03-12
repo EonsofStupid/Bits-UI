@@ -1,5 +1,10 @@
 import type { DateValue } from "@internationalized/date";
-import type { OnChangeFn, WithChild, WithChildren, Without } from "$lib/internal/types.js";
+import type {
+	OnChangeFn,
+	WithChild,
+	WithChildren,
+	Without,
+} from "$lib/internal/types.js";
 import type { BitsPrimitiveDivAttributes } from "$lib/shared/attributes.js";
 import type { CalendarRootSnippetProps } from "$lib/types.js";
 import type {
@@ -273,7 +278,9 @@ export type DatePickerRootPropsWithoutHTML = WithChildren<{
 	 *
 	 * @default "long"
 	 */
-	monthFormat?: Intl.DateTimeFormatOptions["month"] | ((month: number) => string);
+	monthFormat?:
+		| Intl.DateTimeFormatOptions["month"]
+		| ((month: number) => string);
 
 	/**
 	 * The format of the year names in the calendar.
@@ -307,7 +314,10 @@ export type {
 	DateFieldSegmentProps as DatePickerSegmentProps,
 } from "$lib/bits/date-field/types.js";
 
-export type DatePickerCalendarPropsWithoutHTML = WithChild<{}, CalendarRootSnippetProps>;
+export type DatePickerCalendarPropsWithoutHTML = WithChild<
+	{},
+	CalendarRootSnippetProps
+>;
 
 export type DatePickerCalendarProps = DatePickerCalendarPropsWithoutHTML &
 	Without<BitsPrimitiveDivAttributes, DatePickerCalendarPropsWithoutHTML>;

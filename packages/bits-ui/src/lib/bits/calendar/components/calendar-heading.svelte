@@ -1,28 +1,28 @@
 <script lang="ts">
-	import { boxWith, mergeProps } from "svelte-toolbelt";
-	import type { CalendarHeadingProps } from "../types.js";
-	import { CalendarHeadingState } from "../calendar.svelte.js";
-	import { createId } from "$lib/internal/create-id.js";
+import { boxWith, mergeProps } from "svelte-toolbelt";
+import type { CalendarHeadingProps } from "../types.js";
+import { CalendarHeadingState } from "../calendar.svelte.js";
+import { createId } from "$lib/internal/create-id.js";
 
-	const uid = $props.id();
+const uid = $props.id();
 
-	let {
-		children,
-		child,
-		ref = $bindable(null),
-		id = createId(uid),
-		...restProps
-	}: CalendarHeadingProps = $props();
+let {
+	children,
+	child,
+	ref = $bindable(null),
+	id = createId(uid),
+	...restProps
+}: CalendarHeadingProps = $props();
 
-	const headingState = CalendarHeadingState.create({
-		id: boxWith(() => id),
-		ref: boxWith(
-			() => ref,
-			(v) => (ref = v)
-		),
-	});
+const headingState = CalendarHeadingState.create({
+	id: boxWith(() => id),
+	ref: boxWith(
+		() => ref,
+		(v) => (ref = v),
+	),
+});
 
-	const mergedProps = $derived(mergeProps(restProps, headingState.props));
+const mergedProps = $derived(mergeProps(restProps, headingState.props));
 </script>
 
 {#if child}

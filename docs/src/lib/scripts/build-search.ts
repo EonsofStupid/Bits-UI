@@ -1,5 +1,10 @@
 import removeMd from "remove-markdown";
-import { componentDocs, docs, typeHelperDocs, utilityDocs } from "$content/index.js";
+import {
+	componentDocs,
+	docs,
+	typeHelperDocs,
+	utilityDocs,
+} from "$content/index.js";
 
 function cleanContent(raw: string): string {
 	let content = removeMd(raw, {

@@ -2,7 +2,9 @@ import { expect, it, vi } from "vitest";
 import { render } from "vitest-browser-svelte";
 import type { Component } from "svelte";
 import { getTestKbd } from "../utils.js";
-import LinkPreviewTest, { type LinkPreviewTestProps } from "./link-preview-test.svelte";
+import LinkPreviewTest, {
+	type LinkPreviewTestProps,
+} from "./link-preview-test.svelte";
 import type { LinkPreviewForceMountTestProps } from "./link-preview-force-mount-test.svelte";
 import LinkPreviewForceMountTest from "./link-preview-force-mount-test.svelte";
 import { expectExists, expectNotExists } from "../browser-utils";
@@ -12,7 +14,7 @@ const kbd = getTestKbd();
 
 function setup(
 	props: LinkPreviewTestProps | LinkPreviewForceMountTestProps = {},
-	component: Component = LinkPreviewTest
+	component: Component = LinkPreviewTest,
 ) {
 	const t = render(component, { ...props });
 	const trigger = page.getByTestId("trigger");
@@ -83,7 +85,9 @@ it("should open on focus and close on blur", async () => {
 
 it("should portal to the body by default", async () => {
 	await open();
-	expect(page.getByTestId("content").element().parentElement?.parentElement).toBe(document.body);
+	expect(
+		page.getByTestId("content").element().parentElement?.parentElement,
+	).toBe(document.body);
 });
 
 it("should portal to a custom element if specified", async () => {
@@ -93,13 +97,17 @@ it("should portal to a custom element if specified", async () => {
 		},
 	});
 	const portalTarget = page.getByTestId("portal-target").element();
-	expect(page.getByTestId("content").element().parentElement?.parentElement).toBe(portalTarget);
+	expect(
+		page.getByTestId("content").element().parentElement?.parentElement,
+	).toBe(portalTarget);
 });
 
 it("should not portal if `disabled` is passed as portal prop", async () => {
 	await open({ portalProps: { disabled: true } });
 	const main = page.getByTestId("main").element();
-	expect(page.getByTestId("content").element().parentElement?.parentElement).toBe(main);
+	expect(
+		page.getByTestId("content").element().parentElement?.parentElement,
+	).toBe(main);
 });
 
 it("should respect the `escapeKeydownBehavior` prop", async () => {

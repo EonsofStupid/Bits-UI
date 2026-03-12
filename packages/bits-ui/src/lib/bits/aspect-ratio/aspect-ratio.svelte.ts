@@ -7,7 +7,9 @@ const aspectRatioAttrs = createBitsAttrs({
 	parts: ["root"],
 });
 
-interface AspectRatioRootStateOpts extends WithRefOpts, ReadableBoxedValues<{ ratio: number }> {}
+interface AspectRatioRootStateOpts
+	extends WithRefOpts,
+		ReadableBoxedValues<{ ratio: number }> {}
 
 export class AspectRatioRootState {
 	static create(opts: AspectRatioRootStateOpts) {
@@ -35,6 +37,6 @@ export class AspectRatioRootState {
 				},
 				[aspectRatioAttrs.root]: "",
 				...this.attachment,
-			}) as const
+			}) as const,
 	);
 }

@@ -1,5 +1,5 @@
 <script lang="ts">
-	import { Popover, Tooltip } from "bits-ui";
+import { Popover, Tooltip } from "bits-ui";
 </script>
 
 <Tooltip.Provider>

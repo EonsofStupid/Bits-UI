@@ -22,7 +22,8 @@ import {
 
 export const root = defineComponentApiSchema<PaginationRootPropsWithoutHTML>({
 	title: "Root",
-	description: "The root pagination component which contains all other pagination components.",
+	description:
+		"The root pagination component which contains all other pagination components.",
 	props: {
 		count: defineNumberProp({
 			description: "The total number of items.",
@@ -43,7 +44,8 @@ export const root = defineComponentApiSchema<PaginationRootPropsWithoutHTML>({
 			default: 1,
 		}),
 		siblingCount: defineNumberProp({
-			description: "The number of page triggers to show on either side of the current page.",
+			description:
+				"The number of page triggers to show on either side of the current page.",
 			default: 1,
 		}),
 		loop: defineBooleanProp({
@@ -137,28 +139,30 @@ export const page = defineComponentApiSchema<PaginationPagePropsWithoutHTML>({
 	],
 });
 
-export const prevButton = defineComponentApiSchema<PaginationPrevButtonPropsWithoutHTML>({
-	title: "PrevButton",
-	description: "The previous button of the pagination.",
-	props: withChildProps({ elType: "HTMLButtonElement" }),
-	dataAttributes: [
-		defineSimpleDataAttr({
-			name: "pagination-prev-button",
-			description: "Present on the previous button element.",
-		}),
-	],
-});
+export const prevButton =
+	defineComponentApiSchema<PaginationPrevButtonPropsWithoutHTML>({
+		title: "PrevButton",
+		description: "The previous button of the pagination.",
+		props: withChildProps({ elType: "HTMLButtonElement" }),
+		dataAttributes: [
+			defineSimpleDataAttr({
+				name: "pagination-prev-button",
+				description: "Present on the previous button element.",
+			}),
+		],
+	});
 
-export const nextButton = defineComponentApiSchema<PaginationNextButtonPropsWithoutHTML>({
-	title: "NextButton",
-	description: "The next button of the pagination.",
-	props: withChildProps({ elType: "HTMLButtonElement" }),
-	dataAttributes: [
-		defineSimpleDataAttr({
-			name: "pagination-next-button",
-			description: "Present on the next button element.",
-		}),
-	],
-});
+export const nextButton =
+	defineComponentApiSchema<PaginationNextButtonPropsWithoutHTML>({
+		title: "NextButton",
+		description: "The next button of the pagination.",
+		props: withChildProps({ elType: "HTMLButtonElement" }),
+		dataAttributes: [
+			defineSimpleDataAttr({
+				name: "pagination-next-button",
+				description: "Present on the next button element.",
+			}),
+		],
+	});
 
 export const pagination = [root, page, prevButton, nextButton];

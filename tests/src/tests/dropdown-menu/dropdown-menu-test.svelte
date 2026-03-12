@@ -1,19 +1,22 @@
 <script lang="ts" module>
-	import { DropdownMenu } from "bits-ui";
-	export type DropdownMenuTestProps = DropdownMenu.RootProps & {
-		checked?: boolean;
-		subChecked?: boolean;
-		radio?: string;
-		subRadio?: string;
-		open?: boolean;
-		group?: string[];
-		contentProps?: Omit<DropdownMenu.ContentProps, "children" | "child">;
-		portalProps?: Omit<DropdownMenu.PortalProps, "children" | "child">;
-		subTriggerProps?: Omit<DropdownMenu.SubTriggerProps, "children" | "child">;
-		checkboxGroupProps?: Omit<DropdownMenu.CheckboxGroupProps, "children" | "child" | "value">;
-		openFocusOverride?: boolean;
-		subItemProps?: Omit<DropdownMenu.ItemProps, "children" | "child">;
-	};
+import { DropdownMenu } from "bits-ui";
+export type DropdownMenuTestProps = DropdownMenu.RootProps & {
+	checked?: boolean;
+	subChecked?: boolean;
+	radio?: string;
+	subRadio?: string;
+	open?: boolean;
+	group?: string[];
+	contentProps?: Omit<DropdownMenu.ContentProps, "children" | "child">;
+	portalProps?: Omit<DropdownMenu.PortalProps, "children" | "child">;
+	subTriggerProps?: Omit<DropdownMenu.SubTriggerProps, "children" | "child">;
+	checkboxGroupProps?: Omit<
+		DropdownMenu.CheckboxGroupProps,
+		"children" | "child" | "value"
+	>;
+	openFocusOverride?: boolean;
+	subItemProps?: Omit<DropdownMenu.ItemProps, "children" | "child">;
+};
 </script>
 
 <script lang="ts">

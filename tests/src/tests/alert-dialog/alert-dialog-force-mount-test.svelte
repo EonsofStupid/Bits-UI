@@ -1,16 +1,16 @@
 <script lang="ts">
-	import { AlertDialog } from "bits-ui";
-	import type { AlertDialogTestProps } from "./alert-dialog-test.svelte";
+import { AlertDialog } from "bits-ui";
+import type { AlertDialogTestProps } from "./alert-dialog-test.svelte";
 
-	let {
-		open = false,
-		contentProps = {},
-		portalProps = {},
-		titleProps = {},
-		descriptionProps = {},
-		withOpenCheck = false,
-		...restProps
-	}: AlertDialogTestProps = $props();
+let {
+	open = false,
+	contentProps = {},
+	portalProps = {},
+	titleProps = {},
+	descriptionProps = {},
+	withOpenCheck = false,
+	...restProps
+}: AlertDialogTestProps = $props();
 </script>
 
 <main>

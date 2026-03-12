@@ -78,7 +78,9 @@ describe("Single Checkbox", () => {
 		it("should render the checkbox input if a name prop is passed", async () => {
 			setup({ name: "checkbox" });
 			await expectExists(getHiddenInput());
-			await expect.element(getHiddenInput()).toHaveAttribute("type", "checkbox");
+			await expect
+				.element(getHiddenInput())
+				.toHaveAttribute("type", "checkbox");
 		});
 
 		it("should not have input as part of tab order", async () => {
@@ -97,7 +99,9 @@ describe("Single Checkbox", () => {
 		it("should be able to be indeterminate", async () => {
 			const t = setup({ indeterminate: true });
 			const indicator = page.getByTestId("indicator");
-			await expect.element(t.root).toHaveAttribute("data-state", "indeterminate");
+			await expect
+				.element(t.root)
+				.toHaveAttribute("data-state", "indeterminate");
 			await expect.element(t.root).toHaveAttribute("aria-checked", "mixed");
 			await expect.element(page.getByRole("checkbox")).not.toBeChecked();
 			await expect.element(indicator).toHaveTextContent("indeterminate");
@@ -277,7 +281,9 @@ describe("Checkbox Group", () => {
 		it("should have bits data attrs", async () => {
 			const t = setupGroup();
 			await expect.element(t.group).toHaveAttribute("data-checkbox-group");
-			await expect.element(t.groupLabel).toHaveAttribute("data-checkbox-group-label");
+			await expect
+				.element(t.groupLabel)
+				.toHaveAttribute("data-checkbox-group-label");
 		});
 	});
 

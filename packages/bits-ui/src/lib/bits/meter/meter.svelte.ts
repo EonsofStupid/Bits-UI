@@ -41,6 +41,6 @@ export class MeterRootState {
 				"data-min": this.opts.min.current,
 				[meterAttrs.root]: "",
 				...this.attachment,
-			}) as const
+			}) as const,
 	);
 }

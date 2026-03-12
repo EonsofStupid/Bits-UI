@@ -1,33 +1,33 @@
 <script lang="ts">
-	import { boxWith, mergeProps } from "svelte-toolbelt";
-	import type { ToggleGroupItemProps } from "../types.js";
-	import { ToggleGroupItemState } from "../toggle-group.svelte.js";
-	import { createId } from "$lib/internal/create-id.js";
+import { boxWith, mergeProps } from "svelte-toolbelt";
+import type { ToggleGroupItemProps } from "../types.js";
+import { ToggleGroupItemState } from "../toggle-group.svelte.js";
+import { createId } from "$lib/internal/create-id.js";
 
-	const uid = $props.id();
+const uid = $props.id();
 
-	let {
-		children,
-		child,
-		ref = $bindable(null),
-		value,
-		disabled = false,
-		id = createId(uid),
-		type = "button",
-		...restProps
-	}: ToggleGroupItemProps = $props();
+let {
+	children,
+	child,
+	ref = $bindable(null),
+	value,
+	disabled = false,
+	id = createId(uid),
+	type = "button",
+	...restProps
+}: ToggleGroupItemProps = $props();
 
-	const itemState = ToggleGroupItemState.create({
-		id: boxWith(() => id),
-		value: boxWith(() => value),
-		disabled: boxWith(() => disabled ?? false),
-		ref: boxWith(
-			() => ref,
-			(v) => (ref = v)
-		),
-	});
+const itemState = ToggleGroupItemState.create({
+	id: boxWith(() => id),
+	value: boxWith(() => value),
+	disabled: boxWith(() => disabled ?? false),
+	ref: boxWith(
+		() => ref,
+		(v) => (ref = v),
+	),
+});
 
-	const mergedProps = $derived(mergeProps(restProps, itemState.props, { type }));
+const mergedProps = $derived(mergeProps(restProps, itemState.props, { type }));
 </script>
 
 {#if child}

@@ -1,6 +1,12 @@
-import type { RatingGroupItemPropsWithoutHTML, RatingGroupRootPropsWithoutHTML } from "bits-ui";
+import type {
+	RatingGroupItemPropsWithoutHTML,
+	RatingGroupRootPropsWithoutHTML,
+} from "bits-ui";
 import { withChildProps } from "./shared.js";
-import { OnNumberValueChangeProp, OrientationProp } from "./extended-types/shared/index.js";
+import {
+	OnNumberValueChangeProp,
+	OrientationProp,
+} from "./extended-types/shared/index.js";
 import { RadioGroupStateAttr } from "./extended-types/radio-group/index.js";
 import {
 	RatingGroupAriaValuetext,
@@ -34,7 +40,8 @@ export const root = defineComponentApiSchema<RatingGroupRootPropsWithoutHTML>({
 		}),
 		onValueChange: defineFunctionProp({
 			definition: OnNumberValueChangeProp,
-			description: "A callback that is fired when the rating group's value changes.",
+			description:
+				"A callback that is fired when the rating group's value changes.",
 			stringDefinition: "(value: number) => void",
 		}),
 		disabled: defineBooleanProp({
@@ -143,7 +150,8 @@ type ChildrenSnippetProps = {
 
 export const item = defineComponentApiSchema<RatingGroupItemPropsWithoutHTML>({
 	title: "Item",
-	description: "An rating item, which must be a child of the `RatingGroup.Root` component.",
+	description:
+		"An rating item, which must be a child of the `RatingGroup.Root` component.",
 	props: {
 		index: defineNumberProp({
 			description: "The index of the rating item.",

@@ -1,14 +1,13 @@
 <script lang="ts" module>
-	import type { Time } from "@internationalized/date";
-	import {
-		TimeField,
-		type TimeFieldRootProps,
-		type WithoutChildrenOrChild,
-		type TimeValue,
-	} from "bits-ui";
-	export type TimeFieldTestProps<T extends TimeValue = Time> = WithoutChildrenOrChild<
-		TimeFieldRootProps<T>
-	> & {
+import type { Time } from "@internationalized/date";
+import {
+	TimeField,
+	type TimeFieldRootProps,
+	type WithoutChildrenOrChild,
+	type TimeValue,
+} from "bits-ui";
+export type TimeFieldTestProps<T extends TimeValue = Time> =
+	WithoutChildrenOrChild<TimeFieldRootProps<T>> & {
 		name?: string;
 	};
 </script>

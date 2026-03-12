@@ -32,14 +32,22 @@ const prettyCodeOptions = {
 		dark: JSON.parse(
 			String(
 				readFileSync(
-					resolve(__dirname, "./src/lib/styles/themes/serendipity-midnight.json")
-				)
-			)
+					resolve(
+						__dirname,
+						"./src/lib/styles/themes/serendipity-midnight.json",
+					),
+				),
+			),
 		),
 		light: JSON.parse(
 			String(
-				readFileSync(resolve(__dirname, "./src/lib/styles/themes/serendipity-morning.json"))
-			)
+				readFileSync(
+					resolve(
+						__dirname,
+						"./src/lib/styles/themes/serendipity-morning.json",
+					),
+				),
+			),
 		),
 	},
 	getHighlighter: (options) =>
@@ -81,7 +89,10 @@ export const mdsxConfig = defineConfig({
 	],
 	blueprints: {
 		default: {
-			path: resolve(__dirname, "./src/lib/components/markdown/blueprint.svelte"),
+			path: resolve(
+				__dirname,
+				"./src/lib/components/markdown/blueprint.svelte",
+			),
 		},
 	},
 });
@@ -129,13 +140,21 @@ function rehypeHandleMetadata() {
 				}
 
 				const preElement = node.children.at(-1);
-				if (preElement && "tagName" in preElement && preElement.tagName !== "pre") {
+				if (
+					preElement &&
+					"tagName" in preElement &&
+					preElement.tagName !== "pre"
+				) {
 					return;
 				}
 
 				const firstChild = node.children.at(0);
 
-				if (firstChild && "tagName" in firstChild && firstChild.tagName === "figcaption") {
+				if (
+					firstChild &&
+					"tagName" in firstChild &&
+					firstChild.tagName === "figcaption"
+				) {
 					node.properties["data-metadata"] = "";
 					const lastChild = node.children.at(-1);
 					if (lastChild && "properties" in lastChild) {
@@ -156,7 +175,10 @@ export function rehypeComponentExample() {
 	return async (tree) => {
 		const nameRegex = /name="([^"]+)"/;
 		visit(tree, (node, index, parent) => {
-			if (node?.type === "raw" && node?.value?.startsWith("<ComponentPreview")) {
+			if (
+				node?.type === "raw" &&
+				node?.value?.startsWith("<ComponentPreview")
+			) {
 				const currNode = node;
 				const nameMatch = currNode.value.match(nameRegex);
 				const name = nameMatch ? nameMatch[1] : null;
@@ -166,7 +188,9 @@ export function rehypeComponentExample() {
 				try {
 					const sourceCode = getComponentSourceFileContent(name);
 					if (!sourceCode)
-						throw new Error(`Could not find source code for component: ${name}`);
+						throw new Error(
+							`Could not find source code for component: ${name}`,
+						);
 
 					const sourceCodeNode = u("element", {
 						tagName: "pre",
@@ -200,17 +224,23 @@ export function rehypeComponentExample() {
 }
 
 function transformComponentSourceContent(src = "") {
-	return src.replaceAll(`import { cn } from "$lib/utils/styles.js"`, `import cn from "clsx"`);
+	return src.replaceAll(
+		`import { cn } from "$lib/utils/styles.js"`,
+		`import cn from "clsx"`,
+	);
 }
 
 function getComponentSourceFileContent(src = "") {
 	if (!src) return null;
 
 	// Read the source file.
-	const filePath = path.join(process.cwd(), `./src/lib/components/demos/${src}.svelte`);
+	const filePath = path.join(
+		process.cwd(),
+		`./src/lib/components/demos/${src}.svelte`,
+	);
 
 	return prettier.format(
 		transformComponentSourceContent(readFileSync(filePath, "utf-8")),
-		codeBlockPrettierConfig
+		codeBlockPrettierConfig,
 	);
 }

@@ -54,7 +54,8 @@ export const root = defineComponentApiSchema<TimeFieldRootPropsWithoutHTML>({
 		}),
 		onPlaceholderChange: defineFunctionProp({
 			definition: OnTimePlaceholderChangeProp,
-			description: "A function that is called when the placeholder time changes.",
+			description:
+				"A function that is called when the placeholder time changes.",
 			stringDefinition: "(value: TimeValue) => void",
 		}),
 		required: defineBooleanProp({
@@ -63,13 +64,15 @@ export const root = defineComponentApiSchema<TimeFieldRootPropsWithoutHTML>({
 		}),
 		validate: defineFunctionProp({
 			definition: TimeValidateProp,
-			description: "A function that returns whether or not a time is unavailable.",
+			description:
+				"A function that returns whether or not a time is unavailable.",
 			stringDefinition: "(time: TimeValue) => string[] | string | void",
 		}),
 		onInvalid: defineFunctionProp({
 			definition: TimeOnInvalidProp,
 			description: "A callback fired when the field's value is invalid.",
-			stringDefinition: "(reason: 'min' | 'max' | 'custom', msg?: string | string[]) => void",
+			stringDefinition:
+				"(reason: 'min' | 'max' | 'custom', msg?: string | string[]) => void",
 		}),
 		errorMessageId: defineStringProp({
 			description:
@@ -169,44 +172,53 @@ type ChildSnippetProps = {
 	],
 });
 
-export const segment = defineComponentApiSchema<TimeFieldSegmentPropsWithoutHTML>({
-	title: "Segment",
-	description: "A segment of the time field.",
-	props: {
-		part: defineComponentPropSchema({
-			type: "TimeSegmentPart",
-			definition: TimeSegmentPartProp,
-			stringDefinition: `"hour" | "minute" | "second" | "dayPeriod" | "timeZoneName" | "literal";`,
-			description: "The part of the time to render.",
-			required: true,
-		}),
-		...withChildProps({ elType: "HTMLDivElement" }),
-	},
-	dataAttributes: [
-		defineSimpleDataAttr({
-			name: "invalid",
-			description: "Present on the element when the field is invalid",
-		}),
-		defineSimpleDataAttr({
-			name: "disabled",
-			description: "Present on the element when the field is disabled",
-		}),
-		defineSimpleDataAttr({
-			name: "readonly",
-			description: "Present on the element when the field or segment is readonly",
-		}),
-		defineEnumDataAttr({
-			name: "segment",
-			description: "The part of the time to render.",
-			options: ["hour", "minute", "second", "dayPeriod", "timeZoneName", "literal"],
-			value: TimeSegmentDataAttr,
-		}),
-		defineSimpleDataAttr({
-			name: "time-field-segment",
-			description: "Present on the element.",
-		}),
-	],
-});
+export const segment =
+	defineComponentApiSchema<TimeFieldSegmentPropsWithoutHTML>({
+		title: "Segment",
+		description: "A segment of the time field.",
+		props: {
+			part: defineComponentPropSchema({
+				type: "TimeSegmentPart",
+				definition: TimeSegmentPartProp,
+				stringDefinition: `"hour" | "minute" | "second" | "dayPeriod" | "timeZoneName" | "literal";`,
+				description: "The part of the time to render.",
+				required: true,
+			}),
+			...withChildProps({ elType: "HTMLDivElement" }),
+		},
+		dataAttributes: [
+			defineSimpleDataAttr({
+				name: "invalid",
+				description: "Present on the element when the field is invalid",
+			}),
+			defineSimpleDataAttr({
+				name: "disabled",
+				description: "Present on the element when the field is disabled",
+			}),
+			defineSimpleDataAttr({
+				name: "readonly",
+				description:
+					"Present on the element when the field or segment is readonly",
+			}),
+			defineEnumDataAttr({
+				name: "segment",
+				description: "The part of the time to render.",
+				options: [
+					"hour",
+					"minute",
+					"second",
+					"dayPeriod",
+					"timeZoneName",
+					"literal",
+				],
+				value: TimeSegmentDataAttr,
+			}),
+			defineSimpleDataAttr({
+				name: "time-field-segment",
+				description: "Present on the element.",
+			}),
+		],
+	});
 
 export const label = defineComponentApiSchema<TimeFieldLabelPropsWithoutHTML>({
 	title: "Label",

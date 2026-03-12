@@ -1,35 +1,37 @@
 <script lang="ts">
-	import { boxWith, mergeProps } from "svelte-toolbelt";
-	import type { TimeRangeFieldInputProps } from "../types.js";
-	import { TimeRangeFieldInputState } from "../time-range-field.svelte.js";
-	import { createId } from "$lib/internal/create-id.js";
-	import TimeFieldHiddenInput from "$lib/bits/time-field/components/time-field-hidden-input.svelte";
+import { boxWith, mergeProps } from "svelte-toolbelt";
+import type { TimeRangeFieldInputProps } from "../types.js";
+import { TimeRangeFieldInputState } from "../time-range-field.svelte.js";
+import { createId } from "$lib/internal/create-id.js";
+import TimeFieldHiddenInput from "$lib/bits/time-field/components/time-field-hidden-input.svelte";
 
-	const uid = $props.id();
+const uid = $props.id();
 
-	let {
-		id = createId(uid),
-		ref = $bindable(null),
-		name = "",
-		child,
-		children,
-		type,
-		...restProps
-	}: TimeRangeFieldInputProps = $props();
+let {
+	id = createId(uid),
+	ref = $bindable(null),
+	name = "",
+	child,
+	children,
+	type,
+	...restProps
+}: TimeRangeFieldInputProps = $props();
 
-	const inputState = TimeRangeFieldInputState.create(
-		{
-			id: boxWith(() => id),
-			ref: boxWith(
-				() => ref,
-				(v) => (ref = v)
-			),
-			name: boxWith(() => name),
-		},
-		type
-	);
+const inputState = TimeRangeFieldInputState.create(
+	{
+		id: boxWith(() => id),
+		ref: boxWith(
+			() => ref,
+			(v) => (ref = v),
+		),
+		name: boxWith(() => name),
+	},
+	type,
+);
 
-	const mergedProps = $derived(mergeProps(restProps, inputState.props, { role: "presentation" }));
+const mergedProps = $derived(
+	mergeProps(restProps, inputState.props, { role: "presentation" }),
+);
 </script>
 
 {#if child}

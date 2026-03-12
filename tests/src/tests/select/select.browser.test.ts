@@ -42,7 +42,7 @@ function setupSingle(
 	props: Partial<SelectSingleTestProps | SelectForceMountTestProps> = {},
 	items: Item[] = testItems,
 	// oxlint-disable-next-line no-explicit-any
-	component: Component<any, any, any> = SelectTest
+	component: Component<any, any, any> = SelectTest,
 ) {
 	const returned = render(component, { name: "test", ...props, items });
 	const trigger = page.getByTestId("trigger");
@@ -68,7 +68,10 @@ function setupSingle(
 	};
 }
 
-function setupMultiple(props: Partial<SelectMultipleTestProps> = {}, items: Item[] = testItems) {
+function setupMultiple(
+	props: Partial<SelectMultipleTestProps> = {},
+	items: Item[] = testItems,
+) {
 	// @ts-expect-error - this is fine
 	const returned = render(SelectMultiTest, { name: "test", ...props, items });
 	const trigger = page.getByTestId("trigger");
@@ -79,7 +82,7 @@ function setupMultiple(props: Partial<SelectMultipleTestProps> = {}, items: Item
 
 	function getHiddenInputs(name = "test") {
 		return Array.from(
-			returned.container.querySelectorAll<HTMLElement>(`input[name="${name}"]`)
+			returned.container.querySelectorAll<HTMLElement>(`input[name="${name}"]`),
 		);
 	}
 
@@ -101,7 +104,7 @@ function setupMultiple(props: Partial<SelectMultipleTestProps> = {}, items: Item
 async function openSingle(
 	props: Partial<SelectSingleTestProps> = {},
 	openWith: "click" | "type" | (string & {}) = "click",
-	_searchValue?: string
+	_searchValue?: string,
 ) {
 	const t = setupSingle(props);
 
@@ -129,7 +132,7 @@ async function openSingle(
 async function openMultiple(
 	props: Partial<SelectMultipleTestProps> = {},
 	openWith: "click" | "type" | (string & {}) = "click",
-	_searchValue?: string
+	_searchValue?: string,
 ) {
 	const t = setupMultiple(props);
 	await expectNotExists(t.getContent());
@@ -234,14 +237,18 @@ describe("select - single", () => {
 
 	it("should portal to the body by default", async () => {
 		const t = await openSingle();
-		expect(t.content.element().parentElement?.parentElement).toBe(document.body);
+		expect(t.content.element().parentElement?.parentElement).toBe(
+			document.body,
+		);
 	});
 
 	it("should portal to a custom element if specified", async () => {
 		const t = await openSingle({
 			portalProps: { to: "#portal-target" },
 		});
-		const portalTarget = page.getByTestId("portal-target").element() as HTMLElement;
+		const portalTarget = page
+			.getByTestId("portal-target")
+			.element() as HTMLElement;
 		expect(t.content.element().parentElement?.parentElement).toBe(portalTarget);
 	});
 
@@ -536,7 +543,9 @@ describe("select - single", () => {
 		const t = await openSingle({
 			autocomplete: "one-time-code",
 		});
-		await expect.element(t.getHiddenInput()).toHaveAttribute("autocomplete", "one-time-code");
+		await expect
+			.element(t.getHiddenInput())
+			.toHaveAttribute("autocomplete", "one-time-code");
 	});
 
 	it("should not open when disabled on touch devices", async () => {
@@ -667,7 +676,9 @@ describe("select - multiple", () => {
 
 	it("should portal to the body by default", async () => {
 		const t = await openMultiple();
-		expect(t.content.element().parentElement?.parentElement).toBe(document.body);
+		expect(t.content.element().parentElement?.parentElement).toBe(
+			document.body,
+		);
 	});
 
 	it("should portal to a custom element if specified", async () => {
@@ -899,7 +910,9 @@ function getItems(getter: typeof page.getByTestId, items = testItems) {
 ////////////////////////////////////
 
 type MaybeArray<T> = T | T[];
-async function expectSelected(node: MaybeArray<ReturnType<typeof page.getByTestId>>) {
+async function expectSelected(
+	node: MaybeArray<ReturnType<typeof page.getByTestId>>,
+) {
 	if (Array.isArray(node)) {
 		for (const n of node) {
 			await expect.element(n).toHaveAttribute("data-selected");
@@ -911,7 +924,9 @@ async function expectSelected(node: MaybeArray<ReturnType<typeof page.getByTestI
 	}
 }
 
-async function expectNotSelected(node: MaybeArray<ReturnType<typeof page.getByTestId>>) {
+async function expectNotSelected(
+	node: MaybeArray<ReturnType<typeof page.getByTestId>>,
+) {
 	if (Array.isArray(node)) {
 		for (const n of node) {
 			await expect.element(n).not.toHaveAttribute("data-selected");
@@ -923,7 +938,9 @@ async function expectNotSelected(node: MaybeArray<ReturnType<typeof page.getByTe
 	}
 }
 
-async function expectHighlighted(node: MaybeArray<ReturnType<typeof page.getByTestId>>) {
+async function expectHighlighted(
+	node: MaybeArray<ReturnType<typeof page.getByTestId>>,
+) {
 	if (Array.isArray(node)) {
 		for (const n of node) {
 			await expect.element(n).toHaveAttribute("data-highlighted");
@@ -933,7 +950,9 @@ async function expectHighlighted(node: MaybeArray<ReturnType<typeof page.getByTe
 	}
 }
 
-async function expectNotHighlighted(node: MaybeArray<ReturnType<typeof page.getByTestId>>) {
+async function expectNotHighlighted(
+	node: MaybeArray<ReturnType<typeof page.getByTestId>>,
+) {
 	if (Array.isArray(node)) {
 		for (const n of node) {
 			await expect.element(n).not.toHaveAttribute("data-highlighted");

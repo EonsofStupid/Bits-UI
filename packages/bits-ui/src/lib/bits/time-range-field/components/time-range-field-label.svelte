@@ -1,28 +1,28 @@
 <script lang="ts">
-	import { boxWith, mergeProps } from "svelte-toolbelt";
-	import { TimeRangeFieldLabelState } from "../time-range-field.svelte.js";
-	import type { TimeRangeFieldLabelProps } from "../types.js";
-	import { createId } from "$lib/internal/create-id.js";
+import { boxWith, mergeProps } from "svelte-toolbelt";
+import { TimeRangeFieldLabelState } from "../time-range-field.svelte.js";
+import type { TimeRangeFieldLabelProps } from "../types.js";
+import { createId } from "$lib/internal/create-id.js";
 
-	const uid = $props.id();
+const uid = $props.id();
 
-	let {
-		id = createId(uid),
-		ref = $bindable(null),
-		children,
-		child,
-		...restProps
-	}: TimeRangeFieldLabelProps = $props();
+let {
+	id = createId(uid),
+	ref = $bindable(null),
+	children,
+	child,
+	...restProps
+}: TimeRangeFieldLabelProps = $props();
 
-	const labelState = TimeRangeFieldLabelState.create({
-		id: boxWith(() => id),
-		ref: boxWith(
-			() => ref,
-			(v) => (ref = v)
-		),
-	});
+const labelState = TimeRangeFieldLabelState.create({
+	id: boxWith(() => id),
+	ref: boxWith(
+		() => ref,
+		(v) => (ref = v),
+	),
+});
 
-	const mergedProps = $derived(mergeProps(restProps, labelState.props));
+const mergedProps = $derived(mergeProps(restProps, labelState.props));
 </script>
 
 {#if child}

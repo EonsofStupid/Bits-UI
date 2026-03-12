@@ -1,7 +1,7 @@
 <script lang="ts">
-	import { Dialog } from "bits-ui";
+import { Dialog } from "bits-ui";
 
-	let open = $state(false);
+let open = $state(false);
 </script>
 
 <svelte:head>

@@ -1,7 +1,7 @@
 <script lang="ts" module>
-	import type { TimeValue } from "$lib/shared/date/types.js";
-	import type { Time } from "@internationalized/date";
-	type T = unknown;
+import type { TimeValue } from "$lib/shared/date/types.js";
+import type { Time } from "@internationalized/date";
+type T = unknown;
 </script>
 
 <script lang="ts" generics="T extends TimeValue = Time">

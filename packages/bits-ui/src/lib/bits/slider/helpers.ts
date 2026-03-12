@@ -1,6 +1,10 @@
 import type { StyleProperties } from "$lib/shared/index.js";
 
-export function getRangeStyles(direction: "lr" | "rl" | "tb" | "bt", min: number, max: number) {
+export function getRangeStyles(
+	direction: "lr" | "rl" | "tb" | "bt",
+	min: number,
+	max: number,
+) {
 	const styles: StyleProperties = {
 		position: "absolute",
 	};
@@ -20,7 +24,10 @@ export function getRangeStyles(direction: "lr" | "rl" | "tb" | "bt", min: number
 	return styles;
 }
 
-export function getThumbStyles(direction: "lr" | "rl" | "tb" | "bt", thumbPos: number) {
+export function getThumbStyles(
+	direction: "lr" | "rl" | "tb" | "bt",
+	thumbPos: number,
+) {
 	const styles: StyleProperties = {
 		position: "absolute",
 	};
@@ -43,7 +50,7 @@ export function getThumbStyles(direction: "lr" | "rl" | "tb" | "bt", thumbPos: n
 export function getTickStyles(
 	direction: "lr" | "rl" | "tb" | "bt",
 	tickPosition: number,
-	offsetPercentage: number
+	offsetPercentage: number,
 ) {
 	const style: StyleProperties = {
 		position: "absolute",
@@ -69,7 +76,7 @@ export function getTickStyles(
 export function getTickLabelStyles(
 	direction: "lr" | "rl" | "tb" | "bt",
 	tickPosition: number,
-	labelPosition: "top" | "bottom" | "left" | "right" = "top"
+	labelPosition: "top" | "bottom" | "left" | "right" = "top",
 ) {
 	const style: StyleProperties = {
 		position: "absolute",
@@ -108,7 +115,7 @@ export function getTickLabelStyles(
 export function getThumbLabelStyles(
 	direction: "lr" | "rl" | "tb" | "bt",
 	thumbPosition: number,
-	labelPosition: "top" | "bottom" | "left" | "right" = "top"
+	labelPosition: "top" | "bottom" | "left" | "right" = "top",
 ) {
 	const style: StyleProperties = {
 		position: "absolute",
@@ -170,7 +177,11 @@ function roundToPrecision(num: number, precision: number): number {
 /**
  * Normalizes step to always be a sorted array of valid values within min/max range
  */
-export function normalizeSteps(step: number | number[], min: number, max: number): number[] {
+export function normalizeSteps(
+	step: number | number[],
+	min: number,
+	max: number,
+): number[] {
 	if (typeof step === "number") {
 		// generate regular steps - match original behavior exactly
 		const difference = max - min;
@@ -198,7 +209,9 @@ export function normalizeSteps(step: number | number[], min: number, max: number
 		return steps;
 	}
 
-	return [...new Set(step)].filter((value) => value >= min && value <= max).sort((a, b) => a - b);
+	return [...new Set(step)]
+		.filter((value) => value >= min && value <= max)
+		.sort((a, b) => a - b);
 }
 
 /**
@@ -228,7 +241,7 @@ export function snapValueToCustomSteps(value: number, steps: number[]): number {
 export function getAdjacentStepValue(
 	currentValue: number,
 	steps: number[],
-	direction: "next" | "prev"
+	direction: "next" | "prev",
 ): number {
 	const currentIndex = steps.indexOf(currentValue);
 
@@ -238,7 +251,9 @@ export function getAdjacentStepValue(
 	}
 
 	if (direction === "next") {
-		return currentIndex < steps.length - 1 ? steps[currentIndex + 1]! : currentValue;
+		return currentIndex < steps.length - 1
+			? steps[currentIndex + 1]!
+			: currentValue;
 	} else {
 		return currentIndex > 0 ? steps[currentIndex - 1]! : currentValue;
 	}

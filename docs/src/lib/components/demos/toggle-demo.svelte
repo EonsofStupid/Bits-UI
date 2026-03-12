@@ -1,9 +1,9 @@
 <script lang="ts">
-	import { Toggle } from "bits-ui";
-	import LockKeyOpen from "phosphor-svelte/lib/LockKeyOpen";
+import { Toggle } from "bits-ui";
+import LockKeyOpen from "phosphor-svelte/lib/LockKeyOpen";
 
-	let unlocked = $state(false);
-	const code = $derived(unlocked ? "B1T5" : "••••");
+let unlocked = $state(false);
+const code = $derived(unlocked ? "B1T5" : "••••");
 </script>
 
 <div

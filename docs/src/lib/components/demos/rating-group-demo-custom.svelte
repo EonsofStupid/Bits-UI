@@ -1,9 +1,10 @@
 <script lang="ts">
-	import { RatingGroup } from "bits-ui";
-	import Star from "phosphor-svelte/lib/Star";
-	import type { ComponentProps } from "svelte";
+import { RatingGroup } from "bits-ui";
+import Star from "phosphor-svelte/lib/Star";
+import type { ComponentProps } from "svelte";
 
-	let { value = 3.5, ...restProps }: ComponentProps<typeof RatingGroup.Root> = $props();
+let { value = 3.5, ...restProps }: ComponentProps<typeof RatingGroup.Root> =
+	$props();
 </script>
 
 <RatingGroup.Root {...restProps} {value} class="flex gap-1">

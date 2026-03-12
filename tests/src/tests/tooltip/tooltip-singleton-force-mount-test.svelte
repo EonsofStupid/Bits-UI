@@ -1,11 +1,11 @@
 <script lang="ts" module>
-	import type { WithoutChildrenOrChild } from "bits-ui";
+import type { WithoutChildrenOrChild } from "bits-ui";
 
-	export type TooltipSingletonForceMountTestProps = WithoutChildrenOrChild<
-		Tooltip.RootProps<{ label: string }>
-	> & {
-		withOpenCheck?: boolean;
-	};
+export type TooltipSingletonForceMountTestProps = WithoutChildrenOrChild<
+	Tooltip.RootProps<{ label: string }>
+> & {
+	withOpenCheck?: boolean;
+};
 </script>
 
 <script lang="ts">

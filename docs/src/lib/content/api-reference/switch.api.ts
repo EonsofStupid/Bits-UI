@@ -1,4 +1,7 @@
-import type { SwitchRootPropsWithoutHTML, SwitchThumbPropsWithoutHTML } from "bits-ui";
+import type {
+	SwitchRootPropsWithoutHTML,
+	SwitchThumbPropsWithoutHTML,
+} from "bits-ui";
 import { checkedProp, onCheckedChangeProp, withChildProps } from "./shared.js";
 import {
 	SwitchCheckedDataAttr,
@@ -22,7 +25,8 @@ const stateDataAttr = defineEnumDataAttr({
 
 const root = defineComponentApiSchema<SwitchRootPropsWithoutHTML>({
 	title: "Root",
-	description: "The root switch component used to set and manage the state of the switch.",
+	description:
+		"The root switch component used to set and manage the state of the switch.",
 	props: {
 		checked: checkedProp,
 		onCheckedChange: onCheckedChangeProp,

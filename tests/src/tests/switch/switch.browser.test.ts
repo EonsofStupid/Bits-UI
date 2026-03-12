@@ -42,7 +42,10 @@ it("should toggle when clicked", async () => {
 	expect(t.input.checked).toBe(true);
 });
 
-it.each([kbd.ENTER, kbd.SPACE])("should toggle when the `%s` key is pressed", async (key) => {
+it.each([
+	kbd.ENTER,
+	kbd.SPACE,
+])("should toggle when the `%s` key is pressed", async (key) => {
 	const t = setup();
 	await expect.element(t.root).toHaveAttribute("data-state", "unchecked");
 	await expect.element(t.root).toHaveAttribute("aria-checked", "false");

@@ -1,20 +1,20 @@
 <script lang="ts">
-	import { cn } from "$lib/utils/styles.js";
-	import { ScrollArea } from "bits-ui";
-	import type { ComponentProps } from "svelte";
+import { cn } from "$lib/utils/styles.js";
+import { ScrollArea } from "bits-ui";
+import type { ComponentProps } from "svelte";
 
-	let {
-		class: className,
-		children,
-		scrollbarXProps,
-		scrollbarYProps,
-		orientation = "both",
-		...restProps
-	}: ComponentProps<typeof ScrollArea.Root> & {
-		scrollbarXProps?: Partial<ComponentProps<typeof ScrollArea.Scrollbar>>;
-		scrollbarYProps?: Partial<ComponentProps<typeof ScrollArea.Scrollbar>>;
-		orientation?: "vertical" | "horizontal" | "both";
-	} = $props();
+let {
+	class: className,
+	children,
+	scrollbarXProps,
+	scrollbarYProps,
+	orientation = "both",
+	...restProps
+}: ComponentProps<typeof ScrollArea.Root> & {
+	scrollbarXProps?: Partial<ComponentProps<typeof ScrollArea.Scrollbar>>;
+	scrollbarYProps?: Partial<ComponentProps<typeof ScrollArea.Scrollbar>>;
+	orientation?: "vertical" | "horizontal" | "both";
+} = $props();
 </script>
 
 <ScrollArea.Root {...restProps}>

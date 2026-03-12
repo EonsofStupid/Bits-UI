@@ -20,13 +20,13 @@ export type ComboboxBaseRootPropsWithoutHTML = Omit<
 	inputValue?: string;
 };
 
-export type ComboboxSingleRootPropsWithoutHTML = ComboboxBaseRootPropsWithoutHTML &
-	SelectSingleRootPropsWithoutHTML;
+export type ComboboxSingleRootPropsWithoutHTML =
+	ComboboxBaseRootPropsWithoutHTML & SelectSingleRootPropsWithoutHTML;
 
 export type ComboboxSingleRootProps = ComboboxSingleRootPropsWithoutHTML;
 
-export type ComboboxMultipleRootPropsWithoutHTML = ComboboxBaseRootPropsWithoutHTML &
-	SelectMultipleRootPropsWithoutHTML;
+export type ComboboxMultipleRootPropsWithoutHTML =
+	ComboboxBaseRootPropsWithoutHTML & SelectMultipleRootPropsWithoutHTML;
 export type ComboboxMultipleRootProps = ComboboxMultipleRootPropsWithoutHTML;
 
 export type ComboboxRootPropsWithoutHTML = ComboboxBaseRootPropsWithoutHTML &
@@ -76,4 +76,7 @@ export type ComboboxInputPropsWithoutHTML = WithChild<{
 }>;
 
 export type ComboboxInputProps = ComboboxInputPropsWithoutHTML &
-	Without<Omit<BitsPrimitiveInputAttributes, "value">, ComboboxInputPropsWithoutHTML>;
+	Without<
+		Omit<BitsPrimitiveInputAttributes, "value">,
+		ComboboxInputPropsWithoutHTML
+	>;

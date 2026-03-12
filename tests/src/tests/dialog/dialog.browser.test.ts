@@ -15,7 +15,10 @@ import DialogSingleFocusableTest from "./dialog-single-focusable-test.svelte";
 
 const kbd = getTestKbd();
 
-async function setup(props: DialogTestProps = {}, component: Component = DialogTest) {
+async function setup(
+	props: DialogTestProps = {},
+	component: Component = DialogTest,
+) {
 	const t = render(component, { ...props });
 	const trigger = page.getByTestId("trigger");
 
@@ -25,7 +28,10 @@ async function setup(props: DialogTestProps = {}, component: Component = DialogT
 	};
 }
 
-async function open(props: DialogTestProps = {}, component: Component = DialogTest) {
+async function open(
+	props: DialogTestProps = {},
+	component: Component = DialogTest,
+) {
 	const t = await setup(props, component);
 	await expectNotExists(page.getByTestId("content"));
 	await t.trigger.click();
@@ -36,7 +42,14 @@ async function open(props: DialogTestProps = {}, component: Component = DialogTe
 describe("Data Attributes", () => {
 	it("should have bits data attrs", async () => {
 		await open();
-		const parts = ["trigger", "overlay", "close", "title", "description", "content"];
+		const parts = [
+			"trigger",
+			"overlay",
+			"close",
+			"title",
+			"description",
+			"content",
+		];
 		for (const part of parts) {
 			const el = page.getByTestId(part);
 			await expect.element(el).toHaveAttribute(`data-dialog-${part}`);
@@ -86,16 +99,16 @@ describe("Open/Close Behavior", () => {
 });
 
 describe("Focus Management", () => {
-	it.each([true, false])(
-		"should focus the trigger when the dialog is closed (force mount: %s)",
-		async (withOpenCheck) => {
-			await setup({ withOpenCheck }, DialogForceMountTest);
-			await page.getByTestId("trigger").click();
-			await expectExists(page.getByTestId("content"));
-			await userEvent.keyboard(kbd.ESCAPE);
-			await expect.element(page.getByTestId("trigger")).toHaveFocus();
-		}
-	);
+	it.each([
+		true,
+		false,
+	])("should focus the trigger when the dialog is closed (force mount: %s)", async (withOpenCheck) => {
+		await setup({ withOpenCheck }, DialogForceMountTest);
+		await page.getByTestId("trigger").click();
+		await expectExists(page.getByTestId("content"));
+		await userEvent.keyboard(kbd.ESCAPE);
+		await expect.element(page.getByTestId("trigger")).toHaveFocus();
+	});
 
 	it("should respect `onOpenAutoFocus` prop", async () => {
 		await open({
@@ -109,48 +122,50 @@ describe("Focus Management", () => {
 		await expect.element(page.getByTestId("open-focus-override")).toHaveFocus();
 	});
 
-	it.each([true, false])(
-		"should respect `onOpenAutoFocus` prop (force mount: %s)",
-		async (withOpenCheck) => {
-			await setup(
-				{
-					withOpenCheck,
-					contentProps: {
-						onOpenAutoFocus: (e) => {
-							e.preventDefault();
-							document.getElementById("open-focus-override")?.focus();
-						},
+	it.each([
+		true,
+		false,
+	])("should respect `onOpenAutoFocus` prop (force mount: %s)", async (withOpenCheck) => {
+		await setup(
+			{
+				withOpenCheck,
+				contentProps: {
+					onOpenAutoFocus: (e) => {
+						e.preventDefault();
+						document.getElementById("open-focus-override")?.focus();
 					},
 				},
-				DialogForceMountTest
-			);
-			await page.getByTestId("trigger").click();
-			await expectExists(page.getByTestId("content"));
-			await expect.element(page.getByTestId("open-focus-override")).toHaveFocus();
-		}
-	);
+			},
+			DialogForceMountTest,
+		);
+		await page.getByTestId("trigger").click();
+		await expectExists(page.getByTestId("content"));
+		await expect.element(page.getByTestId("open-focus-override")).toHaveFocus();
+	});
 
-	it.each([true, false])(
-		"should respect `onCloseAutoFocus` prop (force mount: %s)",
-		async (withOpenCheck) => {
-			await setup(
-				{
-					withOpenCheck,
-					contentProps: {
-						onCloseAutoFocus: (e) => {
-							e.preventDefault();
-							document.getElementById("close-focus-override")?.focus();
-						},
+	it.each([
+		true,
+		false,
+	])("should respect `onCloseAutoFocus` prop (force mount: %s)", async (withOpenCheck) => {
+		await setup(
+			{
+				withOpenCheck,
+				contentProps: {
+					onCloseAutoFocus: (e) => {
+						e.preventDefault();
+						document.getElementById("close-focus-override")?.focus();
 					},
 				},
-				DialogForceMountTest
-			);
-			await page.getByTestId("trigger").click();
-			await expectExists(page.getByTestId("content"));
-			await userEvent.keyboard(kbd.ESCAPE);
-			await expect.element(page.getByTestId("close-focus-override")).toHaveFocus();
-		}
-	);
+			},
+			DialogForceMountTest,
+		);
+		await page.getByTestId("trigger").click();
+		await expectExists(page.getByTestId("content"));
+		await userEvent.keyboard(kbd.ESCAPE);
+		await expect
+			.element(page.getByTestId("close-focus-override"))
+			.toHaveFocus();
+	});
 
 	it("should respect `onCloseAutoFocus` prop", async () => {
 		await open({
@@ -162,7 +177,9 @@ describe("Focus Management", () => {
 			},
 		});
 		await userEvent.keyboard(kbd.ESCAPE);
-		await expect.element(page.getByTestId("close-focus-override")).toHaveFocus();
+		await expect
+			.element(page.getByTestId("close-focus-override"))
+			.toHaveFocus();
 	});
 
 	it("should focus first focusable item upon opening", async () => {
@@ -208,7 +225,9 @@ describe("Focus Management", () => {
 		await userEvent.keyboard(kbd.ESCAPE);
 		await expectNotExists(page.getByTestId("content"));
 
-		await expect.element(page.getByTestId("close-focus-override")).toHaveFocus();
+		await expect
+			.element(page.getByTestId("close-focus-override"))
+			.toHaveFocus();
 	});
 
 	it("should trap focus and allow Escape to close when only one focusable element exists", async () => {
@@ -331,8 +350,12 @@ describe("ARIA Attributes", () => {
 		await open();
 
 		const content = page.getByTestId("content");
-		const description = page.getByTestId("description").element() as HTMLElement;
-		await expect.element(content).toHaveAttribute("aria-describedby", description.id);
+		const description = page
+			.getByTestId("description")
+			.element() as HTMLElement;
+		await expect
+			.element(content)
+			.toHaveAttribute("aria-describedby", description.id);
 	});
 
 	it("should have role='heading'", async () => {
@@ -368,16 +391,24 @@ describe("ARIA Attributes", () => {
 		});
 
 		const content = page.getByTestId("content");
-		const description = page.getByTestId("description").element() as HTMLElement;
+		const description = page
+			.getByTestId("description")
+			.element() as HTMLElement;
 		await expect.element(description).toHaveAttribute("id", "description-id");
-		await expect.element(content).toHaveAttribute("aria-describedby", description.id);
+		await expect
+			.element(content)
+			.toHaveAttribute("aria-describedby", description.id);
 
 		const updateIdButton = page.getByTestId("update-id");
 		await updateIdButton.click();
 
-		await expect.element(description).not.toHaveAttribute("id", "description-id");
+		await expect
+			.element(description)
+			.not.toHaveAttribute("id", "description-id");
 		await expect.element(description).toHaveAttribute("id", "new-id");
-		await expect.element(content).toHaveAttribute("aria-describedby", description.id);
+		await expect
+			.element(content)
+			.toHaveAttribute("aria-describedby", description.id);
 	});
 });
 
@@ -410,9 +441,15 @@ describe("Nested Dialogs", () => {
 		await page.getByTestId("first-open").click();
 		await expectExists(page.getByTestId("first-content"));
 
-		const firstContent = page.getByTestId("first-content").element() as HTMLElement;
-		expect(firstContent.style.getPropertyValue("--bits-dialog-depth")).toBe("0");
-		expect(firstContent.style.getPropertyValue("--bits-dialog-nested-count")).toBe("0");
+		const firstContent = page
+			.getByTestId("first-content")
+			.element() as HTMLElement;
+		expect(firstContent.style.getPropertyValue("--bits-dialog-depth")).toBe(
+			"0",
+		);
+		expect(
+			firstContent.style.getPropertyValue("--bits-dialog-nested-count"),
+		).toBe("0");
 		await expect
 			.element(page.getByTestId("first-content"))
 			.not.toHaveAttribute("data-nested-open");
@@ -424,10 +461,18 @@ describe("Nested Dialogs", () => {
 		await page.getByTestId("second-open").click();
 		await expectExists(page.getByTestId("second-content"));
 
-		const secondContent = page.getByTestId("second-content").element() as HTMLElement;
-		expect(firstContent.style.getPropertyValue("--bits-dialog-nested-count")).toBe("1");
-		expect(secondContent.style.getPropertyValue("--bits-dialog-depth")).toBe("1");
-		expect(secondContent.style.getPropertyValue("--bits-dialog-nested-count")).toBe("0");
+		const secondContent = page
+			.getByTestId("second-content")
+			.element() as HTMLElement;
+		expect(
+			firstContent.style.getPropertyValue("--bits-dialog-nested-count"),
+		).toBe("1");
+		expect(secondContent.style.getPropertyValue("--bits-dialog-depth")).toBe(
+			"1",
+		);
+		expect(
+			secondContent.style.getPropertyValue("--bits-dialog-nested-count"),
+		).toBe("0");
 		await expect
 			.element(page.getByTestId("first-content"))
 			.toHaveAttribute("data-nested-open", "");
@@ -437,21 +482,35 @@ describe("Nested Dialogs", () => {
 		await expect
 			.element(page.getByTestId("second-content"))
 			.not.toHaveAttribute("data-nested-open");
-		await expect.element(page.getByTestId("second-content")).toHaveAttribute("data-nested", "");
+		await expect
+			.element(page.getByTestId("second-content"))
+			.toHaveAttribute("data-nested", "");
 		await expect
 			.element(page.getByTestId("second-overlay"))
 			.not.toHaveAttribute("data-nested-open");
-		await expect.element(page.getByTestId("second-content")).toHaveAttribute("data-nested", "");
+		await expect
+			.element(page.getByTestId("second-content"))
+			.toHaveAttribute("data-nested", "");
 
 		// open third dialog
 		await page.getByTestId("third-open").click();
 		await expectExists(page.getByTestId("third-content"));
 
-		const thirdContent = page.getByTestId("third-content").element() as HTMLElement;
-		expect(firstContent.style.getPropertyValue("--bits-dialog-nested-count")).toBe("2");
-		expect(secondContent.style.getPropertyValue("--bits-dialog-nested-count")).toBe("1");
-		expect(thirdContent.style.getPropertyValue("--bits-dialog-depth")).toBe("2");
-		expect(thirdContent.style.getPropertyValue("--bits-dialog-nested-count")).toBe("0");
+		const thirdContent = page
+			.getByTestId("third-content")
+			.element() as HTMLElement;
+		expect(
+			firstContent.style.getPropertyValue("--bits-dialog-nested-count"),
+		).toBe("2");
+		expect(
+			secondContent.style.getPropertyValue("--bits-dialog-nested-count"),
+		).toBe("1");
+		expect(thirdContent.style.getPropertyValue("--bits-dialog-depth")).toBe(
+			"2",
+		);
+		expect(
+			thirdContent.style.getPropertyValue("--bits-dialog-nested-count"),
+		).toBe("0");
 		await expect
 			.element(page.getByTestId("first-content"))
 			.toHaveAttribute("data-nested-open", "");
@@ -475,8 +534,12 @@ describe("Nested Dialogs", () => {
 		await page.getByTestId("third-close").click();
 		await expectNotExists(page.getByTestId("third-content"));
 
-		expect(firstContent.style.getPropertyValue("--bits-dialog-nested-count")).toBe("1");
-		expect(secondContent.style.getPropertyValue("--bits-dialog-nested-count")).toBe("0");
+		expect(
+			firstContent.style.getPropertyValue("--bits-dialog-nested-count"),
+		).toBe("1");
+		expect(
+			secondContent.style.getPropertyValue("--bits-dialog-nested-count"),
+		).toBe("0");
 		await expect
 			.element(page.getByTestId("first-content"))
 			.toHaveAttribute("data-nested-open", "");
@@ -494,7 +557,9 @@ describe("Nested Dialogs", () => {
 		await page.getByTestId("second-close").click();
 		await expectNotExists(page.getByTestId("second-content"));
 
-		expect(firstContent.style.getPropertyValue("--bits-dialog-nested-count")).toBe("0");
+		expect(
+			firstContent.style.getPropertyValue("--bits-dialog-nested-count"),
+		).toBe("0");
 		await expect
 			.element(page.getByTestId("first-content"))
 			.not.toHaveAttribute("data-nested-open");
@@ -512,9 +577,15 @@ describe("Nested Alert Dialogs and Dialogs", () => {
 		await page.getByTestId("dialog-open").click();
 		await expectExists(page.getByTestId("dialog-content"));
 
-		const dialogContent = page.getByTestId("dialog-content").element() as HTMLElement;
-		expect(dialogContent.style.getPropertyValue("--bits-dialog-depth")).toBe("0");
-		expect(dialogContent.style.getPropertyValue("--bits-dialog-nested-count")).toBe("0");
+		const dialogContent = page
+			.getByTestId("dialog-content")
+			.element() as HTMLElement;
+		expect(dialogContent.style.getPropertyValue("--bits-dialog-depth")).toBe(
+			"0",
+		);
+		expect(
+			dialogContent.style.getPropertyValue("--bits-dialog-nested-count"),
+		).toBe("0");
 		await expect
 			.element(page.getByTestId("dialog-content"))
 			.not.toHaveAttribute("data-nested-open");
@@ -523,10 +594,18 @@ describe("Nested Alert Dialogs and Dialogs", () => {
 		await page.getByTestId("alert-open").click();
 		await expectExists(page.getByTestId("alert-content"));
 
-		const alertContent = page.getByTestId("alert-content").element() as HTMLElement;
-		expect(dialogContent.style.getPropertyValue("--bits-dialog-nested-count")).toBe("1");
-		expect(alertContent.style.getPropertyValue("--bits-dialog-depth")).toBe("1");
-		expect(alertContent.style.getPropertyValue("--bits-dialog-nested-count")).toBe("0");
+		const alertContent = page
+			.getByTestId("alert-content")
+			.element() as HTMLElement;
+		expect(
+			dialogContent.style.getPropertyValue("--bits-dialog-nested-count"),
+		).toBe("1");
+		expect(alertContent.style.getPropertyValue("--bits-dialog-depth")).toBe(
+			"1",
+		);
+		expect(
+			alertContent.style.getPropertyValue("--bits-dialog-nested-count"),
+		).toBe("0");
 		await expect
 			.element(page.getByTestId("dialog-content"))
 			.toHaveAttribute("data-nested-open", "");
@@ -536,13 +615,17 @@ describe("Nested Alert Dialogs and Dialogs", () => {
 		await expect
 			.element(page.getByTestId("alert-content"))
 			.not.toHaveAttribute("data-nested-open");
-		await expect.element(page.getByTestId("alert-content")).toHaveAttribute("data-nested", "");
+		await expect
+			.element(page.getByTestId("alert-content"))
+			.toHaveAttribute("data-nested", "");
 
 		// close alert dialog
 		await page.getByTestId("alert-cancel").click();
 		await expectNotExists(page.getByTestId("alert-content"));
 
-		expect(dialogContent.style.getPropertyValue("--bits-dialog-nested-count")).toBe("0");
+		expect(
+			dialogContent.style.getPropertyValue("--bits-dialog-nested-count"),
+		).toBe("0");
 		await expect
 			.element(page.getByTestId("dialog-content"))
 			.not.toHaveAttribute("data-nested-open");
@@ -558,9 +641,15 @@ describe("Nested Alert Dialogs and Dialogs", () => {
 		await page.getByTestId("alert-first-open").click();
 		await expectExists(page.getByTestId("alert-first-content"));
 
-		const alertContent = page.getByTestId("alert-first-content").element() as HTMLElement;
-		expect(alertContent.style.getPropertyValue("--bits-dialog-depth")).toBe("0");
-		expect(alertContent.style.getPropertyValue("--bits-dialog-nested-count")).toBe("0");
+		const alertContent = page
+			.getByTestId("alert-first-content")
+			.element() as HTMLElement;
+		expect(alertContent.style.getPropertyValue("--bits-dialog-depth")).toBe(
+			"0",
+		);
+		expect(
+			alertContent.style.getPropertyValue("--bits-dialog-nested-count"),
+		).toBe("0");
 		await expect
 			.element(page.getByTestId("alert-first-content"))
 			.not.toHaveAttribute("data-nested-open");
@@ -569,10 +658,18 @@ describe("Nested Alert Dialogs and Dialogs", () => {
 		await page.getByTestId("dialog-nested-open").click();
 		await expectExists(page.getByTestId("dialog-nested-content"));
 
-		const dialogContent = page.getByTestId("dialog-nested-content").element() as HTMLElement;
-		expect(alertContent.style.getPropertyValue("--bits-dialog-nested-count")).toBe("1");
-		expect(dialogContent.style.getPropertyValue("--bits-dialog-depth")).toBe("1");
-		expect(dialogContent.style.getPropertyValue("--bits-dialog-nested-count")).toBe("0");
+		const dialogContent = page
+			.getByTestId("dialog-nested-content")
+			.element() as HTMLElement;
+		expect(
+			alertContent.style.getPropertyValue("--bits-dialog-nested-count"),
+		).toBe("1");
+		expect(dialogContent.style.getPropertyValue("--bits-dialog-depth")).toBe(
+			"1",
+		);
+		expect(
+			dialogContent.style.getPropertyValue("--bits-dialog-nested-count"),
+		).toBe("0");
 		await expect
 			.element(page.getByTestId("alert-first-content"))
 			.toHaveAttribute("data-nested-open", "");
@@ -590,7 +687,9 @@ describe("Nested Alert Dialogs and Dialogs", () => {
 		await page.getByTestId("dialog-nested-close").click();
 		await expectNotExists(page.getByTestId("dialog-nested-content"));
 
-		expect(alertContent.style.getPropertyValue("--bits-dialog-nested-count")).toBe("0");
+		expect(
+			alertContent.style.getPropertyValue("--bits-dialog-nested-count"),
+		).toBe("0");
 		await expect
 			.element(page.getByTestId("alert-first-content"))
 			.not.toHaveAttribute("data-nested-open");
@@ -606,16 +705,26 @@ describe("Nested Alert Dialogs and Dialogs", () => {
 		await page.getByTestId("dialog-open").click();
 		await expectExists(page.getByTestId("dialog-content"));
 
-		const dialogContent = page.getByTestId("dialog-content").element() as HTMLElement;
-		expect(dialogContent.style.getPropertyValue("--bits-dialog-depth")).toBe("0");
+		const dialogContent = page
+			.getByTestId("dialog-content")
+			.element() as HTMLElement;
+		expect(dialogContent.style.getPropertyValue("--bits-dialog-depth")).toBe(
+			"0",
+		);
 
 		// open alert dialog
 		await page.getByTestId("alert-open").click();
 		await expectExists(page.getByTestId("alert-content"));
 
-		const alertContent = page.getByTestId("alert-content").element() as HTMLElement;
-		expect(dialogContent.style.getPropertyValue("--bits-dialog-nested-count")).toBe("1");
-		expect(alertContent.style.getPropertyValue("--bits-dialog-depth")).toBe("1");
+		const alertContent = page
+			.getByTestId("alert-content")
+			.element() as HTMLElement;
+		expect(
+			dialogContent.style.getPropertyValue("--bits-dialog-nested-count"),
+		).toBe("1");
+		expect(alertContent.style.getPropertyValue("--bits-dialog-depth")).toBe(
+			"1",
+		);
 
 		// open nested dialog
 		await page.getByTestId("nested-dialog-open").click();
@@ -624,10 +733,18 @@ describe("Nested Alert Dialogs and Dialogs", () => {
 		const nestedDialogContent = page
 			.getByTestId("nested-dialog-content")
 			.element() as HTMLElement;
-		expect(dialogContent.style.getPropertyValue("--bits-dialog-nested-count")).toBe("2");
-		expect(alertContent.style.getPropertyValue("--bits-dialog-nested-count")).toBe("1");
-		expect(nestedDialogContent.style.getPropertyValue("--bits-dialog-depth")).toBe("2");
-		expect(nestedDialogContent.style.getPropertyValue("--bits-dialog-nested-count")).toBe("0");
+		expect(
+			dialogContent.style.getPropertyValue("--bits-dialog-nested-count"),
+		).toBe("2");
+		expect(
+			alertContent.style.getPropertyValue("--bits-dialog-nested-count"),
+		).toBe("1");
+		expect(
+			nestedDialogContent.style.getPropertyValue("--bits-dialog-depth"),
+		).toBe("2");
+		expect(
+			nestedDialogContent.style.getPropertyValue("--bits-dialog-nested-count"),
+		).toBe("0");
 
 		// verify data attributes
 		await expect
@@ -653,8 +770,12 @@ describe("Nested Alert Dialogs and Dialogs", () => {
 		await page.getByTestId("nested-dialog-close").click();
 		await expectNotExists(page.getByTestId("nested-dialog-content"));
 
-		expect(dialogContent.style.getPropertyValue("--bits-dialog-nested-count")).toBe("1");
-		expect(alertContent.style.getPropertyValue("--bits-dialog-nested-count")).toBe("0");
+		expect(
+			dialogContent.style.getPropertyValue("--bits-dialog-nested-count"),
+		).toBe("1");
+		expect(
+			alertContent.style.getPropertyValue("--bits-dialog-nested-count"),
+		).toBe("0");
 		await expect
 			.element(page.getByTestId("dialog-content"))
 			.toHaveAttribute("data-nested-open", "");
@@ -666,7 +787,9 @@ describe("Nested Alert Dialogs and Dialogs", () => {
 		await page.getByTestId("alert-cancel").click();
 		await expectNotExists(page.getByTestId("alert-content"));
 
-		expect(dialogContent.style.getPropertyValue("--bits-dialog-nested-count")).toBe("0");
+		expect(
+			dialogContent.style.getPropertyValue("--bits-dialog-nested-count"),
+		).toBe("0");
 		await expect
 			.element(page.getByTestId("dialog-content"))
 			.not.toHaveAttribute("data-nested-open");

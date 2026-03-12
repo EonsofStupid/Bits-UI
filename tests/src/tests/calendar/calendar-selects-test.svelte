@@ -1,28 +1,28 @@
 <script lang="ts">
-	import { Calendar } from "bits-ui";
-	import type { CalendarDate } from "@internationalized/date";
+import { Calendar } from "bits-ui";
+import type { CalendarDate } from "@internationalized/date";
 
-	let {
-		placeholder,
-		months,
-		years,
-		monthFormat,
-		yearFormat,
-		disabled = false,
-		readonly = false,
-		minValue,
-		maxValue,
-	}: {
-		placeholder?: CalendarDate;
-		months?: number[];
-		years?: number[];
-		monthFormat?: Intl.DateTimeFormatOptions["month"];
-		yearFormat?: Intl.DateTimeFormatOptions["year"];
-		disabled?: boolean;
-		readonly?: boolean;
-		minValue?: CalendarDate;
-		maxValue?: CalendarDate;
-	} = $props();
+let {
+	placeholder,
+	months,
+	years,
+	monthFormat,
+	yearFormat,
+	disabled = false,
+	readonly = false,
+	minValue,
+	maxValue,
+}: {
+	placeholder?: CalendarDate;
+	months?: number[];
+	years?: number[];
+	monthFormat?: Intl.DateTimeFormatOptions["month"];
+	yearFormat?: Intl.DateTimeFormatOptions["year"];
+	disabled?: boolean;
+	readonly?: boolean;
+	minValue?: CalendarDate;
+	maxValue?: CalendarDate;
+} = $props();
 </script>
 
 <Calendar.Root

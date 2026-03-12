@@ -1,12 +1,12 @@
 <script lang="ts" module>
-	export type NavigationMenuTestProps = NavigationMenu.RootProps & {
-		noViewport?: boolean;
-		noSubViewport?: boolean;
-		groupItemProps?: NavigationMenu.ItemProps;
-		subGroupItemProps?: NavigationMenu.ItemProps;
-		subGroupItem1Props?: NavigationMenu.ItemProps;
-		subGroupItem2Props?: NavigationMenu.ItemProps;
-	};
+export type NavigationMenuTestProps = NavigationMenu.RootProps & {
+	noViewport?: boolean;
+	noSubViewport?: boolean;
+	groupItemProps?: NavigationMenu.ItemProps;
+	subGroupItemProps?: NavigationMenu.ItemProps;
+	subGroupItem1Props?: NavigationMenu.ItemProps;
+	subGroupItem2Props?: NavigationMenu.ItemProps;
+};
 </script>
 
 <script lang="ts">

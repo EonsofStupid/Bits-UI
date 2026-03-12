@@ -1,15 +1,21 @@
 <script lang="ts" module>
-	import { DropdownMenu } from "bits-ui";
-	export type DropdownMenuForceMountTestProps = DropdownMenu.RootProps & {
-		checked?: boolean;
-		subChecked?: boolean;
-		radio?: string;
-		subRadio?: string;
-		open?: boolean;
-		contentProps?: Omit<DropdownMenu.ContentProps, "asChild" | "children" | "child">;
-		portalProps?: Omit<DropdownMenu.PortalProps, "asChild" | "children" | "child">;
-		withOpenCheck?: boolean;
-	};
+import { DropdownMenu } from "bits-ui";
+export type DropdownMenuForceMountTestProps = DropdownMenu.RootProps & {
+	checked?: boolean;
+	subChecked?: boolean;
+	radio?: string;
+	subRadio?: string;
+	open?: boolean;
+	contentProps?: Omit<
+		DropdownMenu.ContentProps,
+		"asChild" | "children" | "child"
+	>;
+	portalProps?: Omit<
+		DropdownMenu.PortalProps,
+		"asChild" | "children" | "child"
+	>;
+	withOpenCheck?: boolean;
+};
 </script>
 
 <script lang="ts">

@@ -15,13 +15,19 @@ import { isHTMLElement } from "$lib/internal/is.js";
 interface TextSelectionLayerStateOpts
 	extends ReadableBoxedValues<
 		Required<
-			Omit<TextSelectionLayerImplProps, "children" | "preventOverflowTextSelection" | "ref">
+			Omit<
+				TextSelectionLayerImplProps,
+				"children" | "preventOverflowTextSelection" | "ref"
+			>
 		> & {
 			ref: HTMLElement | null;
 		}
 	> {}
 
-globalThis.bitsTextSelectionLayers ??= new Map<TextSelectionLayerState, ReadableBox<boolean>>();
+globalThis.bitsTextSelectionLayers ??= new Map<
+	TextSelectionLayerState,
+	ReadableBox<boolean>
+>();
 
 export class TextSelectionLayerState {
 	static create(opts: TextSelectionLayerStateOpts) {
@@ -50,7 +56,7 @@ export class TextSelectionLayerState {
 					this.#resetSelectionLock();
 					globalThis.bitsTextSelectionLayers.delete(this);
 				};
-			}
+			},
 		);
 	}
 
@@ -60,15 +66,23 @@ export class TextSelectionLayerState {
 			on(
 				this.domContext.getDocument(),
 				"pointerup",
-				composeHandlers(this.#resetSelectionLock, this.opts.onPointerUp.current)
-			)
+				composeHandlers(
+					this.#resetSelectionLock,
+					this.opts.onPointerUp.current,
+				),
+			),
 		);
 	}
 
 	#pointerdown = (e: PointerEvent) => {
 		const node = this.opts.ref.current;
 		const target = e.target;
-		if (!isHTMLElement(node) || !isHTMLElement(target) || !this.opts.enabled.current) return;
+		if (
+			!isHTMLElement(node) ||
+			!isHTMLElement(target) ||
+			!this.opts.enabled.current
+		)
+			return;
 		/**
 		 * We only lock user-selection overflow if layer is the top most layer and
 		 * pointerdown occurred inside the node. You are still allowed to select text
@@ -79,7 +93,7 @@ export class TextSelectionLayerState {
 		if (e.defaultPrevented) return;
 		this.#unsubSelectionLock = preventTextSelectionOverflow(
 			node,
-			this.domContext.getDocument().body
+			this.domContext.getDocument().body,
 		);
 	};
 
@@ -89,7 +103,8 @@ export class TextSelectionLayerState {
 	};
 }
 
-const getUserSelect = (node: HTMLElement) => node.style.userSelect || node.style.webkitUserSelect;
+const getUserSelect = (node: HTMLElement) =>
+	node.style.userSelect || node.style.webkitUserSelect;
 
 function preventTextSelectionOverflow(node: HTMLElement, body: HTMLElement) {
 	const originalBodyUserSelect = getUserSelect(body);

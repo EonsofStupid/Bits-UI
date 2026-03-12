@@ -1,6 +1,8 @@
 import { expect, it } from "vitest";
 import { render } from "vitest-browser-svelte";
-import NavigationMenuTest, { type NavigationMenuTestProps } from "./navigation-menu-test.svelte";
+import NavigationMenuTest, {
+	type NavigationMenuTestProps,
+} from "./navigation-menu-test.svelte";
 import { getTestKbd } from "../utils";
 import { expectExists, expectNotExists } from "../browser-utils";
 import { page, userEvent } from "@vitest/browser/context";
@@ -26,7 +28,9 @@ it("should open viewport when hovering trigger", async () => {
 	await expectExists(page.getByTestId("viewport"));
 	await expect
 		.element(page.getByTestId("viewport"))
-		.toContainElement(page.getByTestId("group-item-content").element() as HTMLElement);
+		.toContainElement(
+			page.getByTestId("group-item-content").element() as HTMLElement,
+		);
 });
 
 it("should toggle viewport when pressing enter on focused trigger", async () => {
@@ -37,7 +41,9 @@ it("should toggle viewport when pressing enter on focused trigger", async () => 
 	await expectExists(page.getByTestId("viewport"));
 	await expect
 		.element(page.getByTestId("viewport"))
-		.toContainElement(page.getByTestId("sub-group-item-content").element() as HTMLElement);
+		.toContainElement(
+			page.getByTestId("sub-group-item-content").element() as HTMLElement,
+		);
 	await userEvent.keyboard(kbd.ENTER);
 	await expectNotExists(page.getByTestId("viewport"));
 });
@@ -49,7 +55,9 @@ it("should show initial submenu items on trigger hover", async () => {
 	await expectExists(page.getByTestId("viewport"));
 	await expect
 		.element(page.getByTestId("viewport"))
-		.toContainElement(page.getByTestId("sub-group-item-content").element() as HTMLElement);
+		.toContainElement(
+			page.getByTestId("sub-group-item-content").element() as HTMLElement,
+		);
 });
 
 it("should show submenu items on subtrigger hover", async () => {
@@ -64,7 +72,9 @@ it("should show submenu items on subtrigger hover", async () => {
 	await expect
 		.element(page.getByTestId("viewport"))
 		.toContainElement(
-			page.getByTestId("sub-group-item-sub-item2-content").element() as HTMLElement
+			page
+				.getByTestId("sub-group-item-sub-item2-content")
+				.element() as HTMLElement,
 		);
 	// does not hide when clicking open subtrigger
 	await subTrigger.click();
@@ -76,7 +86,11 @@ it("should open submenu viewport when pressing enter on focused subtrigger", asy
 	(page.getByTestId("sub-group-item-trigger").element() as HTMLElement).focus();
 	await userEvent.keyboard(kbd.ENTER);
 	await expectExists(page.getByTestId("sub-group-item-sub-item2-trigger"));
-	(page.getByTestId("sub-group-item-sub-item2-trigger").element() as HTMLElement).focus();
+	(
+		page
+			.getByTestId("sub-group-item-sub-item2-trigger")
+			.element() as HTMLElement
+	).focus();
 	await userEvent.keyboard(kbd.ENTER);
 	await expectExists(page.getByTestId("sub-group-item-sub-item2-content"));
 	// does not hide when re-pressing enter
@@ -103,7 +117,9 @@ it("should focus next item with right arrow or down arrow, and previous with lef
 	const trigger = page.getByTestId("group-item-trigger");
 	(trigger.element() as HTMLElement).focus();
 	await userEvent.keyboard(kbd.ARROW_RIGHT);
-	await expect.element(page.getByTestId("sub-group-item-trigger")).toHaveFocus();
+	await expect
+		.element(page.getByTestId("sub-group-item-trigger"))
+		.toHaveFocus();
 	await userEvent.keyboard(kbd.ARROW_RIGHT);
 	await expect.element(page.getByTestId("link-item-link")).toHaveFocus();
 });
@@ -113,7 +129,9 @@ it("should focus next item with tab", async () => {
 	const trigger = page.getByTestId("group-item-trigger");
 	(trigger.element() as HTMLElement).focus();
 	await userEvent.keyboard(kbd.TAB);
-	await expect.element(page.getByTestId("sub-group-item-trigger")).toHaveFocus();
+	await expect
+		.element(page.getByTestId("sub-group-item-trigger"))
+		.toHaveFocus();
 	await userEvent.keyboard(kbd.TAB);
 	await expect.element(page.getByTestId("link-item-link")).toHaveFocus();
 });
@@ -126,9 +144,13 @@ it("should focus next sub-item with right arrow, and previous with left", async 
 	const subTrigger = page.getByTestId("sub-group-item-sub-item1-trigger");
 	(subTrigger.element() as HTMLElement).focus();
 	await userEvent.keyboard(kbd.ARROW_RIGHT);
-	await expect.element(page.getByTestId("sub-group-item-sub-item2-trigger")).toHaveFocus();
+	await expect
+		.element(page.getByTestId("sub-group-item-sub-item2-trigger"))
+		.toHaveFocus();
 	await userEvent.keyboard(kbd.ARROW_LEFT);
-	await expect.element(page.getByTestId("sub-group-item-sub-item1-trigger")).toHaveFocus();
+	await expect
+		.element(page.getByTestId("sub-group-item-sub-item1-trigger"))
+		.toHaveFocus();
 });
 
 it("should focus next content item with right arrow or down arrow, and previous with left or up", async () => {
@@ -136,15 +158,25 @@ it("should focus next content item with right arrow or down arrow, and previous 
 	const trigger = page.getByTestId("group-item-trigger");
 	(trigger.element() as HTMLElement).focus();
 	await userEvent.keyboard(kbd.ENTER);
-	(page.getByTestId("group-item-content-button1").element() as HTMLElement).focus();
+	(
+		page.getByTestId("group-item-content-button1").element() as HTMLElement
+	).focus();
 	await userEvent.keyboard(kbd.ARROW_RIGHT);
-	await expect.element(page.getByTestId("group-item-content-button2")).toHaveFocus();
+	await expect
+		.element(page.getByTestId("group-item-content-button2"))
+		.toHaveFocus();
 	await userEvent.keyboard(kbd.ARROW_LEFT);
-	await expect.element(page.getByTestId("group-item-content-button1")).toHaveFocus();
+	await expect
+		.element(page.getByTestId("group-item-content-button1"))
+		.toHaveFocus();
 	await userEvent.keyboard(kbd.ARROW_DOWN);
-	await expect.element(page.getByTestId("group-item-content-button2")).toHaveFocus();
+	await expect
+		.element(page.getByTestId("group-item-content-button2"))
+		.toHaveFocus();
 	await userEvent.keyboard(kbd.ARROW_UP);
-	await expect.element(page.getByTestId("group-item-content-button1")).toHaveFocus();
+	await expect
+		.element(page.getByTestId("group-item-content-button1"))
+		.toHaveFocus();
 });
 
 it("should focus next on content with tab when opened", async () => {
@@ -153,7 +185,9 @@ it("should focus next on content with tab when opened", async () => {
 	(trigger.element() as HTMLElement).focus();
 	await userEvent.keyboard(kbd.ENTER);
 	await userEvent.tab();
-	await expect.element(page.getByTestId("group-item-content-button1")).toHaveFocus();
+	await expect
+		.element(page.getByTestId("group-item-content-button1"))
+		.toHaveFocus();
 });
 
 it("should focus next on content with down arrow when opened", async () => {
@@ -162,7 +196,9 @@ it("should focus next on content with down arrow when opened", async () => {
 	(trigger.element() as HTMLElement).focus();
 	await userEvent.keyboard(kbd.ENTER);
 	await userEvent.keyboard(kbd.ARROW_DOWN);
-	await expect.element(page.getByTestId("group-item-content-button1")).toHaveFocus();
+	await expect
+		.element(page.getByTestId("group-item-content-button1"))
+		.toHaveFocus();
 });
 
 it("should render content without viewport", async () => {
@@ -175,7 +211,9 @@ it("should render content without viewport", async () => {
 	await expectNotExists(page.getByTestId("viewport"));
 	await expect
 		.element(page.getByTestId("group-item"))
-		.toContainElement(page.getByTestId("group-item-content").element() as HTMLElement);
+		.toContainElement(
+			page.getByTestId("group-item-content").element() as HTMLElement,
+		);
 });
 
 it("should render subcontent without subviewport", async () => {
@@ -189,7 +227,9 @@ it("should render subcontent without subviewport", async () => {
 	await expect
 		.element(page.getByTestId("sub-group-item-sub-item2"))
 		.toContainElement(
-			page.getByTestId("sub-group-item-sub-item2-content").element() as HTMLElement
+			page
+				.getByTestId("sub-group-item-sub-item2-content")
+				.element() as HTMLElement,
 		);
 	await expectNotExists(page.getByTestId("sub-group-item-sub-viewport"));
 });

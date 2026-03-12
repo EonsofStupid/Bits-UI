@@ -1,23 +1,26 @@
 <script lang="ts" module>
-	import {
-		Combobox,
-		type ComboboxSingleRootProps,
-		type WithoutChildren,
-		type WithoutChildrenOrChild,
-	} from "bits-ui";
-	export type Item = {
-		value: string;
-		label: string;
-		disabled?: boolean;
-	};
+import {
+	Combobox,
+	type ComboboxSingleRootProps,
+	type WithoutChildren,
+	type WithoutChildrenOrChild,
+} from "bits-ui";
+export type Item = {
+	value: string;
+	label: string;
+	disabled?: boolean;
+};
 
-	export type ComboboxSingleTestProps = Omit<WithoutChildren<ComboboxSingleRootProps>, "type"> & {
-		contentProps?: WithoutChildrenOrChild<Combobox.ContentProps>;
-		portalProps?: WithoutChildrenOrChild<Combobox.PortalProps>;
-		inputProps?: WithoutChildrenOrChild<Combobox.InputProps>;
-		items: Item[];
-		searchValue?: string;
-	};
+export type ComboboxSingleTestProps = Omit<
+	WithoutChildren<ComboboxSingleRootProps>,
+	"type"
+> & {
+	contentProps?: WithoutChildrenOrChild<Combobox.ContentProps>;
+	portalProps?: WithoutChildrenOrChild<Combobox.PortalProps>;
+	inputProps?: WithoutChildrenOrChild<Combobox.InputProps>;
+	items: Item[];
+	searchValue?: string;
+};
 </script>
 
 <script lang="ts">

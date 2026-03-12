@@ -1,6 +1,12 @@
-import type { RadioGroupItemPropsWithoutHTML, RadioGroupRootPropsWithoutHTML } from "bits-ui";
+import type {
+	RadioGroupItemPropsWithoutHTML,
+	RadioGroupRootPropsWithoutHTML,
+} from "bits-ui";
 import { withChildProps } from "./shared.js";
-import { OnStringValueChangeProp, OrientationProp } from "./extended-types/shared/index.js";
+import {
+	OnStringValueChangeProp,
+	OrientationProp,
+} from "./extended-types/shared/index.js";
 import { RadioGroupStateAttr } from "./extended-types/radio-group/index.js";
 import {
 	defineBooleanProp,
@@ -23,7 +29,8 @@ export const root = defineComponentApiSchema<RadioGroupRootPropsWithoutHTML>({
 			bindable: true,
 		}),
 		onValueChange: defineFunctionProp({
-			description: "A callback that is fired when the radio group's value changes.",
+			description:
+				"A callback that is fired when the radio group's value changes.",
 			definition: OnStringValueChangeProp,
 			stringDefinition: "(value: string) => void",
 		}),
@@ -83,7 +90,8 @@ export const root = defineComponentApiSchema<RadioGroupRootPropsWithoutHTML>({
 
 export const item = defineComponentApiSchema<RadioGroupItemPropsWithoutHTML>({
 	title: "Item",
-	description: "An radio item, which must be a child of the `RadioGroup.Root` component.",
+	description:
+		"An radio item, which must be a child of the `RadioGroup.Root` component.",
 	props: {
 		value: defineStringProp({
 			description:

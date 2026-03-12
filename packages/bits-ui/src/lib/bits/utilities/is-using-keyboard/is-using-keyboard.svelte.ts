@@ -36,7 +36,7 @@ export class IsUsingKeyboard {
 						}),
 						on(document, "keydown", handleKeydown, {
 							capture: true,
-						})
+						}),
 					);
 
 					// Don't forget to spread and call twice.

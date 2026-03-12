@@ -1,38 +1,38 @@
 <script lang="ts">
-	import { boxWith, mergeProps } from "svelte-toolbelt";
-	import type { SelectContentStaticProps } from "../types.js";
-	import { SelectContentState } from "../select.svelte.js";
-	import PopperLayer from "$lib/bits/utilities/popper-layer/popper-layer.svelte";
-	import { createId } from "$lib/internal/create-id.js";
-	import { noop } from "$lib/internal/noop.js";
-	import PopperLayerForceMount from "$lib/bits/utilities/popper-layer/popper-layer-force-mount.svelte";
+import { boxWith, mergeProps } from "svelte-toolbelt";
+import type { SelectContentStaticProps } from "../types.js";
+import { SelectContentState } from "../select.svelte.js";
+import PopperLayer from "$lib/bits/utilities/popper-layer/popper-layer.svelte";
+import { createId } from "$lib/internal/create-id.js";
+import { noop } from "$lib/internal/noop.js";
+import PopperLayerForceMount from "$lib/bits/utilities/popper-layer/popper-layer-force-mount.svelte";
 
-	const uid = $props.id();
+const uid = $props.id();
 
-	let {
-		id = createId(uid),
-		ref = $bindable(null),
-		forceMount = false,
-		onInteractOutside = noop,
-		onEscapeKeydown = noop,
-		children,
-		child,
-		preventScroll = false,
-		style,
-		...restProps
-	}: SelectContentStaticProps = $props();
+let {
+	id = createId(uid),
+	ref = $bindable(null),
+	forceMount = false,
+	onInteractOutside = noop,
+	onEscapeKeydown = noop,
+	children,
+	child,
+	preventScroll = false,
+	style,
+	...restProps
+}: SelectContentStaticProps = $props();
 
-	const contentState = SelectContentState.create({
-		id: boxWith(() => id),
-		ref: boxWith(
-			() => ref,
-			(v) => (ref = v)
-		),
-		onInteractOutside: boxWith(() => onInteractOutside),
-		onEscapeKeydown: boxWith(() => onEscapeKeydown),
-	});
+const contentState = SelectContentState.create({
+	id: boxWith(() => id),
+	ref: boxWith(
+		() => ref,
+		(v) => (ref = v),
+	),
+	onInteractOutside: boxWith(() => onInteractOutside),
+	onEscapeKeydown: boxWith(() => onEscapeKeydown),
+});
 
-	const mergedProps = $derived(mergeProps(restProps, contentState.props));
+const mergedProps = $derived(mergeProps(restProps, contentState.props));
 </script>
 
 {#if forceMount}

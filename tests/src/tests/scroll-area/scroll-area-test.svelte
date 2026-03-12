@@ -1,7 +1,8 @@
 <script lang="ts" module>
-	import { ScrollArea, type WithoutChildrenOrChild } from "bits-ui";
+import { ScrollArea, type WithoutChildrenOrChild } from "bits-ui";
 
-	export type ScrollAreaTestProps = WithoutChildrenOrChild<ScrollArea.RootProps> & {
+export type ScrollAreaTestProps =
+	WithoutChildrenOrChild<ScrollArea.RootProps> & {
 		numParagraphs?: number;
 		wrapText?: boolean;
 		height?: number;

@@ -39,7 +39,8 @@ const openClosedDataAttr = defineEnumDataAttr({
 
 export const root = defineComponentApiSchema<LinkPreviewRootPropsWithoutHTML>({
 	title: "Root",
-	description: "The root component used to manage the state of the state of the link preview.",
+	description:
+		"The root component used to manage the state of the state of the link preview.",
 	props: {
 		open: defineBooleanProp({
 			default: false,
@@ -70,74 +71,81 @@ export const root = defineComponentApiSchema<LinkPreviewRootPropsWithoutHTML>({
 	},
 });
 
-export const trigger = defineComponentApiSchema<LinkPreviewTriggerPropsWithoutHTML>({
-	title: "Trigger",
-	description:
-		"A component which triggers the opening and closing of the link preview on hover or focus.",
-	props: withChildProps({ elType: "HTMLAnchorElement" }),
-	dataAttributes: [
-		openClosedDataAttr,
-		defineSimpleDataAttr({
-			name: "link-preview-trigger",
-			description: "Present on the trigger element.",
-		}),
-	],
-});
+export const trigger =
+	defineComponentApiSchema<LinkPreviewTriggerPropsWithoutHTML>({
+		title: "Trigger",
+		description:
+			"A component which triggers the opening and closing of the link preview on hover or focus.",
+		props: withChildProps({ elType: "HTMLAnchorElement" }),
+		dataAttributes: [
+			openClosedDataAttr,
+			defineSimpleDataAttr({
+				name: "link-preview-trigger",
+				description: "Present on the trigger element.",
+			}),
+		],
+	});
 
-export const content = defineComponentApiSchema<LinkPreviewContentPropsWithoutHTML>({
-	title: "Content",
-	description: "The contents of the link preview which are displayed when the preview is open.",
-	props: {
-		...floatingProps(),
-		...dismissibleLayerProps,
-		...escapeLayerProps,
-		...focusScopeProps,
-		dir: dirProp,
-		forceMount: forceMountProp,
-		...withChildProps({ elType: "HTMLDivElement" }),
+export const content =
+	defineComponentApiSchema<LinkPreviewContentPropsWithoutHTML>({
+		title: "Content",
+		description:
+			"The contents of the link preview which are displayed when the preview is open.",
+		props: {
+			...floatingProps(),
+			...dismissibleLayerProps,
+			...escapeLayerProps,
+			...focusScopeProps,
+			dir: dirProp,
+			forceMount: forceMountProp,
+			...withChildProps({ elType: "HTMLDivElement" }),
+		},
+		dataAttributes: [
+			openClosedDataAttr,
+			defineSimpleDataAttr({
+				name: "link-preview-content",
+				description: "Present on the content element.",
+			}),
+		],
+		cssVars: floatingContentCSSVars("link-preview"),
+	});
+
+export const contentStatic =
+	defineComponentApiSchema<LinkPreviewContentStaticPropsWithoutHTML>({
+		title: "ContentStatic",
+		description:
+			"The contents of the link preview which are displayed when the preview is open. (Static/No Floating UI)",
+		props: {
+			...dismissibleLayerProps,
+			...escapeLayerProps,
+			...focusScopeProps,
+			dir: dirProp,
+			forceMount: forceMountProp,
+			...withChildProps({ elType: "HTMLDivElement" }),
+		},
+		dataAttributes: [
+			openClosedDataAttr,
+			defineSimpleDataAttr({
+				name: "link-preview-content",
+				description: "Present on the content element.",
+			}),
+		],
+	});
+
+export const arrow = defineComponentApiSchema<LinkPreviewArrowPropsWithoutHTML>(
+	{
+		title: "Arrow",
+		description:
+			"An optional arrow element which points to the trigger when the preview is open.",
+		props: arrowProps,
+		dataAttributes: [
+			defineSimpleDataAttr({
+				name: "link-preview-arrow",
+				description: "Present on the arrow element.",
+			}),
+		],
 	},
-	dataAttributes: [
-		openClosedDataAttr,
-		defineSimpleDataAttr({
-			name: "link-preview-content",
-			description: "Present on the content element.",
-		}),
-	],
-	cssVars: floatingContentCSSVars("link-preview"),
-});
-
-export const contentStatic = defineComponentApiSchema<LinkPreviewContentStaticPropsWithoutHTML>({
-	title: "ContentStatic",
-	description:
-		"The contents of the link preview which are displayed when the preview is open. (Static/No Floating UI)",
-	props: {
-		...dismissibleLayerProps,
-		...escapeLayerProps,
-		...focusScopeProps,
-		dir: dirProp,
-		forceMount: forceMountProp,
-		...withChildProps({ elType: "HTMLDivElement" }),
-	},
-	dataAttributes: [
-		openClosedDataAttr,
-		defineSimpleDataAttr({
-			name: "link-preview-content",
-			description: "Present on the content element.",
-		}),
-	],
-});
-
-export const arrow = defineComponentApiSchema<LinkPreviewArrowPropsWithoutHTML>({
-	title: "Arrow",
-	description: "An optional arrow element which points to the trigger when the preview is open.",
-	props: arrowProps,
-	dataAttributes: [
-		defineSimpleDataAttr({
-			name: "link-preview-arrow",
-			description: "Present on the arrow element.",
-		}),
-	],
-});
+);
 
 const portal = defineComponentApiSchema<LinkPreviewPortalPropsWithoutHTML>({
 	title: "Portal",
@@ -146,4 +154,11 @@ const portal = defineComponentApiSchema<LinkPreviewPortalPropsWithoutHTML>({
 	props: portalProps,
 });
 
-export const linkPreview = [root, trigger, content, contentStatic, arrow, portal];
+export const linkPreview = [
+	root,
+	trigger,
+	content,
+	contentStatic,
+	arrow,
+	portal,
+];

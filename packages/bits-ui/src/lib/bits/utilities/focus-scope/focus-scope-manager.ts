@@ -26,12 +26,16 @@ export class FocusScopeManager {
 			this.#preFocusHistory.set(scope, activeElement);
 		}
 
-		this.#scopeStack.current = this.#scopeStack.current.filter((s) => s !== scope);
+		this.#scopeStack.current = this.#scopeStack.current.filter(
+			(s) => s !== scope,
+		);
 		this.#scopeStack.current.unshift(scope);
 	}
 
 	unregister(scope: FocusScope) {
-		this.#scopeStack.current = this.#scopeStack.current.filter((s) => s !== scope);
+		this.#scopeStack.current = this.#scopeStack.current.filter(
+			(s) => s !== scope,
+		);
 		const next = this.getActive();
 		if (next) {
 			next.resume();

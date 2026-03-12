@@ -1,7 +1,7 @@
 <script lang="ts">
-	import { Tooltip, Dialog } from "bits-ui";
+import { Tooltip, Dialog } from "bits-ui";
 
-	let open = $state(false);
+let open = $state(false);
 </script>
 
 <Tooltip.Provider>

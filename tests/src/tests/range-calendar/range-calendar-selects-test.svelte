@@ -1,31 +1,31 @@
 <script lang="ts">
-	import { RangeCalendar } from "bits-ui";
-	import type { CalendarDate } from "@internationalized/date";
-	import type { DateRange } from "bits-ui";
+import { RangeCalendar } from "bits-ui";
+import type { CalendarDate } from "@internationalized/date";
+import type { DateRange } from "bits-ui";
 
-	let {
-		placeholder,
-		value = $bindable(),
-		months,
-		years,
-		monthFormat,
-		yearFormat,
-		disabled = false,
-		readonly = false,
-		minValue,
-		maxValue,
-	}: {
-		placeholder?: CalendarDate;
-		value?: DateRange;
-		months?: number[];
-		years?: number[];
-		monthFormat?: Intl.DateTimeFormatOptions["month"];
-		yearFormat?: Intl.DateTimeFormatOptions["year"];
-		disabled?: boolean;
-		readonly?: boolean;
-		minValue?: CalendarDate;
-		maxValue?: CalendarDate;
-	} = $props();
+let {
+	placeholder,
+	value = $bindable(),
+	months,
+	years,
+	monthFormat,
+	yearFormat,
+	disabled = false,
+	readonly = false,
+	minValue,
+	maxValue,
+}: {
+	placeholder?: CalendarDate;
+	value?: DateRange;
+	months?: number[];
+	years?: number[];
+	monthFormat?: Intl.DateTimeFormatOptions["month"];
+	yearFormat?: Intl.DateTimeFormatOptions["year"];
+	disabled?: boolean;
+	readonly?: boolean;
+	minValue?: CalendarDate;
+	maxValue?: CalendarDate;
+} = $props();
 </script>
 
 <RangeCalendar.Root

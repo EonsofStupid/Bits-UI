@@ -1,9 +1,9 @@
 <script lang="ts" module>
-	import { Accordion, type WithoutChildrenOrChild } from "bits-ui";
+import { Accordion, type WithoutChildrenOrChild } from "bits-ui";
 
-	export type AccordionTestIsolatedProps = {
-		triggerProps?: WithoutChildrenOrChild<Accordion.TriggerProps>;
-	};
+export type AccordionTestIsolatedProps = {
+	triggerProps?: WithoutChildrenOrChild<Accordion.TriggerProps>;
+};
 </script>
 
 <script lang="ts">

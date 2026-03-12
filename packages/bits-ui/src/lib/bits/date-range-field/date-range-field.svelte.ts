@@ -8,7 +8,10 @@ import {
 	type WritableBoxedValues,
 } from "svelte-toolbelt";
 import { Context, watch } from "runed";
-import { DateFieldInputState, DateFieldRootState } from "../date-field/date-field.svelte.js";
+import {
+	DateFieldInputState,
+	DateFieldRootState,
+} from "../date-field/date-field.svelte.js";
 import { useId } from "$lib/internal/use-id.js";
 import type {
 	DateOnInvalid,
@@ -19,7 +22,10 @@ import type {
 import type { RefAttachment, WithRefOpts } from "$lib/internal/types.js";
 import { createBitsAttrs, boolToEmptyStrOrUndef } from "$lib/internal/attrs.js";
 import type { Granularity } from "$lib/shared/date/types.js";
-import { type Formatter, createFormatter } from "$lib/internal/date-time/formatter.js";
+import {
+	type Formatter,
+	createFormatter,
+} from "$lib/internal/date-time/formatter.js";
 import { removeDescriptionElement } from "$lib/internal/date-time/field/helpers.js";
 import { isBefore } from "$lib/internal/date-time/utils.js";
 import { getFirstSegment } from "$lib/internal/date-time/field/segments.js";
@@ -30,7 +36,7 @@ export const dateRangeFieldAttrs = createBitsAttrs({
 });
 
 export const DateRangeFieldRootContext = new Context<DateRangeFieldRootState>(
-	"DateRangeField.Root"
+	"DateRangeField.Root",
 );
 
 interface DateRangeFieldRootStateOpts
@@ -70,9 +76,15 @@ export class DateRangeFieldRootState {
 	fieldNode = $state<HTMLElement | null>(null);
 	labelNode = $state<HTMLElement | null>(null);
 	descriptionNode = $state<HTMLElement | null>(null);
-	readonly startValueComplete = $derived.by(() => this.opts.startValue.current !== undefined);
-	readonly endValueComplete = $derived.by(() => this.opts.endValue.current !== undefined);
-	readonly rangeComplete = $derived(this.startValueComplete && this.endValueComplete);
+	readonly startValueComplete = $derived.by(
+		() => this.opts.startValue.current !== undefined,
+	);
+	readonly endValueComplete = $derived.by(
+		() => this.opts.endValue.current !== undefined,
+	);
+	readonly rangeComplete = $derived(
+		this.startValueComplete && this.endValueComplete,
+	);
 	domContext: DOMContext;
 	readonly attachment: RefAttachment;
 
@@ -87,7 +99,10 @@ export class DateRangeFieldRootState {
 		this.attachment = attachRef(this.opts.ref, (v) => (this.fieldNode = v));
 
 		onDestroyEffect(() => {
-			removeDescriptionElement(this.descriptionId, this.domContext.getDocument());
+			removeDescriptionElement(
+				this.descriptionId,
+				this.domContext.getDocument(),
+			);
 		});
 
 		$effect(() => {
@@ -112,7 +127,7 @@ export class DateRangeFieldRootState {
 					this.opts.startValue.current = undefined;
 					this.opts.endValue.current = undefined;
 				}
-			}
+			},
 		);
 
 		/**
@@ -125,7 +140,7 @@ export class DateRangeFieldRootState {
 				if (startValue && this.opts.placeholder.current !== startValue) {
 					this.opts.placeholder.current = startValue;
 				}
-			}
+			},
 		);
 
 		watch(
@@ -157,14 +172,15 @@ export class DateRangeFieldRootState {
 					this.opts.value.current.start = undefined;
 					this.opts.value.current.end = undefined;
 				}
-			}
+			},
 		);
 	}
 
 	readonly validationStatus = $derived.by(() => {
 		const value = this.opts.value.current;
 		if (value === undefined) return false as const;
-		if (value.start === undefined || value.end === undefined) return false as const;
+		if (value.start === undefined || value.end === undefined)
+			return false as const;
 
 		const msg = this.opts.validate.current?.({
 			start: value.start,
@@ -218,7 +234,7 @@ export class DateRangeFieldRootState {
 				[dateRangeFieldAttrs.root]: "",
 				"data-invalid": boolToEmptyStrOrUndef(this.isInvalid),
 				...this.attachment,
-			}) as const
+			}) as const,
 	);
 }
 
@@ -233,10 +249,16 @@ export class DateRangeFieldLabelState {
 	readonly root: DateRangeFieldRootState;
 	readonly attachment: RefAttachment;
 
-	constructor(opts: DateRangeFieldLabelStateOpts, root: DateRangeFieldRootState) {
+	constructor(
+		opts: DateRangeFieldLabelStateOpts,
+		root: DateRangeFieldRootState,
+	) {
 		this.opts = opts;
 		this.root = root;
-		this.attachment = attachRef(this.opts.ref, (v) => (this.root.labelNode = v));
+		this.attachment = attachRef(
+			this.opts.ref,
+			(v) => (this.root.labelNode = v),
+		);
 	}
 
 	#onclick = () => {
@@ -255,7 +277,7 @@ export class DateRangeFieldLabelState {
 				[dateRangeFieldAttrs.label]: "",
 				onclick: this.#onclick,
 				...this.attachment,
-			}) as const
+			}) as const,
 	);
 }
 
@@ -269,7 +291,10 @@ interface DateRangeFieldInputStateOpts
 		}> {}
 
 export class DateRangeFieldInputState {
-	static create(opts: Omit<DateRangeFieldInputStateOpts, "value">, type: "start" | "end") {
+	static create(
+		opts: Omit<DateRangeFieldInputStateOpts, "value">,
+		type: "start" | "end",
+	) {
 		const root = DateRangeFieldRootContext.get();
 		const fieldState = DateFieldRootState.create(
 			{
@@ -290,8 +315,11 @@ export class DateRangeFieldInputState {
 				errorMessageId: root.opts.errorMessageId,
 				isInvalidProp: boxWith(() => root.isInvalid),
 			},
-			root
+			root,
 		);
-		return new DateFieldInputState({ name: opts.name, id: opts.id, ref: opts.ref }, fieldState);
+		return new DateFieldInputState(
+			{ name: opts.name, id: opts.id, ref: opts.ref },
+			fieldState,
+		);
 	}
 }

@@ -1,5 +1,5 @@
 <script lang="ts">
-	import { Tooltip, ContextMenu } from "bits-ui";
+import { Tooltip, ContextMenu } from "bits-ui";
 </script>
 
 <Tooltip.Provider>

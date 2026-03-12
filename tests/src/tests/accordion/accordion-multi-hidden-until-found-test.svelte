@@ -1,25 +1,25 @@
 <script lang="ts">
-	import { Accordion } from "bits-ui";
+import { Accordion } from "bits-ui";
 
-	type Item = {
-		value: string;
-		title: string;
-		disabled: boolean;
-		content: string;
-		level: 1 | 2 | 3 | 4 | 5 | 6;
-	};
+type Item = {
+	value: string;
+	title: string;
+	disabled: boolean;
+	content: string;
+	level: 1 | 2 | 3 | 4 | 5 | 6;
+};
 
-	let {
-		value = [],
-		hiddenUntilFound = true,
-		items = [],
-		...restProps
-	}: {
-		hiddenUntilFound?: boolean;
-		items: Item[];
-		value?: string[];
-		onValueChange?: (v: string[]) => void;
-	} = $props();
+let {
+	value = [],
+	hiddenUntilFound = true,
+	items = [],
+	...restProps
+}: {
+	hiddenUntilFound?: boolean;
+	items: Item[];
+	value?: string[];
+	onValueChange?: (v: string[]) => void;
+} = $props();
 </script>
 
 <main>

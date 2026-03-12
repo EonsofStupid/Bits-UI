@@ -1,11 +1,19 @@
-import { attachRef, type ReadableBoxedValues, type WritableBoxedValues } from "svelte-toolbelt";
+import {
+	attachRef,
+	type ReadableBoxedValues,
+	type WritableBoxedValues,
+} from "svelte-toolbelt";
 import {
 	createBitsAttrs,
 	boolToStr,
 	boolToEmptyStrOrUndef,
 	boolToTrueOrUndef,
 } from "$lib/internal/attrs.js";
-import type { BitsMouseEvent, RefAttachment, WithRefOpts } from "$lib/internal/types.js";
+import type {
+	BitsMouseEvent,
+	RefAttachment,
+	WithRefOpts,
+} from "$lib/internal/types.js";
 
 export const toggleAttrs = createBitsAttrs({
 	component: "toggle",
@@ -54,7 +62,7 @@ export class ToggleRootState {
 				disabled: boolToTrueOrUndef(this.opts.disabled.current),
 				onclick: this.onclick,
 				...this.attachment,
-			}) as const
+			}) as const,
 	);
 }
 

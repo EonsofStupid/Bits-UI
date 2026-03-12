@@ -1,9 +1,9 @@
 <script lang="ts">
-	import { DropdownMenu } from "bits-ui";
+import { DropdownMenu } from "bits-ui";
 
-	let open1 = $state(false);
-	let open2 = $state(false);
-	let open3 = $state(false);
+let open1 = $state(false);
+let open2 = $state(false);
+let open3 = $state(false);
 </script>
 
 <div

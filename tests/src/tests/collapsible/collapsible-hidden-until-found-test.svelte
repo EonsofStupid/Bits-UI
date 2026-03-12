@@ -1,13 +1,13 @@
 <script lang="ts">
-	import { Collapsible } from "bits-ui";
+import { Collapsible } from "bits-ui";
 
-	let {
-		open = false,
-		hiddenUntilFound = true,
-		...restProps
-	}: Omit<Collapsible.RootProps, "asChild" | "child" | "children"> & {
-		hiddenUntilFound?: boolean;
-	} = $props();
+let {
+	open = false,
+	hiddenUntilFound = true,
+	...restProps
+}: Omit<Collapsible.RootProps, "asChild" | "child" | "children"> & {
+	hiddenUntilFound?: boolean;
+} = $props();
 </script>
 
 <main>

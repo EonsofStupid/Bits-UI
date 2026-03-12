@@ -145,7 +145,9 @@ export type DateFieldRootPropsWithoutHTML = WithChildren<{
 
 export type DateFieldRootProps = DateFieldRootPropsWithoutHTML;
 
-export type DateFieldInputSnippetProps = { segments: Array<{ part: SegmentPart; value: string }> };
+export type DateFieldInputSnippetProps = {
+	segments: Array<{ part: SegmentPart; value: string }>;
+};
 
 export type DateFieldInputPropsWithoutHTML = WithChild<
 	{

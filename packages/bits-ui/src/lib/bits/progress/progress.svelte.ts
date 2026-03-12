@@ -36,22 +36,29 @@ export class ProgressRootState {
 				"aria-valuemin": this.opts.min.current,
 				"aria-valuemax": this.opts.max.current,
 				"aria-valuenow":
-					this.opts.value.current === null ? undefined : this.opts.value.current,
+					this.opts.value.current === null
+						? undefined
+						: this.opts.value.current,
 				"data-value":
-					this.opts.value.current === null ? undefined : this.opts.value.current,
-				"data-state": getProgressDataState(this.opts.value.current, this.opts.max.current),
+					this.opts.value.current === null
+						? undefined
+						: this.opts.value.current,
+				"data-state": getProgressDataState(
+					this.opts.value.current,
+					this.opts.max.current,
+				),
 				"data-max": this.opts.max.current,
 				"data-min": this.opts.min.current,
 				"data-indeterminate": this.opts.value.current === null ? "" : undefined,
 				[progressAttrs.root]: "",
 				...this.attachment,
-			}) as const
+			}) as const,
 	);
 }
 
 function getProgressDataState(
 	value: number | null,
-	max: number
+	max: number,
 ): "indeterminate" | "loaded" | "loading" {
 	if (value === null) return "indeterminate";
 	return value === max ? "loaded" : "loading";

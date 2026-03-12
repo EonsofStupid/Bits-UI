@@ -1,7 +1,7 @@
 <script lang="ts">
-	import { Checkbox, Label } from "bits-ui";
-	import Check from "phosphor-svelte/lib/Check";
-	import Minus from "phosphor-svelte/lib/Minus";
+import { Checkbox, Label } from "bits-ui";
+import Check from "phosphor-svelte/lib/Check";
+import Minus from "phosphor-svelte/lib/Minus";
 </script>
 
 <div class="flex items-center space-x-3">

@@ -23,7 +23,10 @@ import {
 	restoreScrollDelayProp,
 	withChildProps,
 } from "./shared.js";
-import { HeaderLevelProp, OpenClosedProp } from "./extended-types/shared/index.js";
+import {
+	HeaderLevelProp,
+	OpenClosedProp,
+} from "./extended-types/shared/index.js";
 import {
 	defineBooleanProp,
 	defineComponentApiSchema,
@@ -67,7 +70,8 @@ export const nestedCSSVars = [
 
 export const root = defineComponentApiSchema<DialogRootPropsWithoutHTML>({
 	title: "Root",
-	description: "The root component used to set and manage the state of the dialog.",
+	description:
+		"The root component used to set and manage the state of the dialog.",
 	props: {
 		open: defineBooleanProp({
 			default: false,
@@ -139,17 +143,18 @@ export const title = defineComponentApiSchema<DialogTitlePropsWithoutHTML>({
 	],
 });
 
-export const description = defineComponentApiSchema<DialogDescriptionPropsWithoutHTML>({
-	title: "Description",
-	description: "An accessible description for the dialog.",
-	props: withChildProps({ elType: "HTMLDivElement" }),
-	dataAttributes: [
-		defineSimpleDataAttr({
-			name: "dialog-description",
-			description: "Present on the description.",
-		}),
-	],
-});
+export const description =
+	defineComponentApiSchema<DialogDescriptionPropsWithoutHTML>({
+		title: "Description",
+		description: "An accessible description for the dialog.",
+		props: withChildProps({ elType: "HTMLDivElement" }),
+		dataAttributes: [
+			defineSimpleDataAttr({
+				name: "dialog-description",
+				description: "Present on the description.",
+			}),
+		],
+	});
 
 export const trigger = defineComponentApiSchema<DialogTriggerPropsWithoutHTML>({
 	title: "Trigger",
@@ -186,8 +191,18 @@ export const overlay = defineComponentApiSchema<DialogOverlayPropsWithoutHTML>({
 
 export const portal = defineComponentApiSchema<DialogPortalPropsWithoutHTML>({
 	title: "Portal",
-	description: "A portal which renders the dialog into the body when it is open.",
+	description:
+		"A portal which renders the dialog into the body when it is open.",
 	props: portalProps,
 });
 
-export const dialog = [root, trigger, portal, content, overlay, close, title, description];
+export const dialog = [
+	root,
+	trigger,
+	portal,
+	content,
+	overlay,
+	close,
+	title,
+	description,
+];

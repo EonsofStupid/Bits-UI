@@ -1,9 +1,10 @@
 <script lang="ts">
-	import { cn } from "$lib/utils/styles.js";
-	import { Popover } from "bits-ui";
-	import type { ComponentProps } from "svelte";
+import { cn } from "$lib/utils/styles.js";
+import { Popover } from "bits-ui";
+import type { ComponentProps } from "svelte";
 
-	let { class: className, ...restProps }: ComponentProps<typeof Popover.Content> = $props();
+let { class: className, ...restProps }: ComponentProps<typeof Popover.Content> =
+	$props();
 </script>
 
 <Popover.Content

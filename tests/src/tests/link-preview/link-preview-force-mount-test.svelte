@@ -1,10 +1,10 @@
 <script lang="ts" module>
-	import { LinkPreview, type WithoutChildrenOrChild } from "bits-ui";
-	export type LinkPreviewForceMountTestProps = LinkPreview.RootProps & {
-		contentProps?: WithoutChildrenOrChild<LinkPreview.ContentProps>;
-		portalProps?: WithoutChildrenOrChild<LinkPreview.PortalProps>;
-		withOpenCheck?: boolean;
-	};
+import { LinkPreview, type WithoutChildrenOrChild } from "bits-ui";
+export type LinkPreviewForceMountTestProps = LinkPreview.RootProps & {
+	contentProps?: WithoutChildrenOrChild<LinkPreview.ContentProps>;
+	portalProps?: WithoutChildrenOrChild<LinkPreview.PortalProps>;
+	withOpenCheck?: boolean;
+};
 </script>
 
 <script lang="ts">
