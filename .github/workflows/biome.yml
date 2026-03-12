@@ -1,0 +1,69 @@
+name: Biome
+
+on:
+    push:
+        branches:
+            - main
+            - next
+        paths-ignore:
+            - ".changeset/**"
+            - "README.md"
+            - ".vscode/**"
+            - "CHANGELOG.md"
+    pull_request:
+        paths-ignore:
+            - ".changeset/**"
+            - "README.md"
+            - ".vscode/**"
+            - "CHANGELOG.md"
+
+concurrency:
+    group: ${{ github.workflow }}-${{ github.event.number || github.sha }}
+    cancel-in-progress: true
+
+permissions:
+    contents: read
+    pull-requests: write
+
+jobs:
+    biome:
+        name: Biome Check
+        runs-on: ubuntu-latest
+        steps:
+            - name: Checkout
+              uses: actions/checkout@v4
+
+            - name: Setup Biome
+              uses: biomejs/setup-biome@v2
+              with:
+                  version: latest
+
+            # GitHub-native annotations (errors shown inline on PR diffs)
+            - name: Biome CI (GitHub reporter)
+              run: biome ci --reporter=github .
+              continue-on-error: true
+
+            # JSON report saved as an artifact — consumed by the ColdLight devtool UI
+            - name: Biome CI (JSON report)
+              run: biome ci --reporter=json . > biome-report.json 2>&1 || true
+
+            - name: Upload Biome report artifact
+              uses: actions/upload-artifact@v4
+              if: always()
+              with:
+                  name: biome-report
+                  path: biome-report.json
+                  retention-days: 7
+
+            # Summary written to the GitHub Actions job summary page
+            - name: Write job summary
+              if: always()
+              run: |
+                  echo "## Biome Report" >> $GITHUB_STEP_SUMMARY
+                  echo '```json' >> $GITHUB_STEP_SUMMARY
+                  cat biome-report.json | head -100 >> $GITHUB_STEP_SUMMARY
+                  echo '```' >> $GITHUB_STEP_SUMMARY
+
+            # Final enforcement — fails the job if Biome finds real errors
+            - name: Biome CI (enforce)
+              run: biome ci .
