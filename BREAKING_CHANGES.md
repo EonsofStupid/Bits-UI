@@ -177,3 +177,15 @@ After patching playwright, wrangler, and @sveltejs/kit, **23 vulnerabilities rem
 | `mdast-util-to-hast` (×1) | moderate | Docs pipeline only | No user input flows through |
 | `js-yaml` (×1) | moderate | `velite` → `js-yaml` | Docs pipeline only |
 | `cookie` (×1) | low | `@sveltejs/kit` → `cookie` | Low severity, out-of-spec edge case |
+
+---
+
+## 8. Dependency Audit Exceptions
+
+### `@prettier/sync` (docs/package.json)
+
+**Status**: Retained (not dead code)
+
+`@prettier/sync` is actively imported in `docs/mdsx.config.js` (line 8) and called at line 212 to format code blocks in documentation pages. Removing it would break the docs build pipeline. This dependency is docs-only and does not affect the `bits-ui` runtime package.
+
+When the documentation pipeline is rewritten for ColdLight (Task #2+), this dependency should be re-evaluated and potentially replaced with Biome's formatter API.
