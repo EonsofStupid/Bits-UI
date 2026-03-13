@@ -1,4 +1,4 @@
-import type { SwitchRootPropsWithoutHTML, SwitchThumbPropsWithoutHTML } from "bits-ui";
+import type { SwitchRootPropsWithoutHTML, SwitchThumbPropsWithoutHTML } from "@coldlight/ui";
 import {
 	defineBooleanProp,
 	defineComponentApiSchema,

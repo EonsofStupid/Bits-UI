@@ -9,7 +9,7 @@ To learn more about the `child` snippet prop, check out the [delegation](/docs/c
 
 ```svelte title="CustomAccordionTrigger.svelte"
 <script lang="ts">
-  import { Accordion, type WithoutChildrenOrChild } from "bits-ui";
+  import { Accordion, type WithoutChildrenOrChild } from "@coldlight/ui";
 
   let {
     title,

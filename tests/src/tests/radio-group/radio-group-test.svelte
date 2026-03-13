@@ -1,5 +1,5 @@
 <script lang="ts" module>
-import type { RadioGroup } from "bits-ui";
+import type { RadioGroup } from "@coldlight/ui";
 export type Item = {
 	value: string;
 	disabled: boolean;

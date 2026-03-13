@@ -1,5 +1,5 @@
 <script lang="ts">
-import { Accordion, type AccordionRootSingleProps } from "bits-ui";
+import { Accordion, type AccordionRootSingleProps } from "@coldlight/ui";
 
 type Item = {
 	value: string;

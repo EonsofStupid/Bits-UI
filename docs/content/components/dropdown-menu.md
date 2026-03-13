@@ -20,7 +20,7 @@ description: Displays a menu of items that users can select from when triggered.
 
 ```svelte
 <script lang="ts">
-  import { DropdownMenu } from "bits-ui";
+  import { DropdownMenu } from "@coldlight/ui";
 </script>
 
 <DropdownMenu.Root>
@@ -71,7 +71,7 @@ This example shows you how to create a Dropdown Menu component that accepts a fe
 ```svelte title="MyDropdownMenu.svelte"
 <script lang="ts">
   import type { Snippet } from "svelte";
-  import { DropdownMenu, type WithoutChild } from "bits-ui";
+  import { DropdownMenu, type WithoutChild } from "@coldlight/ui";
 
   type Props = DropdownMenu.RootProps & {
     buttonText: string;
@@ -131,7 +131,7 @@ Use `bind:open` for simple, automatic state synchronization:
 
 ```svelte {3,6,8}
 <script lang="ts">
-  import { DropdownMenu } from "bits-ui";
+  import { DropdownMenu } from "@coldlight/ui";
   let isOpen = $state(false);
 </script>
 
@@ -148,7 +148,7 @@ Use a [Function Binding](https://svelte.dev/docs/svelte/bind#Function-bindings) 
 
 ```svelte
 <script lang="ts">
-  import { DropdownMenu } from "bits-ui";
+  import { DropdownMenu } from "@coldlight/ui";
   let myOpen = $state(false);
 
   function getOpen() {
@@ -210,7 +210,7 @@ You can combine the `DropdownMenu.RadioGroup` and `DropdownMenu.RadioItem` compo
 
 ```svelte
 <script lang="ts">
-  import { DropdownMenu } from "bits-ui";
+  import { DropdownMenu } from "@coldlight/ui";
 
   const values = ["one", "two", "three"];
   let value = $state("one");
@@ -239,7 +239,7 @@ You can use the `DropdownMenu.CheckboxItem` component to create a `menuitemcheck
 
 ```svelte
 <script lang="ts">
-  import { DropdownMenu } from "bits-ui";
+  import { DropdownMenu } from "@coldlight/ui";
 
   let notifications = $state(true);
 </script>
@@ -264,7 +264,7 @@ You can use the `DropdownMenu.CheckboxGroup` component around a set of `Dropdown
 
 ```svelte
 <script lang="ts">
-  import { DropdownMenu } from "bits-ui";
+  import { DropdownMenu } from "@coldlight/ui";
 
   let colors = $state<string[]>([]);
 </script>
@@ -306,7 +306,7 @@ You can create nested menus using the `DropdownMenu.Sub` component to create com
 
 ```svelte /DropdownMenu.Sub/
 <script lang="ts">
-  import { DropdownMenu } from "bits-ui";
+  import { DropdownMenu } from "@coldlight/ui";
 </script>
 
 <DropdownMenu.Content>
@@ -330,7 +330,7 @@ You can use the `forceMount` prop along with the `child` snippet to forcefully m
 
 ```svelte /forceMount/ /transition:fly/
 <script lang="ts">
-  import { DropdownMenu } from "bits-ui";
+  import { DropdownMenu } from "@coldlight/ui";
   import { fly } from "svelte/transition";
 </script>
 
@@ -366,7 +366,7 @@ If you wish to instead anchor the content to a different element, you can pass e
 
 ```svelte
 <script lang="ts">
-  import { DropdownMenu } from "bits-ui";
+  import { DropdownMenu } from "@coldlight/ui";
   let customAnchor = $state<HTMLElement>(null!);
 </script>
 

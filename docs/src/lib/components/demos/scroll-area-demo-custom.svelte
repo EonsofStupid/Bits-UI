@@ -1,5 +1,5 @@
 <script lang="ts">
-import { ScrollArea, type WithoutChild } from "bits-ui";
+import { ScrollArea, type WithoutChild } from "@coldlight/ui";
 import { cn } from "$lib/utils/styles.js";
 import DemoContainer from "../demo-container.svelte";
 

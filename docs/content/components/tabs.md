@@ -20,7 +20,7 @@ description: Organizes content into tabbed sections.
 
 ```svelte
 <script lang="ts">
-  import { Tabs } from "bits-ui";
+  import { Tabs } from "@coldlight/ui";
 </script>
 
 <Tabs.Root>
@@ -41,7 +41,7 @@ Use `bind:value` for simple, automatic state synchronization:
 
 ```svelte
 <script lang="ts">
-  import { Tabs } from "bits-ui";
+  import { Tabs } from "@coldlight/ui";
   let myValue = $state("");
 </script>
 
@@ -58,7 +58,7 @@ Use a [Function Binding](https://svelte.dev/docs/svelte/bind#Function-bindings) 
 
 ```svelte
 <script lang="ts">
-  import { Tabs } from "bits-ui";
+  import { Tabs } from "@coldlight/ui";
   let myValue = $state("");
 
   function getValue() {

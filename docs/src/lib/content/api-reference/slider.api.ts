@@ -5,7 +5,7 @@ import type {
 	SliderThumbPropsWithoutHTML,
 	SliderTickLabelPropsWithoutHTML,
 	SliderTickPropsWithoutHTML,
-} from "bits-ui";
+} from "@coldlight/ui";
 import {
 	dirProp,
 	typeSingleOrMultipleProp,

@@ -1,6 +1,6 @@
 <script lang="ts">
 import { getLocalTimeZone, today } from "@internationalized/date";
-import { Calendar } from "bits-ui";
+import { Calendar } from "@coldlight/ui";
 import CaretLeft from "phosphor-svelte/lib/CaretLeft";
 import CaretRight from "phosphor-svelte/lib/CaretRight";
 

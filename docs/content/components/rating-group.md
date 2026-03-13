@@ -20,7 +20,7 @@ description: Enables users to provide ratings using customizable items (like sta
 
 ```svelte
 <script lang="ts">
-  import { RatingGroup } from "bits-ui";
+  import { RatingGroup } from "@coldlight/ui";
 </script>
 
 <RatingGroup.Root max={5}>
@@ -46,7 +46,7 @@ In the example below, we're creating a custom `MyRatingGroup` component that ren
 
 ```svelte title="MyRatingGroup.svelte"
 <script lang="ts">
-  import { RatingGroup, type WithoutChildrenOrChild } from "bits-ui";
+  import { RatingGroup, type WithoutChildrenOrChild } from "@coldlight/ui";
   import Star from "phosphor-svelte/lib/Star";
   import StarHalf from "phosphor-svelte/lib/StarHalf";
 
@@ -107,7 +107,7 @@ Use `bind:value` for simple, automatic state synchronization:
 
 ```svelte
 <script lang="ts">
-  import { RatingGroup } from "bits-ui";
+  import { RatingGroup } from "@coldlight/ui";
   let myRating = $state(3);
 </script>
 
@@ -130,7 +130,7 @@ Use a [Function Binding](https://svelte.dev/docs/svelte/bind#Function-bindings) 
 
 ```svelte
 <script lang="ts">
-  import { RatingGroup } from "bits-ui";
+  import { RatingGroup } from "@coldlight/ui";
   let myRating = $state(0);
 
   function getValue() {

@@ -32,7 +32,7 @@ The `TimeField` component is an alternative to the native `<input type="time">` 
 
 ```svelte
 <script lang="ts">
-  import { TimeField } from "bits-ui";
+  import { TimeField } from "@coldlight/ui";
 </script>
 
 <TimeField.Root>
@@ -57,14 +57,14 @@ The following example shows how you might create a reusable `MyTimeField` compon
 
 ```svelte title="MyTimeField.svelte"
 <script lang="ts" module>
-  import type { TimeValue } from "bits-ui";
+  import type { TimeValue } from "@coldlight/ui";
   import type { Time } from "@internationalized/date";
 
   type T = unknown;
 </script>
 
 <script lang="ts" generics="T extends TimeValue = Time">
-  import { TimeField, type WithoutChildrenOrChild } from "bits-ui";
+  import { TimeField, type WithoutChildrenOrChild } from "@coldlight/ui";
 
   let {
     value = $bindable(),
@@ -151,7 +151,7 @@ Use `bind:placeholder` for simple, automatic state synchronization:
 
 ```svelte
 <script lang="ts">
-  import { TimeField } from "bits-ui";
+  import { TimeField } from "@coldlight/ui";
   import { Time } from "@internationalized/date";
   let myPlaceholder = $state(new Time(12, 30));
 </script>
@@ -171,7 +171,7 @@ Use a [Function Binding](https://svelte.dev/docs/svelte/bind#Function-bindings) 
 
 ```svelte
 <script lang="ts">
-  import { TimeField, type TimeValue } from "bits-ui";
+  import { TimeField, type TimeValue } from "@coldlight/ui";
   let myPlaceholder = $state<TimeValue>();
 
   function getPlaceholder() {
@@ -198,7 +198,7 @@ Use `bind:value` for simple, automatic state synchronization:
 
 ```svelte
 <script lang="ts">
-  import { TimeField } from "bits-ui";
+  import { TimeField } from "@coldlight/ui";
   import { Time } from "@internationalized/date";
   let myValue = $state(new Time(12, 30));
 </script>
@@ -217,7 +217,7 @@ For complete control over the component's state, use a [Function Binding](https:
 
 ```svelte
 <script lang="ts">
-  import { TimeField, type TimeValue } from "bits-ui";
+  import { TimeField, type TimeValue } from "@coldlight/ui";
   let myValue = $state<TimeValue>();
 
   function getValue() {
@@ -240,7 +240,7 @@ Often, you'll want to start the `TimeField.Root` component with a default value.
 
 ```svelte title="+page.svelte"
 <script lang="ts">
-  import { TimeField } from "bits-ui";
+  import { TimeField } from "@coldlight/ui";
   import { parseDateTime } from "@internationalized/date";
 
   // this came from a database/API call
@@ -309,7 +309,7 @@ The strings are then passed to the `onInvalid` callback, which you can use to di
 ```svelte
 <script lang="ts">
   import MyTimeField from "$lib/components/MyTimeField.svelte";
-  import type { TimeValue } from "bits-ui";
+  import type { TimeValue } from "@coldlight/ui";
   import { Time } from "@internationalized/date";
   import { toast } from "your-favorite-toast-library";
 

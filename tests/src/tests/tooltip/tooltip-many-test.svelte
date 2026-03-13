@@ -1,5 +1,5 @@
 <script lang="ts">
-import { Tooltip } from "bits-ui";
+import { Tooltip } from "@coldlight/ui";
 
 let { count = 50 }: { count?: number } = $props();
 const items = Array.from({ length: count }, (_, i) => i);

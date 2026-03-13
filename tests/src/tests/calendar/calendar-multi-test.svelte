@@ -1,5 +1,5 @@
 <script lang="ts" module>
-import { Calendar, type CalendarMultipleRootProps } from "bits-ui";
+import { Calendar, type CalendarMultipleRootProps } from "@coldlight/ui";
 
 export type CalendarMultiTestProps = CalendarMultipleRootProps;
 </script>

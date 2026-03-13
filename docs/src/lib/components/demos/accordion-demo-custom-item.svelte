@@ -1,5 +1,5 @@
 <script lang="ts">
-import { Accordion, type WithoutChildrenOrChild } from "bits-ui";
+import { Accordion, type WithoutChildrenOrChild } from "@coldlight/ui";
 import CaretDown from "phosphor-svelte/lib/CaretDown";
 
 type Props = WithoutChildrenOrChild<Accordion.ItemProps> & {

@@ -1,5 +1,5 @@
 <script lang="ts">
-import { ContextMenu, Tooltip } from "bits-ui";
+import { ContextMenu, Tooltip } from "@coldlight/ui";
 </script>
 
 <Tooltip.Provider>

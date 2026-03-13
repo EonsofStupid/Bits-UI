@@ -1,5 +1,5 @@
 <script lang="ts">
-import { Collapsible, Tabs } from "bits-ui";
+import { Collapsible, Tabs } from "@coldlight/ui";
 import { watch } from "runed";
 import type { Snippet } from "svelte";
 import ScrollArea from "$lib/components/ui/scroll-area.svelte";

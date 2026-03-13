@@ -8,7 +8,7 @@ export type MenubarTestProps = Menubar.RootProps & {
 </script>
 
 <script lang="ts">
-	import { Menubar } from "bits-ui";
+	import { Menubar } from "@coldlight/ui";
 	import MenubarMenu, { type MenubarMenuProps } from "./menubar-menu-test.svelte";
 
 	let { one, two, three, four, ...restProps }: MenubarTestProps = $props();

@@ -1,5 +1,5 @@
 <script lang="ts">
-import { Tabs } from "bits-ui";
+import { Tabs } from "@coldlight/ui";
 import Fan from "phosphor-svelte/lib/Fan";
 import HomeSlider from "$lib/components/homepage/home-slider.svelte";
 

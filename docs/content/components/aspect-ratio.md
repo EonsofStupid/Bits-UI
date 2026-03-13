@@ -26,7 +26,7 @@ Here's an overview of how the Aspect Ratio component is structured in code:
 
 ```svelte
 <script lang="ts">
-  import { AspectRatio } from "bits-ui";
+  import { AspectRatio } from "@coldlight/ui";
 </script>
 
 <AspectRatio.Root />
@@ -38,7 +38,7 @@ If you plan on using a lot of `AspectRatio` components throughout your applicati
 
 ```svelte title="MyAspectRatio.svelte"
 <script lang="ts">
-  import { AspectRatio, type WithoutChildrenOrChild } from "bits-ui";
+  import { AspectRatio, type WithoutChildrenOrChild } from "@coldlight/ui";
 
   let {
     src,

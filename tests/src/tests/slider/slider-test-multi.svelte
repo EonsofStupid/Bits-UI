@@ -1,5 +1,5 @@
 <script lang="ts" module>
-import { Slider, type SliderMultipleRootProps } from "bits-ui";
+import { Slider, type SliderMultipleRootProps } from "@coldlight/ui";
 
 export type SliderMultiTestProps = Omit<SliderMultipleRootProps, "type"> & {
 	resetMin?: number;

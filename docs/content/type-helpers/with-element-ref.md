@@ -17,7 +17,7 @@ This type helper is used internally by Bits UI components to enable the `ref` pr
 
 ```svelte title="CustomButton.svelte"
 <script lang="ts">
-  import type { WithElementRef } from "bits-ui";
+  import type { WithElementRef } from "@coldlight/ui";
 
   type Props = WithElementRef<
     {

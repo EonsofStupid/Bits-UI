@@ -1,5 +1,5 @@
 <script lang="ts">
-import { RangeCalendar } from "bits-ui";
+import { RangeCalendar } from "@coldlight/ui";
 import CaretLeft from "phosphor-svelte/lib/CaretLeft";
 import CaretRight from "phosphor-svelte/lib/CaretRight";
 import type { ComponentProps } from "svelte";

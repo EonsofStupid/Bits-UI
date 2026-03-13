@@ -42,7 +42,7 @@ Here's an overview of how the Collapsible component is structured in code:
 
 ```svelte
 <script lang="ts">
-  import { Collapsible } from "bits-ui";
+  import { Collapsible } from "@coldlight/ui";
 </script>
 
 <Collapsible.Root>
@@ -57,7 +57,7 @@ It's recommended to use the `Collapsible` primitives to create your own custom c
 
 ```svelte title="MyCollapsible.svelte"
 <script lang="ts">
-  import { Collapsible, type WithoutChild } from "bits-ui";
+  import { Collapsible, type WithoutChild } from "@coldlight/ui";
 
   type Props = WithoutChild<Collapsible.RootProps> & {
     buttonText: string;
@@ -102,7 +102,7 @@ Use `bind:open` for simple, automatic state synchronization:
 
 ```svelte {3,6,8}
 <script lang="ts">
-  import { Collapsible } from "bits-ui";
+  import { Collapsible } from "@coldlight/ui";
   let isOpen = $state(false);
 </script>
 
@@ -119,7 +119,7 @@ Use a [Function Binding](https://svelte.dev/docs/svelte/bind#Function-bindings) 
 
 ```svelte
 <script lang="ts">
-  import { Collapsible } from "bits-ui";
+  import { Collapsible } from "@coldlight/ui";
   let myOpen = $state(false);
 
   function getOpen() {
@@ -146,7 +146,7 @@ To apply Svelte transitions to Collapsible components, use the `forceMount` prop
 
 ```svelte /forceMount/ /transition:fade/ /transition:fly/
 <script lang="ts">
-  import { Collapsible } from "bits-ui";
+  import { Collapsible } from "@coldlight/ui";
   import { fade } from "svelte/transition";
 </script>
 
@@ -177,7 +177,7 @@ For cleaner code and better maintainability, consider creating custom reusable c
 
 ```svelte title="MyCollapsibleContent.svelte"
 <script lang="ts">
-  import { Collapsible, type WithoutChildrenOrChild } from "bits-ui";
+  import { Collapsible, type WithoutChildrenOrChild } from "@coldlight/ui";
   import { fade } from "svelte/transition";
   import type { Snippet } from "svelte";
 
@@ -207,7 +207,7 @@ You can then use the `MyCollapsibleContent` component alongside the other `Colla
 
 ```svelte
 <script lang="ts">
-  import { Collapsible } from "bits-ui";
+  import { Collapsible } from "@coldlight/ui";
   import { MyCollapsibleContent } from "$lib/components";
 </script>
 
@@ -235,7 +235,7 @@ The `hiddenUntilFound` prop enables integration with the browser's find-in-page 
 
 ```svelte
 <script lang="ts">
-  import { Collapsible } from "bits-ui";
+  import { Collapsible } from "@coldlight/ui";
 </script>
 
 <Collapsible.Root>

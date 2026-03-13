@@ -4,7 +4,7 @@ import type {
 	ToolbarGroupPropsWithoutHTML,
 	ToolbarLinkPropsWithoutHTML,
 	ToolbarRootPropsWithoutHTML,
-} from "bits-ui";
+} from "@coldlight/ui";
 import {
 	orientationDataAttr,
 	typeSingleOrMultipleProp,

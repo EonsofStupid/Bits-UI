@@ -3,7 +3,7 @@ import { describe, expect, it } from "vitest";
 import { render } from "vitest-browser-svelte";
 import AvatarTest from "./avatar-test.svelte";
 
-const src = "https://github.com/huntabyte.png";
+const src = "https://github.com/jessehall.png";
 
 function setup(props: { src: string }) {
 	render(AvatarTest, { ...props });
@@ -24,13 +24,13 @@ describe("Data Attributes", () => {
 describe("Rendering Behavior", () => {
 	it("should render the image with the correct src", async () => {
 		setup({ src });
-		const avatar = page.getByAltText("huntabyte");
-		await expect.element(avatar).toHaveAttribute("src", "https://github.com/huntabyte.png");
+		const avatar = page.getByAltText("jessehall");
+		await expect.element(avatar).toHaveAttribute("src", "https://github.com/jessehall.png");
 	});
 
 	it("should render the fallback when an invalid image src is provided", async () => {
 		setup({ src: "invalid" });
-		const avatar = page.getByAltText("huntabyte");
+		const avatar = page.getByAltText("jessehall");
 		await expect.element(avatar).not.toBeVisible();
 		const fallback = page.getByText("HJ");
 		await expect.element(fallback).toBeVisible();
@@ -38,8 +38,8 @@ describe("Rendering Behavior", () => {
 
 	it("should remove the avatar when the src is removed", async () => {
 		setup({ src });
-		const avatar = page.getByAltText("huntabyte");
-		await expect.element(avatar).toHaveAttribute("src", "https://github.com/huntabyte.png");
+		const avatar = page.getByAltText("jessehall");
+		await expect.element(avatar).toHaveAttribute("src", "https://github.com/jessehall.png");
 		const clearButton = page.getByTestId("clear-button");
 		await clearButton.click();
 		await expect.element(avatar).not.toBeVisible();

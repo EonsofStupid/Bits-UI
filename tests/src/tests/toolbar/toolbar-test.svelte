@@ -1,5 +1,5 @@
 <script lang="ts" module>
-import type { Toolbar, WithoutChildrenOrChild } from "bits-ui";
+import type { Toolbar, WithoutChildrenOrChild } from "@coldlight/ui";
 export type ToolbarTestProps = WithoutChildrenOrChild<Toolbar.RootProps> & {
 	multipleProps?: Partial<Toolbar.GroupProps>;
 	singleProps?: Partial<Toolbar.GroupProps>;

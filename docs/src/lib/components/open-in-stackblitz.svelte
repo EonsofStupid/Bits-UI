@@ -1,5 +1,5 @@
 <script lang="ts">
-import { Tooltip } from "bits-ui";
+import { Tooltip } from "@coldlight/ui";
 import Stackblitz from "$icons/stackblitz.svelte";
 import { openInStackBlitz } from "$lib/utils/open-in-stackblitz.js";
 

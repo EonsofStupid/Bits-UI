@@ -1,5 +1,5 @@
 <script lang="ts">
-import { ScrollArea } from "bits-ui";
+import { ScrollArea } from "@coldlight/ui";
 import SidebarNavItems from "$lib/components/navigation/sidebar-nav-items.svelte";
 import SidebarNavMainItems from "$lib/components/navigation/sidebar-nav-main-items.svelte";
 import type { SidebarNavItem } from "$lib/config/index.js";

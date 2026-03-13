@@ -1,4 +1,4 @@
-import type { PinInputCellPropsWithoutHTML, PinInputRootPropsWithoutHTML } from "bits-ui";
+import type { PinInputCellPropsWithoutHTML, PinInputRootPropsWithoutHTML } from "@coldlight/ui";
 import { withChildProps } from "$lib/content/api-reference/shared.js";
 import {
 	defineBooleanProp,

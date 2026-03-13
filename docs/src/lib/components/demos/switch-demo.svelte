@@ -1,5 +1,5 @@
 <script lang="ts">
-import { Label, Switch } from "bits-ui";
+import { Label, Switch } from "@coldlight/ui";
 </script>
 
 <div class="flex items-center space-x-3">

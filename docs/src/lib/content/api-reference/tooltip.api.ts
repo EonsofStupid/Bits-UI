@@ -6,7 +6,7 @@ import type {
 	TooltipProviderPropsWithoutHTML,
 	TooltipRootPropsWithoutHTML,
 	TooltipTriggerPropsWithoutHTML,
-} from "bits-ui";
+} from "@coldlight/ui";
 import {
 	arrowProps,
 	childrenSnippet,

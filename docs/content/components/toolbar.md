@@ -20,7 +20,7 @@ description: Displays frequently used actions or tools in a compact and easily a
 
 ```svelte
 <script lang="ts">
-  import { Toolbar } from "bits-ui";
+  import { Toolbar } from "@coldlight/ui";
 </script>
 
 <Toolbar.Root>
@@ -42,7 +42,7 @@ Use `bind:value` for simple, automatic state synchronization:
 
 ```svelte
 <script lang="ts">
-  import { Toolbar } from "bits-ui";
+  import { Toolbar } from "@coldlight/ui";
   let myValue = $state("");
 </script>
 
@@ -61,7 +61,7 @@ Use a [Function Binding](https://svelte.dev/docs/svelte/bind#Function-bindings) 
 
 ```svelte
 <script lang="ts">
-  import { Toolbar } from "bits-ui";
+  import { Toolbar } from "@coldlight/ui";
   let myValue = $state("");
 
   function getValue() {

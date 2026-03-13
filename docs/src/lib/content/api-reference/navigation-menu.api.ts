@@ -8,7 +8,7 @@ import type {
 	NavigationMenuSubPropsWithoutHTML,
 	NavigationMenuTriggerPropsWithoutHTML,
 	NavigationMenuViewportPropsWithoutHTML,
-} from "bits-ui";
+} from "@coldlight/ui";
 import {
 	defineBooleanProp,
 	defineComponentApiSchema,

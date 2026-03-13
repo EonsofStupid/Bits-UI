@@ -1,5 +1,5 @@
 <script lang="ts">
-import type { Progress } from "bits-ui";
+import type { Progress } from "@coldlight/ui";
 
 let { value = 0, ...restProps }: Progress.RootProps = $props();
 </script>

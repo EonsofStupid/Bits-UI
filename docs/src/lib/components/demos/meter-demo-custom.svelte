@@ -1,5 +1,5 @@
 <script lang="ts">
-import { type Meter, useId } from "bits-ui";
+import { type Meter, useId } from "@coldlight/ui";
 import type { ComponentProps } from "svelte";
 import DemoContainer from "../demo-container.svelte";
 

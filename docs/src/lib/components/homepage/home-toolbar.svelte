@@ -1,5 +1,5 @@
 <script lang="ts">
-import { Toolbar } from "bits-ui";
+import { Toolbar } from "@coldlight/ui";
 import WaveSine from "phosphor-svelte/lib/WaveSine";
 import WaveSquare from "phosphor-svelte/lib/WaveSquare";
 import WaveTriangle from "phosphor-svelte/lib/WaveTriangle";

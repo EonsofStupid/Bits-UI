@@ -27,7 +27,7 @@ The `child` snippet exposes a prop that you can use to conditionally render the 
 
 ```svelte /forceMount/ /transition:fly/
 <script lang="ts">
-  import { Dialog } from "bits-ui";
+  import { Dialog } from "@coldlight/ui";
   import { fly } from "svelte/transition";
 </script>
 
@@ -53,7 +53,7 @@ We understand this isn't the prettiest syntax, but it enables us to cover every 
 <script lang="ts">
   import type { Snippet } from "svelte";
   import { fly } from "svelte/transition";
-  import { Dialog, type WithoutChildrenOrChild } from "bits-ui";
+  import { Dialog, type WithoutChildrenOrChild } from "@coldlight/ui";
 
   let {
     ref = $bindable(null),
@@ -79,7 +79,7 @@ Which can then be used alongside the other `Dialog.*` components:
 
 ```svelte
 <script lang="ts">
-  import { Dialog } from "bits-ui";
+  import { Dialog } from "@coldlight/ui";
   import MyDialogContent from "$lib/components/MyDialogContent.svelte";
 </script>
 
@@ -105,7 +105,7 @@ For example, if we were to use the `Popover.Content` component, we need to add a
 
 ```svelte {12,16} /wrapperProps/
 <script lang="ts">
-  import { Popover } from "bits-ui";
+  import { Popover } from "@coldlight/ui";
   import { fly } from "svelte/transition";
 </script>
 

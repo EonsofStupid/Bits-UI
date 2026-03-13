@@ -1,5 +1,5 @@
 <script lang="ts">
-import { Accordion, Button, useId } from "bits-ui";
+import { Accordion, Button, useId } from "@coldlight/ui";
 import CaretDown from "phosphor-svelte/lib/CaretDown";
 import { SvelteSet } from "svelte/reactivity";
 import { cn } from "$lib/utils/styles.js";

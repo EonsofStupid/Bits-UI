@@ -1,4 +1,4 @@
-import type { LabelRootPropsWithoutHTML } from "bits-ui";
+import type { LabelRootPropsWithoutHTML } from "@coldlight/ui";
 import { withChildProps } from "$lib/content/api-reference/shared.js";
 import { defineComponentApiSchema, defineSimpleDataAttr } from "../utils.js";
 

@@ -2,7 +2,7 @@ import type {
 	CollapsibleContentPropsWithoutHTML,
 	CollapsibleRootPropsWithoutHTML,
 	CollapsibleTriggerPropsWithoutHTML,
-} from "bits-ui";
+} from "@coldlight/ui";
 import {
 	defineBooleanProp,
 	defineComponentApiSchema,

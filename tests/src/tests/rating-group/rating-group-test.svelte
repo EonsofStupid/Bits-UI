@@ -1,5 +1,5 @@
 <script lang="ts" module>
-import type { RatingGroup } from "bits-ui";
+import type { RatingGroup } from "@coldlight/ui";
 
 export type RatingGroupTestProps = Omit<RatingGroup.RootProps, "child" | "children">;
 </script>

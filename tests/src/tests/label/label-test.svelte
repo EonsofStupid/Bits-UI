@@ -1,5 +1,5 @@
 <script lang="ts">
-import { Label } from "bits-ui";
+import { Label } from "@coldlight/ui";
 </script>
 
 <main>

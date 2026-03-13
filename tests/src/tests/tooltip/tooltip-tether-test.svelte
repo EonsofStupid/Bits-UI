@@ -1,5 +1,5 @@
 <script lang="ts">
-import { Tooltip } from "bits-ui";
+import { Tooltip } from "@coldlight/ui";
 
 const tether = Tooltip.createTether<{ label: string }>();
 let open = $state(false);

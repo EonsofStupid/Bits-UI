@@ -1,5 +1,5 @@
 <script lang="ts">
-import { Avatar, DropdownMenu } from "bits-ui";
+import { Avatar, DropdownMenu } from "@coldlight/ui";
 import Bell from "phosphor-svelte/lib/Bell";
 import Cardholder from "phosphor-svelte/lib/Cardholder";
 import CaretRight from "phosphor-svelte/lib/CaretRight";
@@ -120,7 +120,7 @@ let invited = $state("");
 					>
 						<DropdownMenu.RadioGroup bind:value={invited}>
 							<DropdownMenu.RadioItem
-								value="huntabyte"
+								value="jessehall"
 								class="rounded-button data-highlighted:bg-muted ring-0! ring-transparent! flex h-10 select-none items-center py-3 pl-3 pr-1.5 text-sm font-medium focus-visible:outline-none"
 							>
 								{#snippet children({ checked })}
@@ -128,8 +128,8 @@ let invited = $state("");
 										class="border-foreground/50 relative mr-3 flex size-5 shrink-0 overflow-hidden rounded-full border"
 									>
 										<Avatar.Image
-											src="https://github.com/huntabyte.png"
-											alt="@huntabyte"
+											src="https://github.com/jessehall.png"
+											alt="@jessehall"
 											class="aspect-square h-full w-full"
 										/>
 										<Avatar.Fallback
@@ -137,7 +137,7 @@ let invited = $state("");
 											>HJ</Avatar.Fallback
 										>
 									</Avatar.Root>
-									@huntabyte
+									@jessehall
 									{#if checked}
 										<DotOutline class="ml-auto size-4" />
 									{/if}

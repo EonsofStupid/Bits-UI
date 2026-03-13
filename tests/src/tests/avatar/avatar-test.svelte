@@ -1,12 +1,12 @@
 <script lang="ts">
-import { Avatar } from "bits-ui";
+import { Avatar } from "@coldlight/ui";
 
 let { src }: { src: string } = $props();
 </script>
 
 <main>
 	<Avatar.Root data-testid="root">
-		<Avatar.Image {src} alt="huntabyte" data-testid="image" />
+		<Avatar.Image {src} alt="jessehall" data-testid="image" />
 		<Avatar.Fallback data-testid="fallback">HJ</Avatar.Fallback>
 	</Avatar.Root>
 

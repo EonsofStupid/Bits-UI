@@ -5,7 +5,7 @@ import type {
 	LinkPreviewPortalPropsWithoutHTML,
 	LinkPreviewRootPropsWithoutHTML,
 	LinkPreviewTriggerPropsWithoutHTML,
-} from "bits-ui";
+} from "@coldlight/ui";
 import {
 	arrowProps,
 	childrenSnippet,

@@ -1,4 +1,4 @@
-import type { ButtonRootPropsWithoutHTML } from "bits-ui";
+import type { ButtonRootPropsWithoutHTML } from "@coldlight/ui";
 import type { HTMLButtonAttributes } from "svelte/elements";
 import {
 	defineBooleanProp,

@@ -1,5 +1,5 @@
 <script lang="ts">
-import { Button } from "bits-ui";
+import { Button } from "@coldlight/ui";
 </script>
 
 <Button.Root

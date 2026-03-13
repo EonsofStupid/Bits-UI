@@ -1,5 +1,5 @@
 import { page } from "@vitest/browser/context";
-import type { Separator } from "bits-ui";
+import type { Separator } from "@coldlight/ui";
 import { describe, expect, it } from "vitest";
 import { render } from "vitest-browser-svelte";
 import SeparatorTest from "./separator-test.svelte";

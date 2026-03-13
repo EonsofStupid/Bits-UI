@@ -1,5 +1,5 @@
 <script lang="ts" module>
-import { type ContextMenu, Dialog, DropdownMenu } from "bits-ui";
+import { type ContextMenu, Dialog, DropdownMenu } from "@coldlight/ui";
 export type ContextMenuTestProps = ContextMenu.RootProps & {
 	checked?: boolean;
 	subChecked?: boolean;

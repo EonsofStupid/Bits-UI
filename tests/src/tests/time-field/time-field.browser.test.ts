@@ -7,7 +7,7 @@ import {
 	ZonedDateTime,
 } from "@internationalized/date";
 import { page, userEvent } from "@vitest/browser/context";
-import type { TimeValue } from "bits-ui";
+import type { TimeValue } from "@coldlight/ui";
 import { tick } from "svelte";
 import { expect, it, vi } from "vitest";
 import { render } from "vitest-browser-svelte";

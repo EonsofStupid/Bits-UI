@@ -127,7 +127,7 @@ class BundleAnalyzer {
 
 	createTestComponent(component: ComponentInfo): string {
 		// Import the component namespace
-		const namespaceImport = `import { ${component.name} } from "bits-ui";`;
+		const namespaceImport = `import { ${component.name} } from "@coldlight/ui";`;
 
 		// Create references to all exports to prevent tree-shaking
 		const exportReferences = component.exports
@@ -338,7 +338,7 @@ const refs = [
 			const isBitsUIDistModule =
 				path.includes("packages/bits-ui/dist") ||
 				path.includes("bits-ui/dist") ||
-				(name.includes("bits-ui") && path.includes("dist"));
+				(name.includes("@coldlight/ui") && path.includes("dist"));
 
 			return isBitsUIDistModule;
 		});

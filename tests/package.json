@@ -1,35 +1,35 @@
 {
-	"name": "tests",
-	"description": "Tests for Bits UI components.",
-	"version": "0.0.0",
-	"private": true,
-	"scripts": {
-		"check": "pnpm sync && svelte-check --tsconfig ./tsconfig.json",
-		"check:watch": "pnpm sync && svelte-check --tsconfig ./tsconfig.json --watch",
-		"sync": "svelte-kit sync",
-		"test": "pnpm sync && pnpm test:browser",
-		"test:jsdom": "pnpm sync && vitest --project=jsdom",
-		"test:browser": "pnpm sync && vitest --project=browser"
-	},
-	"devDependencies": {
-		"@sveltejs/kit": "catalog:",
-		"@sveltejs/vite-plugin-svelte": "catalog:",
-		"@tailwindcss/vite": "catalog:",
-		"@types/node": "catalog:",
-		"@vitest/browser": "^3.2.4",
-		"playwright": "catalog:",
-		"svelte": "catalog:",
-		"svelte-check": "catalog:",
-		"tailwindcss": "catalog:",
-		"typescript": "catalog:",
-		"vite": "catalog:",
-		"vitest": "catalog:",
-		"vitest-browser-svelte": "catalog:"
-	},
-	"dependencies": {
-		"@internationalized/date": "^3.8.2",
-		"bits-ui": "workspace:*"
-	},
-	"type": "module",
-	"sideEffects": false
+        "name": "tests",
+        "description": "Tests for ColdLight UI components.",
+        "version": "0.0.0",
+        "private": true,
+        "scripts": {
+                "check": "pnpm sync && svelte-check --tsconfig ./tsconfig.json",
+                "check:watch": "pnpm sync && svelte-check --tsconfig ./tsconfig.json --watch",
+                "sync": "svelte-kit sync",
+                "test": "pnpm sync && pnpm test:browser",
+                "test:jsdom": "pnpm sync && vitest --project=jsdom",
+                "test:browser": "pnpm sync && vitest --project=browser"
+        },
+        "devDependencies": {
+                "@sveltejs/kit": "catalog:",
+                "@sveltejs/vite-plugin-svelte": "catalog:",
+                "@tailwindcss/vite": "catalog:",
+                "@types/node": "catalog:",
+                "@vitest/browser": "^3.2.4",
+                "playwright": "catalog:",
+                "svelte": "catalog:",
+                "svelte-check": "catalog:",
+                "tailwindcss": "catalog:",
+                "typescript": "catalog:",
+                "vite": "catalog:",
+                "vitest": "catalog:",
+                "vitest-browser-svelte": "catalog:"
+        },
+        "dependencies": {
+                "@internationalized/date": "^3.8.2",
+                "@coldlight/ui": "workspace:*"
+        },
+        "type": "module",
+        "sideEffects": false
 }

@@ -1,5 +1,5 @@
 <script lang="ts" module>
-import type { WithoutChildrenOrChild } from "bits-ui";
+import type { WithoutChildrenOrChild } from "@coldlight/ui";
 
 export type TooltipSingletonForceMountTestProps = WithoutChildrenOrChild<
 	Tooltip.RootProps<{ label: string }>
@@ -9,7 +9,7 @@ export type TooltipSingletonForceMountTestProps = WithoutChildrenOrChild<
 </script>
 
 <script lang="ts">
-	import { Tooltip } from "bits-ui";
+	import { Tooltip } from "@coldlight/ui";
 
 	let { withOpenCheck = false, ...rootProps }: TooltipSingletonForceMountTestProps = $props();
 

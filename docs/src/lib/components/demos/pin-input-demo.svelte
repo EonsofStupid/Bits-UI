@@ -1,5 +1,5 @@
 <script lang="ts">
-import { PinInput, type PinInputRootSnippetProps, REGEXP_ONLY_DIGITS } from "bits-ui";
+import { PinInput, type PinInputRootSnippetProps, REGEXP_ONLY_DIGITS } from "@coldlight/ui";
 import { toast } from "svelte-sonner";
 import { cn } from "$lib/utils/styles.js";
 

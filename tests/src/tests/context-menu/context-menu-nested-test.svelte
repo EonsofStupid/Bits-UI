@@ -1,5 +1,5 @@
 <script lang="ts">
-import { ContextMenu } from "bits-ui";
+import { ContextMenu } from "@coldlight/ui";
 </script>
 
 <ContextMenu.Root>

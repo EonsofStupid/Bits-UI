@@ -1,5 +1,5 @@
 <script lang="ts">
-import { Command, Popover } from "bits-ui";
+import { Command, Popover } from "@coldlight/ui";
 import { FinderIcon, StarIcon, WindowIcon } from "./icons/index.js";
 import SubItem from "./sub-item.svelte";
 

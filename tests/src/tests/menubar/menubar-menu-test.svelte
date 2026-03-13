@@ -1,5 +1,5 @@
 <script lang="ts" module>
-import type { Menubar } from "bits-ui";
+import type { Menubar } from "@coldlight/ui";
 export type MenubarMenuProps = Menubar.MenuProps & {
 	id: string;
 	checked?: boolean;

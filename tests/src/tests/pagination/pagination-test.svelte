@@ -1,5 +1,5 @@
 <script lang="ts" module>
-import type { Pagination, WithoutChildrenOrChild } from "bits-ui";
+import type { Pagination, WithoutChildrenOrChild } from "@coldlight/ui";
 export type PaginationTestProps = WithoutChildrenOrChild<Pagination.RootProps>;
 </script>
 

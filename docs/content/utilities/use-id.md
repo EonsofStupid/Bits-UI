@@ -9,7 +9,7 @@ The `useId` function is a utility function that can be used to generate unique I
 
 ```svelte
 <script lang="ts">
-  import { useId } from "bits-ui";
+  import { useId } from "@coldlight/ui";
 
   const id = useId();
 </script>

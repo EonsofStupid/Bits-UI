@@ -1,5 +1,5 @@
 <script lang="ts">
-import type { BitsPrimitiveDivAttributes, WithChildren } from "bits-ui";
+import type { BitsPrimitiveDivAttributes, WithChildren } from "@coldlight/ui";
 import { cn } from "$lib/utils/styles.js";
 import { alertVariants, type Variant } from "./index.js";
 

@@ -52,7 +52,7 @@ Here's an overview of how the Select component is structured in code:
 
 ```svelte
 <script lang="ts">
-  import { Select } from "bits-ui";
+  import { Select } from "@coldlight/ui";
 </script>
 
 <Select.Root>
@@ -83,7 +83,7 @@ Here's an example of how you might create a reusable `MySelect` component that r
 
 ```svelte title="MySelect.svelte"
 <script lang="ts">
-  import { Select, type WithoutChildren } from "bits-ui";
+  import { Select, type WithoutChildren } from "@coldlight/ui";
 
   type Props = WithoutChildren<Select.RootProps> & {
     placeholder?: string;
@@ -161,7 +161,7 @@ Use `bind:value` for simple, automatic state synchronization:
 
 ```svelte
 <script lang="ts">
-  import { Select } from "bits-ui";
+  import { Select } from "@coldlight/ui";
   let myValue = $state("");
 </script>
 
@@ -178,7 +178,7 @@ Use a [Function Binding](https://svelte.dev/docs/svelte/bind#Function-bindings) 
 
 ```svelte
 <script lang="ts">
-  import { Select } from "bits-ui";
+  import { Select } from "@coldlight/ui";
   let myValue = $state("");
 
   function getValue() {
@@ -205,7 +205,7 @@ Use `bind:open` for simple, automatic state synchronization:
 
 ```svelte
 <script lang="ts">
-  import { Select } from "bits-ui";
+  import { Select } from "@coldlight/ui";
   let myOpen = $state(false);
 </script>
 
@@ -222,7 +222,7 @@ Use a [Function Binding](https://svelte.dev/docs/svelte/bind#Function-bindings) 
 
 ```svelte
 <script lang="ts">
-  import { Select } from "bits-ui";
+  import { Select } from "@coldlight/ui";
   let myOpen = $state(false);
 
   function getOpen() {
@@ -245,7 +245,7 @@ The `type` prop can be set to `'multiple'` to allow multiple items to be selecte
 
 ```svelte
 <script lang="ts">
-  import { Select } from "bits-ui";
+  import { Select } from "@coldlight/ui";
 
   let value = $state<string[]>([]);
 </script>
@@ -298,7 +298,7 @@ If you wish to instead anchor the content to a different element, you can pass e
 
 ```svelte
 <script lang="ts">
-  import { Select } from "bits-ui";
+  import { Select } from "@coldlight/ui";
 
   let customAnchor = $state<HTMLElement>(null!);
 </script>
@@ -381,7 +381,7 @@ You can use the `forceMount` prop along with the `child` snippet to forcefully m
 
 ```svelte /forceMount/ /transition:fly/
 <script lang="ts">
-  import { Select } from "bits-ui";
+  import { Select } from "@coldlight/ui";
   import { fly } from "svelte/transition";
 </script>
 

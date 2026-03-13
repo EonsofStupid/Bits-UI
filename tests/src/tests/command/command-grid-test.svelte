@@ -1,5 +1,5 @@
 <script lang="ts">
-import type { Command } from "bits-ui";
+import type { Command } from "@coldlight/ui";
 import type { ComponentProps } from "svelte";
 
 let {

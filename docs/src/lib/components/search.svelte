@@ -1,5 +1,5 @@
 <script lang="ts">
-import { Button, Command, Dialog } from "bits-ui";
+import { Button, Command, Dialog } from "@coldlight/ui";
 import MagnifyingGlass from "phosphor-svelte/lib/MagnifyingGlass";
 import { onMount } from "svelte";
 import { createContentIndex, type SearchResult, searchContentIndex } from "$lib/utils/search.js";

@@ -1,5 +1,5 @@
 <script lang="ts">
-import { DateRangePicker } from "bits-ui";
+import { DateRangePicker } from "@coldlight/ui";
 import CalendarBlank from "phosphor-svelte/lib/CalendarBlank";
 import CaretLeft from "phosphor-svelte/lib/CaretLeft";
 import CaretRight from "phosphor-svelte/lib/CaretRight";

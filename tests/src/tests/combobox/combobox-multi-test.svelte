@@ -4,7 +4,7 @@ import type {
 	ComboboxMultipleRootProps,
 	WithoutChildren,
 	WithoutChildrenOrChild,
-} from "bits-ui";
+} from "@coldlight/ui";
 
 export type Item = {
 	value: string;

@@ -1,5 +1,5 @@
 <script lang="ts">
-import { Collapsible, Tabs } from "bits-ui";
+import { Collapsible, Tabs } from "@coldlight/ui";
 import Check from "phosphor-svelte/lib/Check";
 import CopySimple from "phosphor-svelte/lib/CopySimple";
 import type { Snippet } from "svelte";

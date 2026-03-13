@@ -6,7 +6,7 @@ import {
 	type TimeRangeFieldRootProps,
 	type TimeValue,
 	type WithoutChildrenOrChild,
-} from "bits-ui";
+} from "@coldlight/ui";
 
 export type TimeRangeFieldTestProps<T extends TimeValue = Time> = WithoutChildrenOrChild<
 	TimeRangeFieldRootProps<T>

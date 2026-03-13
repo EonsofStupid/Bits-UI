@@ -1,5 +1,5 @@
 <script lang="ts">
-import { AlertDialog } from "bits-ui";
+import { AlertDialog } from "@coldlight/ui";
 import type { AlertDialogTestProps } from "./alert-dialog-test.svelte";
 
 let {

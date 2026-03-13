@@ -1,5 +1,5 @@
 ```ts
-import type { TimeSegmentPart } from "bits-ui"
+import type { TimeSegmentPart } from "@coldlight/ui"
 
 type ChildSnippetProps = {
 	props: Record<string, unknown>

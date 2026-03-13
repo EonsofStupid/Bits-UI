@@ -1,5 +1,5 @@
 <script lang="ts">
-import { Progress } from "bits-ui";
+import { Progress } from "@coldlight/ui";
 import { onMount } from "svelte";
 import { cubicInOut } from "svelte/easing";
 import { Tween } from "svelte/motion";

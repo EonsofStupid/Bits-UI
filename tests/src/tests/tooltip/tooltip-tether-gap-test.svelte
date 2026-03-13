@@ -1,5 +1,5 @@
 <script lang="ts">
-import { Tooltip } from "bits-ui";
+import { Tooltip } from "@coldlight/ui";
 
 type Payload = {
 	label: string;

@@ -1,5 +1,5 @@
 <script lang="ts">
-import { Checkbox, Label } from "bits-ui";
+import { Checkbox, Label } from "@coldlight/ui";
 import Check from "phosphor-svelte/lib/Check";
 import Minus from "phosphor-svelte/lib/Minus";
 </script>

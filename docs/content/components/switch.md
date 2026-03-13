@@ -40,7 +40,7 @@ Here's an overview of how the Switch component is structured in code:
 
 ```svelte
 <script lang="ts">
-  import { Switch } from "bits-ui";
+  import { Switch } from "@coldlight/ui";
 </script>
 
 <Switch.Root>
@@ -56,7 +56,7 @@ In the example below, we're using the `Checkbox` and [`Label`](/docs/components/
 
 ```svelte title="MySwitch.svelte"
 <script lang="ts">
-  import { Switch, Label, useId, type WithoutChildrenOrChild } from "bits-ui";
+  import { Switch, Label, useId, type WithoutChildrenOrChild } from "@coldlight/ui";
 
   let {
     id = useId(),
@@ -97,7 +97,7 @@ Use `bind:checked` for simple, automatic state synchronization:
 
 ```svelte
 <script lang="ts">
-  import { Switch } from "bits-ui";
+  import { Switch } from "@coldlight/ui";
   let myChecked = $state(true);
 </script>
 
@@ -112,7 +112,7 @@ Use a [Function Binding](https://svelte.dev/docs/svelte/bind#Function-bindings) 
 
 ```svelte
 <script lang="ts">
-  import { Switch } from "bits-ui";
+  import { Switch } from "@coldlight/ui";
   let myChecked = $state(false);
 
   function getChecked() {

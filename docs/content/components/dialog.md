@@ -48,7 +48,7 @@ Here's an overview of how the Dialog component is structured in code:
 
 ```svelte
 <script lang="ts">
-  import { Dialog } from "bits-ui";
+  import { Dialog } from "@coldlight/ui";
 </script>
 
 <Dialog.Root>
@@ -75,7 +75,7 @@ The following example demonstrates how to create a versatile, reusable Dialog co
 ```svelte title="MyDialog.svelte"
 <script lang="ts">
   import type { Snippet } from "svelte";
-  import { Dialog, type WithoutChild } from "bits-ui";
+  import { Dialog, type WithoutChild } from "@coldlight/ui";
 
   type Props = Dialog.RootProps & {
     buttonText: string;
@@ -173,7 +173,7 @@ Use `bind:open` for simple, automatic state synchronization:
 
 ```svelte {3,6,8}
 <script lang="ts">
-  import { Dialog } from "bits-ui";
+  import { Dialog } from "@coldlight/ui";
   let isOpen = $state(false);
 </script>
 
@@ -190,7 +190,7 @@ Use a [Function Binding](https://svelte.dev/docs/svelte/bind#Function-bindings) 
 
 ```svelte
 <script lang="ts">
-  import { Dialog } from "bits-ui";
+  import { Dialog } from "@coldlight/ui";
   let myOpen = $state(false);
 
   function getOpen() {
@@ -241,7 +241,7 @@ To specify which element receives focus when the Dialog opens, use the `onOpenAu
 
 ```svelte {9-12}
 <script lang="ts">
-  import { Dialog } from "bits-ui";
+  import { Dialog } from "@coldlight/ui";
   let nameInput = $state<HTMLInputElement>();
 </script>
 
@@ -274,7 +274,7 @@ To change which element receives focus when the Dialog closes, use the `onCloseA
 
 ```svelte {9-12}
 <script lang="ts">
-  import { Dialog } from "bits-ui";
+  import { Dialog } from "@coldlight/ui";
   let nameInput = $state<HTMLInputElement>();
 </script>
 
@@ -467,7 +467,7 @@ To apply Svelte transitions to Dialog components, use the `forceMount` prop in c
 
 ```svelte /forceMount/ /transition:fade/ /transition:fly/
 <script lang="ts">
-  import { Dialog } from "bits-ui";
+  import { Dialog } from "@coldlight/ui";
   import { fly, fade } from "svelte/transition";
 </script>
 
@@ -507,7 +507,7 @@ For cleaner code and better maintainability, consider creating custom reusable c
 
 ```svelte title="MyDialogOverlay.svelte"
 <script lang="ts">
-  import { Dialog, type WithoutChildrenOrChild } from "bits-ui";
+  import { Dialog, type WithoutChildrenOrChild } from "@coldlight/ui";
   import { fade } from "svelte/transition";
   import type { Snippet } from "svelte";
 
@@ -537,7 +537,7 @@ You can then use the `MyDialogOverlay` component alongside the other `Dialog` pr
 
 ```svelte
 <script lang="ts">
-  import { Dialog } from "bits-ui";
+  import { Dialog } from "@coldlight/ui";
   import { MyDialogOverlay } from "$lib/components";
 </script>
 
@@ -562,7 +562,7 @@ This can be done by waiting for the asynchronous action to complete, then progra
 
 ```svelte
 <script lang="ts">
-	import { Dialog } from "bits-ui";
+	import { Dialog } from "@coldlight/ui";
 
 	function wait(ms: number) {
 		return new Promise((resolve) => setTimeout(resolve, ms));

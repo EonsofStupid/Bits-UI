@@ -20,7 +20,7 @@ description: Provides a consistent scroll area across platforms.
 
 ```svelte
 <script lang="ts">
-  import { ScrollArea } from "bits-ui";
+  import { ScrollArea } from "@coldlight/ui";
 </script>
 
 <ScrollArea.Root>
@@ -45,7 +45,7 @@ This example shows you how to create a Scroll Area component that accepts a few 
 
 ```svelte title="MyScrollArea.svelte"
 <script lang="ts">
-  import { ScrollArea, type WithoutChild } from "bits-ui";
+  import { ScrollArea, type WithoutChild } from "@coldlight/ui";
 
   type Props = WithoutChild<ScrollArea.RootProps> & {
     orientation: "vertical" | "horizontal" | "both";

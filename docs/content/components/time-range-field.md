@@ -30,7 +30,7 @@ The `TimeRangeField` component combines two [Time Field](/docs/components/time-f
 
 ```svelte
 <script lang="ts">
-  import { TimeRangeField } from "bits-ui";
+  import { TimeRangeField } from "@coldlight/ui";
 </script>
 
 <TimeRangeField.Root>
@@ -59,7 +59,7 @@ Use `bind:placeholder` for simple, automatic state synchronization:
 
 ```svelte
 <script lang="ts">
-  import { TimeRangeField } from "bits-ui";
+  import { TimeRangeField } from "@coldlight/ui";
   import { Time } from "@internationalized/date";
   let myPlaceholder = $state(new Time(12, 30));
 </script>
@@ -75,7 +75,7 @@ Use a [Function Binding](https://svelte.dev/docs/svelte/bind#Function-bindings) 
 
 ```svelte
 <script lang="ts">
-  import { TimeRangeField, type TimeValue } from "bits-ui";
+  import { TimeRangeField, type TimeValue } from "@coldlight/ui";
   import { Time } from "@internationalized/date";
   let myPlaceholder = $state(new Time(12, 30));
 
@@ -103,7 +103,7 @@ Use `bind:value` for simple, automatic state synchronization:
 
 ```svelte {3,6,8}
 <script lang="ts">
-  import { TimeRangeField, type TimeRange } from "bits-ui";
+  import { TimeRangeField, type TimeRange } from "@coldlight/ui";
   import { Time } from "@internationalized/date";
   let myValue = $state<TimeRange>({
     start: new Time(12, 30),
@@ -132,7 +132,7 @@ Use a [Function Binding](https://svelte.dev/docs/svelte/bind#Function-bindings) 
 
 ```svelte
 <script lang="ts">
-  import { TimeRangeField, type TimeRange } from "bits-ui";
+  import { TimeRangeField, type TimeRange } from "@coldlight/ui";
 
   let myValue = $state<TimeRange | undefined>({
     start: undefined,

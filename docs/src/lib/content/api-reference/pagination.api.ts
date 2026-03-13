@@ -3,7 +3,7 @@ import type {
 	PaginationPagePropsWithoutHTML,
 	PaginationPrevButtonPropsWithoutHTML,
 	PaginationRootPropsWithoutHTML,
-} from "bits-ui";
+} from "@coldlight/ui";
 import {
 	defineBooleanProp,
 	defineComponentApiSchema,

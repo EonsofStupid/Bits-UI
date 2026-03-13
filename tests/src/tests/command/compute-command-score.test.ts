@@ -1,4 +1,4 @@
-import { computeCommandScore } from "bits-ui";
+import { computeCommandScore } from "@coldlight/ui";
 import { describe, expect, it } from "vitest";
 
 describe("computeCommandScore", () => {

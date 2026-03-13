@@ -20,7 +20,7 @@ description: Groups multiple toggle controls, allowing users to enable one or mu
 
 ```svelte
 <script lang="ts">
-  import { ToggleGroup } from "bits-ui";
+  import { ToggleGroup } from "@coldlight/ui";
 </script>
 
 <ToggleGroup.Root>
@@ -45,7 +45,7 @@ Use `bind:value` for simple, automatic state synchronization:
 
 ```svelte
 <script lang="ts">
-  import { ToggleGroup } from "bits-ui";
+  import { ToggleGroup } from "@coldlight/ui";
   let myValue = $state("");
 </script>
 
@@ -62,7 +62,7 @@ Use a [Function Binding](https://svelte.dev/docs/svelte/bind#Function-bindings) 
 
 ```svelte
 <script lang="ts">
-  import { ToggleGroup } from "bits-ui";
+  import { ToggleGroup } from "@coldlight/ui";
   let myValue = $state("");
 
   function getValue() {

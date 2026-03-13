@@ -1,5 +1,5 @@
 <script lang="ts" module>
-import type { Dialog, WithoutChildrenOrChild } from "bits-ui";
+import type { Dialog, WithoutChildrenOrChild } from "@coldlight/ui";
 export type DialogTestProps = Dialog.RootProps & {
 	contentProps?: Omit<Dialog.ContentProps, "asChild" | "child" | "children">;
 	portalProps?: Dialog.PortalProps;
@@ -10,7 +10,7 @@ export type DialogTestProps = Dialog.RootProps & {
 </script>
 
 <script lang="ts">
-	import { useId } from "bits-ui";
+	import { useId } from "@coldlight/ui";
 
 	let {
 		open = false,

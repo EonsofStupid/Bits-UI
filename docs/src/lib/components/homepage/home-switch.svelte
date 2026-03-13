@@ -1,5 +1,5 @@
 <script lang="ts">
-import { Switch } from "bits-ui";
+import { Switch } from "@coldlight/ui";
 import Pause from "phosphor-svelte/lib/Pause";
 import Play from "phosphor-svelte/lib/Play";
 import type { ComponentProps } from "svelte";

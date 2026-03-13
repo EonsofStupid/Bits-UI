@@ -1,5 +1,5 @@
 <script lang="ts" module>
-import { Select, type SelectSingleRootProps, type WithoutChildren } from "bits-ui";
+import { Select, type SelectSingleRootProps, type WithoutChildren } from "@coldlight/ui";
 import { generateTestId } from "../helpers/select";
 
 export type Item = {

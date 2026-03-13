@@ -1,5 +1,5 @@
 <script lang="ts">
-import type { BitsPrimitiveSpanAttributes, WithChildren } from "bits-ui";
+import type { BitsPrimitiveSpanAttributes, WithChildren } from "@coldlight/ui";
 import { cn } from "$lib/utils/styles.js";
 
 let {

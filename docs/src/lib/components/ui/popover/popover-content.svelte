@@ -1,5 +1,5 @@
 <script lang="ts">
-import { Popover } from "bits-ui";
+import { Popover } from "@coldlight/ui";
 import type { ComponentProps } from "svelte";
 import { cn } from "$lib/utils/styles.js";
 

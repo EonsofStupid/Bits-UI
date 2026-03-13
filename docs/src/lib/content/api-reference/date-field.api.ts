@@ -3,7 +3,7 @@ import type {
 	DateFieldLabelPropsWithoutHTML,
 	DateFieldRootPropsWithoutHTML,
 	DateFieldSegmentPropsWithoutHTML,
-} from "bits-ui";
+} from "@coldlight/ui";
 import {
 	defineBooleanProp,
 	defineComponentApiSchema,
@@ -118,14 +118,14 @@ export const input = defineComponentApiSchema<DateFieldInputPropsWithoutHTML>({
 			elType: "HTMLDivElement",
 			children: {
 				definition: DateFieldInputChildrenSnippetProps,
-				stringDefinition: `import type { SegmentPart } from "bits-ui";
+				stringDefinition: `import type { SegmentPart } from "@coldlight/ui";
 type ChildrenSnippetProps = {
 	segments: Array<{ part: SegmentPart; value: string }>;
 };`,
 			},
 			child: {
 				definition: DateFieldInputChildSnippetProps,
-				stringDefinition: `import type { SegmentPart } from "bits-ui";
+				stringDefinition: `import type { SegmentPart } from "@coldlight/ui";
 type ChildSnippetProps = {
 	props: Record<string, unknown>;
 	segments: Array<{ part: SegmentPart; value: string }>;

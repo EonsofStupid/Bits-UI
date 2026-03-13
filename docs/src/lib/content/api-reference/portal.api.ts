@@ -1,4 +1,4 @@
-import type { PortalProps } from "bits-ui";
+import type { PortalProps } from "@coldlight/ui";
 import { defineUtilityApiSchema } from "../utils.js";
 import { portalProps } from "./shared.js";
 

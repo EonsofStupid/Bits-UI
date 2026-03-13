@@ -1,12 +1,12 @@
 <script lang="ts" module>
 import type { Time } from "@internationalized/date";
-import type { TimeValue } from "bits-ui";
+import type { TimeValue } from "@coldlight/ui";
 
 type T = unknown;
 </script>
 
 <script lang="ts" generics="T extends TimeValue = Time">
-	import { TimeField } from "bits-ui";
+	import { TimeField } from "@coldlight/ui";
 
 	let {
 		labelText = "Select a time",

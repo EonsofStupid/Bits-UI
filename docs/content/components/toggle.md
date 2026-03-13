@@ -20,7 +20,7 @@ description: A toggle control that allows users to switch between two states.
 
 ```svelte
 <script lang="ts">
-  import { Toggle } from "bits-ui";
+  import { Toggle } from "@coldlight/ui";
 </script>
 
 <Toggle.Root />
@@ -36,7 +36,7 @@ Use `bind:pressed` for simple, automatic state synchronization:
 
 ```svelte
 <script lang="ts">
-  import { Toggle } from "bits-ui";
+  import { Toggle } from "@coldlight/ui";
   let myPressed = $state(true);
 </script>
 
@@ -51,7 +51,7 @@ Use a [Function Binding](https://svelte.dev/docs/svelte/bind#Function-bindings) 
 
 ```svelte
 <script lang="ts">
-  import { Toggle } from "bits-ui";
+  import { Toggle } from "@coldlight/ui";
   let myPressed = $state(false);
 
   function getPressed() {

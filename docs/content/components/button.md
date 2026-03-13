@@ -20,7 +20,7 @@ description: A component that can switch between a button and an anchor tag base
 
 ```svelte
 <script lang="ts">
-  import { Button } from "bits-ui";
+  import { Button } from "@coldlight/ui";
 </script>
 
 <Button.Root />

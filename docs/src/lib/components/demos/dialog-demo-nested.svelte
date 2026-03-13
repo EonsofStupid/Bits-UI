@@ -1,5 +1,5 @@
 <script lang="ts">
-import { Dialog } from "bits-ui";
+import { Dialog } from "@coldlight/ui";
 import X from "phosphor-svelte/lib/X";
 
 let rootOpen = $state(false);

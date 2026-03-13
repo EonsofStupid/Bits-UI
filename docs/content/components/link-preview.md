@@ -30,7 +30,7 @@ This component is only intended to be used with a mouse or other pointing device
 
 ```svelte
 <script lang="ts">
-  import { LinkPreview } from "bits-ui";
+  import { LinkPreview } from "@coldlight/ui";
 </script>
 
 <LinkPreview.Root>
@@ -49,7 +49,7 @@ Use `bind:open` for simple, automatic state synchronization:
 
 ```svelte {3,6,8}
 <script lang="ts">
-  import { LinkPreview } from "bits-ui";
+  import { LinkPreview } from "@coldlight/ui";
   let isOpen = $state(false);
 </script>
 
@@ -66,7 +66,7 @@ Use a [Function Binding](https://svelte.dev/docs/svelte/bind#Function-bindings) 
 
 ```svelte
 <script lang="ts">
-  import { LinkPreview } from "bits-ui";
+  import { LinkPreview } from "@coldlight/ui";
   let myOpen = $state(false);
 
   function getOpen() {
@@ -112,7 +112,7 @@ If you wish to instead anchor the content to a different element, you can pass e
 
 ```svelte
 <script lang="ts">
-  import { LinkPreview } from "bits-ui";
+  import { LinkPreview } from "@coldlight/ui";
   let customAnchor = $state<HTMLElement>(null!);
 </script>
 
@@ -132,7 +132,7 @@ You can use the `forceMount` prop along with the `child` snippet to forcefully m
 
 ```svelte /forceMount/ /transition:fly/
 <script lang="ts">
-  import { LinkPreview } from "bits-ui";
+  import { LinkPreview } from "@coldlight/ui";
   import { fly } from "svelte/transition";
 </script>
 

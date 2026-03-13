@@ -1,5 +1,5 @@
 <script lang="ts">
-import { Command } from "bits-ui";
+import { Command } from "@coldlight/ui";
 import ArrowLeft from "phosphor-svelte/lib/ArrowLeft";
 import Smiley from "phosphor-svelte/lib/Smiley";
 import type Sticker from "phosphor-svelte/lib/Sticker";

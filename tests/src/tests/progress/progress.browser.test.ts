@@ -1,5 +1,5 @@
 import { page } from "@vitest/browser/context";
-import type { Progress } from "bits-ui";
+import type { Progress } from "@coldlight/ui";
 import { expect, it } from "vitest";
 import { render } from "vitest-browser-svelte";
 import ProgressTest from "./progress-test.svelte";

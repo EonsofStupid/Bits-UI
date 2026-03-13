@@ -1,5 +1,5 @@
 <script lang="ts">
-import { Tooltip } from "bits-ui";
+import { Tooltip } from "@coldlight/ui";
 </script>
 
 <main data-testid="main" style="position: relative; width: 360px; height: 320px; padding: 24px;">

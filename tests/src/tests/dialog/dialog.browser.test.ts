@@ -693,7 +693,7 @@ describe("Integration with other components", () => {
 	});
 
 	it("should not break tooltip when opened from tooltip trigger and disableCloseOnTriggerClick is true", async () => {
-		// https://github.com/huntabyte/bits-ui/issues/1666
+		// https://github.com/coldlight-design/coldlight-ui/issues/1666
 		render(DialogTooltipTest);
 		const trigger = page.getByTestId("trigger");
 		await trigger.hover();

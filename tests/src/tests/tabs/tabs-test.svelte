@@ -1,5 +1,5 @@
 <script lang="ts" module>
-import type { Tabs, WithoutChildrenOrChild } from "bits-ui";
+import type { Tabs, WithoutChildrenOrChild } from "@coldlight/ui";
 export type Item = {
 	value: string;
 	disabled: boolean;

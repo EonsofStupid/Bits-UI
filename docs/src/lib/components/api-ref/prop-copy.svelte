@@ -1,5 +1,5 @@
 <script lang="ts">
-import { Popover } from "bits-ui";
+import { Popover } from "@coldlight/ui";
 import Code from "$lib/components/markdown/code.svelte";
 
 let { name }: { name: string } = $props();

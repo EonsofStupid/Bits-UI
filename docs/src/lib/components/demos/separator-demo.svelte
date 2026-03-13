@@ -1,5 +1,5 @@
 <script lang="ts">
-import { Separator } from "bits-ui";
+import { Separator } from "@coldlight/ui";
 </script>
 
 <div>

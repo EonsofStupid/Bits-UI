@@ -1,5 +1,5 @@
 <script lang="ts">
-import { Tooltip, type WithoutChildren, type WithoutChildrenOrChild } from "bits-ui";
+import { Tooltip, type WithoutChildren, type WithoutChildrenOrChild } from "@coldlight/ui";
 import MagicWand from "phosphor-svelte/lib/MagicWand";
 
 let {

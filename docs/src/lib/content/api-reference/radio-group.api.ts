@@ -1,4 +1,4 @@
-import type { RadioGroupItemPropsWithoutHTML, RadioGroupRootPropsWithoutHTML } from "bits-ui";
+import type { RadioGroupItemPropsWithoutHTML, RadioGroupRootPropsWithoutHTML } from "@coldlight/ui";
 import {
 	defineBooleanProp,
 	defineComponentApiSchema,

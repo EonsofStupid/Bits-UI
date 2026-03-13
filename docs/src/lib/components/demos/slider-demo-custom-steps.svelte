@@ -1,5 +1,5 @@
 <script lang="ts">
-import { Slider } from "bits-ui";
+import { Slider } from "@coldlight/ui";
 
 let fontSize = $state(16);
 const fontSizes = [0, 4, 8, 16, 24];

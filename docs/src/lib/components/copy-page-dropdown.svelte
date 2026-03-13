@@ -1,5 +1,5 @@
 <script lang="ts">
-import { DropdownMenu } from "bits-ui";
+import { DropdownMenu } from "@coldlight/ui";
 import CaretDown from "phosphor-svelte/lib/CaretDown";
 import FileMd from "phosphor-svelte/lib/FileMd";
 import OpenAiLogo from "phosphor-svelte/lib/OpenAiLogo";
@@ -8,7 +8,7 @@ import { page } from "$app/state";
 import Claude from "$icons/claude.svelte";
 
 const q = $derived(
-	`The following is a documentation page from Bits UI (a headless component library for Svelte 5): https://bits-ui.com${page.url.pathname}. Be ready to help answer questions about this page.`
+	`The following is a documentation page from ColdLight UI (headless component primitives for Svelte 5): https://coldlight.design${page.url.pathname}. Be ready to help answer questions about this page.`
 );
 
 const path = $derived(page.url.pathname.split("#")[0]);
@@ -43,7 +43,7 @@ const path = $derived(page.url.pathname.split("#")[0]);
 			align="end"
 		>
 			{@render LinkItem({
-				href: `https://bits-ui.com${path}/llms.txt`,
+				href: `https://coldlight.design${path}/llms.txt`,
 				label: "View Markdown",
 				icon: FileMd,
 			})}

@@ -38,7 +38,7 @@ const anyLocked = boxWith(() => {
  * when multiple locks are created/destroyed in the same tick, ensuring
  * only the last one to schedule the cleanup will run.
  *
- * reference: https://github.com/huntabyte/bits-ui/issues/1639
+ * reference: https://github.com/coldlight-design/coldlight-ui/issues/1639
  */
 let cleanupScheduledAt: number | null = null;
 
@@ -206,7 +206,7 @@ export class BodyScrollLock {
 		 * prevent the cleanup from running too early and resetting the body style
 		 * before the new lock has had a chance to apply its styles.
 		 *
-		 * reference: https://github.com/huntabyte/bits-ui/issues/1639
+		 * reference: https://github.com/coldlight-design/coldlight-ui/issues/1639
 		 */
 		this.#countState.cancelPendingCleanup();
 
@@ -232,7 +232,7 @@ export class BodyScrollLock {
 			 * We schedule the cleanup to run after a delay to handle same-tick
 			 * destroy/create scenarios.
 			 *
-			 * reference: https://github.com/huntabyte/bits-ui/issues/1639
+			 * reference: https://github.com/coldlight-design/coldlight-ui/issues/1639
 			 */
 			this.#countState.scheduleCleanupIfNoNewLocks(restoreScrollDelay, () => {
 				this.#countState.resetBodyStyle();

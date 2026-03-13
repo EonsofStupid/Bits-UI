@@ -1,4 +1,4 @@
-import type { RangeCalendarRootPropsWithoutHTML } from "bits-ui";
+import type { RangeCalendarRootPropsWithoutHTML } from "@coldlight/ui";
 import {
 	defineBooleanProp,
 	defineComponentApiSchema,

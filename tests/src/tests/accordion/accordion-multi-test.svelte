@@ -1,5 +1,5 @@
 <script lang="ts">
-import { Accordion, type BitsPrimitiveDivAttributes } from "bits-ui";
+import { Accordion, type BitsPrimitiveDivAttributes } from "@coldlight/ui";
 
 type Item = {
 	value: string;

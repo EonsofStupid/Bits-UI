@@ -78,8 +78,8 @@ jobs:
             - name: Install Playwright browsers
               run: pnpm exec playwright install --with-deps chromium webkit
 
-            - name: Build bits-ui
-              run: pnpm --filter bits-ui build
+            - name: Build @coldlight/ui
+              run: pnpm --filter @coldlight/ui build
 
             - name: Run browser tests
               run: pnpm --filter tests test:browser

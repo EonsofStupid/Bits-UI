@@ -9,4 +9,4 @@ permissions:
 
 jobs:
     guard:
-        uses: huntabyte/actions/.github/workflows/guard-fork-main.yml@main
+        uses: jessehall/actions/.github/workflows/guard-fork-main.yml@main

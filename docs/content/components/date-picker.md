@@ -26,7 +26,7 @@ Before diving into this component, it's important to understand how dates/times 
 
 ```svelte
 <script lang="ts">
-  import { DatePicker } from "bits-ui";
+  import { DatePicker } from "@coldlight/ui";
 </script>
 
 <DatePicker.Root>
@@ -89,7 +89,7 @@ Use `bind:placeholder` for simple, automatic state synchronization:
 
 ```svelte
 <script lang="ts">
-  import { DatePicker } from "bits-ui";
+  import { DatePicker } from "@coldlight/ui";
   import { CalendarDateTime } from "@internationalized/date";
   let myPlaceholder = $state();
 </script>
@@ -113,7 +113,7 @@ Use a [Function Binding](https://svelte.dev/docs/svelte/bind#Function-bindings) 
 
 ```svelte
 <script lang="ts">
-  import { DatePicker } from "bits-ui";
+  import { DatePicker } from "@coldlight/ui";
   import type { DateValue } from "@internationalized/date";
   let myPlaceholder = $state<DateValue>();
 
@@ -141,7 +141,7 @@ Use `bind:value` for simple, automatic state synchronization:
 
 ```svelte
 <script lang="ts">
-  import { DatePicker } from "bits-ui";
+  import { DatePicker } from "@coldlight/ui";
   import { CalendarDateTime } from "@internationalized/date";
   let myValue = $state(new CalendarDateTime(2024, 8, 3, 12, 30));
 </script>
@@ -160,7 +160,7 @@ Use a [Function Binding](https://svelte.dev/docs/svelte/bind#Function-bindings) 
 
 ```svelte
 <script lang="ts">
-  import { DatePicker } from "bits-ui";
+  import { DatePicker } from "@coldlight/ui";
   import type { DateValue } from "@internationalized/date";
   let myValue = $state<DateValue>();
 
@@ -188,7 +188,7 @@ Use `bind:open` for simple, automatic state synchronization:
 
 ```svelte
 <script lang="ts">
-  import { DatePicker } from "bits-ui";
+  import { DatePicker } from "@coldlight/ui";
   let isOpen = $state(false);
 </script>
 
@@ -205,7 +205,7 @@ Use a [Function Binding](https://svelte.dev/docs/svelte/bind#Function-bindings) 
 
 ```svelte
 <script lang="ts">
-  import { DatePicker } from "bits-ui";
+  import { DatePicker } from "@coldlight/ui";
   let myOpen = $state(false);
 
   function getOpen() {

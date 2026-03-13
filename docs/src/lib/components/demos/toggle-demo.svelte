@@ -1,5 +1,5 @@
 <script lang="ts">
-import { Toggle } from "bits-ui";
+import { Toggle } from "@coldlight/ui";
 import LockKeyOpen from "phosphor-svelte/lib/LockKeyOpen";
 
 let unlocked = $state(false);

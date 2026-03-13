@@ -7,7 +7,7 @@ llms: false
 The Figma UI Kit is open sourced by [Pavel Stianko](https://twitter.com/pavel_stianko).
 
 <script lang="ts">
-	import { AspectRatio } from "bits-ui";
+	import { AspectRatio } from "@coldlight/ui";
 </script>
 
 <AspectRatio.Root ratio={16 / 9} class="w-full mt-4 ">

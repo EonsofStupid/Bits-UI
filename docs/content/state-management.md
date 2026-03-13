@@ -13,7 +13,7 @@ The simplest approach is using Svelte's built-in two-way binding with `bind:`:
 
 ```svelte
 <script lang="ts">
-  import { ComponentName } from "bits-ui";
+  import { ComponentName } from "@coldlight/ui";
 
   let myValue = $state("default-value");
 </script>
@@ -35,7 +35,7 @@ For complete control, use a [Function Binding](https://svelte.dev/docs/svelte/bi
 
 ```svelte
 <script lang="ts">
-  import { ComponentName } from "bits-ui";
+  import { ComponentName } from "@coldlight/ui";
 
   let myValue = $state("default-value");
 

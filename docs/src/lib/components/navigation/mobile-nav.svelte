@@ -1,5 +1,5 @@
 <script lang="ts">
-import { Popover } from "bits-ui";
+import { Popover } from "@coldlight/ui";
 import { page } from "$app/state";
 import { Button } from "$lib/components/ui/button/index.js";
 import ScrollArea from "$lib/components/ui/scroll-area.svelte";

@@ -15,7 +15,7 @@ We highly recommend reviewing the documentation for each component you use, as t
 
 <Callout>
 
-Looking for the old documentation? You can still access Bits UI v0.x at [v0.bits-ui.com](https://v0.bits-ui.com). However, we encourage you to migrate as soon as possible to take advantage of the latest features and improvements.
+Looking for the old documentation? You can still access Bits UI v0.x at [v0.coldlight.design](https://v0.coldlight.design). However, we encourage you to migrate as soon as possible to take advantage of the latest features and improvements.
 
 </Callout>
 

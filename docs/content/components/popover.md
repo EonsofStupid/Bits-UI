@@ -20,7 +20,7 @@ description: Displays rich content in a floating panel anchored to a trigger ele
 
 ```svelte
 <script lang="ts">
-  import { Popover } from "bits-ui";
+  import { Popover } from "@coldlight/ui";
 </script>
 
 <Popover.Root>
@@ -45,7 +45,7 @@ Use `bind:open` for simple, automatic state synchronization:
 
 ```svelte {3,6,8}
 <script lang="ts">
-  import { Popover } from "bits-ui";
+  import { Popover } from "@coldlight/ui";
   let isOpen = $state(false);
 </script>
 
@@ -62,7 +62,7 @@ Use a [Function Binding](https://svelte.dev/docs/svelte/bind#Function-bindings) 
 
 ```svelte
 <script lang="ts">
-  import { Popover } from "bits-ui";
+  import { Popover } from "@coldlight/ui";
   let myOpen = $state(false);
 
   function getOpen() {
@@ -95,7 +95,7 @@ When opened via hover, the popover will automatically close when the mouse leave
 
 ```svelte
 <Popover.Root>
-  <Popover.Trigger openOnHover>@huntabyte</Popover.Trigger>
+  <Popover.Trigger openOnHover>@jessehall</Popover.Trigger>
   <Popover.Content>
     <!-- profile card content -->
   </Popover.Content>
@@ -131,7 +131,7 @@ You'll first need to cancel the default behavior of focusing the first focusable
 
 ```svelte {9-12}
 <script lang="ts">
-  import { Popover } from "bits-ui";
+  import { Popover } from "@coldlight/ui";
   let nameInput = $state<HTMLInputElement>();
 </script>
 
@@ -156,7 +156,7 @@ You'll need to cancel the default behavior of focusing the trigger element by ca
 
 ```svelte {9-12}
 <script lang="ts">
-  import { Popover } from "bits-ui";
+  import { Popover } from "@coldlight/ui";
   let nameInput = $state<HTMLInputElement>();
 </script>
 
@@ -240,7 +240,7 @@ If you wish to instead anchor the content to a different element, you can pass e
 
 ```svelte
 <script lang="ts">
-  import { Popover } from "bits-ui";
+  import { Popover } from "@coldlight/ui";
   let customAnchor = $state<HTMLElement>(null!);
 </script>
 
@@ -260,7 +260,7 @@ You can use the `forceMount` prop along with the `child` snippet to forcefully m
 
 ```svelte /forceMount/ /transition:fly/
 <script lang="ts">
-  import { Popover } from "bits-ui";
+  import { Popover } from "@coldlight/ui";
   import { fly } from "svelte/transition";
 </script>
 

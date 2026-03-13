@@ -51,7 +51,7 @@ Here's an overview of how the Combobox component is structured in code:
 
 ```svelte
 <script lang="ts">
-  import { Combobox } from "bits-ui";
+  import { Combobox } from "@coldlight/ui";
 </script>
 
 <Combobox.Root>
@@ -75,7 +75,7 @@ It's recommended to use the `Combobox` primitives to build your own custom combo
 
 ```svelte title="CustomCombobox.svelte"
 <script lang="ts">
-  import { Combobox, type WithoutChildrenOrChild, mergeProps } from "bits-ui";
+  import { Combobox, type WithoutChildrenOrChild, mergeProps } from "@coldlight/ui";
 
   type Props = Combobox.RootProps & {
     inputProps?: WithoutChildrenOrChild<Combobox.InputProps>;
@@ -173,7 +173,7 @@ Use `bind:value` for simple, automatic state synchronization:
 
 ```svelte
 <script lang="ts">
-  import { Combobox } from "bits-ui";
+  import { Combobox } from "@coldlight/ui";
   let myValue = $state("");
 </script>
 
@@ -190,7 +190,7 @@ Use a [Function Binding](https://svelte.dev/docs/svelte/bind#Function-bindings) 
 
 ```svelte
 <script lang="ts">
-  import { Combobox } from "bits-ui";
+  import { Combobox } from "@coldlight/ui";
   let myValue = $state("");
 
   function getValue() {
@@ -217,7 +217,7 @@ Use `bind:open` for simple, automatic state synchronization:
 
 ```svelte
 <script lang="ts">
-  import { Combobox } from "bits-ui";
+  import { Combobox } from "@coldlight/ui";
   let myOpen = $state(false);
 </script>
 
@@ -234,7 +234,7 @@ Use a [Function Binding](https://svelte.dev/docs/svelte/bind#Function-bindings) 
 
 ```svelte
 <script lang="ts">
-  import { Combobox } from "bits-ui";
+  import { Combobox } from "@coldlight/ui";
   let myOpen = $state(false);
 
   function getOpen() {
@@ -287,7 +287,7 @@ If you wish to instead anchor the content to a different element, you can pass e
 
 ```svelte
 <script lang="ts">
-  import { Combobox } from "bits-ui";
+  import { Combobox } from "@coldlight/ui";
 
   let customAnchor = $state<HTMLElement>(null!);
 </script>
@@ -369,7 +369,7 @@ You can use the `forceMount` prop along with the `child` snippet to forcefully m
 
 ```svelte /forceMount/ /transition:fly/
 <script lang="ts">
-  import { Combobox } from "bits-ui";
+  import { Combobox } from "@coldlight/ui";
   import { fly } from "svelte/transition";
 </script>
 

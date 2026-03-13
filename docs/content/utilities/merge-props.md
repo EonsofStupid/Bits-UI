@@ -87,7 +87,7 @@ console.log(mergedProps.style);
 ```
 
 ```ts
-import { mergeProps } from "bits-ui";
+import { mergeProps } from "@coldlight/ui";
 
 const props1 = { style: "--foo: red" };
 const props2 = { style: { "--foo": "green", color: "blue" } };

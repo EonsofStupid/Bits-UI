@@ -1,10 +1,10 @@
-# Contributing to Bits UI
+# Contributing to ColdLight UI
 
-First off, thank you for considering contributing to Bits UI! We appreciate all contributions, whether it's reporting a bug, suggesting a feature, or contributing code. This document outlines how to get involved and help make Bits UI even better.
+First off, thank you for considering contributing to ColdLight UI! We appreciate all contributions, whether it's reporting a bug, suggesting a feature, or contributing code. This document outlines how to get involved and help make ColdLight UI even better.
 
 ## Table of Contents
 
-- [Contributing to Bits UI](#contributing-to-bits-ui)
+- [Contributing to ColdLight UI](#contributing-to-coldlight-ui)
   - [Table of Contents](#table-of-contents)
   - [1. Code of Conduct](#1-code-of-conduct)
   - [2. Ways to Contribute](#2-ways-to-contribute)
@@ -22,7 +22,7 @@ Please review our [Code of Conduct](./CODE_OF_CONDUCT.md) before contributing. W
 
 ## 2. Ways to Contribute
 
-There are many ways to contribute to Bits UI:
+There are many ways to contribute to ColdLight UI:
 
 - **Reporting Bugs:** If you find a bug, please report it! See [Reporting Bugs](#reporting-bugs) below.
 - **Suggesting Features:** Have an idea for a new feature or improvement? Share it with us! See [Suggesting Features](#suggesting-features) below.
@@ -36,13 +36,13 @@ There are many ways to contribute to Bits UI:
 Before reporting a bug, please:
 
 1.  **Search Existing Issues:** Check if the bug has already been reported. If it has, add a comment to the existing issue rather than creating a new one.
-2.  **Check for Updates:** Make sure you're using the latest version of Bits UI. The bug may have already been fixed.
+2.  **Check for Updates:** Make sure you're using the latest version of ColdLight UI. The bug may have already been fixed.
 
 If the bug hasn't been reported and you're using the latest version, please open a new issue. Follow these guidelines:
 
 - **Use a Clear and Descriptive Title:** Summarize the problem concisely.
 - **Provide Detailed Steps to Reproduce:** Explain exactly how to reproduce the bug. Include code snippets, screenshots, or animated GIFs if possible.
-- **Include Environment Information:** Specify your operating system, browser (if applicable), and the version of Bits UI you're using.
+- **Include Environment Information:** Specify your operating system, browser (if applicable), and the version of ColdLight UI you're using.
 - **Describe Expected vs. Actual Behavior:** Clearly state what you expected to happen and what actually happened.
 - **Include Error Messages:** If there are any error messages, include the full text.
 
@@ -63,7 +63,7 @@ We welcome feature suggestions! To suggest a new feature:
 
 We encourage contributions via pull requests (PRs)! Here's the process:
 
-1.  **Fork the Repository:** Create a fork of the Bits UI repository on your own GitHub account.
+1.  **Fork the Repository:** Create a fork of the ColdLight UI repository on your own GitHub account.
 2.  **Clone Your Fork:** Clone your forked repository to your local machine.
 3.  **Create a Branch:** Create a new branch for your feature or bug fix. Use a descriptive name (e.g., `fix/button-hover-bug`, `feat/add-accordion-component`). **Do not submit pull requests from your `main` branch.**
 4.  **Make Your Changes:** Implement your changes, following the [Coding Style](#coding-style) guidelines.
@@ -71,7 +71,7 @@ We encourage contributions via pull requests (PRs)! Here's the process:
 6.  **Run Tests:** Make sure all tests pass before submitting your PR.
 7.  **Commit Your Changes:** Commit your changes with clear and descriptive messages. While we don't strictly enforce Conventional Commits, strive for concise and informative commit messages.
 8.  **Push to Your Fork:** Push your branch to your forked repository on GitHub.
-9.  **Create a Pull Request:** Open a pull request from your branch to the `main` branch of the Bits UI repository.
+9.  **Create a Pull Request:** Open a pull request from your branch to the `main` branch of the ColdLight UI repository.
 10. **Link to Discussion:** If your PR is the result of a feature that was hashed out in a discussion, link to it in the PR body.
 11. **Address Feedback:** Be prepared to address feedback from reviewers and make changes as needed.
 
@@ -86,7 +86,7 @@ We encourage contributions via pull requests (PRs)! Here's the process:
 
 To get started with development:
 
-1.  **Clone the Repository:** `git clone https://github.com/huntabyte/bits-ui.git`
+1.  **Clone the Repository:** `git clone https://github.com/jessehall/coldlight-ui.git`
 2.  **Install Dependencies:** `pnpm install`
 3.  **Run the Development Server:** `pnpm dev` (this will start the docs development server, as well as watch/build the library when changes are made)
 
@@ -116,8 +116,8 @@ The title of your pull request should be prefixed with one of the following, ind
 
 ## 9. Issue and Feature Request Policy
 
-Please refer to our [Issue and Feature Request Policy](https://bits-ui.com/docs/policies/issues-and-feature-requests) for detailed information on how we handle issues and feature requests. This is crucial for keeping our development process organized.
+Please refer to our [Issue and Feature Request Policy](https://coldlight-ui.com/docs/policies/issues-and-feature-requests) for detailed information on how we handle issues and feature requests. This is crucial for keeping our development process organized.
 
 ---
 
-We're excited to have you contribute to Bits UI! If you have any questions, please don't hesitate to ask in a GitHub Discussion.
+We're excited to have you contribute to ColdLight UI! If you have any questions, please don't hesitate to ask in a GitHub Discussion.
