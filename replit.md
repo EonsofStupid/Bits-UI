@@ -16,10 +16,18 @@ Fork of [Bits UI](https://bits-ui.com) being extended into ColdLight — a full 
 
 ## Tooling
 - **Biome 2.4.6** — single tool for linting + formatting (replaces prettier, eslint, oxlint)
-  - Config: `biome.json` at project root
+  - Config: `biome.json` at project root; schema: `https://biomejs.dev/schemas/2.4.6/schema.json`
+  - **455 lint rules**, 97% Prettier-compatible output
   - CSS: `tailwindDirectives: true` for Tailwind v4 directives
-  - All `// oxlint-disable` comments migrated to `// biome-ignore lint/...` equivalents
+  - All `// oxlint-disable` comments migrated — file-level disables become `biome.json` overrides,
+    single-line disables become `// biome-ignore lint/<group>/<rule>: <reason>`
   - `pnpm format` → format | `pnpm lint` → lint | `pnpm check:fix` → format + lint + fix | `pnpm ci` → CI check
+  - **Svelte support**: 🟡 experimental as of v2.3+; enable with `"html": { "experimentalFullSupportEnabled": true }`
+    in biome.json. Fully formats `<script>` (TS), `<style>` (CSS), HTML template. NOT yet enabled here
+    because docs pipeline still uses prettier-plugin-svelte (planned migration to `@biomejs/js-api`).
+  - **Programmatic API**: `@biomejs/js-api` + `@biomejs/wasm-nodejs` — `biome.formatContent(projectKey, code, { filePath })`
+    can format `.svelte` strings at runtime (planned replacement for `@prettier/sync` in docs pipeline)
+  - Full reference: `docs/contributing/biome.md`
 - **Style Dictionary 5.3.3** — installed at root, ready for ColdLight token pipeline (Task #1)
 
 ## CI/CD (GitHub Actions)
@@ -54,7 +62,10 @@ pnpm ci                              # Biome CI check
 - Velite content must be built before the dev server starts
 - `update-velite-output.js` is idempotent (regex prevents duplicate `with { type: 'json' }`)
 - Vite: `0.0.0.0:5000`, `allowedHosts: true` for Replit proxy
-- `@prettier/sync` is used in `docs/mdsx.config.js` for code block formatting — NOT dead code
+- `@prettier/sync` + `prettier-plugin-svelte` are used in `docs/mdsx.config.js` to format `.svelte`
+  source files for display in documentation code blocks. NOT dead code. Planned replacement:
+  `@biomejs/js-api` + `@biomejs/wasm-nodejs` once `html.experimentalFullSupportEnabled` is ready.
+  See `docs/contributing/biome.md` for the full migration plan.
 
 ## ColdLight Roadmap
 - **Task #1**: Style Dictionary v5.3.3 token foundation + DTCG manifest
