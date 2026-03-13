@@ -1,5 +1,5 @@
 <script lang="ts" module>
-import type { ContextMenu } from "bits-ui";
+import type { ContextMenu } from "@coldlight/ui";
 export type ContextMenuForceMountTestProps = ContextMenu.RootProps & {
 	checked?: boolean;
 	subChecked?: boolean;

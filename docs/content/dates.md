@@ -135,7 +135,7 @@ Each date/time component in Bits UI has a _bindable_ `placeholder` prop that ser
 
 ```svelte
 <script lang="ts">
-  import { Calendar } from "bits-ui";
+  import { Calendar } from "@coldlight/ui";
   import {
     today,
     getLocalTimeZone,

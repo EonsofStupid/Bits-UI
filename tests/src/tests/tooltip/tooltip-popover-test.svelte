@@ -1,5 +1,5 @@
 <script lang="ts">
-import { Popover, Tooltip } from "bits-ui";
+import { Popover, Tooltip } from "@coldlight/ui";
 </script>
 
 <Tooltip.Provider>

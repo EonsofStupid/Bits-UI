@@ -1,6 +1,6 @@
 <script lang="ts" module>
-import type { SingleToggleGroupRootProps, WithoutChildrenOrChild } from "bits-ui";
-import { ToggleGroup } from "bits-ui";
+import type { SingleToggleGroupRootProps, WithoutChildrenOrChild } from "@coldlight/ui";
+import { ToggleGroup } from "@coldlight/ui";
 export type Item = {
 	value: string;
 	disabled?: boolean;

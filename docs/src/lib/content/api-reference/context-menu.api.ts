@@ -17,7 +17,7 @@ import type {
 	ContextMenuSubPropsWithoutHTML,
 	ContextMenuSubTriggerPropsWithoutHTML,
 	ContextMenuTriggerPropsWithoutHTML,
-} from "bits-ui";
+} from "@coldlight/ui";
 import { defineBooleanProp, defineComponentApiSchema, defineSimpleDataAttr } from "../utils.js";
 import { menu } from "./menu.api.js";
 import {

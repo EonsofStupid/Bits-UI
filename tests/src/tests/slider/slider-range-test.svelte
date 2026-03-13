@@ -1,5 +1,5 @@
 <script lang="ts" module>
-import { Slider, type SliderMultipleRootProps } from "bits-ui";
+import { Slider, type SliderMultipleRootProps } from "@coldlight/ui";
 
 export type SliderMultiRangeTestProps = Omit<SliderMultipleRootProps, "type">;
 </script>

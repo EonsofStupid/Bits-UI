@@ -1,5 +1,5 @@
 <script lang="ts">
-import { RangeCalendar } from "bits-ui";
+import { RangeCalendar } from "@coldlight/ui";
 
 function cn(str: string) {
 	return str;

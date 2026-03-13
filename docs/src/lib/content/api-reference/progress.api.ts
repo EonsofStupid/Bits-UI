@@ -1,4 +1,4 @@
-import type { ProgressRootPropsWithoutHTML } from "bits-ui";
+import type { ProgressRootPropsWithoutHTML } from "@coldlight/ui";
 import {
 	defineComponentApiSchema,
 	defineEnumDataAttr,

@@ -1,11 +1,11 @@
 {
-	"name": "bits-ui",
+	"name": "@coldlight/ui",
 	"version": "2.16.3",
 	"license": "MIT",
-	"repository": "github:huntabyte/bits-ui",
-	"funding": "https://github.com/sponsors/huntabyte",
-	"author": "Hunter Johnston <https://github.com/huntabyte>",
-	"description": "The headless components for Svelte.",
+	"repository": "github:coldlight-design/coldlight-ui",
+	"funding": "https://github.com/sponsors/jessehall",
+	"author": "Jesse Hall",
+	"description": "The headless component primitives for Svelte — ColdLight Design Studio.",
 	"scripts": {
 		"build": "pnpm package",
 		"dev": "pnpm watch",

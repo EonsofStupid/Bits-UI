@@ -1,5 +1,5 @@
 <script lang="ts">
-import { Collapsible } from "bits-ui";
+import { Collapsible } from "@coldlight/ui";
 import CaretUpDown from "phosphor-svelte/lib/CaretUpDown";
 </script>
 

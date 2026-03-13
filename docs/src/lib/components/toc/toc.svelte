@@ -1,5 +1,5 @@
 <script lang="ts">
-import { ScrollArea } from "bits-ui";
+import { ScrollArea } from "@coldlight/ui";
 import List from "phosphor-svelte/lib/List";
 import { onMount } from "svelte";
 import type { TableOfContents } from "$lib/utils/use-toc.svelte.js";

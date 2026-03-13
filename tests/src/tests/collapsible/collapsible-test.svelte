@@ -1,5 +1,5 @@
 <script lang="ts">
-import type { Collapsible } from "bits-ui";
+import type { Collapsible } from "@coldlight/ui";
 
 let { open = false, ...restProps }: Omit<Collapsible.RootProps, "asChild" | "child" | "children"> =
 	$props();

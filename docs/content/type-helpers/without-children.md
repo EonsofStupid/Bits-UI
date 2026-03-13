@@ -7,7 +7,7 @@ The `WithoutChildren` type helper is used to exclude the `children` snippet prop
 
 ```svelte title="CustomAccordion.svelte"
 <script lang="ts">
-  import { Accordion, type WithoutChildren } from "bits-ui";
+  import { Accordion, type WithoutChildren } from "@coldlight/ui";
 
   let {
     value,

@@ -1,5 +1,5 @@
 <script lang="ts">
-import { Command } from "bits-ui";
+import { Command } from "@coldlight/ui";
 import type { Component } from "svelte";
 import {
 	AvatarIcon,

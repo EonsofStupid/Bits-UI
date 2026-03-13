@@ -1,5 +1,5 @@
 <script lang="ts">
-import { Slider } from "bits-ui";
+import { Slider } from "@coldlight/ui";
 
 let value = $state([5, 7]);
 </script>

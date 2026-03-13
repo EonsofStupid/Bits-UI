@@ -2,7 +2,7 @@ import type {
 	DatePickerCalendarPropsWithoutHTML,
 	DatePickerInputPropsWithoutHTML,
 	DatePickerRootPropsWithoutHTML,
-} from "bits-ui";
+} from "@coldlight/ui";
 import { defineBooleanProp, defineComponentApiSchema, defineSimpleDataAttr } from "../utils.js";
 import {
 	root as calendarRoot,

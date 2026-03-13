@@ -10,7 +10,7 @@ export type NavigationMenuTestProps = NavigationMenu.RootProps & {
 </script>
 
 <script lang="ts">
-	import { NavigationMenu } from "bits-ui";
+	import { NavigationMenu } from "@coldlight/ui";
 
 	let {
 		noViewport,

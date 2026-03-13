@@ -1,6 +1,6 @@
 <script lang="ts" module>
 import { CalendarDateTime, ZonedDateTime } from "@internationalized/date";
-import { Calendar, type CalendarSingleRootProps } from "bits-ui";
+import { Calendar, type CalendarSingleRootProps } from "@coldlight/ui";
 export type CalendarSingleTestProps = CalendarSingleRootProps;
 </script>
 

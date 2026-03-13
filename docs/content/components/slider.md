@@ -20,7 +20,7 @@ description: Enables users to select a value from a continuous range.
 
 ```svelte
 <script lang="ts">
-  import { Slider } from "bits-ui";
+  import { Slider } from "@coldlight/ui";
 </script>
 
 <Slider.Root>
@@ -39,7 +39,7 @@ Here's an example of how you might create a reusable `MySlider` component.
 ```svelte title="MyMultiSlider.svelte"
 <script lang="ts">
   import type { ComponentProps } from "svelte";
-  import { Slider } from "bits-ui";
+  import { Slider } from "@coldlight/ui";
 
   type Props = WithoutChildren<ComponentProps<typeof Slider.Root>>;
 
@@ -93,7 +93,7 @@ Use `bind:value` for simple, automatic state synchronization:
 
 ```svelte
 <script lang="ts">
-  import { Slider } from "bits-ui";
+  import { Slider } from "@coldlight/ui";
   let myValue = $state(0);
 </script>
 
@@ -110,7 +110,7 @@ Use a [Function Binding](https://svelte.dev/docs/svelte/bind#Function-bindings) 
 
 ```svelte
 <script lang="ts">
-  import { Slider } from "bits-ui";
+  import { Slider } from "@coldlight/ui";
   let myValue = $state(0);
 
   function getValue() {
@@ -195,7 +195,7 @@ If the `value` prop has more than one value, the slider will render multiple thu
 
 ```svelte
 <script lang="ts">
-  import { Slider } from "bits-ui";
+  import { Slider } from "@coldlight/ui";
 
   // we have two numbers in the array, so the slider will render two thumbs
   let value = $state([5, 7]);

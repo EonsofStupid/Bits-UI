@@ -1,4 +1,4 @@
-import type { ToggleRootPropsWithoutHTML } from "bits-ui";
+import type { ToggleRootPropsWithoutHTML } from "@coldlight/ui";
 import { withChildProps } from "$lib/content/api-reference/shared.js";
 import {
 	defineBooleanProp,

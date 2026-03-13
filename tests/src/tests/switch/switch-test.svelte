@@ -1,5 +1,5 @@
 <script lang="ts">
-import type { Switch, WithoutChildrenOrChild } from "bits-ui";
+import type { Switch, WithoutChildrenOrChild } from "@coldlight/ui";
 
 let { checked = false, ...restProps }: WithoutChildrenOrChild<Switch.RootProps> = $props();
 </script>

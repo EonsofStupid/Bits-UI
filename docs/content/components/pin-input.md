@@ -45,7 +45,7 @@ This structure allows for a seamless user experience while providing developers 
 
 ```svelte
 <script lang="ts">
-  import { PinInput } from "bits-ui";
+  import { PinInput } from "@coldlight/ui";
 </script>
 
 <PinInput.Root maxlength={6}>
@@ -67,7 +67,7 @@ Use `bind:value` for simple, automatic state synchronization:
 
 ```svelte
 <script lang="ts">
-  import { PinInput } from "bits-ui";
+  import { PinInput } from "@coldlight/ui";
   let myValue = $state("");
 </script>
 
@@ -84,7 +84,7 @@ Use a [Function Binding](https://svelte.dev/docs/svelte/bind#Function-bindings) 
 
 ```svelte
 <script lang="ts">
-  import { PinInput } from "bits-ui";
+  import { PinInput } from "@coldlight/ui";
   let myValue = $state("");
 
   function getValue() {
@@ -107,7 +107,7 @@ The `pasteTransformer` prop allows you to sanitize/transform pasted text. This c
 
 ```svelte
 <script lang="ts">
-  import { PinInput } from "bits-ui";
+  import { PinInput } from "@coldlight/ui";
 </script>
 
 <PinInput.Root pasteTransformer={(text) => text.replace(/-/g, "")}>
@@ -125,7 +125,7 @@ To submit the form when the input is complete, you can use the `onComplete` prop
 
 ```svelte
 <script lang="ts">
-  import { PinInput } from "bits-ui";
+  import { PinInput } from "@coldlight/ui";
   let form = $state<HTMLFormElement>(null!);
 </script>
 
@@ -152,7 +152,7 @@ Bits UI exports a few common patterns that you can import and use in your applic
 
 ```svelte
 <script lang="ts">
-  import { PinInput, REGEXP_ONLY_DIGITS } from "bits-ui";
+  import { PinInput, REGEXP_ONLY_DIGITS } from "@coldlight/ui";
 </script>
 
 <PinInput.Root pattern={REGEXP_ONLY_DIGITS}>

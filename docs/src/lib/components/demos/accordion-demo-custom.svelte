@@ -1,5 +1,5 @@
 <script lang="ts">
-import { Accordion, type WithoutChildrenOrChild } from "bits-ui";
+import { Accordion, type WithoutChildrenOrChild } from "@coldlight/ui";
 import DemoContainer from "../demo-container.svelte";
 import CustomAccordionItem from "./accordion-demo-custom-item.svelte";
 

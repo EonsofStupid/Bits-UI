@@ -1,5 +1,5 @@
 <script lang="ts">
-import { Combobox } from "bits-ui";
+import { Combobox } from "@coldlight/ui";
 import CaretDoubleDown from "phosphor-svelte/lib/CaretDoubleDown";
 import CaretDoubleUp from "phosphor-svelte/lib/CaretDoubleUp";
 import CaretUpDown from "phosphor-svelte/lib/CaretUpDown";

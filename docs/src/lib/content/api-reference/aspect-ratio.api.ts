@@ -1,4 +1,4 @@
-import type { AspectRatioRootPropsWithoutHTML } from "bits-ui";
+import type { AspectRatioRootPropsWithoutHTML } from "@coldlight/ui";
 import { defineComponentApiSchema, defineNumberProp, defineSimpleDataAttr } from "../utils.js";
 import { withChildProps } from "./shared.js";
 

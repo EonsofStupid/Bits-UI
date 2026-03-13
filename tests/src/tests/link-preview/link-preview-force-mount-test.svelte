@@ -1,5 +1,5 @@
 <script lang="ts" module>
-import type { LinkPreview, WithoutChildrenOrChild } from "bits-ui";
+import type { LinkPreview, WithoutChildrenOrChild } from "@coldlight/ui";
 export type LinkPreviewForceMountTestProps = LinkPreview.RootProps & {
 	contentProps?: WithoutChildrenOrChild<LinkPreview.ContentProps>;
 	portalProps?: WithoutChildrenOrChild<LinkPreview.PortalProps>;

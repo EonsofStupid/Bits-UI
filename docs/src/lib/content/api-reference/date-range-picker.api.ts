@@ -2,7 +2,7 @@ import type {
 	DateRangePickerCalendarPropsWithoutHTML,
 	DateRangePickerInputPropsWithoutHTML,
 	DateRangePickerRootPropsWithoutHTML,
-} from "bits-ui";
+} from "@coldlight/ui";
 import {
 	defineBooleanProp,
 	defineComponentApiSchema,

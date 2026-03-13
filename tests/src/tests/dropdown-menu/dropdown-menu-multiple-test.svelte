@@ -1,5 +1,5 @@
 <script lang="ts">
-import { DropdownMenu } from "bits-ui";
+import { DropdownMenu } from "@coldlight/ui";
 
 let open1 = $state(false);
 let open2 = $state(false);

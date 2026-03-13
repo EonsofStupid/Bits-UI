@@ -3,7 +3,7 @@ import type {
 	DateRangeFieldLabelPropsWithoutHTML,
 	DateRangeFieldRootPropsWithoutHTML,
 	DateRangeFieldSegmentPropsWithoutHTML,
-} from "bits-ui";
+} from "@coldlight/ui";
 import {
 	defineComponentApiSchema,
 	defineComponentPropSchema,

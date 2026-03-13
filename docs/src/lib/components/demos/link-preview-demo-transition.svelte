@@ -1,5 +1,5 @@
 <script lang="ts">
-import { type Avatar, LinkPreview } from "bits-ui";
+import { type Avatar, LinkPreview } from "@coldlight/ui";
 import CalendarBlank from "phosphor-svelte/lib/CalendarBlank";
 import MapPin from "phosphor-svelte/lib/MapPin";
 import { fly } from "svelte/transition";
@@ -24,7 +24,7 @@ let loadingStatusContent: Avatar.RootProps["loadingStatus"] = $state("loading");
 			<div
 				class="flex h-full w-full items-center justify-center overflow-hidden rounded-full border-2 border-transparent"
 			>
-				<Avatar.Image src="/avatar-1.png" alt="@huntabyte" />
+				<Avatar.Image src="/avatar-1.png" alt="@jessehall" />
 				<Avatar.Fallback class="border-muted border">HB</Avatar.Fallback>
 			</div>
 		</Avatar.Root>
@@ -49,13 +49,13 @@ let loadingStatusContent: Avatar.RootProps["loadingStatus"] = $state("loading");
 								<div
 									class="flex h-full w-full items-center justify-center overflow-hidden rounded-full border-2 border-transparent"
 								>
-									<Avatar.Image src="/avatar-1.png" alt="@huntabyte" />
+									<Avatar.Image src="/avatar-1.png" alt="@jessehall" />
 									<Avatar.Fallback class="border-muted border">HB</Avatar.Fallback
 									>
 								</div>
 							</Avatar.Root>
 							<div class="space-y-1 text-sm">
-								<h4 class="font-medium">@huntabyte</h4>
+								<h4 class="font-medium">@jessehall</h4>
 								<p>I do things on the internet.</p>
 								<div
 									class="text-muted-foreground flex items-center gap-[21px] pt-2 text-xs"

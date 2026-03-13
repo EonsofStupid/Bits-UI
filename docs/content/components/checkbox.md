@@ -38,7 +38,7 @@ Here's an overview of how the Checkbox component is structured in code:
 
 ```svelte
 <script lang="ts">
-  import { Checkbox } from "bits-ui";
+  import { Checkbox } from "@coldlight/ui";
 </script>
 
 <Checkbox.Root>
@@ -65,7 +65,7 @@ It's recommended to use the `Checkbox` primitive to create your own custom check
     Label,
     useId,
     type WithoutChildrenOrChild,
-  } from "bits-ui";
+  } from "@coldlight/ui";
 
   let {
     id = useId(),
@@ -118,7 +118,7 @@ Use `bind:checked` for simple, automatic state synchronization:
 
 ```svelte
 <script lang="ts">
-  import { Checkbox } from "bits-ui";
+  import { Checkbox } from "@coldlight/ui";
   let myChecked = $state(false);
 </script>
 
@@ -133,7 +133,7 @@ Use a [Function Binding](https://svelte.dev/docs/svelte/bind#Function-bindings) 
 
 ```svelte
 <script lang="ts">
-  import { Checkbox } from "bits-ui";
+  import { Checkbox } from "@coldlight/ui";
   let myChecked = $state(false);
 
   function getChecked() {
@@ -177,7 +177,7 @@ Use a [Function Binding](https://svelte.dev/docs/svelte/bind#Function-bindings) 
 
 ```svelte
 <script lang="ts">
-  import { Checkbox } from "bits-ui";
+  import { Checkbox } from "@coldlight/ui";
   let myIndeterminate = $state(true);
 
   function getIndeterminate() {
@@ -246,7 +246,7 @@ You can use the `Checkbox.Group` component to create a checkbox group.
 
 ```svelte
 <script lang="ts">
-  import { Checkbox } from "bits-ui";
+  import { Checkbox } from "@coldlight/ui";
 </script>
 
 <Checkbox.Group name="notifications">
@@ -275,7 +275,7 @@ Use `bind:value` for simple, automatic state synchronization:
 
 ```svelte
 <script lang="ts">
-  import { Checkbox } from "bits-ui";
+  import { Checkbox } from "@coldlight/ui";
   let myValue = $state<string[]>([]);
 </script>
 
@@ -301,7 +301,7 @@ Use a [Function Binding](https://svelte.dev/docs/svelte/bind#Function-bindings) 
 
 ```svelte
 <script lang="ts">
-  import { Checkbox } from "bits-ui";
+  import { Checkbox } from "@coldlight/ui";
   let myValue = $state<string[]>([]);
 
   function getValue() {

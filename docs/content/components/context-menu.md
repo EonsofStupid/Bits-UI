@@ -20,7 +20,7 @@ description: Displays contextual options and actions triggered by right-click.
 
 ```svelte
 <script lang="ts">
-  import { ContextMenu } from "bits-ui";
+  import { ContextMenu } from "@coldlight/ui";
 </script>
 
 <ContextMenu.Root>
@@ -70,7 +70,7 @@ This example shows you how to create a Context Menu component that accepts a few
 ```svelte title="CustomContextMenu.svelte"
 <script lang="ts">
   import type { Snippet } from "svelte";
-  import { ContextMenu, type WithoutChild } from "bits-ui";
+  import { ContextMenu, type WithoutChild } from "@coldlight/ui";
   type Props = ContextMenu.Props & {
     trigger: Snippet;
     items: string[];
@@ -165,7 +165,7 @@ Use `bind:open` for simple, automatic state synchronization:
 
 ```svelte {3,6,8}
 <script lang="ts">
-  import { ContextMenu } from "bits-ui";
+  import { ContextMenu } from "@coldlight/ui";
   let isOpen = $state(false);
 </script>
 
@@ -182,7 +182,7 @@ Use a [Function Binding](https://svelte.dev/docs/svelte/bind#Function-bindings) 
 
 ```svelte
 <script lang="ts">
-  import { ContextMenu } from "bits-ui";
+  import { ContextMenu } from "@coldlight/ui";
   let myOpen = $state(false);
 
   function getOpen() {
@@ -205,7 +205,7 @@ You can combine the `ContextMenu.RadioGroup` and `ContextMenu.RadioItem` compone
 
 ```svelte
 <script lang="ts">
-  import { ContextMenu } from "bits-ui";
+  import { ContextMenu } from "@coldlight/ui";
 
   const values = ["one", "two", "three"];
   let value = $state("one");
@@ -233,7 +233,7 @@ You can use the `ContextMenu.CheckboxItem` component to create a `menuitemcheckb
 
 ```svelte
 <script lang="ts">
-  import { ContextMenu } from "bits-ui";
+  import { ContextMenu } from "@coldlight/ui";
 
   let notifications = $state(true);
 </script>
@@ -258,7 +258,7 @@ You can use the `ContextMenu.CheckboxGroup` component around a set of `ContextMe
 
 ```svelte
 <script lang="ts">
-  import { ContextMenu } from "bits-ui";
+  import { ContextMenu } from "@coldlight/ui";
 
   let colors = $state<string[]>([]);
 </script>
@@ -300,7 +300,7 @@ You can create nested menus using the `ContextMenu.Sub` component to create comp
 
 ```svelte /ContextMenu.Sub/
 <script lang="ts">
-  import { ContextMenu } from "bits-ui";
+  import { ContextMenu } from "@coldlight/ui";
 </script>
 
 <ContextMenu.Content>
@@ -322,7 +322,7 @@ You can use the `forceMount` prop along with the `child` snippet to forcefully m
 
 ```svelte /forceMount/ /transition:fly/
 <script lang="ts">
-  import { ContextMenu } from "bits-ui";
+  import { ContextMenu } from "@coldlight/ui";
   import { fly } from "svelte/transition";
 </script>
 

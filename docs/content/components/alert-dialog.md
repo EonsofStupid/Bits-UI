@@ -42,7 +42,7 @@ Here's a simple example of an Alert Dialog:
 
 ```svelte
 <script lang="ts">
-  import { AlertDialog } from "bits-ui";
+  import { AlertDialog } from "@coldlight/ui";
 </script>
 
 <AlertDialog.Root>
@@ -66,7 +66,7 @@ For consistency across your app, create a reusable Alert Dialog component. Here'
 ```svelte title="MyAlertDialog.svelte"
 <script lang="ts">
   import type { Snippet } from "svelte";
-  import { AlertDialog, type WithoutChild } from "bits-ui";
+  import { AlertDialog, type WithoutChild } from "@coldlight/ui";
 
   type Props = AlertDialog.RootProps & {
     buttonText: string;
@@ -158,7 +158,7 @@ Use `bind:open` for simple, automatic state synchronization:
 
 ```svelte
 <script lang="ts">
-  import { AlertDialog } from "bits-ui";
+  import { AlertDialog } from "@coldlight/ui";
   let isOpen = $state(false);
 </script>
 
@@ -175,7 +175,7 @@ Use a [Function Binding](https://svelte.dev/docs/svelte/bind#Function-bindings) 
 
 ```svelte
 <script lang="ts">
-  import { AlertDialog } from "bits-ui";
+  import { AlertDialog } from "@coldlight/ui";
   let myOpen = $state(false);
 
   function getOpen() {
@@ -220,7 +220,7 @@ You'll first need to cancel the default behavior of focusing the first focusable
 
 ```svelte {9-12}
 <script lang="ts">
-  import { AlertDialog } from "bits-ui";
+  import { AlertDialog } from "@coldlight/ui";
   let nameInput = $state<HTMLInputElement>();
 </script>
 
@@ -245,7 +245,7 @@ You'll need to cancel the default behavior of focusing the trigger element by ca
 
 ```svelte {9-12}
 <script lang="ts">
-  import { AlertDialog } from "bits-ui";
+  import { AlertDialog } from "@coldlight/ui";
   let nameInput = $state<HTMLInputElement>();
 </script>
 
@@ -413,7 +413,7 @@ This can be done by waiting for the asynchronous action to complete, then progra
 
 ```svelte
 <script lang="ts">
-  import { AlertDialog } from "bits-ui";
+  import { AlertDialog } from "@coldlight/ui";
 
   function wait(ms: number) {
     return new Promise((resolve) => setTimeout(resolve, ms));

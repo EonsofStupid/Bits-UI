@@ -1,5 +1,5 @@
 <script lang="ts">
-import { Popover, Separator } from "bits-ui";
+import { Popover, Separator } from "@coldlight/ui";
 import Info from "phosphor-svelte/lib/Info";
 import PopoverContent from "$lib/components/ui/popover/popover-content.svelte";
 import ScrollArea from "$lib/components/ui/scroll-area.svelte";

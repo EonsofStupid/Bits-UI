@@ -1,5 +1,5 @@
 <script lang="ts">
-import { Separator, Toolbar } from "bits-ui";
+import { Separator, Toolbar } from "@coldlight/ui";
 import Sparkle from "phosphor-svelte/lib/Sparkle";
 import TextAlignCenter from "phosphor-svelte/lib/TextAlignCenter";
 import TextAlignLeft from "phosphor-svelte/lib/TextAlignLeft";

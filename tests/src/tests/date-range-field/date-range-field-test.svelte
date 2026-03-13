@@ -4,7 +4,7 @@ import {
 	type DateRangeFieldInputProps,
 	type DateRangeFieldRootProps,
 	type WithoutChildrenOrChild,
-} from "bits-ui";
+} from "@coldlight/ui";
 export type DateRangeFieldTestProps = WithoutChildrenOrChild<DateRangeFieldRootProps> & {
 	startProps?: Omit<DateRangeFieldInputProps, "type">;
 	endProps?: Omit<DateRangeFieldInputProps, "type">;

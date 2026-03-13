@@ -4,7 +4,7 @@ import type {
 	SelectSingleRootProps,
 	WithoutChildren,
 	WithoutChildrenOrChild,
-} from "bits-ui";
+} from "@coldlight/ui";
 import { generateTestId } from "../helpers/select";
 export type Item = {
 	value: string;

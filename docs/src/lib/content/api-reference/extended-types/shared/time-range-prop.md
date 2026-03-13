@@ -1,5 +1,5 @@
 ```ts
-import type { TimeValue } from "bits-ui"
+import type { TimeValue } from "@coldlight/ui"
 
 type TimeRange = {
 	start: TimeValue | undefined

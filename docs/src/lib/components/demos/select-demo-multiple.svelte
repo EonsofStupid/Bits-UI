@@ -1,5 +1,5 @@
 <script lang="ts">
-import { Select } from "bits-ui";
+import { Select } from "@coldlight/ui";
 import CaretDoubleDown from "phosphor-svelte/lib/CaretDoubleDown";
 import CaretDoubleUp from "phosphor-svelte/lib/CaretDoubleUp";
 import CaretUpDown from "phosphor-svelte/lib/CaretUpDown";

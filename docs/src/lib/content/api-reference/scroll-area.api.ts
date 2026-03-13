@@ -4,7 +4,7 @@ import type {
 	ScrollAreaScrollbarPropsWithoutHTML,
 	ScrollAreaThumbPropsWithoutHTML,
 	ScrollAreaViewportPropsWithoutHTML,
-} from "bits-ui";
+} from "@coldlight/ui";
 import {
 	childrenSnippet,
 	dirProp,

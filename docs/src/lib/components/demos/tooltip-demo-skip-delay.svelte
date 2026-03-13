@@ -1,5 +1,5 @@
 <script lang="ts">
-import { Tooltip } from "bits-ui";
+import { Tooltip } from "@coldlight/ui";
 import Code from "phosphor-svelte/lib/Code";
 import Link from "phosphor-svelte/lib/Link";
 import ListBullets from "phosphor-svelte/lib/ListBullets";

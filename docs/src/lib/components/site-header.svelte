@@ -1,5 +1,5 @@
 <script lang="ts">
-import { Button } from "bits-ui";
+import { Button } from "@coldlight/ui";
 import Github from "$icons/github.svelte";
 import { Logo } from "$icons/index.js";
 import LightSwitch from "$lib/components/light-switch.svelte";

@@ -1,6 +1,6 @@
 import { CalendarDate, CalendarDateTime, toZoned } from "@internationalized/date";
 import { page, userEvent } from "@vitest/browser/context";
-import type { DateRange } from "bits-ui";
+import type { DateRange } from "@coldlight/ui";
 import { describe, expect, it } from "vitest";
 import { render } from "vitest-browser-svelte";
 import { getTestKbd } from "../utils.js";

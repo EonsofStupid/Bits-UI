@@ -1,5 +1,5 @@
 <script lang="ts">
-import { Label, RadioGroup } from "bits-ui";
+import { Label, RadioGroup } from "@coldlight/ui";
 </script>
 
 <RadioGroup.Root

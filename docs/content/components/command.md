@@ -51,7 +51,7 @@ Here's an overview of how the Command component is structured in code:
 
 ```svelte
 <script lang="ts">
-  import { Command } from "bits-ui";
+  import { Command } from "@coldlight/ui";
 </script>
 
 <Command.Root>
@@ -85,7 +85,7 @@ For seamless state synchronization, use Svelte's `bind:value` directive. This me
 
 ```svelte
 <script lang="ts">
-  import { Command } from "bits-ui";
+  import { Command } from "@coldlight/ui";
   let myValue = $state("");
 </script>
 
@@ -108,7 +108,7 @@ To perform additional logic on state changes, use the `onValueChange` prop. This
 
 ```svelte
 <script lang="ts">
-  import { Command } from "bits-ui";
+  import { Command } from "@coldlight/ui";
 </script>
 
 <Command.Root
@@ -133,7 +133,7 @@ For complete control over the component's state, use a [Function Binding](https:
 
 ```svelte
 <script lang="ts">
-  import { Command } from "bits-ui";
+  import { Command } from "@coldlight/ui";
   let myValue = $state("");
 </script>
 
@@ -196,7 +196,7 @@ The following example shows how you might implement a strict substring match fil
 
 ```svelte
 <script lang="ts">
-  import { Command } from "bits-ui";
+  import { Command } from "@coldlight/ui";
 
   function customFilter(
     commandValue: string,
@@ -218,7 +218,7 @@ By default, the `Command` component uses the `computeCommandScore` function to d
 
 ```svelte
 <script lang="ts">
-  import { Command, computeCommandScore } from "bits-ui";
+  import { Command, computeCommandScore } from "@coldlight/ui";
 
   function customFilter(
     commandValue: string,
@@ -275,7 +275,7 @@ Access these by binding to the component:
 
 ```svelte
 <script lang="ts">
-  import { Command } from "bits-ui";
+  import { Command } from "@coldlight/ui";
   let command: typeof Command.Root;
 </script>
 
@@ -332,7 +332,7 @@ command.updateSelectedByItem(-1); // previous item
 
 ```svelte
 <script lang="ts">
-  import { Command } from "bits-ui";
+  import { Command } from "@coldlight/ui";
 
   let command: typeof Command.Root;
 

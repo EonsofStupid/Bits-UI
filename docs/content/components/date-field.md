@@ -31,7 +31,7 @@ The `DateField` component is an alternative to the native `<input type="date">` 
 
 ```svelte
 <script lang="ts">
-  import { DateField } from "bits-ui";
+  import { DateField } from "@coldlight/ui";
 </script>
 
 <DateField.Root>
@@ -56,7 +56,7 @@ The following example shows how you might create a reusable `MyDateField` compon
 
 ```svelte title="MyDateField.svelte"
 <script lang="ts">
-  import { DateField, type WithoutChildrenOrChild } from "bits-ui";
+  import { DateField, type WithoutChildrenOrChild } from "@coldlight/ui";
 
   let {
     value = $bindable(),
@@ -149,7 +149,7 @@ Use `bind:placeholder` for simple, automatic state synchronization:
 
 ```svelte
 <script lang="ts">
-  import { DateField } from "bits-ui";
+  import { DateField } from "@coldlight/ui";
   import { CalendarDateTime } from "@internationalized/date";
   let myPlaceholder = $state(new CalendarDateTime(2024, 8, 3, 12, 30));
 </script>
@@ -169,7 +169,7 @@ Use a [Function Binding](https://svelte.dev/docs/svelte/bind#Function-bindings) 
 
 ```svelte
 <script lang="ts">
-  import { DateField } from "bits-ui";
+  import { DateField } from "@coldlight/ui";
   import type { DateValue } from "@internationalized/date";
   let myPlaceholder = $state<DateValue>();
 
@@ -197,7 +197,7 @@ Use `bind:value` for simple, automatic state synchronization:
 
 ```svelte
 <script lang="ts">
-  import { DateField } from "bits-ui";
+  import { DateField } from "@coldlight/ui";
   import { CalendarDateTime } from "@internationalized/date";
   let myValue = $state(new CalendarDateTime(2024, 8, 3, 12, 30));
 </script>
@@ -216,7 +216,7 @@ For complete control over the component's state, use a [Function Binding](https:
 
 ```svelte
 <script lang="ts">
-  import { DateField } from "bits-ui";
+  import { DateField } from "@coldlight/ui";
   import type { DateValue } from "@internationalized/date";
   let myValue = $state<DateValue>();
 
@@ -240,7 +240,7 @@ Often, you'll want to start the `DateField.Root` component with a default value.
 
 ```svelte title="+page.svelte"
 <script lang="ts">
-  import { DateField } from "bits-ui";
+  import { DateField } from "@coldlight/ui";
   import { parseDate } from "@internationalized/date";
 
   // this came from a database/API call

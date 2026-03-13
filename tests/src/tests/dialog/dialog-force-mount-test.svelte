@@ -1,5 +1,5 @@
 <script lang="ts">
-import { Dialog } from "bits-ui";
+import { Dialog } from "@coldlight/ui";
 import type { DialogTestProps } from "../dialog/dialog-test.svelte";
 
 let {

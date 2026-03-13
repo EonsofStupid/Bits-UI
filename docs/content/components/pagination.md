@@ -20,7 +20,7 @@ description: Enables users to navigate through a series of pages.
 
 ```svelte
 <script lang="ts">
-  import { Pagination } from "bits-ui";
+  import { Pagination } from "@coldlight/ui";
 </script>
 
 <Pagination.Root let:pages>
@@ -42,7 +42,7 @@ Use `bind:page` for simple, automatic state synchronization:
 
 ```svelte
 <script lang="ts">
-  import { Pagination } from "bits-ui";
+  import { Pagination } from "@coldlight/ui";
   let myPage = $state(1);
 </script>
 
@@ -59,7 +59,7 @@ Use a [Function Binding](https://svelte.dev/docs/svelte/bind#Function-bindings) 
 
 ```svelte
 <script lang="ts">
-  import { Pagination } from "bits-ui";
+  import { Pagination } from "@coldlight/ui";
   let myPage = $state(1);
 
   function getPage() {

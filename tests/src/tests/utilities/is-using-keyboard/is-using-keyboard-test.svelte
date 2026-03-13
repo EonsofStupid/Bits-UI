@@ -1,5 +1,5 @@
 <script>
-import { IsUsingKeyboard } from "bits-ui";
+import { IsUsingKeyboard } from "@coldlight/ui";
 
 const isUsingKeyboard = new IsUsingKeyboard();
 

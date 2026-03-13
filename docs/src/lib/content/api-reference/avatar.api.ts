@@ -2,7 +2,7 @@ import type {
 	AvatarFallbackPropsWithoutHTML,
 	AvatarImagePropsWithoutHTML,
 	AvatarRootPropsWithoutHTML,
-} from "bits-ui";
+} from "@coldlight/ui";
 import {
 	defineComponentApiSchema,
 	defineEnumDataAttr,

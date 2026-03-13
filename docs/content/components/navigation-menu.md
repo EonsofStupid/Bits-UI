@@ -20,7 +20,7 @@ description: A menu that allows users to navigate between pages of a website.
 
 ```svelte
 <script lang="ts">
-  import { NavigationMenu } from "bits-ui";
+  import { NavigationMenu } from "@coldlight/ui";
 </script>
 
 <NavigationMenu.Root>

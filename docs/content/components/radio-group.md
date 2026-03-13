@@ -20,7 +20,7 @@ description: Groups multiple radio items under a common name for form submission
 
 ```svelte
 <script lang="ts">
-  import { RadioGroup } from "bits-ui";
+  import { RadioGroup } from "@coldlight/ui";
 </script>
 
 <RadioGroup.Root>
@@ -47,7 +47,7 @@ In the example below, we're creating a custom `MyRadioGroup` component that take
     Label,
     type WithoutChildrenOrChild,
     useId,
-  } from "bits-ui";
+  } from "@coldlight/ui";
 
   type Item = {
     value: string;
@@ -110,7 +110,7 @@ Use `bind:value` for simple, automatic state synchronization:
 
 ```svelte
 <script lang="ts">
-  import { RadioGroup } from "bits-ui";
+  import { RadioGroup } from "@coldlight/ui";
   let myValue = $state("");
 </script>
 
@@ -127,7 +127,7 @@ Use a [Function Binding](https://svelte.dev/docs/svelte/bind#Function-bindings) 
 
 ```svelte
 <script lang="ts">
-  import { RadioGroup } from "bits-ui";
+  import { RadioGroup } from "@coldlight/ui";
   let myValue = $state("");
 
   function getValue() {

@@ -26,7 +26,7 @@ Before diving into this component, it's important to understand how dates/times 
 
 ```svelte
 <script lang="ts">
-  import { Calendar } from "bits-ui";
+  import { Calendar } from "@coldlight/ui";
 </script>
 
 <Calendar.Root>
@@ -83,7 +83,7 @@ Use `bind:placeholder` for simple, automatic state synchronization:
 
 ```svelte
 <script lang="ts">
-  import { Calendar } from "bits-ui";
+  import { Calendar } from "@coldlight/ui";
   import { CalendarDateTime } from "@internationalized/date";
   let myPlaceholder = $state(new CalendarDateTime(2024, 8, 3, 12, 30));
 </script>
@@ -103,7 +103,7 @@ Use a [Function Binding](https://svelte.dev/docs/svelte/bind#Function-bindings) 
 
 ```svelte
 <script lang="ts">
-  import { Calendar } from "bits-ui";
+  import { Calendar } from "@coldlight/ui";
   import type { DateValue } from "@internationalized/date";
 
   let myPlaceholder = $state<DateValue>();
@@ -134,7 +134,7 @@ Use `bind:value` for simple, automatic state synchronization:
 
 ```svelte
 <script lang="ts">
-  import { Calendar } from "bits-ui";
+  import { Calendar } from "@coldlight/ui";
   import { CalendarDateTime } from "@internationalized/date";
   let myValue = $state(new CalendarDateTime(2024, 8, 3, 12, 30));
 </script>
@@ -153,7 +153,7 @@ Use a [Function Binding](https://svelte.dev/docs/svelte/bind#Function-bindings) 
 
 ```svelte
 <script lang="ts">
-  import { Calendar } from "bits-ui";
+  import { Calendar } from "@coldlight/ui";
   import type { DateValue } from "@internationalized/date";
   let myValue = $state();
 
@@ -181,7 +181,7 @@ You can use the `parseDate` function from the `@internationalized/date` package 
 
 ```svelte
 <script lang="ts">
-  import { Calendar } from "bits-ui";
+  import { Calendar } from "@coldlight/ui";
   import { parseDate } from "@internationalized/date";
 
   // this came from a database/API call
@@ -203,7 +203,7 @@ You can set a minimum value for the calendar by using the `minValue` prop on `Ca
 
 ```svelte
 <script lang="ts">
-  import { Calendar } from "bits-ui";
+  import { Calendar } from "@coldlight/ui";
   import { today, getLocalTimeZone } from "@internationalized/date";
 
   const todayDate = today(getLocalTimeZone());
@@ -221,7 +221,7 @@ You can set a maximum value for the calendar by using the `maxValue` prop on `Ca
 
 ```svelte
 <script lang="ts">
-  import { Calendar } from "bits-ui";
+  import { Calendar } from "@coldlight/ui";
   import { today, getLocalTimeZone } from "@internationalized/date";
 
   const todayDate = today(getLocalTimeZone());
@@ -239,7 +239,7 @@ You can specify specific dates that are unavailable for selection by using the `
 
 ```svelte
 <script lang="ts">
-  import { Calendar } from "bits-ui";
+  import { Calendar } from "@coldlight/ui";
   import { today, getLocalTimeZone, isNotNull } from "@internationalized/date";
 
   const todayDate = today(getLocalTimeZone());
@@ -261,7 +261,7 @@ You can specify specific dates that are disabled for selection by using the `isD
 
 ```svelte
 <script lang="ts">
-  import { Calendar } from "bits-ui";
+  import { Calendar } from "@coldlight/ui";
   import { today, getLocalTimeZone, isNotNull } from "@internationalized/date";
 
   const todayDate = today(getLocalTimeZone());
@@ -369,7 +369,7 @@ To achieve this, you can use the `placeholder` prop to set the month of the the 
 
 ```svelte
 <script lang="ts">
-  import { Calendar } from "bits-ui";
+  import { Calendar } from "@coldlight/ui";
   import { CalendarDate } from "@internationalized/date";
 
   let placeholder = $state(new CalendarDate(2024, 8, 3));

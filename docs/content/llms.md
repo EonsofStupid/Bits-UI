@@ -17,20 +17,20 @@ To access the LLM-friendly version of any supported Bits UI documentation page, 
 
 ### Example
 
-- **Standard Page**: The Accordion component documentation is available at [bits-ui.com/docs/components/accordion](https://bits-ui.com/docs/components/accordion).
-- **LLM-friendly Version**: Append `/llms.txt` to access it at [bits-ui.com/docs/components/accordion/llms.txt](https://bits-ui.com/docs/components/accordion/llms.txt).
+- **Standard Page**: The Accordion component documentation is available at [coldlight.design/docs/components/accordion](https://coldlight.design/docs/components/accordion).
+- **LLM-friendly Version**: Append `/llms.txt` to access it at [coldlight.design/docs/components/accordion/llms.txt](https://coldlight.design/docs/components/accordion/llms.txt).
 
 ### Root Index
 
-To explore all supported pages in LLM-friendly format, visit the root index at [bits-ui.com/llms.txt](https://bits-ui.com/llms.txt). This page provides a comprehensive list of available documentation endpoints compatible with the `llms.txt` standard.
+To explore all supported pages in LLM-friendly format, visit the root index at [coldlight.design/llms.txt](https://coldlight.design/llms.txt). This page provides a comprehensive list of available documentation endpoints compatible with the `llms.txt` standard.
 
 ## Full LLM-friendly Documentation
 
-For a complete, consolidated view of the Bits UI documentation in an LLM-friendly format, navigate to [bits-ui.com/docs/llms.txt](https://bits-ui.com/docs/llms.txt). This single endpoint aggregates all documentation content into a machine-readable structure, ideal for bulk processing or ingestion into AI systems.
+For a complete, consolidated view of the Bits UI documentation in an LLM-friendly format, navigate to [coldlight.design/docs/llms.txt](https://coldlight.design/docs/llms.txt). This single endpoint aggregates all documentation content into a machine-readable structure, ideal for bulk processing or ingestion into AI systems.
 
 ## Notes
 
-- Not all pages may support the `/llms.txt` suffix (those deemed irrelevant to LLMs, such as the Figma page). Check the root [bits-ui.com/llms.txt](https://bits-ui.com/llms.txt) page for an up-to-date list of compatible URLs.
+- Not all pages may support the `/llms.txt` suffix (those deemed irrelevant to LLMs, such as the Figma page). Check the root [coldlight.design/llms.txt](https://coldlight.design/llms.txt) page for an up-to-date list of compatible URLs.
 - The "Copy Markdown" button at the top of each page provides the same content you'd find in the `/llms.txt` of that page.
 
 By embracing the `llms.txt` standard, Bits UI empowers both human developers and AI systems to make the most of our documentation. Whether you're building with Bits UI or training an LLM, these tools are designed to enhance your experience.

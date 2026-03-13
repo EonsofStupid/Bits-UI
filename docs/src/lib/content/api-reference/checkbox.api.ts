@@ -2,7 +2,7 @@ import type {
 	CheckboxGroupLabelPropsWithoutHTML,
 	CheckboxGroupPropsWithoutHTML,
 	CheckboxRootPropsWithoutHTML,
-} from "bits-ui";
+} from "@coldlight/ui";
 import {
 	defineBooleanProp,
 	defineComponentApiSchema,

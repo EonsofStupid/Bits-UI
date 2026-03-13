@@ -1,5 +1,5 @@
 <script lang="ts" module>
-import type { RadioGroup } from "bits-ui";
+import type { RadioGroup } from "@coldlight/ui";
 export type Item = {
 	value: string;
 	disabled: boolean;
@@ -11,7 +11,7 @@ export type RadioGroupTestProps = Omit<RadioGroup.RootProps, "child" | "children
 </script>
 
 <script lang="ts">
-	import { Popover } from "bits-ui";
+	import { Popover } from "@coldlight/ui";
 
 	let { items, value = "", ...restProps }: RadioGroupTestProps = $props();
 </script>

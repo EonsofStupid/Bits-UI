@@ -11,7 +11,7 @@ Every Bits UI component that renders an HTML element exposes a `ref` prop that y
 
 ```svelte
 <script lang="ts">
-  import { Accordion } from "bits-ui";
+  import { Accordion } from "@coldlight/ui";
 
   let triggerRef = $state<HTMLButtonElement | null>(null);
 
@@ -36,7 +36,7 @@ The `ref` binding will automatically work with delegated child elements/componen
 ```svelte
 <script lang="ts">
   import CustomButton from "./CustomButton.svelte";
-  import { Accordion } from "bits-ui";
+  import { Accordion } from "@coldlight/ui";
 
   let triggerRef = $state<HTMLButtonElement | null>(null);
 
@@ -59,7 +59,7 @@ When you need to use a custom `id` on the element, pass it to the parent compone
 ```svelte
 <script lang="ts">
   import CustomButton from "./CustomButton.svelte";
-  import { Accordion } from "bits-ui";
+  import { Accordion } from "@coldlight/ui";
 
   let triggerRef = $state<HTMLButtonElement | null>(null);
   const myCustomId = "my-custom-id";
@@ -98,7 +98,7 @@ To implement the same ref pattern in your custom components, Bits UI provides a 
 
 ```svelte
 <script lang="ts">
-  import { WithElementRef } from "bits-ui";
+  import { WithElementRef } from "@coldlight/ui";
   import type { HTMLButtonAttributes } from "svelte/elements";
 
   // Define props with the ref type

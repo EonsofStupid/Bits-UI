@@ -26,7 +26,7 @@ Before diving into this component, it's important to understand how dates/times 
 
 ```svelte
 <script lang="ts">
-  import { RangeCalendar } from "bits-ui";
+  import { RangeCalendar } from "@coldlight/ui";
 </script>
 
 <RangeCalendar.Root>

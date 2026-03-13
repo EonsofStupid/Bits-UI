@@ -1,5 +1,5 @@
 <script lang="ts">
-import type { WithChildren } from "bits-ui";
+import type { WithChildren } from "@coldlight/ui";
 import type { HTMLAttributes } from "svelte/elements";
 import { cn } from "$lib/utils/styles.js";
 

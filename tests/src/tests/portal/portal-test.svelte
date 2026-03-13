@@ -1,5 +1,5 @@
 <script lang="ts">
-import { Portal, type PortalProps } from "bits-ui";
+import { Portal, type PortalProps } from "@coldlight/ui";
 
 let {
 	to,

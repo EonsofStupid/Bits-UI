@@ -6,7 +6,7 @@ export type TooltipSingletonTestProps = {
 </script>
 
 <script lang="ts">
-	import { Tooltip } from "bits-ui";
+	import { Tooltip } from "@coldlight/ui";
 
 	let { delayDuration = 0, skipDelayDuration = 300 }: TooltipSingletonTestProps = $props();
 

@@ -1,5 +1,5 @@
 <script lang="ts" module>
-import type { DatePicker, WithoutChildrenOrChild } from "bits-ui";
+import type { DatePicker, WithoutChildrenOrChild } from "@coldlight/ui";
 export type DatePickerTestProps = WithoutChildrenOrChild<DatePicker.RootProps>;
 </script>
 

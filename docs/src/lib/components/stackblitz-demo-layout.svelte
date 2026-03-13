@@ -1,5 +1,5 @@
 <script lang="ts">
-import { Button } from "bits-ui";
+import { Button } from "@coldlight/ui";
 import Moon from "phosphor-svelte/lib/Moon";
 import Sun from "phosphor-svelte/lib/Sun";
 import { onMount, type Snippet } from "svelte";
@@ -84,7 +84,7 @@ function toggleTheme() {
 {/snippet}
 
 {#snippet Logo()}
-	<a href="https://bits-ui.com" target="_blank" aria-label="Bits UI">
+	<a href="https://coldlight.design" target="_blank" aria-label="ColdLight UI">
 		<svg
 			width="94"
 			height="22"

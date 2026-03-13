@@ -1,5 +1,5 @@
 <script lang="ts" module>
-import type { DropdownMenu } from "bits-ui";
+import type { DropdownMenu } from "@coldlight/ui";
 export type DropdownMenuTestProps = DropdownMenu.RootProps & {
 	checked?: boolean;
 	subChecked?: boolean;

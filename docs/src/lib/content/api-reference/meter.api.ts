@@ -1,4 +1,4 @@
-import type { MeterRootPropsWithoutHTML } from "bits-ui";
+import type { MeterRootPropsWithoutHTML } from "@coldlight/ui";
 import { defineComponentApiSchema, defineNumberProp, defineSimpleDataAttr } from "../utils.js";
 import { withChildProps } from "./shared.js";
 

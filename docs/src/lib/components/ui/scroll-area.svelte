@@ -1,5 +1,5 @@
 <script lang="ts">
-import { ScrollArea } from "bits-ui";
+import { ScrollArea } from "@coldlight/ui";
 import type { ComponentProps } from "svelte";
 import { cn } from "$lib/utils/styles.js";
 

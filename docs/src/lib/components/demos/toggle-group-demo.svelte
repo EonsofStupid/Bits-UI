@@ -1,5 +1,5 @@
 <script lang="ts">
-import { ToggleGroup } from "bits-ui";
+import { ToggleGroup } from "@coldlight/ui";
 import TextB from "phosphor-svelte/lib/TextB";
 import TextItalic from "phosphor-svelte/lib/TextItalic";
 import TextStrikethrough from "phosphor-svelte/lib/TextStrikethrough";

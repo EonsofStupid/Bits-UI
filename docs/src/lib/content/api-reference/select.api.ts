@@ -11,7 +11,7 @@ import type {
 	SelectScrollUpButtonPropsWithoutHTML,
 	SelectTriggerPropsWithoutHTML,
 	SelectViewportPropsWithoutHTML,
-} from "bits-ui";
+} from "@coldlight/ui";
 import {
 	arrowProps,
 	childrenSnippet,

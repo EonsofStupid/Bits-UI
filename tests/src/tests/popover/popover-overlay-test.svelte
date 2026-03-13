@@ -1,5 +1,5 @@
 <script lang="ts" module>
-import type { Popover } from "bits-ui";
+import type { Popover } from "@coldlight/ui";
 export type PopoverOverlayTestProps = Popover.RootProps & {
 	overlayProps?: Omit<Popover.OverlayProps, "asChild" | "child" | "children">;
 	withChild?: boolean;

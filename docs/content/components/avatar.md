@@ -41,12 +41,12 @@ To get started with the Avatar component, you can use the `Avatar.Root`, `Avatar
 
 ```svelte
 <script lang="ts">
-  import { Avatar } from "bits-ui";
+  import { Avatar } from "@coldlight/ui";
 </script>
 
 <Avatar.Root>
   <Avatar.Image
-    src="https://github.com/huntabyte.png"
+    src="https://github.com/jessehall.png"
     alt="Huntabyte's avatar"
   />
   <Avatar.Fallback>HB</Avatar.Fallback>
@@ -59,7 +59,7 @@ You can create your own reusable Avatar component to maintain consistent styling
 
 ```svelte title="UserAvatar.svelte"
 <script lang="ts">
-  import { Avatar, type WithoutChildrenOrChild } from "bits-ui";
+  import { Avatar, type WithoutChildrenOrChild } from "@coldlight/ui";
 
   let {
     src,
@@ -93,7 +93,7 @@ Then use it throughout your application:
   import UserAvatar from "$lib/components/UserAvatar.svelte";
 
   const users = [
-    { handle: "huntabyte", initials: "HJ" },
+    { handle: "jessehall", initials: "JH" },
     { handle: "pavelstianko", initials: "PS" },
     { handle: "adriangonz97", initials: "AG" },
   ];
@@ -116,7 +116,7 @@ When you're confident that an image will load (such as local assets), you can by
 
 ```svelte /loadingStatus="loaded"/
 <script lang="ts">
-  import { Avatar } from "bits-ui";
+  import { Avatar } from "@coldlight/ui";
 
   // local asset that's guaranteed to be available
   import localAvatar from "/avatar.png";

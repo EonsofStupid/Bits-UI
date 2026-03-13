@@ -3,7 +3,7 @@ import type {
 	TimeFieldLabelPropsWithoutHTML,
 	TimeFieldRootPropsWithoutHTML,
 	TimeFieldSegmentPropsWithoutHTML,
-} from "bits-ui";
+} from "@coldlight/ui";
 import {
 	defineBooleanProp,
 	defineComponentApiSchema,
@@ -136,7 +136,7 @@ export const input = defineComponentApiSchema<TimeFieldInputPropsWithoutHTML>({
 			elType: "HTMLDivElement",
 			children: {
 				definition: TimeFieldInputChildrenSnippetProps,
-				stringDefinition: `import type { TimeSegmentPart } from "bits-ui";
+				stringDefinition: `import type { TimeSegmentPart } from "@coldlight/ui";
 
 type ChildrenSnippetProps = {
 	segments: Array<{ part: TimeSegmentPart; value: string }>;
@@ -144,7 +144,7 @@ type ChildrenSnippetProps = {
 			},
 			child: {
 				definition: TimeFieldInputChildSnippetProps,
-				stringDefinition: `import type { TimeSegmentPart } from "bits-ui";
+				stringDefinition: `import type { TimeSegmentPart } from "@coldlight/ui";
 
 type ChildSnippetProps = {
 	props: Record<string, unknown>;

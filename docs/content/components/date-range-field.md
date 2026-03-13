@@ -59,7 +59,7 @@ Use `bind:placeholder` for simple, automatic state synchronization:
 
 ```svelte
 <script lang="ts">
-  import { DateRangeField } from "bits-ui";
+  import { DateRangeField } from "@coldlight/ui";
   import { CalendarDateTime } from "@internationalized/date";
   let myPlaceholder = $state(new CalendarDateTime(2024, 8, 3, 12, 30));
 </script>
@@ -75,7 +75,7 @@ Use a [Function Binding](https://svelte.dev/docs/svelte/bind#Function-bindings) 
 
 ```svelte
 <script lang="ts">
-  import { DateRangeField } from "bits-ui";
+  import { DateRangeField } from "@coldlight/ui";
   import { CalendarDateTime } from "@internationalized/date";
   let myPlaceholder = $state(new CalendarDateTime(2024, 8, 3, 12, 30));
 
@@ -103,7 +103,7 @@ Use `bind:value` for simple, automatic state synchronization:
 
 ```svelte {3,6,8}
 <script lang="ts">
-  import { DateRangeField, type DateRange } from "bits-ui";
+  import { DateRangeField, type DateRange } from "@coldlight/ui";
   import { CalendarDateTime } from "@internationalized/date";
   let myValue = $state<DateRange>({
     start: new CalendarDateTime(2024, 8, 3, 12, 30),
@@ -132,7 +132,7 @@ Use a [Function Binding](https://svelte.dev/docs/svelte/bind#Function-bindings) 
 
 ```svelte
 <script lang="ts">
-  import { DateRangeField } from "bits-ui";
+  import { DateRangeField } from "@coldlight/ui";
   let myValue = $state<DateRange>({
     start: undefined,
     end: undefined,

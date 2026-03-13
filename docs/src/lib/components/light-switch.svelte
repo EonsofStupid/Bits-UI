@@ -1,5 +1,5 @@
 <script lang="ts">
-import { Button } from "bits-ui";
+import { Button } from "@coldlight/ui";
 import { mode, toggleMode } from "mode-watcher";
 import Moon from "phosphor-svelte/lib/Moon";
 import Sun from "phosphor-svelte/lib/Sun";

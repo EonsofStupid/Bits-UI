@@ -1,5 +1,5 @@
 import { page, userEvent } from "@vitest/browser/context";
-import { REGEXP_ONLY_DIGITS } from "bits-ui";
+import { REGEXP_ONLY_DIGITS } from "@coldlight/ui";
 import type { ComponentProps } from "svelte";
 import { afterEach, expect, it, vi } from "vitest";
 import { render } from "vitest-browser-svelte";

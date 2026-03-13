@@ -1,5 +1,5 @@
 <script lang="ts">
-import { DateField } from "bits-ui";
+import { DateField } from "@coldlight/ui";
 
 let {
         labelText = "Select a date",

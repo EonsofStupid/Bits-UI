@@ -17,7 +17,7 @@ import type {
 	DropdownMenuSubPropsWithoutHTML,
 	DropdownMenuSubTriggerPropsWithoutHTML,
 	DropdownMenuTriggerPropsWithoutHTML,
-} from "bits-ui";
+} from "@coldlight/ui";
 import { defineComponentApiSchema, defineSimpleDataAttr } from "../utils.js";
 import { menu } from "./menu.api.js";
 import { floatingContentCSSVars } from "./shared.js";

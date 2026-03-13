@@ -1,5 +1,5 @@
 <script lang="ts">
-import { Command } from "bits-ui";
+import { Command } from "@coldlight/ui";
 import CalendarBlank from "phosphor-svelte/lib/CalendarBlank";
 import CodeBlock from "phosphor-svelte/lib/CodeBlock";
 import Palette from "phosphor-svelte/lib/Palette";

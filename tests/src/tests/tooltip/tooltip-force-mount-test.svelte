@@ -1,5 +1,5 @@
 <script lang="ts" module>
-import type { Tooltip, WithoutChildrenOrChild } from "bits-ui";
+import type { Tooltip, WithoutChildrenOrChild } from "@coldlight/ui";
 
 export type TooltipForceMountTestProps = WithoutChildrenOrChild<Tooltip.RootProps> & {
 	contentProps?: WithoutChildrenOrChild<Tooltip.ContentProps>;

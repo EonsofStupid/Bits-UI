@@ -1,5 +1,5 @@
 <script lang="ts">
-import { Meter, useId } from "bits-ui";
+import { Meter, useId } from "@coldlight/ui";
 
 let value = $state(2000);
 const labelId = useId();

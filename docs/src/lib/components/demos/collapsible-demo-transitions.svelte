@@ -1,12 +1,12 @@
 <script lang="ts">
-import { Collapsible } from "bits-ui";
+import { Collapsible } from "@coldlight/ui";
 import CaretUpDown from "phosphor-svelte/lib/CaretUpDown";
 import { slide } from "svelte/transition";
 </script>
 
 <Collapsible.Root class="w-[327px] space-y-3">
 	<div class="flex items-center justify-between space-x-10">
-		<h4 class="text-[15px] font-medium">@huntabyte starred 3 repositories</h4>
+		<h4 class="text-[15px] font-medium">@jessehall starred 3 repositories</h4>
 		<Collapsible.Trigger
 			class="rounded-9px border-border-input bg-background-alt text-foreground shadow-btn hover:bg-muted inline-flex h-10 w-10 items-center justify-center border transition-all active:scale-[0.98]"
 			aria-label="Show starred repositories"
@@ -22,12 +22,12 @@ import { slide } from "svelte/transition";
 					<div
 						class="rounded-9px bg-muted inline-flex h-12 w-full items-center px-[18px] py-3"
 					>
-						@huntabyte/bits-ui
+						@jessehall/bits-ui
 					</div>
 					<div
 						class="rounded-9px bg-muted inline-flex h-12 w-full items-center px-[18px] py-3"
 					>
-						@huntabyte/shadcn-svelte
+						@jessehall/shadcn-svelte
 					</div>
 					<div
 						class="rounded-9px bg-muted inline-flex h-12 w-full items-center px-[18px] py-3"

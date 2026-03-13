@@ -1,5 +1,5 @@
 <script lang="ts" module>
-import type { DateRangePicker, DateRangePickerInputProps, WithoutChildrenOrChild } from "bits-ui";
+import type { DateRangePicker, DateRangePickerInputProps, WithoutChildrenOrChild } from "@coldlight/ui";
 export type DateRangePickerTestProps = WithoutChildrenOrChild<DateRangePicker.RootProps> & {
 	startProps?: Omit<DateRangePickerInputProps, "type">;
 	endProps?: Omit<DateRangePickerInputProps, "type">;

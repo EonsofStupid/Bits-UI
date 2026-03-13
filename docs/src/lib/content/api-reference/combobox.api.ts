@@ -12,7 +12,7 @@ import type {
 	ComboboxViewportPropsWithoutHTML,
 	SelectScrollDownButtonPropsWithoutHTML,
 	SelectScrollUpButtonPropsWithoutHTML,
-} from "bits-ui";
+} from "@coldlight/ui";
 import {
 	arrowProps,
 	childrenSnippet,

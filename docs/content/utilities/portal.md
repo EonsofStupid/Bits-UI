@@ -21,7 +21,7 @@ By default, the `Portal` component will render its children in the `body` elemen
 
 ```svelte
 <script lang="ts">
-  import { Portal } from "bits-ui";
+  import { Portal } from "@coldlight/ui";
 </script>
 
 <Portal>
@@ -35,7 +35,7 @@ You can use the `to` prop to specify a custom target element or selector to rend
 
 ```svelte
 <script lang="ts">
-  import { Portal } from "bits-ui";
+  import { Portal } from "@coldlight/ui";
 </script>
 
 <div id="custom-target"></div>
@@ -53,7 +53,7 @@ You can use the `disabled` prop to disable the portal behavior.
 
 ```svelte
 <script lang="ts">
-  import { Portal } from "bits-ui";
+  import { Portal } from "@coldlight/ui";
 </script>
 
 <Portal disabled>

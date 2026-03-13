@@ -1,5 +1,5 @@
 <script lang="ts" module>
-import type { Popover } from "bits-ui";
+import type { Popover } from "@coldlight/ui";
 export type PopoverHoverTestProps = Popover.RootProps & {
 	triggerProps?: Omit<Popover.TriggerProps, "asChild" | "child" | "children">;
 	contentProps?: Omit<Popover.ContentProps, "asChild" | "child" | "children">;

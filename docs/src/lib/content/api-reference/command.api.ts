@@ -11,7 +11,7 @@ import type {
 	CommandRootPropsWithoutHTML,
 	CommandSeparatorPropsWithoutHTML,
 	CommandViewportPropsWithoutHTML,
-} from "bits-ui";
+} from "@coldlight/ui";
 import { withChildProps } from "$lib/content/api-reference/shared.js";
 import {
 	defineBooleanProp,

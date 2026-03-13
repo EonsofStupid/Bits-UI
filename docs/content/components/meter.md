@@ -38,7 +38,7 @@ If a progress bar better fits your requirements, check out the [Progress](/docs/
 
 ```svelte
 <script lang="ts">
-  import { Meter } from "bits-ui";
+  import { Meter } from "@coldlight/ui";
 </script>
 
 <Meter.Root />
@@ -50,7 +50,7 @@ It's recommended to use the `Meter` primitive to create your own custom meter co
 
 ```svelte
 <script lang="ts">
-  import { Meter, useId } from "bits-ui";
+  import { Meter, useId } from "@coldlight/ui";
   import type { ComponentProps } from "svelte";
 
   let {

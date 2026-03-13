@@ -1,5 +1,5 @@
 <script lang="ts" module>
-import type { RangeCalendar, WithoutChildrenOrChild } from "bits-ui";
+import type { RangeCalendar, WithoutChildrenOrChild } from "@coldlight/ui";
 
 export type RangeCalendarTestProps = WithoutChildrenOrChild<RangeCalendar.RootProps>;
 </script>

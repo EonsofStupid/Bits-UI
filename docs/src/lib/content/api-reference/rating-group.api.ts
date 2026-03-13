@@ -1,4 +1,4 @@
-import type { RatingGroupItemPropsWithoutHTML, RatingGroupRootPropsWithoutHTML } from "bits-ui";
+import type { RatingGroupItemPropsWithoutHTML, RatingGroupRootPropsWithoutHTML } from "@coldlight/ui";
 import {
 	defineBooleanProp,
 	defineComponentApiSchema,

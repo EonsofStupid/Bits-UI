@@ -20,7 +20,7 @@ description: Visually separates content or UI elements.
 
 ```svelte
 <script lang="ts">
-  import { Separator } from "bits-ui";
+  import { Separator } from "@coldlight/ui";
 </script>
 
 <Separator.Root />

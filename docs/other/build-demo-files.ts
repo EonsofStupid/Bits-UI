@@ -27,7 +27,7 @@ const config = {
 	},
 	ignoreList: ["node_modules", ".svelte-kit", "static"],
 	bitsDependencies: [
-		"bits-ui",
+		"@coldlight/ui",
 		"@internationalized/date",
 		"phosphor-svelte",
 		"clsx",
@@ -200,8 +200,8 @@ async function buildBaseStackBlitzFiles(files: FileMap): Promise<void> {
 
 		// Add dependencies
 		for (const dep of config.bitsDependencies) {
-			if (dep === "bits-ui") {
-				packageJson.devDependencies["bits-ui"] = bitsPackageJson.version;
+			if (dep === "@coldlight/ui") {
+				packageJson.devDependencies["@coldlight/ui"] = bitsPackageJson.version;
 			} else {
 				// @ts-expect-error - We know these dependencies exist
 				const docsDep = docsPackageJson.devDependencies[dep];

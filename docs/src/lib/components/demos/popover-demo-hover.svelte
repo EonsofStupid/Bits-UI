@@ -1,5 +1,5 @@
 <script lang="ts">
-import { Button, Popover, Separator } from "bits-ui";
+import { Button, Popover, Separator } from "@coldlight/ui";
 import Calendar from "phosphor-svelte/lib/Calendar";
 import MapPin from "phosphor-svelte/lib/MapPin";
 </script>
@@ -12,11 +12,11 @@ import MapPin from "phosphor-svelte/lib/MapPin";
 		class="bg-muted hover:bg-muted/80 inline-flex items-center gap-2 rounded-full py-1.5 pl-1.5 pr-3 text-sm font-medium transition-colors"
 	>
 		<img
-			src="https://github.com/huntabyte.png"
+			src="https://github.com/jessehall.png"
 			alt=""
 			class="size-6 rounded-full object-cover"
 		/>
-		huntabyte
+		jessehall
 	</Popover.Trigger>
 	<Popover.Portal>
 		<Popover.Content
@@ -29,18 +29,18 @@ import MapPin from "phosphor-svelte/lib/MapPin";
 						class="bg-muted flex size-12 shrink-0 items-center justify-center rounded-full"
 					>
 						<img
-							src="https://github.com/huntabyte.png"
+							src="https://github.com/jessehall.png"
 							alt="Hunter Johnston"
 							class="size-full rounded-full object-cover"
 						/>
 					</div>
 					<div class="flex flex-col gap-0.5">
 						<span class="text-[15px] font-semibold leading-5">Hunter Johnston</span>
-						<span class="text-muted-foreground text-sm">@huntabyte</span>
+						<span class="text-muted-foreground text-sm">@jessehall</span>
 					</div>
 				</div>
 				<Button.Root
-					href="https://x.com/huntabyte"
+					href="https://x.com/jessehall"
 					target="_blank"
 					class="bg-dark text-background shrink-0 rounded-full px-3.5 py-1.5 text-sm font-medium transition-opacity hover:opacity-90"
 				>

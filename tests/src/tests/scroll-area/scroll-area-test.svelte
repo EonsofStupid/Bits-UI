@@ -1,5 +1,5 @@
 <script lang="ts" module>
-import type { ScrollArea, WithoutChildrenOrChild } from "bits-ui";
+import type { ScrollArea, WithoutChildrenOrChild } from "@coldlight/ui";
 
 export type ScrollAreaTestProps = WithoutChildrenOrChild<ScrollArea.RootProps> & {
 	numParagraphs?: number;

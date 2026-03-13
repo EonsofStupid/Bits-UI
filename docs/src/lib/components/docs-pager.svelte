@@ -1,5 +1,5 @@
 <script lang="ts">
-import { Separator } from "bits-ui";
+import { Separator } from "@coldlight/ui";
 import { page } from "$app/state";
 import { flatNavigation } from "$lib/config/navigation.js";
 import { cn } from "$lib/utils/styles.js";

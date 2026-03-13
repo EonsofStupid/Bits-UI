@@ -1,5 +1,5 @@
 <script lang="ts">
-import { BitsConfig, Portal } from "bits-ui";
+import { BitsConfig, Portal } from "@coldlight/ui";
 
 let target: HTMLElement | undefined = $state();
 </script>

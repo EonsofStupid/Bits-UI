@@ -25,7 +25,7 @@ The Accordion component is a versatile UI element designed to organize content i
 
 ```svelte
 <script lang="ts">
-  import { Accordion } from "bits-ui";
+  import { Accordion } from "@coldlight/ui";
 </script>
 
 <Accordion.Root type="single">
@@ -75,7 +75,7 @@ Combines `Item`, `Header`, `Trigger`, and `Content` into a single component:
 
 ```svelte title="MyAccordionItem.svelte"
 <script lang="ts">
-  import { Accordion, type WithoutChildrenOrChild } from "bits-ui";
+  import { Accordion, type WithoutChildrenOrChild } from "@coldlight/ui";
 
   type Props = WithoutChildrenOrChild<Accordion.ItemProps> & {
     title: string;
@@ -101,7 +101,7 @@ Wraps `Root` and renders multiple `MyAccordionItem` components:
 
 ```svelte title="MyAccordion.svelte"
 <script lang="ts">
-  import { Accordion, type WithoutChildrenOrChild } from "bits-ui";
+  import { Accordion, type WithoutChildrenOrChild } from "@coldlight/ui";
   import MyAccordionItem from "$lib/components/MyAccordionItem.svelte";
 
   type Item = {
@@ -163,7 +163,7 @@ Use `bind:value` for simple, automatic state synchronization:
 
 ```svelte
 <script lang="ts">
-  import { Accordion } from "bits-ui";
+  import { Accordion } from "@coldlight/ui";
   let myValue = $state<string[]>([]);
   const numberOfItemsOpen = $derived(myValue.length);
 </script>
@@ -195,7 +195,7 @@ Use a [Function Binding](https://svelte.dev/docs/svelte/bind#Function-bindings) 
 
 ```svelte
 <script lang="ts">
-  import { Accordion } from "bits-ui";
+  import { Accordion } from "@coldlight/ui";
   let myValue = $state("");
 
   function getValue() {
@@ -330,7 +330,7 @@ For cleaner code and better maintainability, consider creating custom reusable c
 
 ```svelte title="MyAccordionContent.svelte"
 <script lang="ts">
-  import { Accordion, type WithoutChildrenOrChild } from "bits-ui";
+  import { Accordion, type WithoutChildrenOrChild } from "@coldlight/ui";
   import type { Snippet } from "svelte";
   import { fade } from "svelte/transition";
 

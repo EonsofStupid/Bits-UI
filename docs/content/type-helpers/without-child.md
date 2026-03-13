@@ -9,7 +9,7 @@ To learn more about the `child` snippet prop, check out the [delegation](/docs/c
 
 ```svelte title="CustomAccordionHeader.svelte"
 <script lang="ts">
-  import { Accordion, type WithoutChild } from "bits-ui";
+  import { Accordion, type WithoutChild } from "@coldlight/ui";
 
   let { children, ...restProps }: WithoutChild<Accordion.ItemProps> = $props();
 </script>

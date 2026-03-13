@@ -15,7 +15,7 @@ import type {
 	DropdownMenuSubPropsWithoutHTML,
 	DropdownMenuSubTriggerPropsWithoutHTML,
 	DropdownMenuTriggerPropsWithoutHTML,
-} from "bits-ui";
+} from "@coldlight/ui";
 import type { ComponentAPISchema, PropObj } from "$lib/types/index.js";
 import { omit } from "$lib/utils/omit.js";
 import {

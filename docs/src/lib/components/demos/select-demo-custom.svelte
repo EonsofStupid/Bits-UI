@@ -1,5 +1,5 @@
 <script lang="ts">
-import { Select, type SelectSingleRootProps, type WithoutChildrenOrChild } from "bits-ui";
+import { Select, type SelectSingleRootProps, type WithoutChildrenOrChild } from "@coldlight/ui";
 import CaretDoubleDown from "phosphor-svelte/lib/CaretDoubleDown";
 import CaretDoubleUp from "phosphor-svelte/lib/CaretDoubleUp";
 import CaretUpDown from "phosphor-svelte/lib/CaretUpDown";

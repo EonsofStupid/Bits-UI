@@ -1,5 +1,5 @@
 <script lang="ts">
-import { Dialog, Tooltip } from "bits-ui";
+import { Dialog, Tooltip } from "@coldlight/ui";
 
 let open = $state(false);
 </script>

@@ -24,7 +24,7 @@ Configure default props at the top level:
 
 ```svelte
 <script lang="ts">
-  import { BitsConfig, Dialog, DateField } from "bits-ui";
+  import { BitsConfig, Dialog, DateField } from "@coldlight/ui";
 </script>
 
 <!-- All components inside will use these defaults -->
@@ -52,7 +52,7 @@ Child instances inherit and override parent values:
 
 ```svelte
 <script lang="ts">
-  import { BitsConfig, Dialog, Tooltip } from "bits-ui";
+  import { BitsConfig, Dialog, Tooltip } from "@coldlight/ui";
 </script>
 
 <div id="main-portal"></div>
@@ -101,7 +101,7 @@ Set app-wide defaults at the root layout:
 
 ```svelte title="+layout.svelte"
 <script lang="ts">
-  import { BitsConfig } from "bits-ui";
+  import { BitsConfig } from "@coldlight/ui";
   import { locale } from "$lib/states/i18n.svelte.js";
 
   let { children } = $props();
@@ -118,7 +118,7 @@ Different portal targets for distinct UI regions:
 
 ```svelte
 <script lang="ts">
-  import { BitsConfig } from "bits-ui";
+  import { BitsConfig } from "@coldlight/ui";
   import { MyHeader, MySidebar, MyContent } from "$lib/components";
 </script>
 
@@ -151,7 +151,7 @@ Apply specific locales for certain routes:
 
 ```svelte title="routes/(admin)/+layout.svelte"
 <script lang="ts">
-  import { BitsConfig } from "bits-ui";
+  import { BitsConfig } from "@coldlight/ui";
   let { children } = $props();
 </script>
 
@@ -166,7 +166,7 @@ Individual components can override global defaults:
 
 ```svelte
 <script lang="ts">
-  import { BitsConfig, Dialog } from "bits-ui";
+  import { BitsConfig, Dialog } from "@coldlight/ui";
 </script>
 
 <BitsConfig defaultPortalTo="#main-portal">

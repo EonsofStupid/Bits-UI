@@ -34,7 +34,7 @@ description: Displays supplementary information when users hover over or interac
 
 ```svelte
 <script lang="ts">
-  import { Tooltip } from "bits-ui";
+  import { Tooltip } from "@coldlight/ui";
 </script>
 
 <Tooltip.Provider>
@@ -55,7 +55,7 @@ The `Tooltip.Provider` component is required to be an ancestor of the `Tooltip.R
 
 ```svelte
 <script lang="ts">
-  import { Tooltip } from "bits-ui";
+  import { Tooltip } from "@coldlight/ui";
 </script>
 
 <Tooltip.Provider delayDuration={0} disableHoverableContent={true}>
@@ -84,7 +84,7 @@ It also ensures that only a single tooltip within the same provider can be open 
 
 ```svelte title="+layout.svelte"
 <script lang="ts">
-  import { Tooltip } from "bits-ui";
+  import { Tooltip } from "@coldlight/ui";
   let { children } = $props();
 </script>
 
@@ -103,7 +103,7 @@ Use `bind:open` for simple, automatic state synchronization:
 
 ```svelte {3,6,8}
 <script lang="ts">
-  import { Tooltip } from "bits-ui";
+  import { Tooltip } from "@coldlight/ui";
   let isOpen = $state(false);
 </script>
 
@@ -120,7 +120,7 @@ Use a [Function Binding](https://svelte.dev/docs/svelte/bind#Function-bindings) 
 
 ```svelte
 <script lang="ts">
-  import { Tooltip } from "bits-ui";
+  import { Tooltip } from "@coldlight/ui";
   let myOpen = $state(false);
 
   function getOpen() {
@@ -151,7 +151,7 @@ Use a shared tether when action controls and the tooltip root are not colocated 
 
 ```svelte
 <script lang="ts">
-  import { Tooltip } from "bits-ui";
+  import { Tooltip } from "@coldlight/ui";
   const actionsTether = Tooltip.createTether<{
     label: string;
     description: string;
@@ -198,7 +198,7 @@ A single tooltip can be reused by multiple triggers. The active trigger payload 
 
 ```svelte
 <script lang="ts">
-  import { Tooltip } from "bits-ui";
+  import { Tooltip } from "@coldlight/ui";
   const boardTether = Tooltip.createTether<{
     name: string;
     description: string;
@@ -249,7 +249,7 @@ In controlled mode, bind both `open` and `triggerId` to open a specific trigger 
 
 ```svelte
 <script lang="ts">
-  import { Tooltip } from "bits-ui";
+  import { Tooltip } from "@coldlight/ui";
   const setupTether = Tooltip.createTether<{
     title: string;
     description: string;
@@ -308,7 +308,7 @@ Below is an example of how you might create a reusable tooltip component that ca
 
 ```svelte title="MyTooltip.svelte"
 <script lang="ts">
-  import { Tooltip } from "bits-ui";
+  import { Tooltip } from "@coldlight/ui";
   import { type Snippet } from "svelte";
 
   type Props = Tooltip.RootProps & {
@@ -428,7 +428,7 @@ You can use the `forceMount` prop along with the `child` snippet to forcefully m
 
 ```svelte /forceMount/ /transition:fade/ /transition:fly/
 <script lang="ts">
-	import { Tooltip } from "bits-ui";
+	import { Tooltip } from "@coldlight/ui";
 	import { fly, fade } from "svelte/transition";
 </script>
 
@@ -497,7 +497,7 @@ If you wish to instead anchor the content to a different element, you can pass e
 
 ```svelte /customAnchor/
 <script lang="ts">
-  import { Tooltip } from "bits-ui";
+  import { Tooltip } from "@coldlight/ui";
   let customAnchor = $state<HTMLElement>(null!);
 </script>
 

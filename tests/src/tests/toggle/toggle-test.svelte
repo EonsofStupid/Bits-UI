@@ -1,5 +1,5 @@
 <script lang="ts">
-import type { Toggle, WithoutChildrenOrChild } from "bits-ui";
+import type { Toggle, WithoutChildrenOrChild } from "@coldlight/ui";
 
 let { pressed = false, ...restProps }: WithoutChildrenOrChild<Toggle.RootProps> = $props();
 </script>

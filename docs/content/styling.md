@@ -13,7 +13,7 @@ If you're using a CSS framework like [TailwindCSS](https://tailwindcss.com/) or 
 
 ```svelte
 <script lang="ts">
-  import { Accordion } from "bits-ui";
+  import { Accordion } from "@coldlight/ui";
 </script>
 
 <Accordion.Trigger class="h-12 w-full bg-blue-500 hover:bg-blue-600"
@@ -76,7 +76,7 @@ Use the global class with the component:
 
 ```svelte
 <script lang="ts">
-  import { Accordion } from "bits-ui";
+  import { Accordion } from "@coldlight/ui";
 </script>
 
 <Accordion.Trigger class="accordion-trigger">Click me</Accordion.Trigger>
@@ -88,7 +88,7 @@ To use Svelte's scoped styles, use the `child` snippet to bring the element into
 
 ```svelte title="MyAccordionTrigger.svelte"
 <script lang="ts">
-  import { Accordion } from "bits-ui";
+  import { Accordion } from "@coldlight/ui";
 </script>
 
 <Accordion.Trigger>
@@ -174,7 +174,7 @@ Here's an example styling an accordion with different states:
 
 ```svelte
 <script lang="ts">
-  import { Accordion } from "bits-ui";
+  import { Accordion } from "@coldlight/ui";
 </script>
 
 <Accordion.Root>
@@ -298,7 +298,7 @@ Here's an example of an accordion with a custom transition:
 
 ```svelte
 <script lang="ts">
-  import { Accordion } from "bits-ui";
+  import { Accordion } from "@coldlight/ui";
 </script>
 
 <Accordion.Root type="single">

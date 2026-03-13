@@ -1,5 +1,5 @@
 <script lang="ts">
-import { Avatar } from "bits-ui";
+import { Avatar } from "@coldlight/ui";
 </script>
 
 <Avatar.Root
@@ -9,7 +9,7 @@ import { Avatar } from "bits-ui";
 	<div
 		class="flex h-full w-full items-center justify-center overflow-hidden rounded-full border-2 border-transparent"
 	>
-		<Avatar.Image src="/avatar-1.png" alt="@huntabyte" />
+		<Avatar.Image src="/avatar-1.png" alt="@jessehall" />
 		<Avatar.Fallback class="border-muted border">HB</Avatar.Fallback>
 	</div>
 </Avatar.Root>

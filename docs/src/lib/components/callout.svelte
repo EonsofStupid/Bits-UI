@@ -1,5 +1,5 @@
 <script lang="ts">
-import type { BitsPrimitiveElementAttributes, WithChildren } from "bits-ui";
+import type { BitsPrimitiveElementAttributes, WithChildren } from "@coldlight/ui";
 import * as Alert from "$lib/components/ui/alert/index.js";
 import { cn } from "$lib/utils/styles.js";
 

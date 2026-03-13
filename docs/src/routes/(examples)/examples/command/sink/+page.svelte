@@ -1,5 +1,5 @@
 <script lang="ts">
-import { Command } from "bits-ui";
+import { Command } from "@coldlight/ui";
 
 // prettier-ignore
 const ten_first_names = [

@@ -1,4 +1,4 @@
-import type { BitsConfigProps } from "bits-ui";
+import type { BitsConfigProps } from "@coldlight/ui";
 import { defineStringProp, defineUtilityApiSchema } from "../utils.js";
 import { childrenSnippet, portalToProp } from "./shared.js";
 

@@ -1,5 +1,5 @@
 <script lang="ts">
-import { Tooltip } from "bits-ui";
+import { Tooltip } from "@coldlight/ui";
 import MagicWand from "phosphor-svelte/lib/MagicWand";
 </script>
 

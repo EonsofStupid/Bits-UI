@@ -4,7 +4,7 @@ import type {
 	AccordionItemPropsWithoutHTML,
 	AccordionRootPropsWithoutHTML,
 	AccordionTriggerPropsWithoutHTML,
-} from "bits-ui";
+} from "@coldlight/ui";
 import {
 	defineBooleanProp,
 	defineComponentApiSchema,

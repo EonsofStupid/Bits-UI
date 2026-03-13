@@ -1,5 +1,5 @@
 <script lang="ts">
-import { Avatar, DropdownMenu, Tabs } from "bits-ui";
+import { Avatar, DropdownMenu, Tabs } from "@coldlight/ui";
 import Cardholder from "phosphor-svelte/lib/Cardholder";
 import DotsThreeVertical from "phosphor-svelte/lib/DotsThreeVertical";
 import UserCircle from "phosphor-svelte/lib/UserCircle";
@@ -50,11 +50,11 @@ let loadingStatus = $state<Avatar.RootProps["loadingStatus"]>("loading");
 
                         <Tabs.Content value="follow" class="select-none ">
                                 {@render UserListItem({
-                                        alt: "@huntabyte",
+                                        alt: "@jessehall",
                                         src: "/avatar-1.png",
                                         fallback: "HB",
                                         firstName: "Huntabyte",
-                                        username: "huntabyte",
+                                        username: "jessehall",
                                 })}
                                 {@render UserListItem({
                                         alt: "@pavelstianko",

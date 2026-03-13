@@ -20,7 +20,7 @@ description: A horizontal bar containing a collection of menus.
 
 ```svelte
 <script lang="ts">
-  import { Menubar } from "bits-ui";
+  import { Menubar } from "@coldlight/ui";
 </script>
 
 <Menubar.Root>
@@ -71,7 +71,7 @@ In the following example, we're creating a reusable `MyMenubarMenu` component th
 
 ```svelte title="MyMenubarMenu.svelte"
 <script lang="ts">
-  import { Menubar, type WithoutChildrenOrChild } from "bits-ui";
+  import { Menubar, type WithoutChildrenOrChild } from "@coldlight/ui";
 
   type Props = WithoutChildrenOrChild<Menubar.MenuProps> & {
     triggerText: string;
@@ -103,7 +103,7 @@ Now, we can use the `MyMenubarMenu` component within a `Menubar.Root` component 
 
 ```svelte
 <script lang="ts">
-  import { Menubar } from "bits-ui";
+  import { Menubar } from "@coldlight/ui";
   import MyMenubarMenu from "./MyMenubarMenu.svelte";
 
   const sales = [
@@ -152,7 +152,7 @@ Use `bind:value` for simple, automatic state synchronization:
 
 ```svelte {3,6,8}
 <script lang="ts">
-  import { Menubar } from "bits-ui";
+  import { Menubar } from "@coldlight/ui";
   let activeValue = $state("");
 </script>
 
@@ -173,7 +173,7 @@ Use a [Function Binding](https://svelte.dev/docs/svelte/bind#Function-bindings) 
 
 ```svelte
 <script lang="ts">
-  import { Menubar } from "bits-ui";
+  import { Menubar } from "@coldlight/ui";
   let activeValue = $state("");
 
   function getValue() {
@@ -201,7 +201,7 @@ You can combine the `Menubar.RadioGroup` and `Menubar.RadioItem` components to c
 
 ```svelte
 <script lang="ts">
-  import { Menubar } from "bits-ui";
+  import { Menubar } from "@coldlight/ui";
 
   const values = ["one", "two", "three"];
   let value = $state("one");
@@ -227,7 +227,7 @@ You can use the `Menubar.CheckboxItem` component to create a `menuitemcheckbox` 
 
 ```svelte
 <script lang="ts">
-  import { Menubar } from "bits-ui";
+  import { Menubar } from "@coldlight/ui";
 
   let notifications = $state(true);
 </script>
@@ -250,7 +250,7 @@ You can use the `Menubar.CheckboxGroup` component around a set of `Menubar.Check
 
 ```svelte
 <script lang="ts">
-  import { Menubar } from "bits-ui";
+  import { Menubar } from "@coldlight/ui";
 
   let colors = $state<string[]>([]);
 </script>
@@ -292,7 +292,7 @@ You can create nested menus using the `Menubar.Sub` component to create complex 
 
 ```svelte /Menubar.Sub/
 <script lang="ts">
-  import { Menubar } from "bits-ui";
+  import { Menubar } from "@coldlight/ui";
 </script>
 
 <Menubar.Content>
@@ -314,7 +314,7 @@ You can use the `forceMount` prop along with the `child` snippet to forcefully m
 
 ```svelte /forceMount/ /transition:fly/
 <script lang="ts">
-  import { Menubar } from "bits-ui";
+  import { Menubar } from "@coldlight/ui";
   import { fly } from "svelte/transition";
 </script>
 

@@ -1,5 +1,5 @@
 <script lang="ts">
-import type { PinInput, PinInputRootSnippetProps } from "bits-ui";
+import type { PinInput, PinInputRootSnippetProps } from "@coldlight/ui";
 
 let {
 	onComplete = () => {},

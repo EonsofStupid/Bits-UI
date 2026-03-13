@@ -7,7 +7,7 @@ import type {
 	PopoverPortalPropsWithoutHTML,
 	PopoverRootPropsWithoutHTML,
 	PopoverTriggerPropsWithoutHTML,
-} from "bits-ui";
+} from "@coldlight/ui";
 import {
 	arrowProps,
 	childrenSnippet,

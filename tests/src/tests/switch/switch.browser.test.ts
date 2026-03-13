@@ -1,5 +1,5 @@
 import { page, userEvent } from "@vitest/browser/context";
-import type { Switch } from "bits-ui";
+import type { Switch } from "@coldlight/ui";
 import { expect, it } from "vitest";
 import { render } from "vitest-browser-svelte";
 import { getTestKbd } from "../utils.js";

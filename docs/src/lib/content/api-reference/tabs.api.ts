@@ -3,7 +3,7 @@ import type {
 	TabsListPropsWithoutHTML,
 	TabsRootPropsWithoutHTML,
 	TabsTriggerPropsWithoutHTML,
-} from "bits-ui";
+} from "@coldlight/ui";
 import { withChildProps } from "$lib/content/api-reference/shared.js";
 import {
 	defineBooleanProp,

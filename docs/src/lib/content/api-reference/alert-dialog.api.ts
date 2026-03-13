@@ -8,7 +8,7 @@ import type {
 	AlertDialogRootPropsWithoutHTML,
 	AlertDialogTitlePropsWithoutHTML,
 	AlertDialogTriggerPropsWithoutHTML,
-} from "bits-ui";
+} from "@coldlight/ui";
 import {
 	childrenSnippet,
 	dismissibleLayerProps,

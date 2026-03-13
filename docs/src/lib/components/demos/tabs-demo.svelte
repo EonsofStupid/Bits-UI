@@ -1,5 +1,5 @@
 <script lang="ts">
-import { Tabs } from "bits-ui";
+import { Tabs } from "@coldlight/ui";
 import Airplane from "phosphor-svelte/lib/Airplane";
 </script>
 

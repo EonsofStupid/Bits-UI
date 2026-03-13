@@ -1,5 +1,5 @@
 <script lang="ts">
-import { Dialog, DropdownMenu, Popover } from "bits-ui";
+import { Dialog, DropdownMenu, Popover } from "@coldlight/ui";
 </script>
 
 <main>

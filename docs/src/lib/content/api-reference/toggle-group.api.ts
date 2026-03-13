@@ -1,4 +1,4 @@
-import type { ToggleGroupItemPropsWithoutHTML, ToggleGroupRootPropsWithoutHTML } from "bits-ui";
+import type { ToggleGroupItemPropsWithoutHTML, ToggleGroupRootPropsWithoutHTML } from "@coldlight/ui";
 import { typeSingleOrMultipleProp, withChildProps } from "$lib/content/api-reference/shared.js";
 import {
 	defineBooleanProp,

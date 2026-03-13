@@ -1,4 +1,4 @@
-import type { SeparatorRootPropsWithoutHTML } from "bits-ui";
+import type { SeparatorRootPropsWithoutHTML } from "@coldlight/ui";
 import { withChildProps } from "$lib/content/api-reference/shared.js";
 import {
 	defineBooleanProp,

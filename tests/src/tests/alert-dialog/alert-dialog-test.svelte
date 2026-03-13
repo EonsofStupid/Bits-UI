@@ -1,5 +1,5 @@
 <script lang="ts" module>
-import type { AlertDialog, WithoutChildrenOrChild } from "bits-ui";
+import type { AlertDialog, WithoutChildrenOrChild } from "@coldlight/ui";
 export type AlertDialogTestProps = AlertDialog.RootProps & {
 	contentProps?: Omit<AlertDialog.ContentProps, "asChild" | "child" | "children">;
 	portalProps?: AlertDialog.PortalProps;

@@ -1,6 +1,6 @@
 {
         "name": "root",
-        "description": "Monorepo for bits-ui",
+        "description": "ColdLight Design Studio — headless component primitives for Svelte",
         "version": "0.0.0",
         "scripts": {
                 "build": "pnpm -r build",
@@ -8,7 +8,7 @@
                 "check": "pnpm build:packages && pnpm --parallel check",
                 "ci:publish": "pnpm build:packages && changeset publish",
                 "dev:docs": "pnpm -F docs dev",
-                "dev:package": "pnpm -F bits-ui dev",
+                "dev:package": "pnpm -F @coldlight/ui dev",
                 "dev": "pnpm --reporter append-only --color \"/dev:/\"",
                 "format": "biome format --write .",
                 "format:check": "biome format .",
@@ -21,12 +21,12 @@
                 "test:browser": "pnpm -F tests test:browser",
                 "test:browser:chromium": "pnpm -F tests test:browser --browser chromium",
                 "test:components": "pnpm -F tests test",
-                "test:utils": "pnpm -F bits-ui test",
-                "bundle:analyze": "pnpm -F @bits-ui/bundle-analyzer bundle:analyze",
-                "bundle:compare": "pnpm -F @bits-ui/bundle-analyzer bundle:compare"
+                "test:utils": "pnpm -F @coldlight/ui test",
+                "bundle:analyze": "pnpm -F @coldlight/bundle-analyzer bundle:analyze",
+                "bundle:compare": "pnpm -F @coldlight/bundle-analyzer bundle:compare"
         },
         "keywords": [],
-        "author": "Hunter Johnston <https://github.com/huntabyte>",
+        "author": "Jesse Hall",
         "license": "MIT",
         "devDependencies": {
                 "@biomejs/biome": "2.4.6",

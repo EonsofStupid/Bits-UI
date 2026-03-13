@@ -1,5 +1,5 @@
 <script lang="ts">
-import { BitsConfig, getBitsConfig } from "bits-ui";
+import { BitsConfig, getBitsConfig } from "@coldlight/ui";
 
 function ConfigDisplay() {
 	const config = getBitsConfig();
