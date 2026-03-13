@@ -120,7 +120,7 @@ To enable:
 | `noUnusedFunctionParameters` | warn | |
 | `noDoubleEquals` | error | Strict equality everywhere |
 | `noDebugger` | error | |
-| `noConsole` | off globally | Overridden to error inside `packages/bits-ui/src/lib/**` |
+| `noConsole` | off globally | Overridden to error inside `packages/coldlight-ui/src/lib/**` (pre-rename: `packages/bits-ui/`) |
 | `useExhaustiveDependencies` | warn | Svelte reactivity |
 | `useOptionalChain` | warn | |
 | `noGlobalIsNan` | warn | |
@@ -129,7 +129,7 @@ To enable:
 
 | Scope | What changes |
 |-------|-------------|
-| `packages/bits-ui/src/lib/**/*` | `noConsole` → error |
+| `packages/coldlight-ui/src/lib/**/*` (pre-rename: `packages/bits-ui/`) | `noConsole` → error |
 | Type utility files (`types.ts`, `shared/index.ts`, `css.d.ts`, `app.d.ts`, test file) | `noExplicitAny` off, `noBannedTypes` off, `noUnusedImports` off |
 | `**/*.svelte` | `noUnusedVariables` off, `noUnusedImports` off |
 | `**/*.md` | Formatter: 2-space indent, 79 line width |
